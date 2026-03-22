@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 const nav = [
   { href: "/about", label: "About" },
@@ -9,9 +10,9 @@ const nav = [
 ];
 
 const social = [
-  { href: "https://linkedin.com/in/crisfon6", label: "LinkedIn" },
-  { href: "https://x.com/crisfon6", label: "X" },
-  { href: "https://github.com/CristhianFonseca", label: "GitHub" },
+  { href: "https://github.com/Crisfon6-dev", label: "GitHub" },
+  { href: "https://www.linkedin.com/in/crisfon6/", label: "LinkedIn" },
+  { href: "https://www.instagram.com/crisfon6/", label: "Instagram" },
 ];
 
 export function Footer() {
@@ -27,7 +28,7 @@ export function Footer() {
                 crisfon6
               </span>
             </div>
-            <p className="text-sm text-text-muted leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               FinTech at scale by day. AI automations in public by night.
               Blueprints you can deploy, every week.
             </p>
@@ -36,7 +37,7 @@ export function Footer() {
           {/* Links */}
           <div className="flex gap-16">
             <div>
-              <p className="text-xs font-mono text-text-muted mb-3 tracking-wider">
+              <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
                 PAGES
               </p>
               <div className="space-y-2">
@@ -44,7 +45,7 @@ export function Footer() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block text-sm text-text-tertiary hover:text-text-secondary transition-colors"
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -52,7 +53,7 @@ export function Footer() {
               </div>
             </div>
             <div>
-              <p className="text-xs font-mono text-text-muted mb-3 tracking-wider">
+              <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
                 CONNECT
               </p>
               <div className="space-y-2">
@@ -62,7 +63,7 @@ export function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-sm text-text-tertiary hover:text-text-secondary transition-colors"
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </a>
@@ -72,11 +73,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border flex items-center justify-between">
-          <p className="text-xs text-text-muted">
+        <Separator className="mt-10 mb-6" />
+
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} Cristhian Fonseca
           </p>
-          <p className="text-xs text-text-muted font-mono">
+          <p className="text-xs text-muted-foreground font-mono">
             Next.js + Vercel
           </p>
         </div>

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { JsonLd } from "@/components/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,10 +61,36 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <TooltipProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </TooltipProvider>
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Cristhian Fonseca",
+            url: "https://crisfon6.com",
+            jobTitle: "Technical Lead & AI Builder",
+            sameAs: [
+              "https://github.com/Crisfon6-dev",
+              "https://www.linkedin.com/in/crisfon6/",
+              "https://www.instagram.com/crisfon6/",
+            ],
+          }}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Cristhian Fonseca",
+            url: "https://crisfon6.com",
+            description:
+              "I ship FinTech at scale and build AI automations you can steal.",
+          }}
+        />
       </body>
     </html>
   );

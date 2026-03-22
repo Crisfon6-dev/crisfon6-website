@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
   title: "Newsletter",
@@ -59,40 +63,52 @@ export default function Newsletter() {
       <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
         The Builder&apos;s Blueprint
       </h1>
-      <p className="text-lg text-text-secondary mb-12 max-w-2xl leading-relaxed">
+      <p className="text-lg text-text-secondary mb-3 max-w-2xl leading-relaxed">
         A free AI automation template every week. Architecture diagrams,
         deployment guides, cost breakdowns, and working code — no fluff, just
         blueprints you can deploy.
       </p>
+      <p className="text-sm text-text-tertiary mb-12 font-mono tracking-wide">
+        Built by a Technical Lead shipping FinTech at national scale
+      </p>
 
       {/* Email capture */}
-      <div className="border border-accent-dim rounded-xl p-8 blueprint-grid mb-16">
-        <div className="flex items-center gap-2 mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
-          <p className="text-[10px] font-mono text-text-muted tracking-widest">
-            FREE — DELIVERED EVERY WEEK
+      <Card className="card-shadow border-accent-dim blueprint-grid mb-16">
+        <CardContent>
+          <div className="flex items-center gap-2 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
+            <p className="text-[10px] font-mono text-text-muted tracking-widest">
+              FREE — JOIN 500+ BUILDERS
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              placeholder="you@company.com"
+              className="flex-1 bg-surface-2 border border-border-emphasis rounded-lg px-4 py-3 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent transition-colors"
+              readOnly
+            />
+            <Button
+              asChild
+              size="lg"
+              className="bg-accent hover:bg-accent-light text-white px-6 py-3 h-auto whitespace-nowrap"
+            >
+              <a
+                href="https://crisfon6.beehiiv.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Start getting blueprints
+              </a>
+            </Button>
+          </div>
+          <p className="text-xs text-text-muted mt-3">
+            Free forever — cancel anytime. No spam, ever.
           </p>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="email"
-            placeholder="you@company.com"
-            className="flex-1 bg-surface-2 border border-border-emphasis rounded-lg px-4 py-3 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent transition-colors"
-            readOnly
-          />
-          <a
-            href="https://crisfon6.beehiiv.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-accent hover:bg-accent-light text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors text-center whitespace-nowrap"
-          >
-            Subscribe for free
-          </a>
-        </div>
-        <p className="text-xs text-text-muted mt-3">
-          No spam — just weekly blueprints. Unsubscribe anytime.
-        </p>
-      </div>
+        </CardContent>
+      </Card>
+
+      <Separator className="mb-16" />
 
       {/* What you get */}
       <section className="mb-16">
@@ -101,20 +117,21 @@ export default function Newsletter() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {benefits.map((b) => (
-            <div
-              key={b.title}
-              className="border border-border rounded-xl p-5 bg-surface-1/30"
-            >
-              <h3 className="text-sm font-medium text-text-primary mb-2">
-                {b.title}
-              </h3>
-              <p className="text-sm text-text-tertiary leading-relaxed">
-                {b.description}
-              </p>
-            </div>
+            <Card key={b.title} className="card-shadow">
+              <CardContent>
+                <h3 className="text-sm font-medium text-text-primary mb-2">
+                  {b.title}
+                </h3>
+                <p className="text-sm text-text-tertiary leading-relaxed">
+                  {b.description}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
+
+      <Separator className="mb-16" />
 
       {/* Sample topics */}
       <section className="mb-16">
@@ -127,14 +144,19 @@ export default function Newsletter() {
               key={i}
               className="flex items-center gap-4 border border-border rounded-lg px-5 py-3 bg-surface-1/20"
             >
-              <span className="text-[10px] font-mono text-text-muted w-12 shrink-0 tracking-widest">
+              <Badge
+                variant="outline"
+                className="font-mono text-[10px] tracking-widest shrink-0"
+              >
                 W{i + 1}
-              </span>
+              </Badge>
               <p className="text-sm text-text-secondary">{topic}</p>
             </div>
           ))}
         </div>
       </section>
+
+      <Separator className="mb-16" />
 
       {/* Who is this for */}
       <section className="mb-16">
@@ -143,7 +165,10 @@ export default function Newsletter() {
         </h2>
         <div className="space-y-3">
           {audiences.map((a) => (
-            <p key={a.who} className="text-sm text-text-secondary leading-relaxed">
+            <p
+              key={a.who}
+              className="text-sm text-text-secondary leading-relaxed"
+            >
               <span className="text-text-primary font-medium">{a.who}</span>{" "}
               {a.desc}
             </p>
@@ -151,27 +176,36 @@ export default function Newsletter() {
         </div>
       </section>
 
+      <Separator className="mb-16" />
+
       {/* Final CTA */}
-      <section className="border border-border rounded-xl p-8 bg-surface-1/30 text-center">
-        <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
-          Stop building from scratch.
-        </h2>
-        <p className="text-text-secondary mb-6 max-w-lg mx-auto">
-          Get a tested, production-ready AI automation template delivered to your
-          inbox every week.
-        </p>
-        <a
-          href="https://crisfon6.beehiiv.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-accent hover:bg-accent-light text-white px-8 py-3.5 rounded-lg font-medium transition-colors"
-        >
-          Subscribe to The Builder&apos;s Blueprint
-        </a>
-        <p className="text-xs text-text-muted mt-4">
-          Free forever. Unsubscribe anytime.
-        </p>
-      </section>
+      <Card className="card-shadow">
+        <CardContent className="text-center">
+          <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
+            Get $2,000+ worth of automation templates. Free.
+          </h2>
+          <p className="text-text-secondary mb-6 max-w-lg mx-auto">
+            Get a tested, production-ready AI automation template delivered to
+            your inbox every week.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="bg-accent hover:bg-accent-light text-white px-8 py-3.5 h-auto"
+          >
+            <a
+              href="https://crisfon6.beehiiv.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Subscribe to The Builder&apos;s Blueprint
+            </a>
+          </Button>
+          <p className="text-xs text-text-muted mt-4">
+            Free forever. Unsubscribe anytime.
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

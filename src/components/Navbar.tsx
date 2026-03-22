@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const links = [
   { href: "/about", label: "About" },
@@ -18,6 +20,7 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-surface-0/90 backdrop-blur-lg">
       <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+        {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-green group-hover:bg-green/80 transition-colors pulse-subtle" />
           <span className="font-mono text-sm text-text-secondary group-hover:text-text-primary transition-colors tracking-tight">
@@ -30,26 +33,27 @@ export function Navbar() {
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
-              <Link
+              <Button
                 key={link.href}
-                href={link.href}
-                className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
+                variant="ghost"
+                size="sm"
+                asChild
+                className={
                   isActive
                     ? "text-text-primary bg-surface-2"
-                    : "text-text-tertiary hover:text-text-secondary hover:bg-surface-1"
-                }`}
+                    : "text-text-tertiary hover:text-text-secondary"
+                }
               >
-                {link.label}
-              </Link>
+                <Link href={link.href}>{link.label}</Link>
+              </Button>
             );
           })}
-          <div className="w-px h-5 bg-border-emphasis mx-2" />
-          <Link
-            href="/newsletter"
-            className="text-sm text-accent-light hover:text-accent px-3 py-1.5 rounded-md border border-accent-dim hover:border-accent/30 transition-colors"
-          >
-            Subscribe
-          </Link>
+
+          <Separator orientation="vertical" className="mx-2 h-5" />
+
+          <Button variant="default" size="sm" asChild>
+            <Link href="/newsletter">Subscribe</Link>
+          </Button>
         </div>
 
         {/* Mobile toggle */}
@@ -58,11 +62,25 @@ export function Navbar() {
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
+          >
             {mobileOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             )}
           </svg>
         </button>
@@ -74,27 +92,33 @@ export function Navbar() {
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
-              <Link
+              <Button
                 key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`block text-sm px-3 py-2 rounded-md transition-colors ${
+                variant="ghost"
+                size="sm"
+                asChild
+                className={`w-full justify-start ${
                   isActive
                     ? "text-text-primary bg-surface-2"
                     : "text-text-tertiary hover:text-text-secondary"
                 }`}
               >
-                {link.label}
-              </Link>
+                <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                  {link.label}
+                </Link>
+              </Button>
             );
           })}
-          <Link
-            href="/newsletter"
-            onClick={() => setMobileOpen(false)}
-            className="block text-sm text-accent-light px-3 py-2"
+          <Button
+            variant="default"
+            size="sm"
+            asChild
+            className="w-full justify-start"
           >
-            Subscribe
-          </Link>
+            <Link href="/newsletter" onClick={() => setMobileOpen(false)}>
+              Subscribe
+            </Link>
+          </Button>
         </div>
       )}
     </nav>

@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Cristhian Fonseca — Technical Lead with 4+ years building cloud-native FinTech platforms at scale and AI automation systems.",
+};
 
 const experience = [
   {
@@ -133,6 +141,8 @@ export default function About() {
         </div>
       </div>
 
+      <Separator className="mb-20" />
+
       {/* STACK */}
       <section className="mb-20">
         <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
@@ -140,20 +150,24 @@ export default function About() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {stackCategories.map((cat) => (
-            <div
+            <Card
               key={cat.title}
-              className="border border-border rounded-xl p-5 bg-surface-1/30"
+              className="card-shadow bg-surface-1/30 border-border"
             >
-              <h3 className="text-sm font-medium text-text-primary mb-3">
-                {cat.title}
-              </h3>
-              <p className="text-sm text-text-tertiary leading-relaxed">
-                {cat.items}
-              </p>
-            </div>
+              <CardContent>
+                <h3 className="text-sm font-medium text-text-primary mb-3">
+                  {cat.title}
+                </h3>
+                <p className="text-sm text-text-tertiary leading-relaxed">
+                  {cat.items}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
+
+      <Separator className="mb-20" />
 
       {/* EXPERIENCE */}
       <section className="mb-20">
@@ -198,50 +212,56 @@ export default function About() {
         </div>
       </section>
 
+      <Separator className="mb-20" />
+
       {/* EDUCATION */}
       <section className="mb-20">
         <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
           EDUCATION &amp; CERTIFICATIONS
         </h2>
-        <div className="space-y-3">
+        <div className="flex flex-wrap gap-3">
           {certs.map((cert) => (
-            <div key={cert.name} className="flex items-baseline gap-2">
-              <p className="text-sm text-text-primary font-medium">
-                {cert.name}
-              </p>
-              <span className="text-xs text-text-muted">&mdash;</span>
-              <p className="text-sm text-text-tertiary">{cert.org}</p>
-            </div>
+            <Badge
+              key={cert.name}
+              variant="secondary"
+              className="px-3 py-1.5 h-auto text-sm"
+            >
+              <span className="font-medium text-text-primary">{cert.name}</span>
+              <span className="text-text-muted mx-1.5">&mdash;</span>
+              <span className="text-text-tertiary font-normal">{cert.org}</span>
+            </Badge>
           ))}
         </div>
       </section>
 
+      <Separator className="mb-20" />
+
       {/* CTA */}
-      <section className="border border-border rounded-xl p-8 bg-surface-1/30 text-center">
-        <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
-          Want to work together?
-        </h2>
-        <p className="text-text-tertiary mb-6 text-sm">
-          Always open to connecting with founders, CTOs, and builders shipping
-          interesting things.
-        </p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <a
-            href="https://linkedin.com/in/crisfon6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-accent hover:bg-accent-light text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
-          >
-            Connect on LinkedIn
-          </a>
-          <Link
-            href="/newsletter"
-            className="border border-border-emphasis hover:border-border-strong text-text-secondary hover:text-text-primary px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
-          >
-            Subscribe to newsletter
-          </Link>
-        </div>
-      </section>
+      <Card className="card-shadow bg-surface-1/30 border-border text-center">
+        <CardContent className="py-4">
+          <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+            Fellow builder? Let&apos;s connect.
+          </h2>
+          <p className="text-text-tertiary mb-6 text-sm">
+            Always open to connecting with founders, CTOs, and builders shipping
+            interesting things.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button variant="default" size="lg" asChild>
+              <a
+                href="https://www.linkedin.com/in/crisfon6/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Connect on LinkedIn
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/newsletter">Subscribe to newsletter</Link>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

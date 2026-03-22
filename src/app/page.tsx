@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const techStack = [
   "AWS",
@@ -23,6 +27,7 @@ const projects = [
     result: "Millions of users served",
     tag: "FINTECH",
     accent: "border-l-green",
+    badgeColor: "bg-green-dim text-green",
   },
   {
     title: "Enterprise Banking Platform",
@@ -31,6 +36,7 @@ const projects = [
     result: "3+ years in production",
     tag: "BANKING",
     accent: "border-l-accent",
+    badgeColor: "bg-amber-dim text-amber",
   },
   {
     title: "AI Automation Templates",
@@ -39,6 +45,7 @@ const projects = [
     result: "New template weekly",
     tag: "AI / OPEN SOURCE",
     accent: "border-l-violet",
+    badgeColor: "bg-violet-dim text-violet",
   },
 ];
 
@@ -62,9 +69,7 @@ export default function Home() {
             </p>
             <h1 className="text-4xl md:text-[3.5rem] font-bold text-text-primary leading-[1.1] mb-6 tracking-tight">
               I ship FinTech at scale{" "}
-              <span className="gradient-text">
-                and build AI automations
-              </span>{" "}
+              <span className="gradient-text">and build AI automations</span>{" "}
               you can steal.
             </h1>
             <p className="text-lg text-text-secondary mb-10 max-w-2xl leading-relaxed">
@@ -73,31 +78,33 @@ export default function Home() {
               public.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link
-                href="/newsletter"
-                className="bg-accent hover:bg-accent-light text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors"
-              >
-                Get the weekly blueprint
-              </Link>
-              <Link
-                href="/projects"
-                className="border border-border-emphasis hover:border-border-strong text-text-secondary hover:text-text-primary px-6 py-3 rounded-lg text-sm font-medium transition-colors"
-              >
-                See my work
-              </Link>
+              <Button variant="default" size="lg" asChild>
+                <Link href="/newsletter">
+                  Don&apos;t miss this week&apos;s blueprint
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/projects">See my work</Link>
+              </Button>
             </div>
+            <p className="text-sm text-text-tertiary mt-4">
+              Join 500+ engineers getting weekly blueprints
+            </p>
           </div>
         </div>
       </section>
 
       {/* TECH STACK */}
-      <section className="border-y border-border">
+      <div className="mx-auto max-w-6xl px-6">
+        <Separator />
+      </div>
+      <section>
         <div className="mx-auto max-w-6xl px-6 py-4">
           <div className="flex items-center gap-6 overflow-x-auto">
             <span className="text-[10px] text-text-muted font-mono whitespace-nowrap tracking-widest">
               STACK
             </span>
-            <div className="w-px h-3 bg-border-emphasis" />
+            <Separator orientation="vertical" className="h-3" />
             {techStack.map((tech) => (
               <span
                 key={tech}
@@ -109,13 +116,16 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <div className="mx-auto max-w-6xl px-6">
+        <Separator />
+      </div>
 
       {/* STATS */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
-              <div key={stat.label}>
+              <div key={stat.label} className="text-left">
                 <p
                   className={`text-3xl md:text-4xl font-bold mb-1 metric-value tracking-tight ${
                     stat.emphasis ? "text-green" : "text-text-primary"
@@ -133,7 +143,10 @@ export default function Home() {
       </section>
 
       {/* AUTOMATION OF THE WEEK */}
-      <section className="py-16 border-t border-border">
+      <div className="mx-auto max-w-6xl px-6">
+        <Separator />
+      </div>
+      <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center gap-2.5 mb-8">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
@@ -141,107 +154,128 @@ export default function Home() {
               AUTOMATION OF THE WEEK
             </h2>
           </div>
-          <div className="border border-border-emphasis rounded-xl p-8 glow blueprint-grid-dense relative overflow-hidden">
-            <div className="relative flex flex-wrap items-start justify-between gap-8">
-              <div className="flex-1 min-w-[280px]">
-                <h3 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
-                  AI-Powered Document Processor
-                </h3>
-                <p className="text-text-secondary mb-8 leading-relaxed">
-                  Ingest PDFs, extract structured data with Claude API, store in
-                  PostgreSQL. Deployed on AWS Lambda with S3 triggers.
-                </p>
-                <div className="flex flex-wrap gap-8">
-                  <div>
-                    <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                      INFRA COST
-                    </p>
-                    <p className="text-2xl font-bold text-green metric-value">
-                      $12
-                      <span className="text-sm text-text-tertiary font-normal">
-                        /mo
-                      </span>
-                    </p>
+          <Card className="glow blueprint-grid-dense relative overflow-hidden border-border-emphasis bg-card p-0">
+            <CardContent className="p-8">
+              <div className="flex flex-wrap items-start justify-between gap-8">
+                <div className="flex-1 min-w-[280px]">
+                  <div className="flex items-center gap-3 mb-3">
+                    <h3 className="text-2xl font-bold text-text-primary tracking-tight">
+                      AI-Powered Document Processor
+                    </h3>
+                    <Badge
+                      variant="outline"
+                      className="text-green border-green/30"
+                    >
+                      Live
+                    </Badge>
                   </div>
-                  <div>
-                    <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                      TIME SAVED
-                    </p>
-                    <p className="text-2xl font-bold text-accent-light metric-value">
-                      15h
-                      <span className="text-sm text-text-tertiary font-normal">
-                        /week
-                      </span>
-                    </p>
+                  <p className="text-text-secondary mb-8 leading-relaxed">
+                    Ingest PDFs, extract structured data with Claude API, store
+                    in PostgreSQL. Deployed on AWS Lambda with S3 triggers.
+                  </p>
+                  <div className="flex flex-wrap gap-8">
+                    <div>
+                      <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                        INFRA COST
+                      </p>
+                      <p className="text-2xl font-bold text-green metric-value">
+                        $12
+                        <span className="text-sm text-text-tertiary font-normal">
+                          /mo
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                        TIME SAVED
+                      </p>
+                      <p className="text-2xl font-bold text-accent-light metric-value">
+                        15h
+                        <span className="text-sm text-text-tertiary font-normal">
+                          /week
+                        </span>
+                      </p>
+                      <p className="text-[10px] text-text-muted font-mono mt-1 tracking-wide">
+                        Value: ~$2,000 in dev time
+                      </p>
+                    </div>
                   </div>
                 </div>
+                <Button variant="outline" asChild>
+                  <Link href="/automations">View blueprint</Link>
+                </Button>
               </div>
-              <Link
-                href="/automations"
-                className="border border-accent-dim hover:border-accent/30 text-accent-light hover:text-accent px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
-              >
-                View blueprint
-              </Link>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* FEATURED PROJECTS */}
-      <section className="py-16 border-t border-border">
+      <div className="mx-auto max-w-6xl px-6">
+        <Separator />
+      </div>
+      <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between mb-10">
             <h2 className="text-xl font-bold text-text-primary tracking-tight">
               Featured Projects
             </h2>
-            <Link
-              href="/projects"
-              className="text-sm text-text-tertiary hover:text-text-secondary transition-colors"
+            <Button
+              variant="link"
+              asChild
+              className="text-text-tertiary hover:text-text-secondary"
             >
-              View all
-            </Link>
+              <Link href="/projects">View all</Link>
+            </Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {projects.map((project) => (
-              <div
+              <Card
                 key={project.title}
-                className={`border border-border rounded-xl p-6 bg-surface-1/50 card-hover card-accent-left ${project.accent}`}
+                className={`card-hover card-accent-left card-shadow bg-surface-1/50 p-0 ${project.accent}`}
               >
-                <span className="inline-block text-[10px] font-mono text-text-muted tracking-widest mb-4">
-                  {project.tag}
-                </span>
-                <h3 className="text-base font-bold text-text-primary mb-2 tracking-tight">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-text-tertiary mb-5 leading-relaxed">
-                  {project.description}
-                </p>
-                <p className="text-sm font-medium text-green">
-                  {project.result}
-                </p>
-              </div>
+                <CardContent className="p-6">
+                  <Badge
+                    variant="secondary"
+                    className={`mb-4 font-mono text-[10px] tracking-widest ${project.badgeColor}`}
+                  >
+                    {project.tag}
+                  </Badge>
+                  <h3 className="text-base font-bold text-text-primary mb-2 tracking-tight">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-text-tertiary mb-5 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <p className="text-sm font-medium text-green">
+                    {project.result}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* NEWSLETTER CTA */}
-      <section className="py-20 border-t border-border blueprint-grid">
+      <div className="mx-auto max-w-6xl px-6">
+        <Separator />
+      </div>
+      <section className="py-20 blueprint-grid">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-text-primary mb-4 tracking-tight">
-              Get a free automation blueprint every week
+              Get a free blueprint every week — no strings attached
             </h2>
             <p className="text-text-secondary mb-8">
               Architecture diagrams, deployment guides, cost breakdowns, and
               working code. No fluff — just blueprints you can deploy.
             </p>
-            <Link
-              href="/newsletter"
-              className="inline-block bg-accent hover:bg-accent-light text-white px-8 py-3.5 rounded-lg font-medium transition-colors"
-            >
-              Subscribe to The Builder&apos;s Blueprint
-            </Link>
+            <Button variant="default" size="lg" asChild>
+              <Link href="/newsletter">
+                Subscribe to The Builder&apos;s Blueprint
+              </Link>
+            </Button>
             <p className="text-xs text-text-muted mt-4">
               Free forever. Unsubscribe anytime.
             </p>

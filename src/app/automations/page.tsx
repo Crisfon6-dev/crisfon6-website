@@ -1,7 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
-export const metadata: Metadata = { title: "Automations" };
+export const metadata: Metadata = {
+  title: "Automations",
+  description:
+    "Free production-ready AI automation templates with architecture diagrams, deployment guides, cost breakdowns, and working code.",
+};
 
 const automations = [
   {
@@ -91,8 +106,9 @@ export default function Automations() {
         AI automations you can steal.
       </h1>
       <p className="text-text-secondary mb-4 max-w-2xl text-lg leading-relaxed">
-        Every week I publish a production-ready automation template. Architecture
-        diagrams, deployment guides, cost breakdowns, and working code.
+        Every week I publish a production-ready automation template.
+        Architecture diagrams, deployment guides, cost breakdowns, and working
+        code.
       </p>
       <p className="text-sm text-text-muted mb-14">
         Subscribe to{" "}
@@ -107,92 +123,108 @@ export default function Automations() {
 
       <div className="space-y-5">
         {automations.map((auto) => (
-          <div
+          <Card
             key={auto.title}
-            className="border border-border rounded-xl p-8 bg-surface-1/30 card-hover"
+            className="card-shadow card-hover bg-surface-1/30 border-border"
           >
-            {/* Header row */}
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="text-[10px] font-mono text-text-muted tracking-widest">
-                WEEK {auto.week}
-              </span>
-              <span
-                className={`text-[10px] font-mono px-2 py-0.5 rounded ${auto.difficultyColor}`}
-              >
-                {auto.difficulty}
-              </span>
-            </div>
-
-            <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
-              {auto.title}
-            </h2>
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              {auto.description}
-            </p>
-
-            {/* Metrics — LOUD */}
-            <div className="flex flex-wrap gap-8 mb-6">
-              <div>
-                <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                  INFRA COST
-                </p>
-                <p className="text-2xl font-bold text-green metric-value">
-                  {auto.cost}
-                  <span className="text-sm text-text-tertiary font-normal">
-                    {auto.costUnit}
-                  </span>
-                </p>
-              </div>
-              <div>
-                <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                  TIME SAVED
-                </p>
-                <p className="text-2xl font-bold text-accent-light metric-value">
-                  {auto.timeSaved}
-                  <span className="text-sm text-text-tertiary font-normal">
-                    {auto.timeUnit}
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            {/* Stack */}
-            <div className="flex flex-wrap gap-1.5">
-              {auto.stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs text-text-muted bg-surface-2 px-2 py-0.5 rounded"
+            <CardHeader>
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge
+                  variant="outline"
+                  className="font-mono text-[10px] tracking-widest"
                 >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
+                  WEEK {auto.week}
+                </Badge>
+                <Badge
+                  variant="secondary"
+                  className={`font-mono text-[10px] tracking-widest ${auto.difficultyColor}`}
+                >
+                  {auto.difficulty}
+                </Badge>
+              </div>
+              <CardTitle className="text-xl font-bold text-text-primary tracking-tight">
+                {auto.title}
+              </CardTitle>
+              <CardDescription className="text-text-secondary leading-relaxed text-sm">
+                {auto.description}
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="space-y-5">
+              <Separator className="bg-border-emphasis" />
+
+              {/* Metrics — LOUD */}
+              <div className="flex flex-wrap gap-8">
+                <div>
+                  <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                    INFRA COST
+                  </p>
+                  <p className="text-2xl font-bold text-green metric-value">
+                    {auto.cost}
+                    <span className="text-sm text-text-tertiary font-normal">
+                      {auto.costUnit}
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                    TIME SAVED
+                  </p>
+                  <p className="text-2xl font-bold text-accent-light metric-value">
+                    {auto.timeSaved}
+                    <span className="text-sm text-text-tertiary font-normal">
+                      {auto.timeUnit}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <Separator className="bg-border-emphasis" />
+
+              {/* Stack */}
+              <div className="flex flex-wrap gap-1.5">
+                {auto.stack.map((tech) => (
+                  <Badge
+                    key={tech}
+                    variant="secondary"
+                    className="text-xs text-text-muted bg-surface-2 font-normal"
+                  >
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
       {/* CTA */}
-      <section className="mt-16 border border-accent-dim rounded-xl p-8 blueprint-grid text-center">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
-          <p className="text-[10px] font-mono text-text-muted tracking-widest">
-            NEW TEMPLATE EVERY WEEK
+      <Card className="mt-16 border-accent-dim blueprint-grid card-shadow">
+        <CardContent className="text-center py-8">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
+            <p className="text-[10px] font-mono text-text-muted tracking-widest">
+              NEW TEMPLATE EVERY WEEK
+            </p>
+          </div>
+          <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
+            Get the blueprint before everyone else
+          </h2>
+          <p className="text-text-secondary mb-6 max-w-lg mx-auto">
+            Architecture diagrams, deployment guides, cost breakdowns, and
+            working code. Delivered every week. Free.
           </p>
-        </div>
-        <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
-          Get the blueprint before everyone else
-        </h2>
-        <p className="text-text-secondary mb-6 max-w-lg mx-auto">
-          Architecture diagrams, deployment guides, cost breakdowns, and working
-          code. Delivered every week. Free.
-        </p>
-        <Link
-          href="/newsletter"
-          className="inline-block bg-accent hover:bg-accent-light text-white px-8 py-3 rounded-lg font-medium transition-colors"
-        >
-          Subscribe to The Builder&apos;s Blueprint
-        </Link>
-      </section>
+          <Button
+            asChild
+            size="lg"
+            className="bg-accent hover:bg-accent-light text-white px-8 py-3 h-auto font-medium"
+          >
+            <Link href="/newsletter">
+              Subscribe to The Builder&apos;s Blueprint
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

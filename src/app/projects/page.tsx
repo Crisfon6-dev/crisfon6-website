@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Projects" };
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Portfolio of FinTech platforms serving millions, cloud infrastructure, and open-source AI automation templates.",
+};
 
 const projects = [
   {
@@ -27,14 +36,21 @@ const projects = [
     result: "Millions of users served at national scale",
     tag: "FINTECH",
     status: "In Production",
-    statusColor: "text-green bg-green-dim",
+    statusColor: "border-green/40 text-green bg-green-dim",
     accent: "border-l-green",
   },
   {
     title: "Enterprise Banking Platform",
     description:
       "End-to-end modules for a major financial institution. Dynamic, responsive interfaces with regulatory compliance baked into every layer. High-performance backend systems handling core banking operations.",
-    stack: ["Java", "Spring Boot", "Angular", "Thymeleaf", "Oracle", "REST APIs"],
+    stack: [
+      "Java",
+      "Spring Boot",
+      "Angular",
+      "Thymeleaf",
+      "Oracle",
+      "REST APIs",
+    ],
     highlights: [
       "Architected modules ensuring regulatory compliance",
       "Built dynamic banking interfaces improving usability",
@@ -43,7 +59,7 @@ const projects = [
     result: "3+ years in production",
     tag: "BANKING",
     status: "In Production",
-    statusColor: "text-green bg-green-dim",
+    statusColor: "border-green/40 text-green bg-green-dim",
     accent: "border-l-accent",
   },
   {
@@ -59,14 +75,21 @@ const projects = [
     result: "Delivered for government services",
     tag: "GOVTECH",
     status: "Delivered",
-    statusColor: "text-accent-light bg-accent-dim",
+    statusColor: "border-cyan/40 text-accent-light bg-accent-dim",
     accent: "border-l-cyan",
   },
   {
     title: "US Cloud Platform",
     description:
       "Serverless cloud services for a US-based platform. Designed and deployed AWS infrastructure with high-availability configurations and automated data flows.",
-    stack: ["AWS Lambda", "Chalice", "EC2", "Route 53", "API Gateway", "Python"],
+    stack: [
+      "AWS Lambda",
+      "Chalice",
+      "EC2",
+      "Route 53",
+      "API Gateway",
+      "Python",
+    ],
     highlights: [
       "Serverless architectures automating data flows",
       "High-availability infrastructure configuration",
@@ -75,7 +98,7 @@ const projects = [
     result: "Deployed on AWS",
     tag: "CLOUD / SAAS",
     status: "Delivered",
-    statusColor: "text-accent-light bg-accent-dim",
+    statusColor: "border-amber/40 text-accent-light bg-accent-dim",
     accent: "border-l-amber",
   },
   {
@@ -87,12 +110,12 @@ const projects = [
       "Production-ready blueprints with real cost analysis",
       "Architecture diagrams and deployment guides included",
       "New template published every week",
-      "Building in public — all code open source",
+      "Building in public -- all code open source",
     ],
     result: "New template every week",
     tag: "AI / OPEN SOURCE",
     status: "Active",
-    statusColor: "text-amber bg-amber-dim",
+    statusColor: "border-amber/40 text-amber bg-amber-dim",
     accent: "border-l-violet",
   },
 ];
@@ -110,35 +133,39 @@ export default function Projects() {
 
       <div className="space-y-6">
         {projects.map((project) => (
-          <div
+          <Card
             key={project.title}
-            className={`border border-border rounded-xl p-8 bg-surface-1/30 card-hover card-accent-left ${project.accent}`}
+            className={`card-shadow card-hover card-accent-left ${project.accent} bg-surface-1/30 py-0`}
           >
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="text-[10px] font-mono text-text-muted tracking-widest">
-                {project.tag}
-              </span>
-              <span
-                className={`text-[10px] font-mono px-2 py-0.5 rounded ${project.statusColor}`}
-              >
-                {project.status}
-              </span>
-            </div>
+            <CardContent className="p-8">
+              {/* Tag + Status row */}
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <Badge
+                  variant="secondary"
+                  className="font-mono text-[10px] tracking-widest uppercase"
+                >
+                  {project.tag}
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className={`font-mono text-[10px] ${project.statusColor}`}
+                >
+                  {project.status}
+                </Badge>
+              </div>
 
-            <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
-              {project.title}
-            </h2>
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              {project.description}
-            </p>
+              {/* Title + Description */}
+              <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+                {project.title}
+              </h2>
+              <p className="text-text-secondary mb-6 leading-relaxed">
+                {project.description}
+              </p>
 
-            <div className="mb-6">
-              <ul className="space-y-1.5">
+              {/* Highlights */}
+              <ul className="mb-6 space-y-1.5">
                 {project.highlights.map((h, i) => (
-                  <li
-                    key={i}
-                    className="text-sm text-text-tertiary flex gap-2"
-                  >
+                  <li key={i} className="text-sm text-text-tertiary flex gap-2">
                     <span className="text-text-muted mt-0.5 shrink-0">
                       &middot;
                     </span>
@@ -146,43 +173,53 @@ export default function Projects() {
                   </li>
                 ))}
               </ul>
-            </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-border">
-              <div className="flex flex-wrap gap-1.5">
-                {project.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs text-text-muted bg-surface-2 px-2 py-0.5 rounded"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              {/* Separator between stack and result */}
+              <Separator className="mb-5" />
+
+              {/* Stack badges + Result */}
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {project.stack.map((tech) => (
+                    <Badge
+                      key={tech}
+                      variant="secondary"
+                      className="text-xs text-text-muted bg-surface-2 font-normal"
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+                <p className="text-sm font-medium text-green metric-value">
+                  {project.result}
+                </p>
               </div>
-              <p className="text-sm font-medium text-green metric-value">
-                {project.result}
-              </p>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
       {/* CTA */}
-      <section className="mt-16 border border-border rounded-xl p-8 bg-surface-1/30 text-center blueprint-grid-dense">
-        <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
-          Want the blueprints?
-        </h2>
-        <p className="text-text-tertiary mb-6 text-sm">
-          Every week I publish a new AI automation template with architecture
-          diagrams, deployment guides, and working code.
-        </p>
-        <Link
-          href="/newsletter"
-          className="inline-block bg-accent hover:bg-accent-light text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
-        >
-          Subscribe to The Builder&apos;s Blueprint
-        </Link>
-      </section>
+      <Card className="mt-16 card-shadow bg-surface-1/30 text-center blueprint-grid-dense py-0">
+        <CardContent className="p-8">
+          <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+            Want the blueprints?
+          </h2>
+          <p className="text-text-tertiary mb-6 text-sm">
+            Every week I publish a new AI automation template with architecture
+            diagrams, deployment guides, and working code.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="bg-accent hover:bg-accent-light text-white px-6"
+          >
+            <Link href="/newsletter">
+              Subscribe to The Builder&apos;s Blueprint
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

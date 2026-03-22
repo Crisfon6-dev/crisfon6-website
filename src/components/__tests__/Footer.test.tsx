@@ -7,10 +7,11 @@ test("renders brand name", () => {
   expect(screen.getByText("crisfon6")).toBeDefined();
 });
 
-test("renders social links", () => {
+test("renders social links including email", () => {
   render(<Footer />);
   expect(screen.getByText("LinkedIn")).toBeDefined();
   expect(screen.getByText("GitHub")).toBeDefined();
+  expect(screen.getByText("crisfon6@crisfon6.com")).toBeDefined();
 });
 
 test("renders navigation links", () => {

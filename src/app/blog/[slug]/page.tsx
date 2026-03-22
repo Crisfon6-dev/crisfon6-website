@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import { useMDXComponents } from "@/mdx-components";
+import { GiscusComments } from "@/components/GiscusComments";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -70,6 +71,16 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       <Separator className="my-10" />
+
+      {/* Comments */}
+      <section className="mb-10">
+        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
+          COMMENTS
+        </h2>
+        <GiscusComments />
+      </section>
+
+      <Separator className="mb-10" />
 
       {/* CTA */}
       <section className="text-center">

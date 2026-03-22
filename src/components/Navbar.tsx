@@ -5,18 +5,22 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LanguageToggle } from "@/components/LanguageToggle";
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { Logo } from "@/components/Logo";
 
-const links = [
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/automations", label: "Automations" },
-  { href: "/blog", label: "Blog" },
+const linkKeys = [
+  { href: "/about", key: "about" as const },
+  { href: "/projects", key: "projects" as const },
+  { href: "/automations", key: "automations" as const },
+  { href: "/blog", key: "blog" as const },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-surface-0/90 backdrop-blur-lg">
@@ -28,7 +32,7 @@ export function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-1">
-          {links.map((link) => {
+          {linkKeys.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Button
@@ -42,7 +46,7 @@ export function Navbar() {
                     : "text-text-tertiary hover:text-text-secondary"
                 }
               >
-                <Link href={link.href}>{link.label}</Link>
+                <Link href={link.href}>{t.nav[link.key]}</Link>
               </Button>
             );
           })}
@@ -64,8 +68,10 @@ export function Navbar() {
             </a>
           </Button>
           <Button variant="default" size="sm" asChild>
-            <Link href="/newsletter">Subscribe</Link>
+            <Link href="/newsletter">{t.nav.subscribe}</Link>
           </Button>
+          <LanguageToggle />
+          <ThemeToggle />
         </div>
 
         {/* Mobile toggle */}
@@ -101,7 +107,7 @@ export function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-border bg-surface-0/95 backdrop-blur-lg px-6 py-3 space-y-1">
-          {links.map((link) => {
+          {linkKeys.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Button
@@ -116,7 +122,7 @@ export function Navbar() {
                 }`}
               >
                 <Link href={link.href} onClick={() => setMobileOpen(false)}>
-                  {link.label}
+                  {t.nav[link.key]}
                 </Link>
               </Button>
             );
@@ -128,7 +134,7 @@ export function Navbar() {
             className="w-full justify-start"
           >
             <Link href="/newsletter" onClick={() => setMobileOpen(false)}>
-              Subscribe
+              {t.nav.subscribe}
             </Link>
           </Button>
         </div>

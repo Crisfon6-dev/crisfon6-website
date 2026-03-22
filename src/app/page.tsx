@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { FadeIn } from "@/components/FadeIn";
 
 const techStack = [
   "AWS",
@@ -149,22 +150,24 @@ export default function Home() {
       {/* STATS */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-left">
-                <p
-                  className={`text-3xl md:text-4xl font-bold mb-1 metric-value tracking-tight ${
-                    stat.emphasis ? "text-green" : "text-text-primary"
-                  }`}
-                >
-                  {stat.value}
-                </p>
-                <p className="text-xs text-text-muted font-mono tracking-wide">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+          <FadeIn>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-left">
+                  <p
+                    className={`text-3xl md:text-4xl font-bold mb-1 metric-value tracking-tight ${
+                      stat.emphasis ? "text-green" : "text-text-primary"
+                    }`}
+                  >
+                    {stat.value}
+                  </p>
+                  <p className="text-xs text-text-muted font-mono tracking-wide">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -180,59 +183,62 @@ export default function Home() {
               AUTOMATION OF THE WEEK
             </h2>
           </div>
-          <Card className="glow blueprint-grid-dense relative overflow-hidden border-border-emphasis bg-card p-0">
-            <CardContent className="p-8">
-              <div className="flex flex-wrap items-start justify-between gap-8">
-                <div className="flex-1 min-w-[280px]">
-                  <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-2xl font-bold text-text-primary tracking-tight">
-                      AI-Powered Document Processor
-                    </h3>
-                    <Badge
-                      variant="outline"
-                      className="text-green border-green/30"
-                    >
-                      Live
-                    </Badge>
-                  </div>
-                  <p className="text-text-secondary mb-8 leading-relaxed">
-                    Ingest PDFs, extract structured data with Claude API, store
-                    in PostgreSQL. Deployed on AWS Lambda with S3 triggers.
-                  </p>
-                  <div className="flex flex-wrap gap-8">
-                    <div>
-                      <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                        INFRA COST
-                      </p>
-                      <p className="text-2xl font-bold text-green metric-value">
-                        $12
-                        <span className="text-sm text-text-tertiary font-normal">
-                          /mo
-                        </span>
-                      </p>
+          <FadeIn delay={0.1}>
+            <Card className="glow blueprint-grid-dense relative overflow-hidden border-border-emphasis bg-card p-0">
+              <CardContent className="p-8">
+                <div className="flex flex-wrap items-start justify-between gap-8">
+                  <div className="flex-1 min-w-[280px]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <h3 className="text-2xl font-bold text-text-primary tracking-tight">
+                        AI-Powered Document Processor
+                      </h3>
+                      <Badge
+                        variant="outline"
+                        className="text-green border-green/30"
+                      >
+                        Live
+                      </Badge>
                     </div>
-                    <div>
-                      <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                        TIME SAVED
-                      </p>
-                      <p className="text-2xl font-bold text-accent-light metric-value">
-                        15h
-                        <span className="text-sm text-text-tertiary font-normal">
-                          /week
-                        </span>
-                      </p>
-                      <p className="text-[10px] text-text-muted font-mono mt-1 tracking-wide">
-                        Value: ~$2,000 in dev time
-                      </p>
+                    <p className="text-text-secondary mb-8 leading-relaxed">
+                      Ingest PDFs, extract structured data with Claude API,
+                      store in PostgreSQL. Deployed on AWS Lambda with S3
+                      triggers.
+                    </p>
+                    <div className="flex flex-wrap gap-8">
+                      <div>
+                        <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                          INFRA COST
+                        </p>
+                        <p className="text-2xl font-bold text-green metric-value">
+                          $12
+                          <span className="text-sm text-text-tertiary font-normal">
+                            /mo
+                          </span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                          TIME SAVED
+                        </p>
+                        <p className="text-2xl font-bold text-accent-light metric-value">
+                          15h
+                          <span className="text-sm text-text-tertiary font-normal">
+                            /week
+                          </span>
+                        </p>
+                        <p className="text-[10px] text-text-muted font-mono mt-1 tracking-wide">
+                          Value: ~$2,000 in dev time
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <Button variant="outline" asChild>
+                    <Link href="/automations">View blueprint</Link>
+                  </Button>
                 </div>
-                <Button variant="outline" asChild>
-                  <Link href="/automations">View blueprint</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </FadeIn>
         </div>
       </section>
 
@@ -255,29 +261,30 @@ export default function Home() {
             </Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {projects.map((project) => (
-              <Card
-                key={project.title}
-                className={`card-hover card-accent-left card-shadow bg-surface-1/50 p-0 ${project.accent}`}
-              >
-                <CardContent className="p-6">
-                  <Badge
-                    variant="secondary"
-                    className={`mb-4 font-mono text-[10px] tracking-widest ${project.badgeColor}`}
-                  >
-                    {project.tag}
-                  </Badge>
-                  <h3 className="text-base font-bold text-text-primary mb-2 tracking-tight">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-text-tertiary mb-5 leading-relaxed">
-                    {project.description}
-                  </p>
-                  <p className="text-sm font-medium text-green">
-                    {project.result}
-                  </p>
-                </CardContent>
-              </Card>
+            {projects.map((project, index) => (
+              <FadeIn key={project.title} delay={index * 0.1}>
+                <Card
+                  className={`card-hover card-accent-left card-shadow bg-surface-1/50 p-0 ${project.accent}`}
+                >
+                  <CardContent className="p-6">
+                    <Badge
+                      variant="secondary"
+                      className={`mb-4 font-mono text-[10px] tracking-widest ${project.badgeColor}`}
+                    >
+                      {project.tag}
+                    </Badge>
+                    <h3 className="text-base font-bold text-text-primary mb-2 tracking-tight">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-text-tertiary mb-5 leading-relaxed">
+                      {project.description}
+                    </p>
+                    <p className="text-sm font-medium text-green">
+                      {project.result}
+                    </p>
+                  </CardContent>
+                </Card>
+              </FadeIn>
             ))}
           </div>
         </div>
@@ -289,73 +296,80 @@ export default function Home() {
       </div>
       <section className="py-20 blueprint-grid">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Newsletter CTA */}
-            <Card className="card-shadow p-0">
-              <CardContent className="p-8">
-                <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
-                  WEEKLY BLUEPRINTS
-                </p>
-                <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
-                  Get a free automation template every week
-                </h2>
-                <p className="text-sm text-text-secondary mb-6 leading-relaxed">
-                  Architecture diagrams, deployment guides, cost breakdowns, and
-                  working code. No fluff.
-                </p>
-                <Button variant="default" size="lg" asChild className="w-full">
-                  <Link href="/newsletter">
-                    Don&apos;t miss this week&apos;s blueprint
-                  </Link>
-                </Button>
-                <p className="text-xs text-text-muted mt-3 text-center">
-                  Free forever. Unsubscribe anytime.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Contact CTA */}
-            <Card className="card-shadow p-0">
-              <CardContent className="p-8">
-                <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
-                  LET&apos;S CONNECT
-                </p>
-                <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
-                  Building something interesting? Let&apos;s talk.
-                </h2>
-                <p className="text-sm text-text-secondary mb-6 leading-relaxed">
-                  Open to connecting with founders, CTOs, and builders shipping
-                  ambitious products.
-                </p>
-                <div className="space-y-2">
+          <FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Newsletter CTA */}
+              <Card className="card-shadow p-0">
+                <CardContent className="p-8">
+                  <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
+                    WEEKLY BLUEPRINTS
+                  </p>
+                  <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+                    Get a free automation template every week
+                  </h2>
+                  <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+                    Architecture diagrams, deployment guides, cost breakdowns,
+                    and working code. No fluff.
+                  </p>
                   <Button
-                    variant="outline"
+                    variant="default"
                     size="lg"
                     asChild
                     className="w-full"
                   >
-                    <a
-                      href="https://www.linkedin.com/in/crisfon6/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link href="/newsletter">
+                      Don&apos;t miss this week&apos;s blueprint
+                    </Link>
+                  </Button>
+                  <p className="text-xs text-text-muted mt-3 text-center">
+                    Free forever. Unsubscribe anytime.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Contact CTA */}
+              <Card className="card-shadow p-0">
+                <CardContent className="p-8">
+                  <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
+                    LET&apos;S CONNECT
+                  </p>
+                  <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+                    Building something interesting? Let&apos;s talk.
+                  </h2>
+                  <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+                    Open to connecting with founders, CTOs, and builders
+                    shipping ambitious products.
+                  </p>
+                  <div className="space-y-2">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      asChild
+                      className="w-full"
                     >
-                      Connect on LinkedIn
-                    </a>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    asChild
-                    className="w-full text-text-secondary"
-                  >
-                    <a href="mailto:crisfon6@crisfon6.com">
-                      crisfon6@crisfon6.com
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                      <a
+                        href="https://www.linkedin.com/in/crisfon6/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Connect on LinkedIn
+                      </a>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="lg"
+                      asChild
+                      className="w-full text-text-secondary"
+                    >
+                      <a href="mailto:crisfon6@crisfon6.com">
+                        crisfon6@crisfon6.com
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </div>

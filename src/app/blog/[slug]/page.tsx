@@ -6,8 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
-import { useMDXComponents } from "@/mdx-components";
+import { useMDXComponents as getMDXComponents } from "@/mdx-components";
 import { GiscusComments } from "@/components/GiscusComments";
+
+const components = getMDXComponents();
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -35,7 +37,6 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const { frontmatter, content } = post;
-  const components = useMDXComponents();
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">

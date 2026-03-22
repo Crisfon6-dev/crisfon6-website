@@ -8,7 +8,9 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    queueMicrotask(() => setMounted(true));
+  }, []);
 
   if (!mounted) {
     return <Button variant="ghost" size="sm" className="w-8 h-8 p-0" />;

@@ -17,27 +17,42 @@ export function LogoIcon({
     >
       {/* Hexagon */}
       <path
-        d="M24 3L43 14v18L24 43 5 32V14L24 3Z"
+        d="M24 4L42 14.4v19.2L24 44 6 33.6V14.4L24 4Z"
         stroke="#60a5fa"
-        strokeWidth="2.4"
+        strokeWidth="2.5"
         strokeLinejoin="round"
         fill="none"
       />
-      {/* "C6" as clean bold text — centered in hexagon */}
-      <text
-        x="23"
-        y="30"
-        textAnchor="middle"
-        fontFamily="ui-monospace, 'Geist Mono', monospace"
-        fontWeight="700"
-        fontSize="19"
-        fill="#f8fafc"
-        letterSpacing="-0.5"
-      >
-        C6
-      </text>
+      {/* < bracket */}
+      <polyline
+        points="19,18 12,24 19,30"
+        stroke="#f8fafc"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      {/* / slash */}
+      <line
+        x1="26"
+        y1="17"
+        x2="22"
+        y2="31"
+        stroke="#f8fafc"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+      />
+      {/* > bracket */}
+      <polyline
+        points="29,18 36,24 29,30"
+        stroke="#f8fafc"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
       {/* Accent dot — top-right vertex */}
-      <circle cx="43" cy="14" r="2.8" fill="#22c55e" />
+      <circle cx="42" cy="14.4" r="2.6" fill="#22c55e" />
     </svg>
   );
 }

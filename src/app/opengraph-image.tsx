@@ -82,7 +82,7 @@ export default function Image() {
             fontWeight: 600,
           }}
         >
-          Zero to Production
+          PowerAI
         </div>
         <div style={{ fontSize: 18, color: "#475569" }}>·</div>
         <div

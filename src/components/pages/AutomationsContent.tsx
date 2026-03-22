@@ -111,7 +111,7 @@ export function AutomationsContent() {
           href="/newsletter"
           className="text-accent-light hover:text-accent transition-colors"
         >
-          Zero to Production
+          PowerAI
         </Link>{" "}
         {t.automations.toGetDelivered}
       </p>

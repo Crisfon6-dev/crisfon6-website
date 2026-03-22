@@ -18,7 +18,7 @@ export function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zero to Production</title>
+    <title>PowerAI</title>
     <link>https://crisfon6.com</link>
     <description>Free AI automation templates — architecture diagrams, deployment guides, cost breakdowns, and working code. By Cristhian Fonseca.</description>
     <language>en-us</language>

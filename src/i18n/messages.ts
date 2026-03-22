@@ -38,7 +38,7 @@ export const messages = {
       connectLinkedIn: "Connect on LinkedIn",
       emailMe: "Email me",
       subscribeNewsletter: "Subscribe to newsletter",
-      subscribeZTP: "Subscribe to Zero to Production",
+      subscribeZTP: "Subscribe to PowerAI",
       viewBlueprint: "View blueprint",
       viewAll: "View all",
     },
@@ -105,7 +105,7 @@ export const messages = {
         "Get every article and automation template delivered to your inbox.",
     },
     newsletter: {
-      heading: "Zero to Production",
+      heading: "PowerAI",
       description:
         "A free AI automation template every week. Architecture diagrams, deployment guides, cost breakdowns, and working code — no fluff, just blueprints you can deploy.",
       authority: "Built by a Technical Lead shipping FinTech across LATAM",
@@ -160,7 +160,7 @@ export const messages = {
       connectLinkedIn: "Conectar en LinkedIn",
       emailMe: "Enviar email",
       subscribeNewsletter: "Suscribirse al newsletter",
-      subscribeZTP: "Suscribirse a Zero to Production",
+      subscribeZTP: "Suscribirse a PowerAI",
       viewBlueprint: "Ver blueprint",
       viewAll: "Ver todos",
     },
@@ -227,7 +227,7 @@ export const messages = {
         "Recibe cada articulo y template de automatizacion en tu inbox.",
     },
     newsletter: {
-      heading: "Zero to Production",
+      heading: "PowerAI",
       description:
         "Un template de automatizacion con IA gratis cada semana. Diagramas de arquitectura, guias de deploy, analisis de costos y codigo funcional — sin relleno, solo blueprints que puedes desplegar.",
       authority:

@@ -5,6 +5,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { JsonLd } from "@/components/JsonLd";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -92,6 +94,8 @@ export default function RootLayout({
               "I ship FinTech at scale and build AI automations you can steal.",
           }}
         />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

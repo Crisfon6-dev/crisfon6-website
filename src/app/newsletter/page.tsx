@@ -3,11 +3,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { SubscribeForm } from "@/components/SubscribeForm";
 
 export const metadata: Metadata = {
   title: "Newsletter",
   description:
-    "The Builder's Blueprint — A free weekly automation template with architecture diagrams, deployment guides, cost breakdowns, and working code.",
+    "Zero to Production — A free weekly automation template with architecture diagrams, deployment guides, cost breakdowns, and working code.",
 };
 
 const benefits = [
@@ -61,7 +62,7 @@ export default function Newsletter() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
       <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
-        The Builder&apos;s Blueprint
+        Zero to Production
       </h1>
       <p className="text-lg text-text-secondary mb-3 max-w-2xl leading-relaxed">
         A free AI automation template every week. Architecture diagrams,
@@ -81,30 +82,7 @@ export default function Newsletter() {
               FREE — JOIN 500+ BUILDERS
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <input
-              type="email"
-              placeholder="you@company.com"
-              className="flex-1 bg-surface-2 border border-border-emphasis rounded-lg px-4 py-3 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent transition-colors"
-              readOnly
-            />
-            <Button
-              asChild
-              size="lg"
-              className="bg-accent hover:bg-accent-light text-white px-6 py-3 h-auto whitespace-nowrap"
-            >
-              <a
-                href="https://crisfon6.beehiiv.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Start getting blueprints
-              </a>
-            </Button>
-          </div>
-          <p className="text-xs text-text-muted mt-3">
-            Free forever — cancel anytime. No spam, ever.
-          </p>
+          <SubscribeForm />
         </CardContent>
       </Card>
 
@@ -198,7 +176,7 @@ export default function Newsletter() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Subscribe to The Builder&apos;s Blueprint
+              Subscribe to Zero to Production
             </a>
           </Button>
           <p className="text-xs text-text-muted mt-4">

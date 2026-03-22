@@ -137,9 +137,7 @@ export default function Blog() {
           size="lg"
           className="bg-accent hover:bg-accent-light text-white px-6 py-2.5 h-auto"
         >
-          <Link href="/newsletter">
-            Subscribe to The Builder&apos;s Blueprint
-          </Link>
+          <Link href="/newsletter">Subscribe to Zero to Production</Link>
         </Button>
       </section>
     </div>

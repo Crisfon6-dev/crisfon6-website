@@ -116,7 +116,7 @@ export default function Automations() {
           href="/newsletter"
           className="text-accent-light hover:text-accent transition-colors"
         >
-          The Builder&apos;s Blueprint
+          Zero to Production
         </Link>{" "}
         to get each one delivered.
       </p>
@@ -219,9 +219,7 @@ export default function Automations() {
             size="lg"
             className="bg-accent hover:bg-accent-light text-white px-8 py-3 h-auto font-medium"
           >
-            <Link href="/newsletter">
-              Subscribe to The Builder&apos;s Blueprint
-            </Link>
+            <Link href="/newsletter">Subscribe to Zero to Production</Link>
           </Button>
         </CardContent>
       </Card>

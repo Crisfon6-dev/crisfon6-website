@@ -214,9 +214,7 @@ export default function Projects() {
             size="lg"
             className="bg-accent hover:bg-accent-light text-white px-6"
           >
-            <Link href="/newsletter">
-              Subscribe to The Builder&apos;s Blueprint
-            </Link>
+            <Link href="/newsletter">Subscribe to Zero to Production</Link>
           </Button>
         </CardContent>
       </Card>

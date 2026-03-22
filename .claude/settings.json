@@ -25,6 +25,30 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git push*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git diff --cached --diff-filter=ACM --name-only | xargs grep -lnE '(BEEHIIV_API_KEY|api[_-]?key|secret[_-]?key|token|password|private[_-]?key)\\s*[:=]\\s*[\"'\\''a-zA-Z0-9]' 2>/dev/null && echo 'BLOCKED: Potential secret detected in staged files. Review before pushing.' && exit 1 || true",
+            "timeout": 10,
+            "statusMessage": "Scanning for secrets..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | { read -r f; case \"$f\" in */messages.ts) node -e \"const m=require('./src/i18n/messages.ts')||{}; const en=Object.keys(JSON.stringify(m.messages?.en||{})); const es=Object.keys(JSON.stringify(m.messages?.es||{})); if(en.length!==es.length) console.log('WARNING: i18n keys may be out of sync between EN and ES')\" 2>/dev/null;; esac; } || true",
+            "timeout": 10,
+            "statusMessage": "Checking i18n..."
+          }
+        ]
+      }
     ]
   }
 }

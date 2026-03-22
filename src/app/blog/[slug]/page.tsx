@@ -115,13 +115,18 @@ export default async function BlogPostPage({ params }: Props) {
           Architecture diagrams, deployment guides, cost breakdowns, and working
           code.
         </p>
-        <Button
-          asChild
-          size="lg"
-          className="bg-accent hover:bg-accent-light text-white px-6 h-auto py-2.5"
-        >
-          <Link href="/newsletter">Subscribe to PowerAI</Link>
-        </Button>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button
+            asChild
+            size="lg"
+            className="bg-accent hover:bg-accent-light text-white px-6 h-auto py-2.5"
+          >
+            <Link href="/newsletter">Subscribe to PowerAI</Link>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <Link href="/work-with-me">Work with me</Link>
+          </Button>
+        </div>
       </section>
     </div>
   );

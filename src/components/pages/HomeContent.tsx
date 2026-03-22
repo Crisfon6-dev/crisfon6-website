@@ -335,32 +335,14 @@ export function HomeContent() {
                   <p className="text-sm text-text-secondary mb-6 leading-relaxed">
                     {t.cta.openTo}
                   </p>
-                  <div className="space-y-2">
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      asChild
-                      className="w-full"
-                    >
-                      <a
-                        href="https://www.linkedin.com/in/crisfon6/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t.cta.connectLinkedIn}
-                      </a>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="lg"
-                      asChild
-                      className="w-full text-text-secondary"
-                    >
-                      <a href="mailto:crisfon6@crisfon6.com">
-                        crisfon6@crisfon6.com
-                      </a>
-                    </Button>
-                  </div>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="w-full"
+                  >
+                    <Link href="/work-with-me">{t.workWithMe.heading}</Link>
+                  </Button>
                 </CardContent>
               </Card>
             </div>

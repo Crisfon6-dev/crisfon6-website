@@ -59,13 +59,7 @@ export function Navbar() {
             asChild
             className="text-text-tertiary hover:text-text-secondary"
           >
-            <a
-              href="https://www.linkedin.com/in/crisfon6/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
+            <Link href="/work-with-me">{t.nav.workWithMe}</Link>
           </Button>
           <Button variant="default" size="sm" asChild>
             <Link href="/newsletter">{t.nav.subscribe}</Link>

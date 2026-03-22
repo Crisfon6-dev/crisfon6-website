@@ -226,6 +226,9 @@ export function AboutContent() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button variant="default" size="lg" asChild>
+              <Link href="/work-with-me">{t.nav.workWithMe}</Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
               <a
                 href="https://www.linkedin.com/in/crisfon6/"
                 target="_blank"
@@ -233,9 +236,6 @@ export function AboutContent() {
               >
                 {t.cta.connectLinkedIn}
               </a>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <a href="mailto:crisfon6@crisfon6.com">{t.cta.emailMe}</a>
             </Button>
             <Button variant="ghost" size="lg" asChild>
               <Link href="/newsletter">{t.cta.subscribeNewsletter}</Link>

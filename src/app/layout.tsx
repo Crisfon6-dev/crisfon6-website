@@ -56,6 +56,7 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       "application/rss+xml": "https://crisfon6.com/feed.xml",
+      "text/plain": "https://crisfon6.com/llms.txt",
     },
   },
 };

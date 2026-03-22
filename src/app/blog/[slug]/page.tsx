@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import { useMDXComponents as getMDXComponents } from "@/mdx-components";
 import { GiscusComments } from "@/components/GiscusComments";
+import { JsonLd } from "@/components/JsonLd";
 
 const components = getMDXComponents();
 
@@ -40,6 +41,28 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: frontmatter.title,
+          description: frontmatter.excerpt,
+          datePublished: frontmatter.date,
+          author: {
+            "@type": "Person",
+            name: "Cristhian Fonseca",
+            url: "https://crisfon6.com",
+          },
+          publisher: {
+            "@type": "Person",
+            name: "Cristhian Fonseca",
+            url: "https://crisfon6.com",
+          },
+          url: `https://crisfon6.com/blog/${slug}`,
+          mainEntityOfPage: `https://crisfon6.com/blog/${slug}`,
+          keywords: [frontmatter.tag],
+        }}
+      />
       {/* Header */}
       <div className="mb-10">
         <div className="flex items-center gap-3 mb-4">
@@ -97,7 +120,7 @@ export default async function BlogPostPage({ params }: Props) {
           size="lg"
           className="bg-accent hover:bg-accent-light text-white px-6 h-auto py-2.5"
         >
-          <Link href="/newsletter">Subscribe to Zero to Production</Link>
+          <Link href="/newsletter">Subscribe to PowerAI</Link>
         </Button>
       </section>
     </div>

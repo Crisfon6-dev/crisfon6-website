@@ -17,9 +17,9 @@ test("renders Featured Projects section", () => {
 test("renders dual CTA section (newsletter + contact)", () => {
   render(<Home />);
   expect(
-    screen.getByText("Get a free automation template every week"),
+    screen.getByText("Get a production-ready AI template every week"),
   ).toBeDefined();
-  expect(screen.getByText(/Building something interesting/)).toBeDefined();
+  expect(screen.getByText(/Building something ambitious/)).toBeDefined();
 });
 
 test("renders stats section", () => {

@@ -11,6 +11,7 @@ const navKeys = [
   { href: "/automations", key: "automations" as const },
   { href: "/blog", key: "blog" as const },
   { href: "/newsletter", key: "subscribe" as const },
+  { href: "/work-with-me", key: "workWithMe" as const },
 ];
 
 const social = [

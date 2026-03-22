@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { Logo } from "@/components/Logo";
 
 const nav = [
   { href: "/about", label: "About" },
@@ -35,11 +36,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
           {/* Brand */}
           <div className="max-w-xs">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-green" />
-              <span className="font-mono text-sm text-text-secondary tracking-tight">
-                crisfon6
-              </span>
+            <div className="mb-3">
+              <Logo />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               FinTech at scale by day. AI automations in public by night.

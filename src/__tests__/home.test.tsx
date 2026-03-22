@@ -17,7 +17,7 @@ test("renders Featured Projects section", () => {
 test("renders newsletter CTA", () => {
   render(<Home />);
   expect(
-    screen.getByText("Get a free automation blueprint every week"),
+    screen.getByText("Get a free automation template every week"),
   ).toBeDefined();
 });
 

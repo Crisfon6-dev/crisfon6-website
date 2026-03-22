@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Logo } from "@/components/Logo";
 
 const links = [
   { href: "/about", label: "About" },
@@ -21,11 +22,8 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-border bg-surface-0/90 backdrop-blur-lg">
       <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green group-hover:bg-green/80 transition-colors pulse-subtle" />
-          <span className="font-mono text-sm text-text-secondary group-hover:text-text-primary transition-colors tracking-tight">
-            crisfon6
-          </span>
+        <Link href="/" className="group hover:opacity-80 transition-opacity">
+          <Logo />
         </Link>
 
         {/* Desktop */}

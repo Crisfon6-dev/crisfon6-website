@@ -16,9 +16,11 @@ test.describe("Home page", () => {
 
   test("newsletter CTA links to newsletter page", async ({ page }) => {
     await page.goto("/");
-    const ctaLink = page.getByRole("link", {
-      name: "Don't miss this week's blueprint",
-    });
+    const ctaLink = page
+      .getByRole("link", {
+        name: "Don't miss this week's blueprint",
+      })
+      .first();
     await expect(ctaLink).toBeVisible();
     await ctaLink.click();
     await expect(page).toHaveURL("/newsletter");

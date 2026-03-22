@@ -1,0 +1,148 @@
+---
+title: "The $12/mo Document Processor: Claude API + Lambda + S3"
+excerpt: "Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full stack, cost analysis, and deployment guide."
+date: "2026-03-22"
+readTime: "8 min read"
+tag: "Automation"
+tagColor: "text-green bg-green-dim"
+published: true
+---
+
+Most document processing solutions cost hundreds per month and take weeks to set up. This one costs **$12/mo at 1,000 documents** and took a weekend to build.
+
+Here's the full breakdown — architecture, stack, costs, and how to deploy it yourself.
+
+## The Problem
+
+Every business has a pile of PDFs that need to become structured data. Invoices, contracts, reports, applications. Someone manually reads each one, copies values into a spreadsheet, and hopes they don't make mistakes.
+
+That someone's time is worth a lot more than $12/month.
+
+## Architecture Overview
+
+The pipeline is simple — three AWS services and one API call:
+
+1. **S3 Bucket** — PDFs land here (uploaded by users or another system)
+2. **Lambda Function** — Triggered by S3 events, reads the PDF, sends to Claude API
+3. **Claude API** — Extracts structured data from the document content
+4. **PostgreSQL (RDS)** — Stores the extracted data in a normalized schema
+
+No servers to manage. No containers. No orchestration. Just events flowing through serverless functions.
+
+## The Stack
+
+| Component | Service | Cost at 1K docs/mo |
+|-----------|---------|-------------------|
+| Storage | S3 | ~$0.02 |
+| Compute | Lambda | ~$0.50 |
+| AI Extraction | Claude API (Haiku) | ~$8.00 |
+| Database | RDS (db.t3.micro) | ~$3.50 |
+| **Total** | | **~$12.02** |
+
+The biggest cost is the Claude API — and even that's cheap because we use **Claude Haiku** for extraction. Haiku is fast, cheap, and more than capable of pulling structured fields from documents.
+
+## How It Works
+
+### Step 1: PDF Upload Triggers Lambda
+
+When a PDF lands in the S3 bucket, an S3 event notification triggers the Lambda function. No polling, no cron jobs — it's instant.
+
+```python
+def handler(event, context):
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = event['Records'][0]['s3']['object']['key']
+
+    # Download the PDF from S3
+    pdf_bytes = s3.get_object(Bucket=bucket, Key=key)['Body'].read()
+```
+
+### Step 2: Extract Text from PDF
+
+We use `pymupdf` (lightweight, Lambda-friendly) to extract raw text:
+
+```python
+import pymupdf
+
+doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
+text = "\n".join(page.get_text() for page in doc)
+```
+
+### Step 3: Claude API Extracts Structured Data
+
+This is where the magic happens. We send the raw text to Claude with a structured extraction prompt:
+
+```python
+response = anthropic.messages.create(
+    model="claude-haiku-4-5-20251001",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": f"""Extract the following fields from this document:
+- vendor_name
+- invoice_number
+- date
+- line_items (array of: description, quantity, unit_price, total)
+- subtotal
+- tax
+- total
+
+Return as JSON only, no explanation.
+
+Document:
+{text}"""
+    }]
+)
+
+data = json.loads(response.content[0].text)
+```
+
+### Step 4: Store in PostgreSQL
+
+The extracted JSON goes straight into a normalized database:
+
+```python
+cursor.execute("""
+    INSERT INTO documents (s3_key, vendor, invoice_number, date, total, raw_data)
+    VALUES (%s, %s, %s, %s, %s, %s)
+""", (key, data['vendor_name'], data['invoice_number'],
+      data['date'], data['total'], json.dumps(data)))
+```
+
+## Cost Breakdown at Scale
+
+| Documents/mo | Claude API | Lambda | S3 | RDS | Total |
+|-------------|-----------|--------|-----|-----|-------|
+| 100 | $0.80 | $0.05 | $0.01 | $3.50 | **$4.36** |
+| 1,000 | $8.00 | $0.50 | $0.02 | $3.50 | **$12.02** |
+| 10,000 | $80.00 | $5.00 | $0.23 | $15.00 | **$100.23** |
+
+At 10K documents/month you're paying about **1 cent per document**. Try getting a human to process a document for a cent.
+
+## Deployment
+
+The entire infrastructure is defined in **AWS CDK** — one `cdk deploy` and you're live:
+
+```bash
+git clone https://github.com/Crisfon6-dev/doc-processor-template
+cd doc-processor-template
+npm install
+cdk deploy --all
+```
+
+The CDK stack creates: S3 bucket with event notifications, Lambda function with pymupdf layer, RDS instance, IAM roles, and VPC networking. Zero manual AWS console clicks.
+
+## What I Learned
+
+**Claude Haiku is surprisingly good at extraction.** I started with Sonnet thinking I'd need the extra capability, but Haiku handles structured extraction perfectly — and at 1/10th the cost.
+
+**S3 event triggers are the right pattern here.** I considered SQS, Step Functions, and EventBridge. All overkill. S3 → Lambda is the simplest possible pipeline and it works.
+
+**The hardest part was PDF text extraction, not AI.** Some PDFs have terrible text layers. `pymupdf` handles most cases, but scanned documents need OCR (Textract) which adds cost and complexity.
+
+## Get the Template
+
+The full template — CDK stack, Lambda function, extraction prompts, and database schema — is available on my GitHub. Clone it, configure your Anthropic API key, deploy.
+
+This is template #1 in the **Zero to Production** weekly series. Every week I publish a new production-ready automation with architecture diagrams, cost breakdowns, and working code.
+
+[Subscribe to get the next one](/newsletter).

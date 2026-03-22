@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     "Technical deep dives on AWS architecture, MCP agents, AI automations, and lessons from building FinTech at scale.",
 };
 
-const posts = [
+const upcomingPosts = [
   {
     title: "How I Architect Cloud-Native FinTech Platforms on AWS",
     excerpt:
@@ -69,6 +70,8 @@ const posts = [
 ];
 
 export default function Blog() {
+  const publishedPosts = getAllPosts();
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-20">
       <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
@@ -79,50 +82,78 @@ export default function Blog() {
         building FinTech platforms and AI automations in production.
       </p>
 
-      {/* Coming soon banner */}
-      <Card className="mb-12">
-        <CardContent className="text-center">
-          <p className="text-sm text-text-tertiary">
-            Blog launching soon.{" "}
-            <Link
-              href="/newsletter"
-              className="text-accent-light hover:text-accent transition-colors"
-            >
-              Subscribe
-            </Link>{" "}
-            to get notified.
-          </p>
-        </CardContent>
-      </Card>
+      {/* Published posts */}
+      {publishedPosts.length > 0 && (
+        <div className="space-y-0 mb-12">
+          {publishedPosts.map((post, i) => (
+            <div key={post.slug}>
+              {i > 0 && <Separator />}
+              <Link href={`/blog/${post.slug}`} className="block">
+                <article className="py-6 first:pt-0 last:pb-0 group">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <Badge
+                      variant="secondary"
+                      className={`text-[10px] font-mono tracking-wide rounded-4xl ${post.tagColor}`}
+                    >
+                      {post.tag}
+                    </Badge>
+                    <span className="text-xs text-text-muted">
+                      {post.readTime}
+                    </span>
+                    <span className="text-xs text-text-muted font-mono ml-auto">
+                      {post.date}
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight group-hover:text-accent-light transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="text-sm text-text-tertiary leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </article>
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* Posts — editorial layout with separators */}
-      <div className="space-y-0">
-        {posts.map((post, i) => (
-          <div key={post.title}>
-            {i > 0 && <Separator />}
-            <article className="py-6 first:pt-0 last:pb-0 group">
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <Badge
-                  variant="secondary"
-                  className={`text-[10px] font-mono tracking-wide rounded-4xl ${post.tagColor}`}
-                >
-                  {post.tag}
-                </Badge>
-                <span className="text-xs text-text-muted">{post.readTime}</span>
-                <span className="text-xs text-text-muted font-mono ml-auto">
-                  {post.date}
-                </span>
+      {/* Upcoming posts */}
+      {upcomingPosts.length > 0 && (
+        <>
+          <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
+            COMING NEXT
+          </p>
+          <div className="space-y-0">
+            {upcomingPosts.map((post, i) => (
+              <div key={post.title}>
+                {i > 0 && <Separator />}
+                <article className="py-6 first:pt-0 last:pb-0 opacity-60">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <Badge
+                      variant="secondary"
+                      className={`text-[10px] font-mono tracking-wide rounded-4xl ${post.tagColor}`}
+                    >
+                      {post.tag}
+                    </Badge>
+                    <span className="text-xs text-text-muted">
+                      {post.readTime}
+                    </span>
+                    <span className="text-xs text-text-muted font-mono ml-auto">
+                      {post.date}
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight">
+                    {post.title}
+                  </h2>
+                  <p className="text-sm text-text-tertiary leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </article>
               </div>
-              <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight group-hover:text-accent-light transition-colors">
-                {post.title}
-              </h2>
-              <p className="text-sm text-text-tertiary leading-relaxed">
-                {post.excerpt}
-              </p>
-            </article>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
 
       {/* CTA */}
       <section className="mt-16 text-center">

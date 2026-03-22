@@ -18,7 +18,7 @@ test("renders navigation links", () => {
   render(<Footer />);
   expect(screen.getByText("About")).toBeDefined();
   expect(screen.getByText("Projects")).toBeDefined();
-  expect(screen.getByText("Newsletter")).toBeDefined();
+  expect(screen.getByText("Subscribe")).toBeDefined();
 });
 
 test("renders copyright", () => {

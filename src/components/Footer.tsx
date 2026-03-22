@@ -1,13 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/Logo";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
-const nav = [
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/automations", label: "Automations" },
-  { href: "/blog", label: "Blog" },
-  { href: "/newsletter", label: "Newsletter" },
+const navKeys = [
+  { href: "/about", key: "about" as const },
+  { href: "/projects", key: "projects" as const },
+  { href: "/automations", key: "automations" as const },
+  { href: "/blog", key: "blog" as const },
+  { href: "/newsletter", key: "subscribe" as const },
 ];
 
 const social = [
@@ -30,6 +33,8 @@ const social = [
 ];
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="border-t border-border blueprint-grid">
       <div className="mx-auto max-w-6xl px-6 py-12">
@@ -40,8 +45,7 @@ export function Footer() {
               <Logo />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              FinTech at scale by day. AI automations in public by night.
-              Blueprints you can deploy, every week.
+              {t.footer.tagline}
             </p>
           </div>
 
@@ -49,23 +53,23 @@ export function Footer() {
           <div className="flex gap-16">
             <div>
               <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
-                PAGES
+                {t.footer.pages}
               </p>
               <div className="space-y-2">
-                {nav.map((link) => (
+                {navKeys.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {link.label}
+                    {t.nav[link.key]}
                   </Link>
                 ))}
               </div>
             </div>
             <div>
               <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
-                CONNECT
+                {t.footer.connect}
               </p>
               <div className="space-y-2">
                 {social.map((link) => (

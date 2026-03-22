@@ -1,0 +1,174 @@
+"use client";
+
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import type { BlogPost } from "@/lib/blog";
+
+const upcomingPosts = [
+  {
+    title: "How I Architect Cloud-Native FinTech Platforms on AWS",
+    excerpt:
+      "A deep dive into the infrastructure patterns I use to build financial platforms that serve millions — CDK, Lambda, RDS, and the decisions behind each choice.",
+    tag: "Architecture",
+    tagColor: "text-violet bg-violet-dim",
+    date: "In progress",
+    readTime: "12 min",
+  },
+  {
+    title: "Building MCP Agents That Actually Work in Production",
+    excerpt:
+      "Most MCP tutorials stop at 'hello world.' Here's how I build agents that handle errors, retry gracefully, and run 24/7 on AWS Lambda.",
+    tag: "AI / MCP",
+    tagColor: "text-accent-light bg-accent-dim",
+    date: "In progress",
+    readTime: "10 min",
+  },
+  {
+    title: "The $12/mo Document Processor: Claude API + Lambda + S3",
+    excerpt:
+      "Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full code, cost analysis, and deployment guide.",
+    tag: "Automation",
+    tagColor: "text-green bg-green-dim",
+    date: "In progress",
+    readTime: "8 min",
+  },
+  {
+    title: "Why I Stopped Charging by the Hour",
+    excerpt:
+      "The shift from hourly billing to value-based pricing changed everything. Here's the framework I use and how to make the transition.",
+    tag: "Business",
+    tagColor: "text-amber bg-amber-dim",
+    date: "In progress",
+    readTime: "7 min",
+  },
+  {
+    title: "Optimizing 2M+ Record Queries Without Bigger Instances",
+    excerpt:
+      "When your dashboard takes 30 seconds to load, the answer isn't always more hardware. How I cut query times by 90% with indexing, caching, and query redesign.",
+    tag: "Performance",
+    tagColor: "text-red bg-red-dim",
+    date: "In progress",
+    readTime: "9 min",
+  },
+  {
+    title: "My Full CI/CD Setup for FinTech: Push to Production",
+    excerpt:
+      "Automated testing, multi-environment deployments, rollback strategies, and security scanning — the full pipeline for financial-grade software.",
+    tag: "DevOps",
+    tagColor: "text-cyan bg-cyan-dim",
+    date: "In progress",
+    readTime: "11 min",
+  },
+];
+
+type BlogContentProps = {
+  publishedPosts: BlogPost[];
+};
+
+export function BlogContent({ publishedPosts }: BlogContentProps) {
+  const { t } = useLanguage();
+
+  return (
+    <div className="mx-auto max-w-4xl px-6 py-20">
+      <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
+        {t.blog.heading}
+      </h1>
+      <p className="text-text-secondary mb-12 max-w-2xl text-lg leading-relaxed">
+        {t.blog.description}
+      </p>
+
+      {/* Published posts */}
+      {publishedPosts.length > 0 && (
+        <div className="space-y-0 mb-12">
+          {publishedPosts.map((post, i) => (
+            <div key={post.slug}>
+              {i > 0 && <Separator />}
+              <Link href={`/blog/${post.slug}`} className="block">
+                <article className="py-6 first:pt-0 last:pb-0 group">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <Badge
+                      variant="secondary"
+                      className={`text-[10px] font-mono tracking-wide rounded-4xl ${post.tagColor}`}
+                    >
+                      {post.tag}
+                    </Badge>
+                    <span className="text-xs text-text-muted">
+                      {post.readTime}
+                    </span>
+                    <span className="text-xs text-text-muted font-mono ml-auto">
+                      {post.date}
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight group-hover:text-accent-light transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="text-sm text-text-tertiary leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </article>
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Upcoming posts */}
+      {upcomingPosts.length > 0 && (
+        <>
+          <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
+            {t.blog.comingNext}
+          </p>
+          <div className="space-y-0">
+            {upcomingPosts.map((post, i) => (
+              <div key={post.title}>
+                {i > 0 && <Separator />}
+                <article className="py-6 first:pt-0 last:pb-0 opacity-60">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <Badge
+                      variant="secondary"
+                      className={`text-[10px] font-mono tracking-wide rounded-4xl ${post.tagColor}`}
+                    >
+                      {post.tag}
+                    </Badge>
+                    <span className="text-xs text-text-muted">
+                      {post.readTime}
+                    </span>
+                    <span className="text-xs text-text-muted font-mono ml-auto">
+                      {post.date}
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight">
+                    {post.title}
+                  </h2>
+                  <p className="text-sm text-text-tertiary leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </article>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* CTA */}
+      <section className="mt-16 text-center">
+        <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+          {t.blog.ctaHeading}
+        </h2>
+        <p className="text-text-tertiary mb-6 text-sm">
+          {t.blog.ctaDescription}
+        </p>
+        <Button
+          asChild
+          size="lg"
+          className="bg-accent hover:bg-accent-light text-white px-6 py-2.5 h-auto"
+        >
+          <Link href="/newsletter">{t.cta.subscribeZTP}</Link>
+        </Button>
+      </section>
+    </div>
+  );
+}

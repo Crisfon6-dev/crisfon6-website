@@ -9,118 +9,118 @@ const posts = [
     excerpt:
       "A deep dive into the infrastructure patterns I use to build financial platforms that serve millions — CDK, Lambda, RDS, and the decisions behind each choice.",
     tag: "Architecture",
+    tagColor: "text-violet bg-violet-dim",
     date: "Coming soon",
-    readTime: "12 min read",
+    readTime: "12 min",
   },
   {
     title: "Building MCP Agents That Actually Work in Production",
     excerpt:
       "Most MCP tutorials stop at 'hello world.' Here's how I build agents that handle errors, retry gracefully, and run 24/7 on AWS Lambda.",
     tag: "AI / MCP",
+    tagColor: "text-accent-light bg-accent-dim",
     date: "Coming soon",
-    readTime: "10 min read",
+    readTime: "10 min",
   },
   {
     title: "The $12/mo Document Processor: Claude API + Lambda + S3",
     excerpt:
-      "Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full code, cost analysis, and deployment guide included.",
+      "Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full code, cost analysis, and deployment guide.",
     tag: "Automation",
+    tagColor: "text-green bg-green-dim",
     date: "Coming soon",
-    readTime: "8 min read",
+    readTime: "8 min",
   },
   {
-    title: "Why I Stopped Charging by the Hour (And What I Do Instead)",
+    title: "Why I Stopped Charging by the Hour",
     excerpt:
-      "The shift from hourly billing to value-based pricing changed everything. Here's the framework I use and how to make the transition without losing clients.",
+      "The shift from hourly billing to value-based pricing changed everything. Here's the framework I use and how to make the transition.",
     tag: "Business",
+    tagColor: "text-amber bg-amber-dim",
     date: "Coming soon",
-    readTime: "7 min read",
+    readTime: "7 min",
   },
   {
-    title: "Optimizing 2M+ Record Queries Without Throwing Money at Infrastructure",
+    title: "Optimizing 2M+ Record Queries Without Bigger Instances",
     excerpt:
-      "When your dashboard takes 30 seconds to load, the answer isn't always a bigger instance. Here's how I cut query times by 90% with indexing, caching, and query redesign.",
+      "When your dashboard takes 30 seconds to load, the answer isn't always more hardware. How I cut query times by 90% with indexing, caching, and query redesign.",
     tag: "Performance",
+    tagColor: "text-red bg-red-dim",
     date: "Coming soon",
-    readTime: "9 min read",
+    readTime: "9 min",
   },
   {
-    title: "My Full CI/CD Setup for FinTech: From Push to Production",
+    title: "My Full CI/CD Setup for FinTech: Push to Production",
     excerpt:
-      "Automated testing, multi-environment deployments, rollback strategies, and security scanning — the full pipeline I use for financial-grade software.",
+      "Automated testing, multi-environment deployments, rollback strategies, and security scanning — the full pipeline for financial-grade software.",
     tag: "DevOps",
+    tagColor: "text-cyan bg-cyan-dim",
     date: "Coming soon",
-    readTime: "11 min read",
+    readTime: "11 min",
   },
 ];
 
-const tagColors: Record<string, string> = {
-  Architecture: "text-purple-400 bg-purple-400/10",
-  "AI / MCP": "text-blue-400 bg-blue-400/10",
-  Automation: "text-green-400 bg-green-400/10",
-  Business: "text-yellow-400 bg-yellow-400/10",
-  Performance: "text-red-400 bg-red-400/10",
-  DevOps: "text-cyan-400 bg-cyan-400/10",
-};
-
 export default function Blog() {
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <p className="font-mono text-sm text-blue-400 mb-4">// Blog</p>
-      <h1 className="text-4xl font-bold text-white mb-4">
+    <div className="mx-auto max-w-4xl px-6 py-20">
+      <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
         Lessons from the trenches.
       </h1>
-      <p className="text-slate-400 mb-12 max-w-2xl text-lg">
-        Technical deep dives, architecture breakdowns, and business lessons from building
-        FinTech platforms and AI automations in production.
+      <p className="text-text-secondary mb-12 max-w-2xl text-lg leading-relaxed">
+        Technical deep dives, architecture breakdowns, and business lessons from
+        building FinTech platforms and AI automations in production.
       </p>
 
-      {/* Coming soon banner */}
-      <div className="border border-dashed border-slate-700 rounded-xl p-6 bg-slate-800/10 mb-12 text-center">
-        <p className="text-slate-400 text-sm">
-          Blog launching soon. Subscribe to{" "}
-          <Link href="/newsletter" className="text-blue-400 hover:text-blue-300 transition-colors">
-            the newsletter
+      {/* Coming soon */}
+      <div className="border border-border rounded-lg px-5 py-4 mb-12 text-center">
+        <p className="text-sm text-text-tertiary">
+          Blog launching soon.{" "}
+          <Link
+            href="/newsletter"
+            className="text-accent-light hover:text-accent transition-colors"
+          >
+            Subscribe
           </Link>{" "}
-          to get notified when the first post drops.
+          to get notified.
         </p>
       </div>
 
-      {/* Post previews */}
-      <div className="space-y-6">
+      {/* Posts — editorial layout */}
+      <div className="space-y-0 divide-y divide-border">
         {posts.map((post) => (
-          <article
-            key={post.title}
-            className="border border-slate-700 rounded-xl p-6 bg-slate-800/20 card-hover group"
-          >
-            <div className="flex flex-wrap items-center gap-3 mb-3">
+          <article key={post.title} className="py-6 first:pt-0 last:pb-0 group">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
               <span
-                className={`text-xs font-mono px-2 py-1 rounded ${
-                  tagColors[post.tag] || "text-slate-400 bg-slate-400/10"
-                }`}
+                className={`text-[10px] font-mono px-2 py-0.5 rounded tracking-wide ${post.tagColor}`}
               >
                 {post.tag}
               </span>
-              <span className="text-xs text-slate-600">{post.readTime}</span>
-              <span className="text-xs text-slate-700 ml-auto font-mono">{post.date}</span>
+              <span className="text-xs text-text-muted">{post.readTime}</span>
+              <span className="text-xs text-text-muted font-mono ml-auto">
+                {post.date}
+              </span>
             </div>
-            <h2 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+            <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight group-hover:text-accent-light transition-colors">
               {post.title}
             </h2>
-            <p className="text-sm text-slate-400 leading-relaxed">{post.excerpt}</p>
+            <p className="text-sm text-text-tertiary leading-relaxed">
+              {post.excerpt}
+            </p>
           </article>
         ))}
       </div>
 
       {/* CTA */}
       <section className="mt-16 text-center">
-        <h2 className="text-xl font-bold text-white mb-3">Don&apos;t miss a post</h2>
-        <p className="text-slate-400 mb-6 text-sm">
-          Get every article, automation template, and architecture breakdown delivered to your inbox.
+        <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+          Don&apos;t miss a post
+        </h2>
+        <p className="text-text-tertiary mb-6 text-sm">
+          Get every article and automation template delivered to your inbox.
         </p>
         <Link
           href="/newsletter"
-          className="inline-block bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
+          className="inline-block bg-accent hover:bg-accent-light text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
         >
           Subscribe to The Builder&apos;s Blueprint
         </Link>

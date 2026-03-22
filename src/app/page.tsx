@@ -1,77 +1,108 @@
 import Link from "next/link";
 
 const techStack = [
-  "AWS", "CDK", "Lambda", "Claude API", "MCP Protocol", "Next.js",
-  "Python", "FastAPI", "TypeScript", "Angular", "Node.js", "PostgreSQL",
+  "AWS",
+  "CDK",
+  "Lambda",
+  "Claude API",
+  "MCP",
+  "Next.js",
+  "Python",
+  "FastAPI",
+  "TypeScript",
+  "Angular",
+  "Node.js",
+  "PostgreSQL",
 ];
 
 const projects = [
   {
     title: "FinTech Credit Marketplace",
-    description: "Digital credit marketplace integrated into a major telecom's Super App, serving millions of underbanked users at national scale. Zero-paperwork loan processing.",
-    stack: ["AWS CDK", "Lambda", "RDS", "Cognito", "FastAPI", "Angular"],
+    description:
+      "Digital credit marketplace in a major telecom Super App. Zero-paperwork loans at national scale.",
     result: "Millions of users served",
-    tag: "FinTech",
+    tag: "FINTECH",
+    accent: "border-l-green",
   },
   {
     title: "Enterprise Banking Platform",
-    description: "End-to-end banking modules for a major financial institution. Dynamic interfaces, regulatory compliance, and high-performance backend systems.",
-    stack: ["Java", "Spring Boot", "Angular", "Thymeleaf", "Oracle"],
+    description:
+      "End-to-end banking modules for a major financial institution. Regulatory compliance baked in.",
     result: "3+ years in production",
-    tag: "Banking",
+    tag: "BANKING",
+    accent: "border-l-accent",
   },
   {
     title: "AI Automation Templates",
-    description: "Open-source collection of production-ready AI automation blueprints. Architecture diagrams, deployment guides, and cost breakdowns included.",
-    stack: ["Claude API", "MCP", "AWS Lambda", "Python", "n8n"],
+    description:
+      "Open-source AI automation blueprints with architecture diagrams, cost breakdowns, and working code.",
     result: "New template weekly",
-    tag: "AI / Open Source",
+    tag: "AI / OPEN SOURCE",
+    accent: "border-l-violet",
   },
+];
+
+const stats = [
+  { value: "4+", label: "Years shipping products", emphasis: false },
+  { value: "2M+", label: "Records optimized", emphasis: false },
+  { value: "10+", label: "AWS services in prod", emphasis: false },
+  { value: "M+", label: "Users served", emphasis: true },
 ];
 
 export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/5 to-transparent" />
-        <div className="mx-auto max-w-6xl px-6 pt-20 pb-16 relative">
+      <section className="relative overflow-hidden blueprint-grid">
+        <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.03] via-transparent to-background" />
+        <div className="mx-auto max-w-6xl px-6 pt-24 pb-20 relative">
           <div className="max-w-3xl">
-            <p className="font-mono text-sm text-blue-400 mb-4">// Technical Lead &amp; AI Builder</p>
-            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+            <p className="font-mono text-xs text-text-tertiary mb-5 tracking-wider">
+              TECHNICAL LEAD &amp; AI BUILDER
+            </p>
+            <h1 className="text-4xl md:text-[3.5rem] font-bold text-text-primary leading-[1.1] mb-6 tracking-tight">
               I ship FinTech at scale{" "}
-              <span className="gradient-text">and build AI automations</span>{" "}
+              <span className="gradient-text">
+                and build AI automations
+              </span>{" "}
               you can steal.
             </h1>
-            <p className="text-lg text-slate-400 mb-8 max-w-2xl">
-              Technical Lead building a national-scale credit marketplace by day.
-              AI automation builder sharing blueprints, templates, and architecture breakdowns in public.
+            <p className="text-lg text-text-secondary mb-10 max-w-2xl leading-relaxed">
+              Technical Lead building a national-scale credit marketplace by
+              day. AI automation builder sharing blueprints and templates in
+              public.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="/newsletter"
-                className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                className="bg-accent hover:bg-accent-light text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors"
               >
-                Get the weekly template
+                Get the weekly blueprint
               </Link>
               <Link
                 href="/projects"
-                className="border border-slate-700 hover:border-slate-500 text-slate-300 px-6 py-3 rounded-lg font-medium transition-colors"
+                className="border border-border-emphasis hover:border-border-strong text-text-secondary hover:text-text-primary px-6 py-3 rounded-lg text-sm font-medium transition-colors"
               >
-                See my projects
+                See my work
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TECH STACK BAR */}
-      <section className="border-y border-slate-800 bg-slate-900/50">
-        <div className="mx-auto max-w-6xl px-6 py-6">
+      {/* TECH STACK */}
+      <section className="border-y border-border">
+        <div className="mx-auto max-w-6xl px-6 py-4">
           <div className="flex items-center gap-6 overflow-x-auto">
-            <span className="text-xs text-slate-600 font-mono whitespace-nowrap">STACK //</span>
+            <span className="text-[10px] text-text-muted font-mono whitespace-nowrap tracking-widest">
+              STACK
+            </span>
+            <div className="w-px h-3 bg-border-emphasis" />
             {techStack.map((tech) => (
-              <span key={tech} className="text-xs text-slate-500 font-mono whitespace-nowrap">
+              <span
+                key={tech}
+                className="text-xs text-text-muted font-mono whitespace-nowrap"
+              >
                 {tech}
               </span>
             ))}
@@ -79,19 +110,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NUMBERS */}
+      {/* STATS */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { number: "4+", label: "Years shipping products" },
-              { number: "2M+", label: "Records optimized" },
-              { number: "10+", label: "AWS services in prod" },
-              { number: "Millions", label: "Users served" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-blue-400 mb-1">{stat.number}</p>
-                <p className="text-sm text-slate-500">{stat.label}</p>
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <p
+                  className={`text-3xl md:text-4xl font-bold mb-1 metric-value tracking-tight ${
+                    stat.emphasis ? "text-green" : "text-text-primary"
+                  }`}
+                >
+                  {stat.value}
+                </p>
+                <p className="text-xs text-text-muted font-mono tracking-wide">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
@@ -99,36 +133,54 @@ export default function Home() {
       </section>
 
       {/* AUTOMATION OF THE WEEK */}
-      <section className="py-16 border-t border-slate-800">
+      <section className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <h2 className="text-sm font-mono text-slate-400">AUTOMATION OF THE WEEK</h2>
+          <div className="flex items-center gap-2.5 mb-8">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
+            <h2 className="text-xs font-mono text-text-muted tracking-widest">
+              AUTOMATION OF THE WEEK
+            </h2>
           </div>
-          <div className="border border-slate-700 rounded-xl p-8 glow card-hover bg-slate-800/30">
-            <div className="flex flex-wrap items-start justify-between gap-6">
+          <div className="border border-border-emphasis rounded-xl p-8 glow blueprint-grid-dense relative overflow-hidden">
+            <div className="relative flex flex-wrap items-start justify-between gap-8">
               <div className="flex-1 min-w-[280px]">
-                <h3 className="text-2xl font-bold text-white mb-3">AI-Powered Document Processor</h3>
-                <p className="text-slate-400 mb-6">
-                  Ingest PDFs, extract structured data with Claude API, store in PostgreSQL.
-                  Deployed on AWS Lambda with S3 triggers.
+                <h3 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
+                  AI-Powered Document Processor
+                </h3>
+                <p className="text-text-secondary mb-8 leading-relaxed">
+                  Ingest PDFs, extract structured data with Claude API, store in
+                  PostgreSQL. Deployed on AWS Lambda with S3 triggers.
                 </p>
-                <div className="flex flex-wrap gap-6">
+                <div className="flex flex-wrap gap-8">
                   <div>
-                    <p className="text-xs text-slate-500 font-mono mb-1">INFRA COST</p>
-                    <p className="text-sm text-green-400 font-medium">$12/mo at 1K docs</p>
+                    <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                      INFRA COST
+                    </p>
+                    <p className="text-2xl font-bold text-green metric-value">
+                      $12
+                      <span className="text-sm text-text-tertiary font-normal">
+                        /mo
+                      </span>
+                    </p>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 font-mono mb-1">TIME SAVED</p>
-                    <p className="text-sm text-blue-400 font-medium">~15 hrs/week</p>
+                    <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
+                      TIME SAVED
+                    </p>
+                    <p className="text-2xl font-bold text-accent-light metric-value">
+                      15h
+                      <span className="text-sm text-text-tertiary font-normal">
+                        /week
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
               <Link
                 href="/automations"
-                className="bg-blue-600/10 border border-blue-500/20 hover:bg-blue-600/20 text-blue-400 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
+                className="border border-accent-dim hover:border-accent/30 text-accent-light hover:text-accent px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
               >
-                View blueprint →
+                View blueprint
               </Link>
             </div>
           </div>
@@ -136,30 +188,37 @@ export default function Home() {
       </section>
 
       {/* FEATURED PROJECTS */}
-      <section className="py-16 border-t border-slate-800">
+      <section className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="text-2xl font-bold text-white">Featured Projects</h2>
-            <Link href="/projects" className="text-sm text-slate-400 hover:text-blue-400 transition-colors">
-              View all →
+            <h2 className="text-xl font-bold text-text-primary tracking-tight">
+              Featured Projects
+            </h2>
+            <Link
+              href="/projects"
+              className="text-sm text-text-tertiary hover:text-text-secondary transition-colors"
+            >
+              View all
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {projects.map((project) => (
-              <div key={project.title} className="border border-slate-700 rounded-xl p-6 bg-slate-800/20 card-hover">
-                <span className="inline-block text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded mb-4">
+              <div
+                key={project.title}
+                className={`border border-border rounded-xl p-6 bg-surface-1/50 card-hover card-accent-left ${project.accent}`}
+              >
+                <span className="inline-block text-[10px] font-mono text-text-muted tracking-widest mb-4">
                   {project.tag}
                 </span>
-                <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-sm text-slate-400 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.stack.map((tech) => (
-                    <span key={tech} className="text-xs text-slate-500 bg-slate-800 px-2 py-0.5 rounded">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-sm font-medium text-green-400">{project.result}</p>
+                <h3 className="text-base font-bold text-text-primary mb-2 tracking-tight">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-text-tertiary mb-5 leading-relaxed">
+                  {project.description}
+                </p>
+                <p className="text-sm font-medium text-green">
+                  {project.result}
+                </p>
               </div>
             ))}
           </div>
@@ -167,23 +226,25 @@ export default function Home() {
       </section>
 
       {/* NEWSLETTER CTA */}
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-border blueprint-grid">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Get a free automation template every week
+            <h2 className="text-3xl font-bold text-text-primary mb-4 tracking-tight">
+              Get a free automation blueprint every week
             </h2>
-            <p className="text-slate-400 mb-8">
-              Architecture diagrams, deployment guides, cost breakdowns, and working code.
-              No fluff. Just blueprints you can deploy.
+            <p className="text-text-secondary mb-8">
+              Architecture diagrams, deployment guides, cost breakdowns, and
+              working code. No fluff — just blueprints you can deploy.
             </p>
             <Link
               href="/newsletter"
-              className="inline-block bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-lg font-medium transition-colors"
+              className="inline-block bg-accent hover:bg-accent-light text-white px-8 py-3.5 rounded-lg font-medium transition-colors"
             >
               Subscribe to The Builder&apos;s Blueprint
             </Link>
-            <p className="text-xs text-slate-600 mt-4">Join for free. Unsubscribe anytime.</p>
+            <p className="text-xs text-text-muted mt-4">
+              Free forever. Unsubscribe anytime.
+            </p>
           </div>
         </div>
       </section>

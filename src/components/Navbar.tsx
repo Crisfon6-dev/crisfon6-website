@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
   { href: "/automations", label: "Automations" },
@@ -17,33 +16,37 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md">
-      <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group">
-          <span className="inline-block w-2 h-2 rounded-full bg-green-400 group-hover:bg-green-300 transition-colors" />
-          <span className="font-mono text-sm text-slate-300 group-hover:text-white transition-colors">
-            crisfon6.com
+    <nav className="sticky top-0 z-50 border-b border-border bg-surface-0/90 backdrop-blur-lg">
+      <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green group-hover:bg-green/80 transition-colors pulse-subtle" />
+          <span className="font-mono text-sm text-text-secondary group-hover:text-text-primary transition-colors tracking-tight">
+            crisfon6
           </span>
         </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm transition-colors ${
-                pathname === link.href
-                  ? "text-blue-400 font-medium"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center gap-1">
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
+                  isActive
+                    ? "text-text-primary bg-surface-2"
+                    : "text-text-tertiary hover:text-text-secondary hover:bg-surface-1"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+          <div className="w-px h-5 bg-border-emphasis mx-2" />
           <Link
             href="/newsletter"
-            className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors"
+            className="text-sm text-accent-light hover:text-accent px-3 py-1.5 rounded-md border border-accent-dim hover:border-accent/30 transition-colors"
           >
             Subscribe
           </Link>
@@ -51,15 +54,15 @@ export function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-slate-400 hover:text-white"
+          className="md:hidden text-text-tertiary hover:text-text-primary transition-colors p-1"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             {mobileOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
         </button>
@@ -67,23 +70,28 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-slate-800 bg-slate-900 px-6 py-4 space-y-3">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className={`block text-sm ${
-                pathname === link.href ? "text-blue-400" : "text-slate-400"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="md:hidden border-t border-border bg-surface-0/95 backdrop-blur-lg px-6 py-3 space-y-1">
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className={`block text-sm px-3 py-2 rounded-md transition-colors ${
+                  isActive
+                    ? "text-text-primary bg-surface-2"
+                    : "text-text-tertiary hover:text-text-secondary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Link
             href="/newsletter"
             onClick={() => setMobileOpen(false)}
-            className="block text-sm text-blue-400"
+            className="block text-sm text-accent-light px-3 py-2"
           >
             Subscribe
           </Link>

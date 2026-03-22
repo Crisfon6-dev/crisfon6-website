@@ -7,10 +7,15 @@ Personal website & AI automation portfolio — crisfon6.com
 ## Commands
 
 ```bash
-npm run dev     # Start dev server (Turbopack, http://localhost:3000)
-npm run build   # Production build
-npm run start   # Serve production build
-npm run lint    # ESLint (flat config, eslint.config.mjs)
+npm run dev          # Start dev server (Turbopack, http://localhost:3000)
+npm run build        # Production build
+npm run start        # Serve production build
+npm run lint         # ESLint (flat config, eslint.config.mjs)
+npm run type-check   # TypeScript type checking (tsc --noEmit)
+npm run test         # Vitest unit/component tests (single run)
+npm run test:watch   # Vitest in watch mode
+npm run test:e2e     # Playwright E2E tests (builds app first)
+npm run test:e2e:ui  # Playwright interactive UI mode
 ```
 
 ## Architecture

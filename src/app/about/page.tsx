@@ -257,6 +257,9 @@ export default function About() {
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild>
+              <a href="mailto:crisfon6@crisfon6.com">Email me</a>
+            </Button>
+            <Button variant="ghost" size="lg" asChild>
               <Link href="/newsletter">Subscribe to newsletter</Link>
             </Button>
           </div>

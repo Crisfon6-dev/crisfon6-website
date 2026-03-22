@@ -10,9 +10,22 @@ const nav = [
 ];
 
 const social = [
-  { href: "https://github.com/Crisfon6-dev", label: "GitHub" },
-  { href: "https://www.linkedin.com/in/crisfon6/", label: "LinkedIn" },
-  { href: "https://www.instagram.com/crisfon6/", label: "Instagram" },
+  {
+    href: "mailto:crisfon6@crisfon6.com",
+    label: "crisfon6@crisfon6.com",
+    external: false,
+  },
+  {
+    href: "https://www.linkedin.com/in/crisfon6/",
+    label: "LinkedIn",
+    external: true,
+  },
+  { href: "https://github.com/Crisfon6-dev", label: "GitHub", external: true },
+  {
+    href: "https://www.instagram.com/crisfon6/",
+    label: "Instagram",
+    external: true,
+  },
 ];
 
 export function Footer() {
@@ -61,8 +74,9 @@ export function Footer() {
                   <a
                     key={link.href}
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(link.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}

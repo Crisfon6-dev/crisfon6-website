@@ -74,6 +74,7 @@ export default function RootLayout({
             name: "Cristhian Fonseca",
             url: "https://crisfon6.com",
             jobTitle: "Technical Lead & AI Builder",
+            email: "crisfon6@crisfon6.com",
             sameAs: [
               "https://github.com/Crisfon6-dev",
               "https://www.linkedin.com/in/crisfon6/",

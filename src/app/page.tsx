@@ -90,6 +90,32 @@ export default function Home() {
             <p className="text-sm text-text-tertiary mt-4">
               Join 500+ engineers getting weekly blueprints
             </p>
+            <div className="flex items-center gap-4 mt-6">
+              <a
+                href="https://www.linkedin.com/in/crisfon6/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-text-muted hover:text-accent-light transition-colors"
+              >
+                LinkedIn
+              </a>
+              <span className="text-text-muted">·</span>
+              <a
+                href="mailto:crisfon6@crisfon6.com"
+                className="text-sm text-text-muted hover:text-accent-light transition-colors"
+              >
+                crisfon6@crisfon6.com
+              </a>
+              <span className="text-text-muted">·</span>
+              <a
+                href="https://github.com/Crisfon6-dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-text-muted hover:text-accent-light transition-colors"
+              >
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -257,28 +283,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEWSLETTER CTA */}
+      {/* DUAL CTA — Newsletter + Contact */}
       <div className="mx-auto max-w-6xl px-6">
         <Separator />
       </div>
       <section className="py-20 blueprint-grid">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-text-primary mb-4 tracking-tight">
-              Get a free blueprint every week — no strings attached
-            </h2>
-            <p className="text-text-secondary mb-8">
-              Architecture diagrams, deployment guides, cost breakdowns, and
-              working code. No fluff — just blueprints you can deploy.
-            </p>
-            <Button variant="default" size="lg" asChild>
-              <Link href="/newsletter">
-                Subscribe to The Builder&apos;s Blueprint
-              </Link>
-            </Button>
-            <p className="text-xs text-text-muted mt-4">
-              Free forever. Unsubscribe anytime.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Newsletter CTA */}
+            <Card className="card-shadow p-0">
+              <CardContent className="p-8">
+                <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
+                  WEEKLY BLUEPRINTS
+                </p>
+                <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+                  Get a free automation template every week
+                </h2>
+                <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+                  Architecture diagrams, deployment guides, cost breakdowns, and
+                  working code. No fluff.
+                </p>
+                <Button variant="default" size="lg" asChild className="w-full">
+                  <Link href="/newsletter">
+                    Don&apos;t miss this week&apos;s blueprint
+                  </Link>
+                </Button>
+                <p className="text-xs text-text-muted mt-3 text-center">
+                  Free forever. Unsubscribe anytime.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Contact CTA */}
+            <Card className="card-shadow p-0">
+              <CardContent className="p-8">
+                <p className="text-[10px] font-mono text-text-muted tracking-widest mb-4">
+                  LET&apos;S CONNECT
+                </p>
+                <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+                  Building something interesting? Let&apos;s talk.
+                </h2>
+                <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+                  Open to connecting with founders, CTOs, and builders shipping
+                  ambitious products.
+                </p>
+                <div className="space-y-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="w-full"
+                  >
+                    <a
+                      href="https://www.linkedin.com/in/crisfon6/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Connect on LinkedIn
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    asChild
+                    className="w-full text-text-secondary"
+                  >
+                    <a href="mailto:crisfon6@crisfon6.com">
+                      crisfon6@crisfon6.com
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

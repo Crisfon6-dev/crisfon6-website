@@ -51,6 +51,20 @@ export function Navbar() {
 
           <Separator orientation="vertical" className="mx-2 h-5" />
 
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="text-text-tertiary hover:text-text-secondary"
+          >
+            <a
+              href="https://www.linkedin.com/in/crisfon6/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+          </Button>
           <Button variant="default" size="sm" asChild>
             <Link href="/newsletter">Subscribe</Link>
           </Button>

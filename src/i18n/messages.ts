@@ -13,7 +13,7 @@ export const messages = {
       heading2: "and build AI automations",
       heading3: "you can steal.",
       description:
-        "Technical Lead building a national-scale credit marketplace by day. AI automation builder sharing blueprints and templates in public.",
+        "Technical Lead building a LATAM-scale credit marketplace by day. AI automation builder sharing blueprints and templates in public.",
       cta1: "Don't miss this week's blueprint",
       cta2: "See my work",
       socialProof: "Join 500+ engineers getting weekly blueprints",
@@ -64,7 +64,7 @@ export const messages = {
       intro1:
         "I'm Cristhian Fonseca — a Technical Lead and Full Stack Engineer with 4+ years architecting and shipping cloud-native FinTech platforms at scale.",
       intro2:
-        "Right now I'm leading a digital credit marketplace integrated into a major telecom's Super App, reaching millions of underbanked users across Colombia. Cloud-native infrastructure, fully automated provisioning, zero-paperwork loan processing.",
+        "Right now I'm leading a digital credit marketplace integrated into a major telecom's Super App, reaching millions of underbanked users across LATAM. Cloud-native infrastructure, fully automated provisioning, zero-paperwork loan processing.",
       intro3:
         "At the same time, I'm deep into AI-driven development — building MCP agents, agentic workflows, and automation systems. I share the blueprints publicly: architectures, templates, and lessons learned.",
       intro4:
@@ -108,7 +108,7 @@ export const messages = {
       heading: "Zero to Production",
       description:
         "A free AI automation template every week. Architecture diagrams, deployment guides, cost breakdowns, and working code — no fluff, just blueprints you can deploy.",
-      authority: "Built by a Technical Lead shipping FinTech at national scale",
+      authority: "Built by a Technical Lead shipping FinTech across LATAM",
       joinBuilders: "FREE — JOIN 500+ BUILDERS",
       startGetting: "Start getting blueprints",
       noSpam: "Free forever — cancel anytime. No spam, ever.",
@@ -134,7 +134,7 @@ export const messages = {
       heading2: "y creo automatizaciones con IA",
       heading3: "que puedes robar.",
       description:
-        "Technical Lead construyendo un marketplace de credito a escala nacional. Builder de automatizaciones con IA compartiendo blueprints en publico.",
+        "Technical Lead construyendo un marketplace de credito a escala LATAM. Builder de automatizaciones con IA compartiendo blueprints en publico.",
       cta1: "No te pierdas el blueprint de esta semana",
       cta2: "Ver mi trabajo",
       socialProof: "Unete a 500+ ingenieros recibiendo blueprints semanales",
@@ -186,7 +186,7 @@ export const messages = {
       intro1:
         "Soy Cristhian Fonseca — Technical Lead e Ingeniero Full Stack con 4+ anos de experiencia arquitectando y lanzando plataformas FinTech cloud-native a escala.",
       intro2:
-        "Actualmente lidero el desarrollo de un marketplace de credito digital integrado en la Super App de una gran empresa de telecomunicaciones, alcanzando millones de usuarios sub-bancarizados en Colombia. Infraestructura cloud-native, aprovisionamiento automatizado, procesamiento de prestamos sin papeles.",
+        "Actualmente lidero el desarrollo de un marketplace de credito digital integrado en la Super App de una gran empresa de telecomunicaciones, alcanzando millones de usuarios sub-bancarizados en LATAM. Infraestructura cloud-native, aprovisionamiento automatizado, procesamiento de prestamos sin papeles.",
       intro3:
         "Al mismo tiempo, estoy inmerso en el desarrollo con IA — construyendo agentes MCP, flujos de trabajo agenticos y sistemas de automatizacion. Comparto los blueprints publicamente: arquitecturas, templates y lecciones aprendidas.",
       intro4:
@@ -231,7 +231,7 @@ export const messages = {
       description:
         "Un template de automatizacion con IA gratis cada semana. Diagramas de arquitectura, guias de deploy, analisis de costos y codigo funcional — sin relleno, solo blueprints que puedes desplegar.",
       authority:
-        "Creado por un Technical Lead construyendo FinTech a escala nacional",
+        "Creado por un Technical Lead construyendo FinTech a escala LATAM",
       joinBuilders: "GRATIS — UNETE A 500+ BUILDERS",
       startGetting: "Empieza a recibir blueprints",
       noSpam: "Gratis para siempre — cancela cuando quieras. Sin spam.",

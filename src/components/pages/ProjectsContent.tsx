@@ -11,7 +11,7 @@ const projects = [
   {
     title: "FinTech Credit Marketplace",
     description:
-      "Digital credit marketplace integrated into a major telecom's Super App. Zero-paperwork loan processing serving millions of underbanked users at national scale. Cloud-native infrastructure with fully automated provisioning.",
+      "Digital credit marketplace integrated into a major telecom's Super App. Zero-paperwork loan processing serving millions of underbanked users across LATAM. Cloud-native infrastructure with fully automated provisioning.",
     stack: [
       "AWS CDK",
       "Lambda",
@@ -28,7 +28,7 @@ const projects = [
       "End-to-end CI/CD pipelines with DevOps-first culture",
       "Zero-paperwork digital loan processing flow",
     ],
-    result: "Millions of users served at national scale",
+    result: "Millions of users served across LATAM",
     tag: "FINTECH",
     status: "In Production",
     statusColor: "border-green/40 text-green bg-green-dim",

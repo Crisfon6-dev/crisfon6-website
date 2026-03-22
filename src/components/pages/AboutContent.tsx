@@ -15,7 +15,7 @@ const experience = [
     accent: "bg-green",
     points: [
       "Leading architecture of a FinTech credit marketplace inside a major telecom Super App",
-      "Serving millions of underbanked users at national scale with zero-paperwork loans",
+      "Serving millions of underbanked users across LATAM with zero-paperwork loans",
       "Multi-environment cloud-native infra using AWS CDK (RDS, S3, Lambda, Cognito, ElastiCache)",
       "Optimized analytical queries across 2M+ records — cut dashboard load times and costs",
       "End-to-end CI/CD pipelines and DevOps-first engineering culture",

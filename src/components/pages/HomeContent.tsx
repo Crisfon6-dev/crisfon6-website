@@ -27,7 +27,7 @@ const projects = [
   {
     title: "FinTech Credit Marketplace",
     description:
-      "Digital credit marketplace in a major telecom Super App. Zero-paperwork loans at national scale.",
+      "Digital credit marketplace in a major telecom Super App. Zero-paperwork loans across LATAM.",
     result: "Millions of users served",
     tag: "FINTECH",
     accent: "border-l-green",

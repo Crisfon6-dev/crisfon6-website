@@ -1,0 +1,87 @@
+schema: spec-driven
+artifact_store: hybrid
+
+context: |
+  Project: crisfon6-website — authority-building platform + AI automation portfolio (crisfon6.com)
+  Stack: Next.js 16.2.1 (App Router, src/ layout), React 19, TypeScript 5, Tailwind v4
+  UI: shadcn/ui components, Framer Motion animations, dark theme (slate-900 / blue-400)
+  Content: MDX blog posts (content/blog/*.mdx), gray-matter frontmatter, next-mdx-remote-client
+  i18n: next-intl context, all text in src/i18n/messages.ts (EN + ES keys)
+  Auth: none (static/serverless, Beehiiv newsletter via server action)
+  Linting: ESLint v9 flat config (eslint.config.mjs)
+  Type checking: tsc --noEmit (npm run type-check)
+  Convention: app/*/page.tsx (server, metadata) + components/pages/*Content.tsx (client, i18n)
+
+strict_tdd: true
+
+testing:
+  test_runner:
+    framework: vitest
+    version: '4.1'
+    command: 'npm run test'
+    watch_command: 'npm run test:watch'
+    environment: jsdom
+    setup_file: vitest.setup.ts
+  layers:
+    unit:
+      available: true
+      tool: vitest
+      location: 'src/**/__tests__/**/*.test.{ts,tsx}'
+    integration:
+      available: true
+      tool: '@testing-library/react + @testing-library/dom'
+      note: 'Use for component rendering tests with jsdom'
+    e2e:
+      available: true
+      tool: playwright
+      command: 'npm run test:e2e'
+      test_dir: 'tests/e2e/'
+      browser: chromium
+      base_url: 'http://localhost:3000'
+  coverage:
+    available: false
+    note: '@vitest/coverage-v8 not installed — add if coverage reporting needed'
+  quality_tools:
+    linter:
+      available: true
+      command: 'npm run lint'
+      framework: 'eslint v9 (flat config)'
+    type_checker:
+      available: true
+      command: 'npm run type-check'
+      framework: 'tsc --noEmit'
+    formatter:
+      available: false
+      note: 'No prettier detected'
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes (especially blog/content pipeline)
+    - Identify affected components (server vs client boundary matters)
+    - Note Next.js 16 breaking changes — all request APIs are async
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Reference specific file paths from the src/ structure
+  design:
+    - Respect server/client boundary — push 'use client' down as far as possible
+    - Include i18n keys in both EN and ES when adding new UI text
+    - Document architecture decisions with rationale
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing patterns (named exports, no default exports)
+    - Tailwind v4 — no tailwind.config.js, tokens in globals.css via @theme inline
+    - Next.js 16 — await cookies(), await headers(), await params() (all async)
+    - Run npm run type-check and npm run lint before marking complete
+    - Strict TDD: write tests BEFORE implementation
+  verify:
+    - Run npm run test (unit + integration)
+    - Run npm run type-check and npm run lint
+    - For UI changes: run npm run test:e2e
+    - Compare implementation against every spec scenario
+  archive:
+    - Warn before merging destructive deltas (large removals)
+    - Ensure published blog posts are not accidentally removed

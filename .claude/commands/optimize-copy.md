@@ -24,6 +24,7 @@ Launch the `copy-optimizer` agent on a specific page.
 3. **After optimization**: Run `npm run type-check` to verify nothing broke.
 
 ## Valid pages
+
 - `home` → HomeContent.tsx + hero/cta/stats in messages.ts
 - `about` → AboutContent.tsx + about section in messages.ts
 - `newsletter` → NewsletterContent.tsx + newsletter section in messages.ts

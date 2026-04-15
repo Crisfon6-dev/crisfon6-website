@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -74,12 +74,13 @@
   --color-violet-dim: rgba(167, 139, 250, 0.1);
   --color-cyan: #22d3ee;
   --color-cyan-dim: rgba(34, 211, 238, 0.1);
+  --color-anthropic: #d4844a;
+  --color-anthropic-dim: rgba(212, 132, 74, 0.1);
 
   /* Fonts — literal names, NOT var() references */
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
-  --font-heading:
-    "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace;
+  --font-heading: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Light mode (default) */
@@ -198,20 +199,12 @@
 
 /* Blueprint dot-grid — the signature texture */
 .blueprint-grid {
-  background-image: radial-gradient(
-    circle,
-    oklch(0.65 0.15 260 / 6%) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(circle, oklch(0.65 0.15 260 / 6%) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .blueprint-grid-dense {
-  background-image: radial-gradient(
-    circle,
-    oklch(0.65 0.15 260 / 5%) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(circle, oklch(0.65 0.15 260 / 5%) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 

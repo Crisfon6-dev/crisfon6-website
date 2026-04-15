@@ -1,66 +1,66 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import type { BlogPost } from "@/lib/blog";
+import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import type { BlogPost } from '@/lib/blog';
 
 const upcomingPosts = [
   {
-    title: "How I Architect Cloud-Native FinTech Platforms on AWS",
+    title: 'How I Architect Cloud-Native FinTech Platforms on AWS',
     excerpt:
-      "A deep dive into the infrastructure patterns I use to build financial platforms that serve millions — CDK, Lambda, RDS, and the decisions behind each choice.",
-    tag: "Architecture",
-    tagColor: "text-violet bg-violet-dim",
-    date: "In progress",
-    readTime: "12 min",
+      'A deep dive into the infrastructure patterns I use to build financial platforms that serve millions — CDK, Lambda, RDS, and the decisions behind each choice.',
+    tag: 'Architecture',
+    tagColor: 'text-violet bg-violet-dim',
+    date: 'In progress',
+    readTime: '12 min',
   },
   {
-    title: "Building MCP Agents That Actually Work in Production",
+    title: 'Building MCP Agents That Actually Work in Production',
     excerpt:
       "Most MCP tutorials stop at 'hello world.' Here's how I build agents that handle errors, retry gracefully, and run 24/7 on AWS Lambda.",
-    tag: "AI / MCP",
-    tagColor: "text-accent-light bg-accent-dim",
-    date: "In progress",
-    readTime: "10 min",
+    tag: 'AI / MCP',
+    tagColor: 'text-accent-light bg-accent-dim',
+    date: 'In progress',
+    readTime: '10 min',
   },
   {
-    title: "The $12/mo Document Processor: Claude API + Lambda + S3",
+    title: 'The $12/mo Document Processor: Claude API + Lambda + S3',
     excerpt:
-      "Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full code, cost analysis, and deployment guide.",
-    tag: "Automation",
-    tagColor: "text-green bg-green-dim",
-    date: "In progress",
-    readTime: "8 min",
+      'Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full code, cost analysis, and deployment guide.',
+    tag: 'Automation',
+    tagColor: 'text-green bg-green-dim',
+    date: 'In progress',
+    readTime: '8 min',
   },
   {
-    title: "Why I Stopped Charging by the Hour",
+    title: 'Why I Stopped Charging by the Hour',
     excerpt:
       "The shift from hourly billing to value-based pricing changed everything. Here's the framework I use and how to make the transition.",
-    tag: "Business",
-    tagColor: "text-amber bg-amber-dim",
-    date: "In progress",
-    readTime: "7 min",
+    tag: 'Business',
+    tagColor: 'text-amber bg-amber-dim',
+    date: 'In progress',
+    readTime: '7 min',
   },
   {
-    title: "Optimizing 2M+ Record Queries Without Bigger Instances",
+    title: 'Optimizing 2M+ Record Queries Without Bigger Instances',
     excerpt:
       "When your dashboard takes 30 seconds to load, the answer isn't always more hardware. How I cut query times by 90% with indexing, caching, and query redesign.",
-    tag: "Performance",
-    tagColor: "text-red bg-red-dim",
-    date: "In progress",
-    readTime: "9 min",
+    tag: 'Performance',
+    tagColor: 'text-red bg-red-dim',
+    date: 'In progress',
+    readTime: '9 min',
   },
   {
-    title: "My Full CI/CD Setup for FinTech: Push to Production",
+    title: 'My Full CI/CD Setup for FinTech: Push to Production',
     excerpt:
-      "Automated testing, multi-environment deployments, rollback strategies, and security scanning — the full pipeline for financial-grade software.",
-    tag: "DevOps",
-    tagColor: "text-cyan bg-cyan-dim",
-    date: "In progress",
-    readTime: "11 min",
+      'Automated testing, multi-environment deployments, rollback strategies, and security scanning — the full pipeline for financial-grade software.',
+    tag: 'DevOps',
+    tagColor: 'text-cyan bg-cyan-dim',
+    date: 'In progress',
+    readTime: '11 min',
   },
 ];
 
@@ -73,9 +73,7 @@ export function BlogContent({ publishedPosts }: BlogContentProps) {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-20">
-      <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
-        {t.blog.heading}
-      </h1>
+      <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">{t.blog.heading}</h1>
       <p className="text-text-secondary mb-12 max-w-2xl text-lg leading-relaxed">
         {t.blog.description}
       </p>
@@ -95,19 +93,13 @@ export function BlogContent({ publishedPosts }: BlogContentProps) {
                     >
                       {post.tag}
                     </Badge>
-                    <span className="text-xs text-text-muted">
-                      {post.readTime}
-                    </span>
-                    <span className="text-xs text-text-muted font-mono ml-auto">
-                      {post.date}
-                    </span>
+                    <span className="text-xs text-text-muted">{post.readTime}</span>
+                    <span className="text-xs text-text-muted font-mono ml-auto">{post.date}</span>
                   </div>
                   <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight group-hover:text-accent-light transition-colors">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-text-tertiary leading-relaxed">
-                    {post.excerpt}
-                  </p>
+                  <p className="text-sm text-text-tertiary leading-relaxed">{post.excerpt}</p>
                 </article>
               </Link>
             </div>
@@ -133,19 +125,13 @@ export function BlogContent({ publishedPosts }: BlogContentProps) {
                     >
                       {post.tag}
                     </Badge>
-                    <span className="text-xs text-text-muted">
-                      {post.readTime}
-                    </span>
-                    <span className="text-xs text-text-muted font-mono ml-auto">
-                      {post.date}
-                    </span>
+                    <span className="text-xs text-text-muted">{post.readTime}</span>
+                    <span className="text-xs text-text-muted font-mono ml-auto">{post.date}</span>
                   </div>
                   <h2 className="text-lg font-bold text-text-primary mb-1.5 tracking-tight">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-text-tertiary leading-relaxed">
-                    {post.excerpt}
-                  </p>
+                  <p className="text-sm text-text-tertiary leading-relaxed">{post.excerpt}</p>
                 </article>
               </div>
             ))}
@@ -158,9 +144,7 @@ export function BlogContent({ publishedPosts }: BlogContentProps) {
         <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
           {t.blog.ctaHeading}
         </h2>
-        <p className="text-text-tertiary mb-6 text-sm">
-          {t.blog.ctaDescription}
-        </p>
+        <p className="text-text-tertiary mb-6 text-sm">{t.blog.ctaDescription}</p>
         <Button
           asChild
           size="lg"

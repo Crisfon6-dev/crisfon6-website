@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# Enforce Conventional Commits format (required by release-please)
+npx --no -- commitlint --edit "$1"

@@ -1,55 +1,55 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { FadeIn } from "@/components/FadeIn";
-import { useLanguage } from "@/i18n/LanguageProvider";
+import Link from 'next/link';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { FadeIn } from '@/components/FadeIn';
+import { useLanguage } from '@/i18n/LanguageProvider';
 
 const techStack = [
-  "AWS",
-  "CDK",
-  "Lambda",
-  "Claude API",
-  "MCP",
-  "Next.js",
-  "Python",
-  "FastAPI",
-  "TypeScript",
-  "Angular",
-  "Node.js",
-  "PostgreSQL",
+  'AWS',
+  'CDK',
+  'Lambda',
+  'Claude API',
+  'MCP',
+  'Next.js',
+  'Python',
+  'FastAPI',
+  'TypeScript',
+  'Angular',
+  'Node.js',
+  'PostgreSQL',
 ];
 
 const projects = [
   {
-    title: "FinTech Credit Marketplace",
+    title: 'AI Automation Templates',
     description:
-      "Digital credit marketplace in a major telecom Super App. Zero-paperwork loans across LATAM.",
-    result: "Millions of users served",
-    tag: "FINTECH",
-    accent: "border-l-green",
-    badgeColor: "bg-green-dim text-green",
+      'Open-source AI automation blueprints built on Anthropic-certified patterns — architecture diagrams, cost breakdowns, and working code.',
+    result: 'New template weekly',
+    tag: 'AI / OPEN SOURCE',
+    accent: 'border-l-violet',
+    badgeColor: 'bg-violet-dim text-violet',
   },
   {
-    title: "Enterprise Banking Platform",
+    title: 'FinTech Credit Marketplace',
     description:
-      "End-to-end banking modules for a major financial institution. Regulatory compliance baked in.",
-    result: "3+ years in production",
-    tag: "BANKING",
-    accent: "border-l-accent",
-    badgeColor: "bg-amber-dim text-amber",
+      'Digital credit marketplace in a major telecom Super App. Zero-paperwork loans across LATAM.',
+    result: 'Millions of users served',
+    tag: 'FINTECH',
+    accent: 'border-l-green',
+    badgeColor: 'bg-green-dim text-green',
   },
   {
-    title: "AI Automation Templates",
+    title: 'Enterprise Banking Platform',
     description:
-      "Open-source AI automation blueprints with architecture diagrams, cost breakdowns, and working code.",
-    result: "New template weekly",
-    tag: "AI / OPEN SOURCE",
-    accent: "border-l-violet",
-    badgeColor: "bg-violet-dim text-violet",
+      'End-to-end banking modules for a major financial institution. Regulatory compliance baked in.',
+    result: '3+ years in production',
+    tag: 'BANKING',
+    accent: 'border-l-accent',
+    badgeColor: 'bg-amber-dim text-amber',
   },
 ];
 
@@ -57,10 +57,10 @@ export function HomeContent() {
   const { t } = useLanguage();
 
   const stats = [
-    { value: "4+", label: t.stats.years, emphasis: false },
-    { value: "2M+", label: t.stats.records, emphasis: false },
-    { value: "10+", label: t.stats.aws, emphasis: false },
-    { value: "M+", label: t.stats.users, emphasis: true },
+    { value: '4+', label: t.stats.years, emphasis: false },
+    { value: '2M+', label: t.stats.records, emphasis: false },
+    { value: '10+', label: t.stats.aws, emphasis: false },
+    { value: 'M+', label: t.stats.users, emphasis: true },
   ];
 
   return (
@@ -74,8 +74,7 @@ export function HomeContent() {
               {t.hero.tagline}
             </p>
             <h1 className="text-4xl md:text-[3.5rem] font-bold text-text-primary leading-[1.1] mb-6 tracking-tight">
-              {t.hero.heading1}{" "}
-              <span className="gradient-text">{t.hero.heading2}</span>{" "}
+              {t.hero.heading1} <span className="gradient-text">{t.hero.heading2}</span>{' '}
               {t.hero.heading3}
             </h1>
             <p className="text-lg text-text-secondary mb-10 max-w-2xl leading-relaxed">
@@ -89,9 +88,7 @@ export function HomeContent() {
                 <Link href="/projects">{t.hero.cta2}</Link>
               </Button>
             </div>
-            <p className="text-sm text-text-tertiary mt-4">
-              {t.hero.socialProof}
-            </p>
+            <p className="text-sm text-text-tertiary mt-4">{t.hero.socialProof}</p>
             <div className="flex items-center gap-4 mt-6">
               <a
                 href="https://www.linkedin.com/in/crisfon6/"
@@ -122,6 +119,19 @@ export function HomeContent() {
         </div>
       </section>
 
+      {/* ANTHROPIC CERT CALLOUT STRIP */}
+      <div className="mx-auto max-w-6xl px-6 py-2.5 flex items-center gap-3">
+        <Badge
+          variant="outline"
+          className="text-violet border-violet/30 bg-violet-dim font-mono text-[10px] tracking-widest shrink-0"
+        >
+          ANTHROPIC CERTIFIED
+        </Badge>
+        <span className="text-xs text-text-muted font-mono">
+          Claude Code in Action &mdash; Feb 2026
+        </span>
+      </div>
+
       {/* TECH STACK */}
       <div className="mx-auto max-w-6xl px-6">
         <Separator />
@@ -134,10 +144,7 @@ export function HomeContent() {
             </span>
             <Separator orientation="vertical" className="h-3" />
             {techStack.map((tech) => (
-              <span
-                key={tech}
-                className="text-xs text-text-muted font-mono whitespace-nowrap"
-              >
+              <span key={tech} className="text-xs text-text-muted font-mono whitespace-nowrap">
                 {tech}
               </span>
             ))}
@@ -157,14 +164,12 @@ export function HomeContent() {
                 <div key={stat.label} className="text-left">
                   <p
                     className={`text-3xl md:text-4xl font-bold mb-1 metric-value tracking-tight ${
-                      stat.emphasis ? "text-green" : "text-text-primary"
+                      stat.emphasis ? 'text-green' : 'text-text-primary'
                     }`}
                   >
                     {stat.value}
                   </p>
-                  <p className="text-xs text-text-muted font-mono tracking-wide">
-                    {stat.label}
-                  </p>
+                  <p className="text-xs text-text-muted font-mono tracking-wide">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -193,10 +198,7 @@ export function HomeContent() {
                       <h3 className="text-2xl font-bold text-text-primary tracking-tight">
                         {t.automation.title}
                       </h3>
-                      <Badge
-                        variant="outline"
-                        className="text-green border-green/30"
-                      >
+                      <Badge variant="outline" className="text-green border-green/30">
                         Live
                       </Badge>
                     </div>
@@ -210,9 +212,7 @@ export function HomeContent() {
                         </p>
                         <p className="text-2xl font-bold text-green metric-value">
                           $12
-                          <span className="text-sm text-text-tertiary font-normal">
-                            /mo
-                          </span>
+                          <span className="text-sm text-text-tertiary font-normal">/mo</span>
                         </p>
                       </div>
                       <div>
@@ -221,9 +221,7 @@ export function HomeContent() {
                         </p>
                         <p className="text-2xl font-bold text-accent-light metric-value">
                           15h
-                          <span className="text-sm text-text-tertiary font-normal">
-                            /week
-                          </span>
+                          <span className="text-sm text-text-tertiary font-normal">/week</span>
                         </p>
                         <p className="text-[10px] text-text-muted font-mono mt-1 tracking-wide">
                           {t.automation.devTimeValue}
@@ -251,11 +249,7 @@ export function HomeContent() {
             <h2 className="text-xl font-bold text-text-primary tracking-tight">
               {t.featuredProjects}
             </h2>
-            <Button
-              variant="link"
-              asChild
-              className="text-text-tertiary hover:text-text-secondary"
-            >
+            <Button variant="link" asChild className="text-text-tertiary hover:text-text-secondary">
               <Link href="/projects">{t.cta.viewAll}</Link>
             </Button>
           </div>
@@ -278,13 +272,96 @@ export function HomeContent() {
                     <p className="text-sm text-text-tertiary mb-5 leading-relaxed">
                       {project.description}
                     </p>
-                    <p className="text-sm font-medium text-green">
-                      {project.result}
-                    </p>
+                    <p className="text-sm font-medium text-green">{project.result}</p>
                   </CardContent>
                 </Card>
               </FadeIn>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT I'M BUILDING */}
+      <div className="mx-auto max-w-6xl px-6">
+        <Separator />
+      </div>
+      <section className="py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="text-[10px] font-mono text-text-muted tracking-widest mb-8">
+            {t.building.sectionLabel}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* PowerAI status */}
+            <FadeIn delay={0}>
+              <Card className="card-hover card-shadow border-l-4 border-l-accent bg-surface-1/50 p-0 h-full">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
+                    <Badge
+                      variant="outline"
+                      className="text-green border-green/30 font-mono text-[10px] tracking-widest"
+                    >
+                      {t.building.liveLabel}
+                    </Badge>
+                  </div>
+                  <h3 className="text-base font-bold text-text-primary mb-1 tracking-tight">
+                    PowerAI Newsletter
+                  </h3>
+                  <div className="flex gap-6 my-4">
+                    <div>
+                      <p className="text-2xl font-bold text-text-primary metric-value">#06</p>
+                      <p className="text-[10px] font-mono text-text-muted tracking-widest">
+                        {t.building.currentWeekLabel}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-green metric-value">500+</p>
+                      <p className="text-[10px] font-mono text-text-muted tracking-widest">
+                        {t.building.subscribersLabel}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-auto">
+                    <Button variant="default" size="sm" asChild>
+                      <Link href="/newsletter">{t.building.subscribeLabel}</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            {/* Next project teaser */}
+            <FadeIn delay={0.1}>
+              <Card className="card-hover card-shadow border-l-4 border-l-violet bg-surface-1/50 p-0 h-full">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <div className="mb-4">
+                    <Badge
+                      variant="outline"
+                      className="text-violet border-violet/30 bg-violet-dim font-mono text-[10px] tracking-widest"
+                    >
+                      {t.building.nextLabel}
+                    </Badge>
+                  </div>
+                  <h3 className="text-base font-bold text-text-primary mb-2 tracking-tight">
+                    {t.building.nextTitle}
+                  </h3>
+                  <p className="text-sm text-text-tertiary mb-6 leading-relaxed flex-1">
+                    {t.building.nextProjectDesc}
+                  </p>
+                  <div className="mt-auto">
+                    <Button variant="outline" size="sm" asChild>
+                      <a
+                        href="https://www.linkedin.com/in/crisfon6/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t.building.followAlong}
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -309,17 +386,10 @@ export function HomeContent() {
                   <p className="text-sm text-text-secondary mb-6 leading-relaxed">
                     {t.cta.noFluff}
                   </p>
-                  <Button
-                    variant="default"
-                    size="lg"
-                    asChild
-                    className="w-full"
-                  >
+                  <Button variant="default" size="lg" asChild className="w-full">
                     <Link href="/newsletter">{t.cta.dontMiss}</Link>
                   </Button>
-                  <p className="text-xs text-text-muted mt-3 text-center">
-                    {t.cta.freeForever}
-                  </p>
+                  <p className="text-xs text-text-muted mt-3 text-center">{t.cta.freeForever}</p>
                 </CardContent>
               </Card>
 
@@ -332,15 +402,8 @@ export function HomeContent() {
                   <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
                     {t.cta.buildingSomething}
                   </h2>
-                  <p className="text-sm text-text-secondary mb-6 leading-relaxed">
-                    {t.cta.openTo}
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    asChild
-                    className="w-full"
-                  >
+                  <p className="text-sm text-text-secondary mb-6 leading-relaxed">{t.cta.openTo}</p>
+                  <Button variant="outline" size="lg" asChild className="w-full">
                     <Link href="/work-with-me">{t.workWithMe.heading}</Link>
                   </Button>
                 </CardContent>

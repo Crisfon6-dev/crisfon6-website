@@ -151,26 +151,26 @@ FOOTER (every page)
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router, Turbopack) |
-| Styling | Tailwind CSS v4 + shadcn/ui |
-| Content | MDX files in content/blog/ |
-| Newsletter | Beehiiv (external, API integration) |
-| Comments | Giscus (GitHub Discussions) |
-| Analytics | Vercel Analytics + Speed Insights |
-| CI/CD | GitHub Actions (lint, type-check, Vitest, Playwright) |
-| Deployment | Vercel (Git integration) |
-| Fonts | Geist Sans + Geist Mono |
-| i18n | Custom LanguageProvider (EN + ES) |
+| Layer      | Technology                                            |
+| ---------- | ----------------------------------------------------- |
+| Framework  | Next.js 16 (App Router, Turbopack)                    |
+| Styling    | Tailwind CSS v4 + shadcn/ui                           |
+| Content    | MDX files in content/blog/                            |
+| Newsletter | Beehiiv (external, API integration)                   |
+| Comments   | Giscus (GitHub Discussions)                           |
+| Analytics  | Vercel Analytics + Speed Insights                     |
+| CI/CD      | GitHub Actions (lint, type-check, Vitest, Playwright) |
+| Deployment | Vercel (Git integration)                              |
+| Fonts      | Geist Sans + Geist Mono                               |
+| i18n       | Custom LanguageProvider (EN + ES)                     |
 
 ## Key Metrics to Track
 
-| Metric | Target | How |
-|--------|--------|-----|
-| Newsletter subscribers | 1,000 in 3 months | Beehiiv dashboard |
-| Blog posts published | 2/month minimum | content/blog/ count |
-| LinkedIn connections (CTOs/founders) | 50 new/month | LinkedIn analytics |
-| /work-with-me page visits | 100/month | Vercel Analytics |
-| Inbound messages (email + LinkedIn) | 5/month | Manual tracking |
-| AI citations (ChatGPT, Perplexity) | Increasing trend | Search your name |
+| Metric                               | Target            | How                 |
+| ------------------------------------ | ----------------- | ------------------- |
+| Newsletter subscribers               | 1,000 in 3 months | Beehiiv dashboard   |
+| Blog posts published                 | 2/month minimum   | content/blog/ count |
+| LinkedIn connections (CTOs/founders) | 50 new/month      | LinkedIn analytics  |
+| /work-with-me page visits            | 100/month         | Vercel Analytics    |
+| Inbound messages (email + LinkedIn)  | 5/month           | Manual tracking     |
+| AI citations (ChatGPT, Perplexity)   | Increasing trend  | Search your name    |

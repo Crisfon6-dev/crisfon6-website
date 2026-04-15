@@ -1,56 +1,62 @@
-"use client";
+'use client';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { SubscribeForm } from "@/components/SubscribeForm";
-import { useLanguage } from "@/i18n/LanguageProvider";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { SubscribeForm } from '@/components/SubscribeForm';
+import { useLanguage } from '@/i18n/LanguageProvider';
 
 const benefits = [
   {
-    title: "Architecture Diagrams",
+    title: 'Anthropic-Certified Patterns',
     description:
-      "Visual breakdowns of every automation so you understand the full system before deploying.",
+      'Every template is built with Anthropic-certified AI engineering standards — production-grade, architecture-first, cost-conscious.',
   },
   {
-    title: "Deployment Guides",
+    title: 'Architecture Diagrams',
     description:
-      "Step-by-step instructions to go from zero to production. No guessing, no gaps.",
+      'Visual breakdowns of every automation so you understand the full system before deploying.',
   },
   {
-    title: "Cost Breakdowns",
-    description:
-      "Real infrastructure costs at different scales. Know exactly what you're paying.",
+    title: 'Deployment Guides',
+    description: 'Step-by-step instructions to go from zero to production. No guessing, no gaps.',
   },
   {
-    title: "Working Code",
-    description:
-      "Every template comes with a GitHub repo you can clone and deploy today.",
+    title: 'Cost Breakdowns',
+    description: "Real infrastructure costs at different scales. Know exactly what you're paying.",
+  },
+  {
+    title: 'Working Code',
+    description: 'Every template comes with a GitHub repo you can clone and deploy today.',
   },
 ];
 
 const sampleTopics = [
-  "AI-Powered Document Processor ($12/mo at 1K docs)",
-  "Slack to Notion Meeting Summarizer",
-  "Automated Lead Scoring Pipeline",
-  "MCP Agent: Code Review Assistant",
-  "Invoice Processing Automation",
-  "Content Repurposing Engine",
+  'AI-Powered Document Processor ($12/mo at 1K docs)',
+  'Slack to Notion Meeting Summarizer',
+  'Automated Lead Scoring Pipeline',
+  'MCP Agent: Code Review Assistant',
+  'Invoice Processing Automation',
+  'Content Repurposing Engine',
 ];
 
 const audiences = [
   {
-    who: "Engineers",
-    desc: "who want to add AI automation to their toolkit without weeks of research.",
+    who: 'Engineers',
+    desc: 'who want to add AI automation to their toolkit without weeks of research.',
   },
   {
-    who: "Founders & CTOs",
-    desc: "looking for production-ready templates to hand to their team and deploy in days.",
+    who: 'Founders & CTOs',
+    desc: 'looking for production-ready templates to hand to their team and deploy in days.',
   },
   {
-    who: "Builders",
-    desc: "who believe in learning by doing — real blueprints with real cost numbers.",
+    who: 'Technical decision-makers',
+    desc: 'who need to evaluate AI tooling fast and want real cost data, not vendor demos.',
+  },
+  {
+    who: 'Builders',
+    desc: 'who believe in learning by doing — real blueprints with real cost numbers.',
   },
 ];
 
@@ -93,12 +99,8 @@ export function NewsletterContent() {
           {benefits.map((b) => (
             <Card key={b.title} className="card-shadow">
               <CardContent>
-                <h3 className="text-sm font-medium text-text-primary mb-2">
-                  {b.title}
-                </h3>
-                <p className="text-sm text-text-tertiary leading-relaxed">
-                  {b.description}
-                </p>
+                <h3 className="text-sm font-medium text-text-primary mb-2">{b.title}</h3>
+                <p className="text-sm text-text-tertiary leading-relaxed">{b.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -118,10 +120,7 @@ export function NewsletterContent() {
               key={i}
               className="flex items-center gap-4 border border-border rounded-lg px-5 py-3 bg-surface-1/20"
             >
-              <Badge
-                variant="outline"
-                className="font-mono text-[10px] tracking-widest shrink-0"
-              >
+              <Badge variant="outline" className="font-mono text-[10px] tracking-widest shrink-0">
                 W{i + 1}
               </Badge>
               <p className="text-sm text-text-secondary">{topic}</p>
@@ -139,12 +138,8 @@ export function NewsletterContent() {
         </h2>
         <div className="space-y-3">
           {audiences.map((a) => (
-            <p
-              key={a.who}
-              className="text-sm text-text-secondary leading-relaxed"
-            >
-              <span className="text-text-primary font-medium">{a.who}</span>{" "}
-              {a.desc}
+            <p key={a.who} className="text-sm text-text-secondary leading-relaxed">
+              <span className="text-text-primary font-medium">{a.who}</span> {a.desc}
             </p>
           ))}
         </div>
@@ -166,11 +161,7 @@ export function NewsletterContent() {
             size="lg"
             className="bg-accent hover:bg-accent-light text-white px-8 py-3.5 h-auto"
           >
-            <a
-              href="https://crisfon6.beehiiv.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://crisfon6.beehiiv.com" target="_blank" rel="noopener noreferrer">
               {t.cta.subscribeZTP}
             </a>
           </Button>

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# Type-check before pushing (runs here, not pre-commit, because it's slow)
+npm run type-check

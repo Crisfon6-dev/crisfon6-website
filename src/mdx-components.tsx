@@ -1,31 +1,19 @@
-import type { MDXComponents } from "mdx/types";
+import type { MDXComponents } from 'mdx/types';
 
-export function useMDXComponents(
-  components: MDXComponents = {},
-): MDXComponents {
+export function useMDXComponents(components: MDXComponents = {}): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="text-3xl font-bold text-text-primary mb-6 tracking-tight">
-        {children}
-      </h1>
+      <h1 className="text-3xl font-bold text-text-primary mb-6 tracking-tight">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl font-bold text-text-primary mt-10 mb-4 tracking-tight">
-        {children}
-      </h2>
+      <h2 className="text-2xl font-bold text-text-primary mt-10 mb-4 tracking-tight">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl font-bold text-text-primary mt-8 mb-3 tracking-tight">
-        {children}
-      </h3>
+      <h3 className="text-xl font-bold text-text-primary mt-8 mb-3 tracking-tight">{children}</h3>
     ),
-    p: ({ children }) => (
-      <p className="text-text-secondary leading-relaxed mb-4">{children}</p>
-    ),
+    p: ({ children }) => <p className="text-text-secondary leading-relaxed mb-4">{children}</p>,
     ul: ({ children }) => <ul className="space-y-2 mb-6 ml-4">{children}</ul>,
-    ol: ({ children }) => (
-      <ol className="space-y-2 mb-6 ml-4 list-decimal">{children}</ol>
-    ),
+    ol: ({ children }) => <ol className="space-y-2 mb-6 ml-4 list-decimal">{children}</ol>,
     li: ({ children }) => (
       <li className="text-text-secondary leading-relaxed flex gap-2">
         <span className="text-text-muted shrink-0">&middot;</span>
@@ -36,8 +24,8 @@ export function useMDXComponents(
       <a
         href={href}
         className="text-accent-light hover:text-accent transition-colors underline underline-offset-2"
-        target={href?.startsWith("http") ? "_blank" : undefined}
-        rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+        target={href?.startsWith('http') ? '_blank' : undefined}
+        rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       >
         {children}
       </a>
@@ -72,9 +60,7 @@ export function useMDXComponents(
       </th>
     ),
     td: ({ children }) => (
-      <td className="text-text-secondary py-2 border-b border-border/50 pr-4">
-        {children}
-      </td>
+      <td className="text-text-secondary py-2 border-b border-border/50 pr-4">{children}</td>
     ),
     ...components,
   };

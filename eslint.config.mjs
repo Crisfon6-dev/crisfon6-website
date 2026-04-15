@@ -1,6 +1,7 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -8,11 +9,22 @@ const eslintConfig = defineConfig([
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+    // Generated artifacts
+    'coverage/**',
+    'playwright-report/**',
   ]),
+  // Respect the TypeScript convention of prefixing intentionally unused params with _.
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    },
+  },
+  // Must be last — disables ESLint rules that conflict with Prettier formatting.
+  eslintConfigPrettier,
 ]);
 
 export default eslintConfig;

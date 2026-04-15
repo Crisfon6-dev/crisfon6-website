@@ -1,62 +1,66 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { JsonLd } from "@/components/JsonLd";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ThemeProvider } from "next-themes";
-import { LanguageProvider } from "@/i18n/LanguageProvider";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { JsonLd } from '@/components/JsonLd';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ThemeProvider } from 'next-themes';
+import { LanguageProvider } from '@/i18n/LanguageProvider';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Cristhian Fonseca | Technical Lead & AI Builder",
-    template: "%s | Cristhian Fonseca",
+    default: 'Cristhian Fonseca | AI Systems Engineer · LATAM',
+    template: '%s | Cristhian Fonseca',
   },
   description:
-    "I build FinTech products that reach millions of users and AI automations in public. Technical Lead, AWS Architect, AI/LLM Builder.",
+    'Anthropic-certified AI Systems Engineer building agentic systems, MCP workflows, and LLM pipelines at production scale. Weekly AI engineering blueprints with real architecture and working code.',
   keywords: [
-    "AI Builder",
-    "Technical Lead",
-    "AWS Architect",
-    "FinTech",
-    "MCP Agents",
-    "Automation Templates",
-    "Building in Public",
+    'AI Systems Engineer',
+    'Claude Code',
+    'Anthropic',
+    'AI Engineering LATAM',
+    'MCP Agents',
+    'Agentic AI',
+    'LLM Pipelines',
+    'AWS Architect',
+    'FinTech',
+    'Automation Templates',
+    'Building in Public',
   ],
-  authors: [{ name: "Cristhian Fonseca" }],
+  authors: [{ name: 'Cristhian Fonseca' }],
   openGraph: {
-    title: "Cristhian Fonseca | Technical Lead & AI Builder",
+    title: 'Cristhian Fonseca | AI Systems Engineer · LATAM',
     description:
-      "I ship FinTech at scale and build AI automations you can steal.",
-    url: "https://crisfon6.com",
-    siteName: "crisfon6.com",
-    locale: "en_US",
-    type: "website",
+      'Anthropic-certified. I build AI systems that run in production — then I show you how.',
+    url: 'https://crisfon6.com',
+    siteName: 'crisfon6.com',
+    locale: 'en_US',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Cristhian Fonseca | Technical Lead & AI Builder",
+    card: 'summary_large_image',
+    title: 'Cristhian Fonseca | AI Systems Engineer · LATAM',
     description:
-      "I ship FinTech at scale and build AI automations you can steal.",
+      'Anthropic-certified. I build AI systems that run in production — then I show you how.',
   },
   robots: { index: true, follow: true },
   alternates: {
     types: {
-      "application/rss+xml": "https://crisfon6.com/feed.xml",
-      "text/plain": "https://crisfon6.com/llms.txt",
+      'application/rss+xml': 'https://crisfon6.com/feed.xml',
+      'text/plain': 'https://crisfon6.com/llms.txt',
     },
   },
 };
@@ -84,27 +88,27 @@ export default function RootLayout({
         </ThemeProvider>
         <JsonLd
           data={{
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Cristhian Fonseca",
-            url: "https://crisfon6.com",
-            jobTitle: "Technical Lead & AI Builder",
-            email: "crisfon6@crisfon6.com",
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Cristhian Fonseca',
+            url: 'https://crisfon6.com',
+            jobTitle: 'AI Systems Engineer · LATAM',
+            email: 'crisfon6@crisfon6.com',
             sameAs: [
-              "https://github.com/Crisfon6-dev",
-              "https://www.linkedin.com/in/crisfon6/",
-              "https://www.instagram.com/crisfon6/",
+              'https://github.com/Crisfon6-dev',
+              'https://www.linkedin.com/in/crisfon6/',
+              'https://www.instagram.com/crisfon6/',
             ],
           }}
         />
         <JsonLd
           data={{
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "Cristhian Fonseca",
-            url: "https://crisfon6.com",
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Cristhian Fonseca',
+            url: 'https://crisfon6.com',
             description:
-              "I ship FinTech at scale and build AI automations you can steal.",
+              'Anthropic-certified. I build AI systems that run in production — then I show you how.',
           }}
         />
         <Analytics />

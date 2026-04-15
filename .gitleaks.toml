@@ -1,0 +1,21 @@
+[extend]
+# Use the default gitleaks ruleset as a base
+useDefault = true
+
+[allowlist]
+description = "Allowlisted files and patterns that are safe to commit"
+
+# .env.example contains intentional placeholder values, not real secrets
+paths = [
+  ".env.example",
+]
+
+# Common test fixture patterns that look like secrets but aren't
+regexes = [
+  # Generic placeholder pattern used in docs and examples
+  '''your[_-]?api[_-]?key[_-]?here''',
+  '''your[_-]?publication[_-]?id[_-]?here''',
+  # Test mock values
+  '''test[_-]?key[_-]?\w+''',
+  '''mock[_-]?key[_-]?\w+''',
+]

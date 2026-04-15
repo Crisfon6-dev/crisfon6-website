@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Separator } from "@/components/ui/separator";
-import { Logo } from "@/components/Logo";
-import { useLanguage } from "@/i18n/LanguageProvider";
+import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
+import { Logo } from '@/components/Logo';
+import { useLanguage } from '@/i18n/LanguageProvider';
 
 const navKeys = [
-  { href: "/about", key: "about" as const },
-  { href: "/projects", key: "projects" as const },
-  { href: "/automations", key: "automations" as const },
-  { href: "/blog", key: "blog" as const },
-  { href: "/newsletter", key: "subscribe" as const },
-  { href: "/work-with-me", key: "workWithMe" as const },
+  { href: '/about', key: 'about' as const },
+  { href: '/projects', key: 'projects' as const },
+  { href: '/automations', key: 'automations' as const },
+  { href: '/blog', key: 'blog' as const },
+  { href: '/newsletter', key: 'subscribe' as const },
+  { href: '/work-with-me', key: 'workWithMe' as const },
 ];
 
 const social = [
   {
-    href: "mailto:crisfon6@crisfon6.com",
-    label: "crisfon6@crisfon6.com",
+    href: 'mailto:crisfon6@crisfon6.com',
+    label: 'crisfon6@crisfon6.com',
     external: false,
   },
   {
-    href: "https://www.linkedin.com/in/crisfon6/",
-    label: "LinkedIn",
+    href: 'https://www.linkedin.com/in/crisfon6/',
+    label: 'LinkedIn',
     external: true,
   },
-  { href: "https://github.com/Crisfon6-dev", label: "GitHub", external: true },
+  { href: 'https://github.com/Crisfon6-dev', label: 'GitHub', external: true },
   {
-    href: "https://www.instagram.com/crisfon6/",
-    label: "Instagram",
+    href: 'https://www.instagram.com/crisfon6/',
+    label: 'Instagram',
     external: true,
   },
 ];
@@ -45,9 +45,7 @@ export function Footer() {
             <div className="mb-3">
               <Logo />
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {t.footer.tagline}
-            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t.footer.tagline}</p>
           </div>
 
           {/* Links */}
@@ -77,9 +75,7 @@ export function Footer() {
                   <a
                     key={link.href}
                     href={link.href}
-                    {...(link.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
+                    {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
@@ -96,9 +92,7 @@ export function Footer() {
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} Cristhian Fonseca
           </p>
-          <p className="text-xs text-muted-foreground font-mono">
-            Next.js + Vercel
-          </p>
+          <p className="text-xs text-muted-foreground font-mono">Next.js + Vercel</p>
         </div>
       </div>
     </footer>

@@ -1,14 +1,11 @@
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts } from '@/lib/blog';
 
 export function GET() {
   const posts = getAllPosts();
 
   const postList = posts
-    .map(
-      (post) =>
-        `- [${post.title}](https://crisfon6.com/blog/${post.slug}): ${post.excerpt}`,
-    )
-    .join("\n");
+    .map((post) => `- [${post.title}](https://crisfon6.com/blog/${post.slug}): ${post.excerpt}`)
+    .join('\n');
 
   const content = `# crisfon6.com
 
@@ -50,8 +47,8 @@ For the complete text content of all blog posts, see [/llms-full.txt](https://cr
 
   return new Response(content, {
     headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, s-maxage=86400",
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=86400',
     },
   });
 }

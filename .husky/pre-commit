@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# Detect secrets before committing
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged -v
+else
+  echo "⚠️  gitleaks not found — skipping local secret scan (install: brew install gitleaks)"
+fi
+
+# Lint and format staged files
+npx lint-staged

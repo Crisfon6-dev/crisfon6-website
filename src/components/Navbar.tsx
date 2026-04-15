@@ -1,20 +1,21 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { LanguageToggle } from "@/components/LanguageToggle";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { Logo } from "@/components/Logo";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { Logo } from '@/components/Logo';
+import { Badge } from '@/components/ui/badge';
 
 const linkKeys = [
-  { href: "/about", key: "about" as const },
-  { href: "/projects", key: "projects" as const },
-  { href: "/automations", key: "automations" as const },
-  { href: "/blog", key: "blog" as const },
+  { href: '/about', key: 'about' as const },
+  { href: '/projects', key: 'projects' as const },
+  { href: '/automations', key: 'automations' as const },
+  { href: '/blog', key: 'blog' as const },
 ];
 
 export function Navbar() {
@@ -26,8 +27,17 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-border bg-surface-0/90 backdrop-blur-lg">
       <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="group hover:opacity-80 transition-opacity">
+        <Link
+          href="/"
+          className="group hover:opacity-80 transition-opacity flex items-center gap-2"
+        >
           <Logo />
+          <Badge
+            variant="outline"
+            className="hidden md:inline-flex text-violet border-violet/30 bg-violet-dim font-mono text-[10px] tracking-widest px-2 py-0.5"
+          >
+            Anthropic Certified
+          </Badge>
         </Link>
 
         {/* Desktop */}
@@ -42,8 +52,8 @@ export function Navbar() {
                 asChild
                 className={
                   isActive
-                    ? "text-text-primary bg-surface-2"
-                    : "text-text-tertiary hover:text-text-secondary"
+                    ? 'text-text-primary bg-surface-2'
+                    : 'text-text-tertiary hover:text-text-secondary'
                 }
               >
                 <Link href={link.href}>{t.nav[link.key]}</Link>
@@ -82,17 +92,9 @@ export function Navbar() {
             strokeWidth={1.5}
           >
             {mobileOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
         </button>
@@ -111,8 +113,8 @@ export function Navbar() {
                 asChild
                 className={`w-full justify-start ${
                   isActive
-                    ? "text-text-primary bg-surface-2"
-                    : "text-text-tertiary hover:text-text-secondary"
+                    ? 'text-text-primary bg-surface-2'
+                    : 'text-text-tertiary hover:text-text-secondary'
                 }`}
               >
                 <Link href={link.href} onClick={() => setMobileOpen(false)}>
@@ -121,12 +123,7 @@ export function Navbar() {
               </Button>
             );
           })}
-          <Button
-            variant="default"
-            size="sm"
-            asChild
-            className="w-full justify-start"
-          >
+          <Button variant="default" size="sm" asChild className="w-full justify-start">
             <Link href="/newsletter" onClick={() => setMobileOpen(false)}>
               {t.nav.subscribe}
             </Link>

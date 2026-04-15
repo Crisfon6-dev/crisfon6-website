@@ -1,117 +1,104 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { useLanguage } from "@/i18n/LanguageProvider";
+import Link from 'next/link';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/i18n/LanguageProvider';
 
 const projects = [
   {
-    title: "FinTech Credit Marketplace",
+    title: 'AI Automation Library',
+    description:
+      'Open-source collection of production-ready AI automation blueprints built on Anthropic-certified architecture patterns. Each template includes architecture diagrams, deployment guides, cost breakdowns, and working code you can deploy today.',
+    stack: ['Claude API', 'MCP Protocol', 'AWS Lambda', 'Python', 'n8n'],
+    highlights: [
+      'Anthropic-certified AI engineering patterns throughout',
+      'Production-ready blueprints with real cost analysis',
+      'Architecture diagrams and deployment guides included',
+      'New template published every week',
+      'Building in public — all code open source',
+    ],
+    result: 'New template every week',
+    tag: 'AI / OPEN SOURCE',
+    status: 'Active',
+    statusColor: 'border-amber/40 text-amber bg-amber-dim',
+    accent: 'border-l-violet',
+  },
+  {
+    title: 'FinTech Credit Marketplace',
     description:
       "Digital credit marketplace integrated into a major telecom's Super App. Zero-paperwork loan processing serving millions of underbanked users across LATAM. Cloud-native infrastructure with fully automated provisioning.",
     stack: [
-      "AWS CDK",
-      "Lambda",
-      "RDS",
-      "Cognito",
-      "ElastiCache",
-      "FastAPI",
-      "Angular",
-      "PostgreSQL",
+      'AWS CDK',
+      'Lambda',
+      'RDS',
+      'Cognito',
+      'ElastiCache',
+      'FastAPI',
+      'Angular',
+      'PostgreSQL',
     ],
     highlights: [
-      "Multi-environment infrastructure via AWS CDK",
-      "Optimized analytical queries across 2M+ records",
-      "End-to-end CI/CD pipelines with DevOps-first culture",
-      "Zero-paperwork digital loan processing flow",
+      'Multi-environment infrastructure via AWS CDK',
+      'Optimized analytical queries across 2M+ records',
+      'End-to-end CI/CD pipelines with DevOps-first culture',
+      'Zero-paperwork digital loan processing flow',
     ],
-    result: "Millions of users served across LATAM",
-    tag: "FINTECH",
-    status: "In Production",
-    statusColor: "border-green/40 text-green bg-green-dim",
-    accent: "border-l-green",
+    result: 'Millions of users served across LATAM',
+    tag: 'FINTECH',
+    status: 'In Production',
+    statusColor: 'border-green/40 text-green bg-green-dim',
+    accent: 'border-l-green',
   },
   {
-    title: "Enterprise Banking Platform",
+    title: 'Enterprise Banking Platform',
     description:
-      "End-to-end modules for a major financial institution. Dynamic, responsive interfaces with regulatory compliance baked into every layer. High-performance backend systems handling core banking operations.",
-    stack: [
-      "Java",
-      "Spring Boot",
-      "Angular",
-      "Thymeleaf",
-      "Oracle",
-      "REST APIs",
-    ],
+      'End-to-end modules for a major financial institution. Dynamic, responsive interfaces with regulatory compliance baked into every layer. High-performance backend systems handling core banking operations.',
+    stack: ['Java', 'Spring Boot', 'Angular', 'Thymeleaf', 'Oracle', 'REST APIs'],
     highlights: [
-      "Architected modules ensuring regulatory compliance",
-      "Built dynamic banking interfaces improving usability",
-      "Cross-functional collaboration with product and QA teams",
+      'Architected modules ensuring regulatory compliance',
+      'Built dynamic banking interfaces improving usability',
+      'Cross-functional collaboration with product and QA teams',
     ],
-    result: "3+ years in production",
-    tag: "BANKING",
-    status: "In Production",
-    statusColor: "border-green/40 text-green bg-green-dim",
-    accent: "border-l-accent",
+    result: '3+ years in production',
+    tag: 'BANKING',
+    status: 'In Production',
+    statusColor: 'border-green/40 text-green bg-green-dim',
+    accent: 'border-l-accent',
   },
   {
-    title: "Government Services Platform",
+    title: 'Government Services Platform',
     description:
-      "Cross-platform mobile and web applications for government-backed services. Led the development team driving technical decisions, architecture discussions, and sprint planning.",
-    stack: ["Flutter", "Dart", "REST APIs", "CI/CD"],
+      'Cross-platform mobile and web applications for government-backed services. Led the development team driving technical decisions, architecture discussions, and sprint planning.',
+    stack: ['Flutter', 'Dart', 'REST APIs', 'CI/CD'],
     highlights: [
-      "Led development team and technical architecture",
-      "Cross-platform mobile/web with Flutter",
-      "Sprint planning and technical decision-making",
+      'Led development team and technical architecture',
+      'Cross-platform mobile/web with Flutter',
+      'Sprint planning and technical decision-making',
     ],
-    result: "Delivered for government services",
-    tag: "GOVTECH",
-    status: "Delivered",
-    statusColor: "border-cyan/40 text-accent-light bg-accent-dim",
-    accent: "border-l-cyan",
+    result: 'Delivered for government services',
+    tag: 'GOVTECH',
+    status: 'Delivered',
+    statusColor: 'border-cyan/40 text-accent-light bg-accent-dim',
+    accent: 'border-l-cyan',
   },
   {
-    title: "US Cloud Platform",
+    title: 'US Cloud Platform',
     description:
-      "Serverless cloud services for a US-based platform. Designed and deployed AWS infrastructure with high-availability configurations and automated data flows.",
-    stack: [
-      "AWS Lambda",
-      "Chalice",
-      "EC2",
-      "Route 53",
-      "API Gateway",
-      "Python",
-    ],
+      'Serverless cloud services for a US-based platform. Designed and deployed AWS infrastructure with high-availability configurations and automated data flows.',
+    stack: ['AWS Lambda', 'Chalice', 'EC2', 'Route 53', 'API Gateway', 'Python'],
     highlights: [
-      "Serverless architectures automating data flows",
-      "High-availability infrastructure configuration",
-      "Full AWS service orchestration",
+      'Serverless architectures automating data flows',
+      'High-availability infrastructure configuration',
+      'Full AWS service orchestration',
     ],
-    result: "Deployed on AWS",
-    tag: "CLOUD / SAAS",
-    status: "Delivered",
-    statusColor: "border-amber/40 text-accent-light bg-accent-dim",
-    accent: "border-l-amber",
-  },
-  {
-    title: "AI Automation Templates",
-    description:
-      "Open-source collection of production-ready AI automation blueprints. Each template includes architecture diagrams, deployment guides, cost breakdowns, and working code you can deploy today.",
-    stack: ["Claude API", "MCP Protocol", "AWS Lambda", "Python", "n8n"],
-    highlights: [
-      "Production-ready blueprints with real cost analysis",
-      "Architecture diagrams and deployment guides included",
-      "New template published every week",
-      "Building in public -- all code open source",
-    ],
-    result: "New template every week",
-    tag: "AI / OPEN SOURCE",
-    status: "Active",
-    statusColor: "border-amber/40 text-amber bg-amber-dim",
-    accent: "border-l-violet",
+    result: 'Deployed on AWS',
+    tag: 'CLOUD / SAAS',
+    status: 'Delivered',
+    statusColor: 'border-amber/40 text-accent-light bg-accent-dim',
+    accent: 'border-l-amber',
   },
 ];
 
@@ -142,10 +129,7 @@ export function ProjectsContent() {
                 >
                   {project.tag}
                 </Badge>
-                <Badge
-                  variant="outline"
-                  className={`font-mono text-[10px] ${project.statusColor}`}
-                >
+                <Badge variant="outline" className={`font-mono text-[10px] ${project.statusColor}`}>
                   {project.status}
                 </Badge>
               </div>
@@ -154,17 +138,13 @@ export function ProjectsContent() {
               <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
                 {project.title}
               </h2>
-              <p className="text-text-secondary mb-6 leading-relaxed">
-                {project.description}
-              </p>
+              <p className="text-text-secondary mb-6 leading-relaxed">{project.description}</p>
 
               {/* Highlights */}
               <ul className="mb-6 space-y-1.5">
                 {project.highlights.map((h, i) => (
                   <li key={i} className="text-sm text-text-tertiary flex gap-2">
-                    <span className="text-text-muted mt-0.5 shrink-0">
-                      &middot;
-                    </span>
+                    <span className="text-text-muted mt-0.5 shrink-0">&middot;</span>
                     {h}
                   </li>
                 ))}
@@ -186,9 +166,7 @@ export function ProjectsContent() {
                     </Badge>
                   ))}
                 </div>
-                <p className="text-sm font-medium text-green metric-value">
-                  {project.result}
-                </p>
+                <p className="text-sm font-medium text-green metric-value">{project.result}</p>
               </div>
             </CardContent>
           </Card>
@@ -201,14 +179,8 @@ export function ProjectsContent() {
           <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
             {t.projects.ctaHeading}
           </h2>
-          <p className="text-text-tertiary mb-6 text-sm">
-            {t.projects.ctaDescription}
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-accent hover:bg-accent-light text-white px-6"
-          >
+          <p className="text-text-tertiary mb-6 text-sm">{t.projects.ctaDescription}</p>
+          <Button asChild size="lg" className="bg-accent hover:bg-accent-light text-white px-6">
             <Link href="/newsletter">{t.cta.subscribeZTP}</Link>
           </Button>
         </CardContent>

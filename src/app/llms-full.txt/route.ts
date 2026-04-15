@@ -1,11 +1,11 @@
-import { getAllPosts, getPost } from "@/lib/blog";
+import { getAllPosts, getPost } from '@/lib/blog';
 
 export function GET() {
   const posts = getAllPosts();
 
   const sections = posts.map((post) => {
     const full = getPost(post.slug);
-    const content = full?.content ?? "";
+    const content = full?.content ?? '';
 
     return `---
 title: ${post.title}
@@ -24,13 +24,13 @@ ${content}`;
 > Site: https://crisfon6.com
 > Newsletter: PowerAI — https://crisfon6.com/newsletter
 
-${sections.join("\n\n")}
+${sections.join('\n\n')}
 `;
 
   return new Response(body, {
     headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, s-maxage=86400",
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=86400',
     },
   });
 }

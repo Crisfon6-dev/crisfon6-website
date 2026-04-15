@@ -1,10 +1,10 @@
 ---
-title: "The $12/mo Document Processor: Claude API + Lambda + S3"
-excerpt: "Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full stack, cost analysis, and deployment guide."
-date: "2026-03-22"
-readTime: "8 min read"
-tag: "Automation"
-tagColor: "text-green bg-green-dim"
+title: 'The $12/mo Document Processor: Claude API + Lambda + S3'
+excerpt: 'Step-by-step breakdown of my AI-powered document processing pipeline. Architecture diagram, full stack, cost analysis, and deployment guide.'
+date: '2026-03-22'
+readTime: '8 min read'
+tag: 'Automation'
+tagColor: 'text-green bg-green-dim'
 published: true
 ---
 
@@ -31,13 +31,13 @@ No servers to manage. No containers. No orchestration. Just events flowing throu
 
 ## The Stack
 
-| Component | Service | Cost at 1K docs/mo |
-|-----------|---------|-------------------|
-| Storage | S3 | ~$0.02 |
-| Compute | Lambda | ~$0.50 |
-| AI Extraction | Claude API (Haiku) | ~$8.00 |
-| Database | RDS (db.t3.micro) | ~$3.50 |
-| **Total** | | **~$12.02** |
+| Component     | Service            | Cost at 1K docs/mo |
+| ------------- | ------------------ | ------------------ |
+| Storage       | S3                 | ~$0.02             |
+| Compute       | Lambda             | ~$0.50             |
+| AI Extraction | Claude API (Haiku) | ~$8.00             |
+| Database      | RDS (db.t3.micro)  | ~$3.50             |
+| **Total**     |                    | **~$12.02**        |
 
 The biggest cost is the Claude API — and even that's cheap because we use **Claude Haiku** for extraction. Haiku is fast, cheap, and more than capable of pulling structured fields from documents.
 
@@ -110,11 +110,11 @@ cursor.execute("""
 
 ## Cost Breakdown at Scale
 
-| Documents/mo | Claude API | Lambda | S3 | RDS | Total |
-|-------------|-----------|--------|-----|-----|-------|
-| 100 | $0.80 | $0.05 | $0.01 | $3.50 | **$4.36** |
-| 1,000 | $8.00 | $0.50 | $0.02 | $3.50 | **$12.02** |
-| 10,000 | $80.00 | $5.00 | $0.23 | $15.00 | **$100.23** |
+| Documents/mo | Claude API | Lambda | S3    | RDS    | Total       |
+| ------------ | ---------- | ------ | ----- | ------ | ----------- |
+| 100          | $0.80      | $0.05  | $0.01 | $3.50  | **$4.36**   |
+| 1,000        | $8.00      | $0.50  | $0.02 | $3.50  | **$12.02**  |
+| 10,000       | $80.00     | $5.00  | $0.23 | $15.00 | **$100.23** |
 
 At 10K documents/month you're paying about **1 cent per document**. Try getting a human to process a document for a cent.
 

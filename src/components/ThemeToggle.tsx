@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -20,11 +20,11 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="sm"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       className="w-8 h-8 p-0 text-text-tertiary hover:text-text-primary"
       aria-label="Toggle theme"
     >
-      {theme === "dark" ? (
+      {theme === 'dark' ? (
         <svg
           className="w-4 h-4"
           fill="none"

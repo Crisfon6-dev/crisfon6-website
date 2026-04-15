@@ -1,13 +1,7 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  type ReactNode,
-} from "react";
-import { messages, type Locale, type Messages } from "./messages";
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { messages, type Locale, type Messages } from './messages';
 
 type LanguageContextType = {
   locale: Locale;
@@ -16,22 +10,20 @@ type LanguageContextType = {
 };
 
 const LanguageContext = createContext<LanguageContextType>({
-  locale: "en",
+  locale: 'en',
   t: messages.en,
   toggleLocale: () => {},
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocale] = useState<Locale>('en');
 
   const toggleLocale = useCallback(() => {
-    setLocale((prev) => (prev === "en" ? "es" : "en"));
+    setLocale((prev) => (prev === 'en' ? 'es' : 'en'));
   }, []);
 
   return (
-    <LanguageContext.Provider
-      value={{ locale, t: messages[locale], toggleLocale }}
-    >
+    <LanguageContext.Provider value={{ locale, t: messages[locale], toggleLocale }}>
       {children}
     </LanguageContext.Provider>
   );

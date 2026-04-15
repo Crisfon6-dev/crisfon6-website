@@ -11,6 +11,7 @@ Authority-building platform & AI automation portfolio — crisfon6.com
 **Vision**: Every decision in this project serves one goal — when a CTO, CEO, or senior engineer lands on this site, they should think: "This person has shipped real systems at scale. I want to connect with them."
 
 **What this means for every change:**
+
 - Content must signal **real production experience**, not theory. Use real costs, real metrics, real code.
 - Copy must attract **technical decision-makers** (CTOs, VPs Eng, founders), not beginners.
 - The tone is **builder-pragmatist**: "Here's what I built, here's what it costs, here's the code." No hype.
@@ -102,6 +103,7 @@ content/
 ## Page Component Pattern
 
 Every route follows this pattern:
+
 - `app/*/page.tsx` — Server Component with `Metadata` export. Renders `<*Content />`.
 - `components/pages/*Content.tsx` — Client Component (`'use client'`) with `useLanguage()` hook for i18n. Contains all page UI.
 
@@ -113,13 +115,13 @@ Posts are MDX files in `content/blog/`. Required frontmatter:
 
 ```yaml
 ---
-title: "Post Title"
-excerpt: "1-2 sentence summary"
-date: "YYYY-MM-DD"
-readTime: "X min read"
-tag: "Automation"           # Automation | Architecture | AI / MCP | DevOps | Performance | Business
-tagColor: "text-green bg-green-dim"
-published: true             # false = draft, excluded from listings
+title: 'Post Title'
+excerpt: '1-2 sentence summary'
+date: 'YYYY-MM-DD'
+readTime: 'X min read'
+tag: 'Automation' # Automation | Architecture | AI / MCP | DevOps | Performance | Business
+tagColor: 'text-green bg-green-dim'
+published: true # false = draft, excluded from listings
 ---
 ```
 
@@ -151,10 +153,10 @@ When adding new text, add keys to both `en` and `es` objects in `messages.ts`.
 
 ## Environment Variables
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `BEEHIIV_API_KEY` | No | Beehiiv newsletter API key. Without it, subscribe form redirects to external Beehiiv page. |
-| `BEEHIIV_PUBLICATION_ID` | No | Beehiiv publication ID. Paired with API key for direct subscription. |
+| Variable                 | Required | Purpose                                                                                    |
+| ------------------------ | -------- | ------------------------------------------------------------------------------------------ |
+| `BEEHIIV_API_KEY`        | No       | Beehiiv newsletter API key. Without it, subscribe form redirects to external Beehiiv page. |
+| `BEEHIIV_PUBLICATION_ID` | No       | Beehiiv publication ID. Paired with API key for direct subscription.                       |
 
 ## Gotchas
 

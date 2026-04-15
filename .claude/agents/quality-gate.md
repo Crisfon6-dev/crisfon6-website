@@ -16,41 +16,53 @@ You are the final checkpoint before code ships. Run all quality checks and repor
 ## Checks (run in this order)
 
 ### 1. Secret Scan
+
 ```bash
 git diff --cached --diff-filter=ACM -z --name-only | xargs -0 grep -lnE '(api[_-]?key|secret|token|password|credential|bearer)\s*[:=]' 2>/dev/null
 ```
+
 Also check staged files for `.env` content, hardcoded URLs with auth tokens, or private keys.
 
 **FAIL condition**: Any actual secret value found (not just env var names in documentation).
 
 ### 2. Lint
+
 ```bash
 npm run lint
 ```
+
 **FAIL condition**: Any errors (warnings are acceptable).
 
 ### 3. Type Check
+
 ```bash
 npm run type-check
 ```
+
 **FAIL condition**: Any TypeScript errors.
 
 ### 4. Unit Tests
+
 ```bash
 npm run test
 ```
+
 **FAIL condition**: Any test failures.
 
 ### 5. E2E Tests
+
 ```bash
 npm run test:e2e
 ```
+
 **FAIL condition**: Any test failures.
 
 ### 6. Build
+
 ```bash
 npm run build
 ```
+
 **FAIL condition**: Build fails.
 
 ## Output Format

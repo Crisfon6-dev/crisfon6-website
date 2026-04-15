@@ -1,10 +1,10 @@
 ---
-title: "Agent Teams with Claude: Orchestrators, Specialists, and Real Results"
-excerpt: "How to build multi-agent systems where specialized Claude agents collaborate on complex tasks — with TypeScript code, cost tables, and a production example."
-date: "2026-03-22"
-readTime: "9 min read"
-tag: "AI / MCP"
-tagColor: "text-violet bg-violet-dim"
+title: 'Agent Teams with Claude: Orchestrators, Specialists, and Real Results'
+excerpt: 'How to build multi-agent systems where specialized Claude agents collaborate on complex tasks — with TypeScript code, cost tables, and a production example.'
+date: '2026-03-22'
+readTime: '9 min read'
+tag: 'AI / MCP'
+tagColor: 'text-violet bg-violet-dim'
 published: true
 ---
 
@@ -43,7 +43,7 @@ This isn't just an architectural preference. Specialists perform better because 
 The core abstraction is simple: an agent is a function that takes a task string and returns a result string. The orchestrator calls agents like tools.
 
 ```typescript
-import Anthropic from "@anthropic-ai/sdk";
+import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic();
 
@@ -52,12 +52,12 @@ type Agent = (task: string, context?: string) => Promise<string>;
 function createAgent(
   name: string,
   systemPrompt: string,
-  model: string = "claude-sonnet-4-5"
+  model: string = 'claude-sonnet-4-5'
 ): Agent {
   return async (task: string, context?: string) => {
     const messages: Anthropic.MessageParam[] = [
       {
-        role: "user",
+        role: 'user',
         content: context ? `Context:\n${context}\n\nTask:\n${task}` : task,
       },
     ];
@@ -69,7 +69,7 @@ function createAgent(
       messages,
     });
 
-    return response.content[0].type === "text" ? response.content[0].text : "";
+    return response.content[0].type === 'text' ? response.content[0].text : '';
   };
 }
 ```
@@ -78,18 +78,18 @@ Now define the specialists:
 
 ```typescript
 const researchAgent = createAgent(
-  "researcher",
+  'researcher',
   `You are a technical research specialist. Given a topic or question, you:
   - Identify the key concepts and constraints
   - Surface relevant patterns and prior art
   - Flag potential pitfalls and edge cases
   - Summarize findings in structured markdown
   Return only your research findings. Do not write code.`,
-  "claude-haiku-4-5"  // cheaper model for research synthesis
+  'claude-haiku-4-5' // cheaper model for research synthesis
 );
 
 const codeAgent = createAgent(
-  "coder",
+  'coder',
   `You are a senior TypeScript engineer. Given a specification and research context, you:
   - Write production-quality TypeScript
   - Include proper error handling
@@ -99,7 +99,7 @@ const codeAgent = createAgent(
 );
 
 const reviewAgent = createAgent(
-  "reviewer",
+  'reviewer',
   `You are a code reviewer focused on production readiness. You check for:
   - Security issues (injection, secrets in code, missing validation)
   - Error handling gaps
@@ -120,24 +120,22 @@ async function orchestrate(userRequest: string): Promise<{
   review: string;
   approved: boolean;
 }> {
-  console.log("Phase 1: Research");
-  const research = await researchAgent(
-    `Research the technical requirements for: ${userRequest}`
-  );
+  console.log('Phase 1: Research');
+  const research = await researchAgent(`Research the technical requirements for: ${userRequest}`);
 
-  console.log("Phase 2: Implementation");
+  console.log('Phase 2: Implementation');
   const code = await codeAgent(
     `Implement the following: ${userRequest}`,
-    research  // research becomes context for the coder
+    research // research becomes context for the coder
   );
 
-  console.log("Phase 3: Review");
+  console.log('Phase 3: Review');
   const review = await reviewAgent(
     `Review this implementation for production readiness`,
     `Original request: ${userRequest}\n\nResearch:\n${research}\n\nCode:\n${code}`
   );
 
-  const approved = review.toUpperCase().includes("APPROVED");
+  const approved = review.toUpperCase().includes('APPROVED');
 
   return { research, code, review, approved };
 }
@@ -147,13 +145,13 @@ Usage is a single function call:
 
 ```typescript
 const result = await orchestrate(
-  "Build a rate limiter middleware for an Express API that limits to 100 requests per IP per minute, stores state in Redis, and returns RFC 7807 error responses"
+  'Build a rate limiter middleware for an Express API that limits to 100 requests per IP per minute, stores state in Redis, and returns RFC 7807 error responses'
 );
 
 if (result.approved) {
-  console.log("Ready for production:\n", result.code);
+  console.log('Ready for production:\n', result.code);
 } else {
-  console.log("Needs changes:\n", result.review);
+  console.log('Needs changes:\n', result.review);
 }
 ```
 
@@ -167,56 +165,56 @@ Here's how to add tool use to a specialist:
 async function codeAgentWithTools(task: string, context: string): Promise<string> {
   const tools: Anthropic.Tool[] = [
     {
-      name: "read_file",
-      description: "Read an existing file from the project",
+      name: 'read_file',
+      description: 'Read an existing file from the project',
       input_schema: {
-        type: "object" as const,
+        type: 'object' as const,
         properties: {
-          path: { type: "string", description: "Relative file path" },
+          path: { type: 'string', description: 'Relative file path' },
         },
-        required: ["path"],
+        required: ['path'],
       },
     },
     {
-      name: "write_file",
-      description: "Write or overwrite a file",
+      name: 'write_file',
+      description: 'Write or overwrite a file',
       input_schema: {
-        type: "object" as const,
+        type: 'object' as const,
         properties: {
-          path: { type: "string" },
-          content: { type: "string" },
+          path: { type: 'string' },
+          content: { type: 'string' },
         },
-        required: ["path", "content"],
+        required: ['path', 'content'],
       },
     },
   ];
 
   const messages: Anthropic.MessageParam[] = [
-    { role: "user", content: `Context:\n${context}\n\nTask:\n${task}` },
+    { role: 'user', content: `Context:\n${context}\n\nTask:\n${task}` },
   ];
 
   // Agentic loop — runs until no more tool calls
   while (true) {
     const response = await client.messages.create({
-      model: "claude-sonnet-4-5",
+      model: 'claude-sonnet-4-5',
       max_tokens: 8192,
-      system: "You are a senior TypeScript engineer...",
+      system: 'You are a senior TypeScript engineer...',
       tools,
       messages,
     });
 
-    if (response.stop_reason === "end_turn") {
-      const textBlock = response.content.find((b) => b.type === "text");
-      return textBlock?.type === "text" ? textBlock.text : "";
+    if (response.stop_reason === 'end_turn') {
+      const textBlock = response.content.find((b) => b.type === 'text');
+      return textBlock?.type === 'text' ? textBlock.text : '';
     }
 
     // Process tool calls
     const toolResults: Anthropic.ToolResultBlockParam[] = [];
     for (const block of response.content) {
-      if (block.type === "tool_use") {
+      if (block.type === 'tool_use') {
         const result = await executeTool(block.name, block.input as Record<string, string>);
         toolResults.push({
-          type: "tool_result",
+          type: 'tool_result',
           tool_use_id: block.id,
           content: result,
         });
@@ -224,8 +222,8 @@ async function codeAgentWithTools(task: string, context: string): Promise<string
     }
 
     // Feed results back into the conversation
-    messages.push({ role: "assistant", content: response.content });
-    messages.push({ role: "user", content: toolResults });
+    messages.push({ role: 'assistant', content: response.content });
+    messages.push({ role: 'user', content: toolResults });
   }
 }
 ```
@@ -269,7 +267,7 @@ async function reviewPullRequest(prNumber: number, repo: string) {
   ]);
 
   const summary = await summaryAgent(
-    "Write a concise PR review comment",
+    'Write a concise PR review comment',
     `Security findings:\n${securityFindings}\n\nLogic findings:\n${logicFindings}`
   );
 
@@ -283,13 +281,13 @@ Parallel execution is key. Security and logic checks are independent — running
 
 The cost difference is real and worth understanding before committing to a multi-agent architecture.
 
-| Setup | Model | Input tokens | Output tokens | Cost per run |
-|-------|-------|-------------|---------------|-------------|
-| Single agent (all-in-one) | Sonnet | ~4,000 | ~2,000 | ~$0.030 |
-| Team: Haiku researcher | Haiku | ~1,500 | ~800 | ~$0.001 |
-| Team: Sonnet coder | Sonnet | ~3,000 | ~2,000 | ~$0.024 |
-| Team: Sonnet reviewer | Sonnet | ~5,000 | ~500 | ~$0.017 |
-| **Team total** | | | | **~$0.042** |
+| Setup                     | Model  | Input tokens | Output tokens | Cost per run |
+| ------------------------- | ------ | ------------ | ------------- | ------------ |
+| Single agent (all-in-one) | Sonnet | ~4,000       | ~2,000        | ~$0.030      |
+| Team: Haiku researcher    | Haiku  | ~1,500       | ~800          | ~$0.001      |
+| Team: Sonnet coder        | Sonnet | ~3,000       | ~2,000        | ~$0.024      |
+| Team: Sonnet reviewer     | Sonnet | ~5,000       | ~500          | ~$0.017      |
+| **Team total**            |        |              |               | **~$0.042**  |
 
 Agent teams cost more. That's the honest answer. You pay for the additional context and model calls.
 
@@ -332,7 +330,7 @@ async function orchestrateWithRetry(request: string, maxRetries = 2) {
     const code = await codeAgent(request, context);
     const review = await reviewAgent(request, `${context}\n\nCode:\n${code}`);
 
-    if (review.toUpperCase().includes("APPROVED")) {
+    if (review.toUpperCase().includes('APPROVED')) {
       return { code, review, attempts: attempt + 1 };
     }
 

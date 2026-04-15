@@ -1,10 +1,4 @@
-export function LogoIcon({
-  size = 28,
-  className,
-}: {
-  size?: number;
-  className?: string;
-}) {
+export function LogoIcon({ size = 28, className }: { size?: number; className?: string }) {
   return (
     <svg
       width={size}
@@ -59,11 +53,9 @@ export function LogoIcon({
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <span className={`flex items-center gap-2 ${className ?? ""}`}>
+    <span className={`flex items-center gap-2 ${className ?? ''}`}>
       <LogoIcon size={28} />
-      <span className="font-mono text-sm text-text-secondary tracking-tight">
-        crisfon6
-      </span>
+      <span className="font-mono text-sm text-text-secondary tracking-tight">crisfon6</span>
     </span>
   );
 }

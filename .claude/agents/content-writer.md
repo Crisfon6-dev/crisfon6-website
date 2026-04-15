@@ -27,6 +27,7 @@ Follow these steps every time:
 ### Step 1: Understand the Topic
 
 Ask the user:
+
 1. What's the topic?
 2. What's the key takeaway or angle?
 3. Any specific code, architecture, or numbers to include?
@@ -35,9 +36,11 @@ Ask the user:
 ### Step 2: Read Existing Content for Tone
 
 ALWAYS read at least one existing post before writing:
+
 ```
 Read content/blog/ai-document-processor.mdx
 ```
+
 Match the voice: first-person, direct, practical, with real costs and metrics.
 
 ### Step 3: Generate the Post
@@ -46,34 +49,36 @@ Create the file at `content/blog/{slug}.mdx` with this exact frontmatter format:
 
 ```yaml
 ---
-title: "Title Here"
-excerpt: "1-2 sentence summary for listings and RSS"
-date: "YYYY-MM-DD"
-readTime: "X min read"
-tag: "Category"
-tagColor: "text-{color} bg-{color}-dim"
+title: 'Title Here'
+excerpt: '1-2 sentence summary for listings and RSS'
+date: 'YYYY-MM-DD'
+readTime: 'X min read'
+tag: 'Category'
+tagColor: 'text-{color} bg-{color}-dim'
 published: true
 ---
 ```
 
 #### Tag Color Reference
 
-| Tag | tagColor |
-|-----|----------|
-| Automation | `"text-green bg-green-dim"` |
+| Tag          | tagColor                            |
+| ------------ | ----------------------------------- |
+| Automation   | `"text-green bg-green-dim"`         |
 | Architecture | `"text-accent-light bg-accent-dim"` |
-| AI / MCP | `"text-violet bg-violet-dim"` |
-| DevOps | `"text-amber bg-amber-dim"` |
-| Performance | `"text-cyan bg-cyan-dim"` |
-| Business | `"text-rose bg-rose-dim"` |
+| AI / MCP     | `"text-violet bg-violet-dim"`       |
+| DevOps       | `"text-amber bg-amber-dim"`         |
+| Performance  | `"text-cyan bg-cyan-dim"`           |
+| Business     | `"text-rose bg-rose-dim"`           |
 
 #### Slug Rules
+
 - Lowercase kebab-case
 - Short but descriptive (3-6 words)
 - No special characters
 - Example: `building-mcp-agents-production`
 
 #### Read Time Calculation
+
 - ~200 words per minute
 - Round to nearest minute
 - Format: `"X min read"`
@@ -85,6 +90,7 @@ Run `npm run build` to confirm the MDX parses and the post is included in static
 ## Writing Voice Rules
 
 ### DO:
+
 - Write in first person ("I built", "I learned", "Here's what happened")
 - Lead with the problem, then the solution
 - Include real numbers (costs, performance metrics, time saved)
@@ -95,6 +101,7 @@ Run `npm run build` to confirm the MDX parses and the post is included in static
 - Be opinionated — state what works and what doesn't
 
 ### DON'T:
+
 - Use corporate jargon ("leverage", "synergize", "paradigm")
 - Write generic introductions ("In today's world...")
 - Add filler or padding to make it longer
@@ -105,6 +112,7 @@ Run `npm run build` to confirm the MDX parses and the post is included in static
 ## Post Structure Templates
 
 ### For Automation/Technical Posts:
+
 ```
 ## The Problem
 ## Architecture Overview
@@ -117,6 +125,7 @@ Run `npm run build` to confirm the MDX parses and the post is included in static
 ```
 
 ### For Architecture Posts:
+
 ```
 ## Why This Architecture
 ## System Design (with component descriptions)
@@ -127,6 +136,7 @@ Run `npm run build` to confirm the MDX parses and the post is included in static
 ```
 
 ### For Opinion/Business Posts:
+
 ```
 ## The Conventional Wisdom
 ## What I Actually Found
@@ -158,6 +168,7 @@ This is template #N in the **Zero to Production** weekly series. Every week I pu
 ## Quality Checklist
 
 Before delivering the post, verify:
+
 - [ ] Frontmatter has ALL required fields
 - [ ] `published: true` is set (unless draft)
 - [ ] Date is today's date (or specified date)

@@ -4,7 +4,8 @@ import { Footer } from '@/components/Footer';
 
 test('renders brand name', () => {
   render(<Footer />);
-  expect(screen.getByText('crisfon6')).toBeDefined();
+  // brand mark (Logo) + mega watermark
+  expect(screen.getAllByText('crisfon6').length).toBeGreaterThanOrEqual(1);
 });
 
 test('renders social links including email', () => {

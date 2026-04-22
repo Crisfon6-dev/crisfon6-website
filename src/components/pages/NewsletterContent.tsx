@@ -1,13 +1,13 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { SubscribeForm } from '@/components/SubscribeForm';
+import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
+import { SubpageHeader } from '@/components/primitives/SubpageHeader';
+import { Atmosphere } from '@/components/primitives/Atmosphere';
+import { Kicker } from '@/components/primitives/Kicker';
+import { SubscribeForm } from '@/components/SubscribeForm';
 
-const benefits = [
+const BENEFITS = [
   {
     title: 'Anthropic-Certified Patterns',
     description:
@@ -30,18 +30,18 @@ const benefits = [
     title: 'Working Code',
     description: 'Every template comes with a GitHub repo you can clone and deploy today.',
   },
-];
+] as const;
 
-const sampleTopics = [
-  'AI-Powered Document Processor ($12/mo at 1K docs)',
+const SAMPLE_TOPICS = [
+  'AI-Powered Document Processor · $12/mo @ 1K docs',
   'Slack to Notion Meeting Summarizer',
   'Automated Lead Scoring Pipeline',
   'MCP Agent: Code Review Assistant',
   'Invoice Processing Automation',
   'Content Repurposing Engine',
-];
+] as const;
 
-const audiences = [
+const AUDIENCES = [
   {
     who: 'Engineers',
     desc: 'who want to add AI automation to their toolkit without weeks of research.',
@@ -58,116 +58,128 @@ const audiences = [
     who: 'Builders',
     desc: 'who believe in learning by doing — real blueprints with real cost numbers.',
   },
-];
+] as const;
 
 export function NewsletterContent() {
   const { t } = useLanguage();
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
-      <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
-        {t.newsletter.heading}
-      </h1>
-      <p className="text-lg text-text-secondary mb-3 max-w-2xl leading-relaxed">
-        {t.newsletter.description}
-      </p>
-      <p className="text-sm text-text-tertiary mb-12 font-mono tracking-wide">
-        {t.newsletter.authority}
-      </p>
+    <main className="page-in relative">
+      <Atmosphere />
+      <SubpageHeader
+        number="07"
+        label="POWERAI · EDITION #06"
+        title={t.newsletter.heading}
+        description={t.newsletter.description}
+      />
 
-      {/* Email capture */}
-      <Card className="card-shadow border-accent-dim blueprint-grid mb-16">
-        <CardContent>
-          <div className="flex items-center gap-2 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
-            <p className="text-[10px] font-mono text-text-muted tracking-widest">
-              {t.newsletter.joinBuilders}
-            </p>
+      {/* Dark newsletter panel */}
+      <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
+        <div
+          data-testid="newsletter-dark-panel"
+          className="relative overflow-hidden rounded-sp-xl bg-warm-fg px-sp-6 py-sp-8 text-warm-bg sm:px-sp-8 sm:py-sp-9"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-30"
+            style={{
+              background:
+                'radial-gradient(circle at 85% 20%, rgb(from var(--c-accent) r g b / 0.5) 0%, transparent 60%)',
+            }}
+          />
+          <div className="relative mx-auto max-w-2xl">
+            <Kicker accent dot>
+              <span>{t.newsletter.joinBuilders}</span>
+            </Kicker>
+            <h2
+              className="mt-sp-4 font-heading"
+              style={{
+                fontSize: 'clamp(28px, 3.6vw, 44px)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                fontWeight: 600,
+              }}
+            >
+              {t.newsletter.finalCtaHeading}
+            </h2>
+            <p className="mt-sp-4 text-sm leading-relaxed opacity-80">{t.newsletter.authority}</p>
+            <div className="mt-sp-5">
+              <SubscribeForm />
+            </div>
           </div>
-          <SubscribeForm />
-        </CardContent>
-      </Card>
-
-      <Separator className="mb-16" />
+        </div>
+      </section>
 
       {/* What you get */}
-      <section className="mb-16">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
-          {t.newsletter.whatYouGet}
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {benefits.map((b) => (
-            <Card key={b.title} className="card-shadow">
-              <CardContent>
-                <h3 className="text-sm font-medium text-text-primary mb-2">{b.title}</h3>
-                <p className="text-sm text-text-tertiary leading-relaxed">{b.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <Separator className="mb-16" />
-
-      {/* Sample topics */}
-      <section className="mb-16">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
-          {t.newsletter.recentTemplates}
-        </h2>
-        <div className="space-y-2">
-          {sampleTopics.map((topic, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-4 border border-border rounded-lg px-5 py-3 bg-surface-1/20"
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.newsletter.whatYouGet}</Kicker>
+        <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2">
+          {BENEFITS.map((b) => (
+            <li
+              key={b.title}
+              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
             >
-              <Badge variant="outline" className="font-mono text-[10px] tracking-widest shrink-0">
-                W{i + 1}
-              </Badge>
-              <p className="text-sm text-text-secondary">{topic}</p>
-            </div>
+              <h3 className="text-sm font-semibold text-warm-fg">{b.title}</h3>
+              <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">{b.description}</p>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
-      <Separator className="mb-16" />
+      {/* Recent templates */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.newsletter.recentTemplates}</Kicker>
+        <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border">
+          {SAMPLE_TOPICS.map((topic, i) => (
+            <li key={topic} className="flex items-center gap-sp-4 py-sp-4">
+              <span className="w-12 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
+                W{i + 1}
+              </span>
+              <p className="text-sm text-warm-fg">{topic}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* Who is this for */}
-      <section className="mb-16">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
-          {t.newsletter.whoIsThisFor}
-        </h2>
-        <div className="space-y-3">
-          {audiences.map((a) => (
-            <p key={a.who} className="text-sm text-text-secondary leading-relaxed">
-              <span className="text-text-primary font-medium">{a.who}</span> {a.desc}
-            </p>
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.newsletter.whoIsThisFor}</Kicker>
+        <ul className="mt-sp-5 space-y-sp-3">
+          {AUDIENCES.map((a) => (
+            <li key={a.who} className="text-base leading-relaxed text-warm-fg-muted">
+              <span className="font-medium text-warm-fg">{a.who}</span> {a.desc}
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
-      <Separator className="mb-16" />
-
       {/* Final CTA */}
-      <Card className="card-shadow">
-        <CardContent className="text-center">
-          <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
-            {t.newsletter.finalCtaHeading}
-          </h2>
-          <p className="text-text-secondary mb-6 max-w-lg mx-auto">
-            {t.newsletter.finalCtaDescription}
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-accent hover:bg-accent-light text-white px-8 py-3.5 h-auto"
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
+        <div className="rounded-sp-xl border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+          <h2
+            className="font-heading text-warm-fg"
+            style={{
+              fontSize: 'clamp(22px, 3vw, 30px)',
+              letterSpacing: '-0.02em',
+              fontWeight: 600,
+            }}
           >
-            <a href="https://crisfon6.beehiiv.com" target="_blank" rel="noopener noreferrer">
-              {t.cta.subscribeZTP}
-            </a>
-          </Button>
-          <p className="text-xs text-text-muted mt-4">{t.cta.freeForever}</p>
-        </CardContent>
-      </Card>
-    </div>
+            {t.newsletter.finalCtaDescription}
+          </h2>
+          <Link
+            href="https://crisfon6.beehiiv.com"
+            data-testid="newsletter-archive-cta"
+            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.cta.subscribeZTP} <span aria-hidden>→</span>
+          </Link>
+          <p className="mt-sp-3 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
+            {t.cta.freeForever}
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }

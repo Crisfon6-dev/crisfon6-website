@@ -1,73 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { FadeIn } from '@/components/FadeIn';
 import { useLanguage } from '@/i18n/LanguageProvider';
+import { SubpageHeader } from '@/components/primitives/SubpageHeader';
+import { Timeline } from '@/components/primitives/Timeline';
+import { Kicker } from '@/components/primitives/Kicker';
+import { Chip } from '@/components/primitives/Chip';
+import { Atmosphere } from '@/components/primitives/Atmosphere';
 
-const experience = [
-  {
-    role: 'Technical Lead',
-    company: 'Prosperas',
-    period: '2025 — Present',
-    accent: 'bg-green',
-    points: [
-      'Leading architecture of a FinTech credit marketplace inside a major telecom Super App',
-      'Serving millions of underbanked users across LATAM with zero-paperwork loans',
-      'Multi-environment cloud-native infra using AWS CDK (RDS, S3, Lambda, Cognito, ElastiCache)',
-      'Optimized analytical queries across 2M+ records — cut dashboard load times and costs',
-      'End-to-end CI/CD pipelines and DevOps-first engineering culture',
-    ],
-  },
-  {
-    role: 'Full-Stack Developer',
-    company: 'eSoluzion (Banking Consulting)',
-    period: '2022 — Present',
-    accent: 'bg-accent',
-    points: [
-      'Architected end-to-end modules for enterprise banking systems with regulatory compliance',
-      'Built dynamic, responsive banking interfaces improving usability across core modules',
-      'Cross-functional collaboration with product owners and QA engineers',
-    ],
-  },
-  {
-    role: 'Lead Developer',
-    company: 'ImkGlobal',
-    period: '2024 — 2025',
-    accent: 'bg-violet',
-    points: [
-      'Led development team driving technical decisions, architecture, and sprint planning',
-      'Cross-platform mobile/web applications using Flutter for government-backed services',
-    ],
-  },
-  {
-    role: 'Software Engineer',
-    company: 'Dualboot Partners',
-    period: '2022 — 2023',
-    accent: 'bg-cyan',
-    points: [
-      'Designed and deployed cloud services on AWS for a US-based platform',
-      'Serverless architectures using AWS Lambda and Chalice, automating data flows',
-      'High-availability infrastructure: EC2, Route 53, API Gateway',
-    ],
-  },
-  {
-    role: 'Data Analyst / Full-Stack Developer',
-    company: 'Accenture',
-    period: '2021 — 2022',
-    accent: 'bg-amber',
-    points: [
-      'Interactive Power BI dashboards integrating SQL Oracle and MongoDB sources',
-      'Java (Spring Boot) backend services for banking infrastructure',
-      'Full-stack features using the MEAN stack',
-    ],
-  },
-];
-
-const stackCategories = [
+const STACK_CATEGORIES = [
   {
     title: 'AI & Automation',
     items:
@@ -83,189 +24,148 @@ const stackCategories = [
     items:
       'Python, TypeScript, JavaScript, Java — FastAPI, Angular, Django, Spring Boot, NestJS, Node.js, Flutter — PostgreSQL, MongoDB, Redis',
   },
-];
+] as const;
 
-const certs = [
-  { name: 'Claude Code in Action', org: 'Anthropic (2026)', featured: true },
-  {
-    name: 'B.Eng. Systems Engineering',
-    org: 'Universidad Autonoma de Bucaramanga (UNAB)',
-    featured: false,
-  },
-  {
-    name: 'Neural Networks and Deep Learning',
-    org: 'Coursera / deeplearning.ai',
-    featured: false,
-  },
-  {
-    name: 'AWS Partner: Accreditation (Technical)',
-    org: 'Amazon Web Services',
-    featured: false,
-  },
-];
+const CERTS = [
+  { name: 'Claude Code in Action', org: 'Anthropic (2026)' },
+  { name: 'B.Eng. Systems Engineering', org: 'UNAB — Bucaramanga' },
+  { name: 'Neural Networks and Deep Learning', org: 'Coursera / deeplearning.ai' },
+  { name: 'AWS Partner: Technical Accreditation', org: 'Amazon Web Services' },
+] as const;
 
 export function AboutContent() {
   const { t } = useLanguage();
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-20">
-      {/* INTRO */}
-      <div className="mb-20">
-        <h1 className="text-4xl font-bold text-text-primary mb-6 tracking-tight">
-          {t.about.heading1}
-          <br />
-          <span className="text-text-tertiary">{t.about.heading2}</span>
-        </h1>
-        <div className="text-text-secondary space-y-4 max-w-3xl text-lg leading-relaxed">
-          <p>{t.about.intro1}</p>
-          <p>{t.about.intro2}</p>
-          <p>{t.about.intro3}</p>
-          <p className="text-text-primary font-medium">{t.about.intro4}</p>
-        </div>
-      </div>
+    <main className="page-in relative">
+      <Atmosphere />
+      <SubpageHeader
+        number="02"
+        label="ABOUT"
+        title={
+          <>
+            {t.about.heading1} <span className="text-warm-fg-muted">{t.about.heading2}</span>
+          </>
+        }
+      />
 
-      {/* ANTHROPIC CREDENTIAL HERO CARD */}
-      <FadeIn>
-        <div className="mb-20">
-          <Card className="glow border-l-4 border-l-violet bg-surface-1/40 p-0">
-            <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center gap-6">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-violet-dim flex items-center justify-center">
-                <span className="text-violet font-mono font-bold text-sm">A</span>
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] font-mono text-text-muted tracking-widest uppercase mb-1">
-                  CERTIFIED
-                </p>
-                <h3 className="text-base font-bold text-text-primary tracking-tight">
-                  Claude Code in Action
-                </h3>
-                <p className="text-sm text-text-tertiary">Anthropic &mdash; Feb 2026</p>
-              </div>
-              <Badge
-                variant="outline"
-                className="text-violet border-violet/30 bg-violet-dim shrink-0 font-mono text-[10px] tracking-widest"
-              >
-                ANTHROPIC CERTIFIED
-              </Badge>
-            </CardContent>
-          </Card>
-        </div>
-      </FadeIn>
-
-      <Separator className="mb-20" />
-
-      {/* STACK */}
-      <section className="mb-20">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
-          {t.about.coreStack}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {stackCategories.map((cat) => (
-            <Card key={cat.title} className="card-shadow bg-surface-1/30 border-border">
-              <CardContent>
-                <h3 className="text-sm font-medium text-text-primary mb-3">{cat.title}</h3>
-                <p className="text-sm text-text-tertiary leading-relaxed">{cat.items}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <Separator className="mb-20" />
-
-      {/* EXPERIENCE */}
-      <section className="mb-20">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-8">
-          {t.about.experience}
-        </h2>
-        <div className="space-y-10">
-          {experience.map((exp) => (
-            <div key={exp.role + exp.company} className="border-l border-border pl-6 relative">
-              <div
-                className={`absolute -left-[3px] top-1.5 w-1.5 h-1.5 rounded-full ${exp.accent}`}
-              />
-              <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                <h3 className="text-base font-bold text-text-primary">{exp.role}</h3>
-                <span className="text-sm text-text-tertiary">{exp.company}</span>
-              </div>
-              <p className="text-xs font-mono text-text-muted mb-3">{exp.period}</p>
-              <ul className="space-y-1.5">
-                {exp.points.map((point, i) => (
-                  <li key={i} className="text-sm text-text-secondary leading-relaxed flex gap-2">
-                    <span className="text-text-muted mt-0.5 shrink-0">&middot;</span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <Separator className="mb-20" />
-
-      {/* WHY I BUILD IN PUBLIC */}
-      <section className="mb-20">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
-          {t.about.whyBuildInPublicLabel}
-        </h2>
-        <FadeIn>
-          <div className="space-y-5 max-w-3xl">
-            <p className="text-text-secondary leading-relaxed text-lg">{t.about.whyPara1}</p>
-            <p className="text-text-secondary leading-relaxed text-lg">{t.about.whyPara2}</p>
-            <p className="text-text-primary font-medium leading-relaxed text-lg">
-              {t.about.whyPara3}
-            </p>
+      {/* Intro paragraphs + Anthropic credential */}
+      <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
+        <div className="grid gap-sp-7 lg:grid-cols-[1fr_320px]">
+          <div className="space-y-sp-4 text-base leading-relaxed text-warm-fg-muted">
+            <p>{t.about.intro1}</p>
+            <p>{t.about.intro2}</p>
+            <p>{t.about.intro3}</p>
+            <p className="font-medium text-warm-fg">{t.about.intro4}</p>
           </div>
-        </FadeIn>
+
+          <aside
+            data-testid="anthropic-card"
+            className="glow relative overflow-hidden rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
+          >
+            <span
+              aria-hidden
+              className="shimmer-sweep pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(90deg, transparent 0%, rgb(from var(--c-accent) r g b / 0.2) 50%, transparent 100%)',
+              }}
+            />
+            <Kicker accent dot>
+              <span>{t.hero.cert}</span>
+            </Kicker>
+            <h3
+              className="relative mt-sp-3 font-heading text-warm-fg"
+              style={{ fontSize: '22px', letterSpacing: '-0.02em', fontWeight: 600 }}
+            >
+              Claude Code in Action
+            </h3>
+            <p className="relative mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
+              Anthropic · Feb 2026
+            </p>
+          </aside>
+        </div>
       </section>
 
-      <Separator className="mb-20" />
+      {/* Experience Timeline */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.about.experience}</Kicker>
+        <div className="mt-sp-6">
+          <Timeline items={[...t.about.timeline]} />
+        </div>
+      </section>
 
-      {/* EDUCATION */}
-      <section className="mb-20">
-        <h2 className="text-xs font-mono text-text-muted tracking-widest mb-6">
-          {t.about.education}
-        </h2>
-        <div className="flex flex-wrap gap-3">
-          {certs.map((cert) => (
-            <Badge key={cert.name} variant="secondary" className="px-3 py-1.5 h-auto text-sm">
-              <span className="font-medium text-text-primary">{cert.name}</span>
-              <span className="text-text-muted mx-1.5">&mdash;</span>
-              <span className="text-text-tertiary font-normal">{cert.org}</span>
-            </Badge>
+      {/* Core Stack */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.about.coreStack}</Kicker>
+        <div className="mt-sp-6 grid gap-sp-4 md:grid-cols-3">
+          {STACK_CATEGORIES.map((cat) => (
+            <article
+              key={cat.title}
+              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
+            >
+              <h3 className="text-sm font-semibold text-warm-fg">{cat.title}</h3>
+              <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">{cat.items}</p>
+            </article>
           ))}
         </div>
       </section>
 
-      <Separator className="mb-20" />
+      {/* Why I Build in Public */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.about.whyBuildInPublicLabel}</Kicker>
+        <div className="mt-sp-5 max-w-3xl space-y-sp-4 text-base leading-relaxed text-warm-fg-muted">
+          <p>{t.about.whyPara1}</p>
+          <p>{t.about.whyPara2}</p>
+          <p className="font-medium text-warm-fg">{t.about.whyPara3}</p>
+        </div>
+      </section>
 
-      {/* CTA */}
-      <Card className="card-shadow bg-surface-1/30 border-border text-center">
-        <CardContent className="py-4">
-          <h2 className="text-xl font-bold text-text-primary mb-3 tracking-tight">
+      {/* Education / Certifications */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
+        <Kicker>{t.about.education}</Kicker>
+        <div className="mt-sp-5 flex flex-wrap gap-sp-2">
+          {CERTS.map((cert) => (
+            <Chip key={cert.name} variant="default" className="px-sp-3 py-sp-2 text-sm normal-case">
+              <span className="font-medium text-warm-fg">{cert.name}</span>
+              <span className="mx-1.5 text-warm-fg-faint">·</span>
+              <span className="text-warm-fg-muted">{cert.org}</span>
+            </Chip>
+          ))}
+        </div>
+      </section>
+
+      {/* Inline CTA */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
+        <div className="rounded-sp-lg border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+          <h2
+            className="font-heading text-warm-fg"
+            style={{
+              fontSize: 'clamp(22px, 3vw, 30px)',
+              letterSpacing: '-0.02em',
+              fontWeight: 600,
+            }}
+          >
             {t.about.ctaHeading}
           </h2>
-          <p className="text-text-tertiary mb-6 text-sm">{t.about.ctaDescription}</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button variant="default" size="lg" asChild>
-              <Link href="/work-with-me">{t.nav.workWithMe}</Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <a
-                href="https://www.linkedin.com/in/crisfon6/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t.cta.connectLinkedIn}
-              </a>
-            </Button>
-            <Button variant="ghost" size="lg" asChild>
-              <Link href="/newsletter">{t.cta.subscribeNewsletter}</Link>
-            </Button>
+          <p className="mt-sp-3 text-warm-fg-muted">{t.about.ctaDescription}</p>
+          <div className="mt-sp-5 flex flex-wrap justify-center gap-sp-3">
+            <Link
+              href="/work-with-me"
+              data-testid="about-cta-primary"
+              className="inline-flex items-center gap-2 rounded-sp-xl bg-warm-fg px-sp-5 py-sp-3 text-sm font-medium text-warm-bg transition-transform hover:-translate-y-0.5"
+            >
+              {t.nav.workWithMe} <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/newsletter"
+              className="inline-flex items-center gap-2 rounded-sp-xl border border-warm-border px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong"
+            >
+              {t.cta.subscribeNewsletter}
+            </Link>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

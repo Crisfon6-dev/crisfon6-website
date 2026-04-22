@@ -153,10 +153,11 @@ When adding new text, add keys to both `en` and `es` objects in `messages.ts`.
 
 ## Environment Variables
 
-| Variable                 | Required | Purpose                                                                                    |
-| ------------------------ | -------- | ------------------------------------------------------------------------------------------ |
-| `BEEHIIV_API_KEY`        | No       | Beehiiv newsletter API key. Without it, subscribe form redirects to external Beehiiv page. |
-| `BEEHIIV_PUBLICATION_ID` | No       | Beehiiv publication ID. Paired with API key for direct subscription.                       |
+| Variable                       | Required | Purpose                                                                                    |
+| ------------------------------ | -------- | ------------------------------------------------------------------------------------------ |
+| `BEEHIIV_API_KEY`              | No       | Beehiiv newsletter API key. Without it, subscribe form redirects to external Beehiiv page. |
+| `BEEHIIV_PUBLICATION_ID`       | No       | Beehiiv publication ID. Paired with API key for direct subscription.                       |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | No       | Plausible domain (e.g. `crisfon6.com`). Unset = no tracking script is injected.            |
 
 ## Gotchas
 

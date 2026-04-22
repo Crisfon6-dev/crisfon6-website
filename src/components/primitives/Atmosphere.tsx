@@ -18,7 +18,7 @@ export function Atmosphere({ className = '', grid = true }: AtmosphereProps) {
           width: '600px',
           height: '600px',
           background:
-            'radial-gradient(circle at center, rgb(from var(--c-accent) r g b / 0.20) 0%, transparent 60%)',
+            'radial-gradient(circle at center, rgb(from var(--c-accent) r g b / 0.12) 0%, transparent 60%)',
           filter: 'blur(40px)',
         }}
       />
@@ -31,7 +31,7 @@ export function Atmosphere({ className = '', grid = true }: AtmosphereProps) {
           width: '600px',
           height: '600px',
           background:
-            'radial-gradient(circle at center, rgb(from var(--c-accent-soft) r g b / 0.28) 0%, transparent 60%)',
+            'radial-gradient(circle at center, rgb(from var(--c-accent-soft) r g b / 0.18) 0%, transparent 60%)',
           filter: 'blur(40px)',
         }}
       />

@@ -9,7 +9,6 @@ export const messages = {
       workWithMe: 'Work with me',
     },
     hero: {
-      tagline: 'AI SYSTEMS ENGINEER · LATAM',
       kicker: 'AI SYSTEMS ENGINEER · LATAM',
       cert: 'ANTHROPIC CERTIFIED',
       certSub: 'Claude Code in Action · 2026',
@@ -21,15 +20,11 @@ export const messages = {
         'save 15h/week.',
         'ship weekly.',
       ] as readonly string[],
-      heading1: 'I build AI systems',
-      heading2: 'that run in production.',
-      heading3: 'Then I show you how.',
       description:
         'Certified by Anthropic (Claude Code in Action, 2026). I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale — then I document the architecture, costs, and working code publicly every week.',
       cta1: "Get this week's AI blueprint",
       cta2: "See what I've built",
       proof: '2M+ records processed · 10+ AWS services · $12/mo infra · LATAM-scale',
-      socialProof: 'Join 500+ engineers and founders following AI systems that actually ship.',
     },
     footer: {
       tagline:
@@ -72,7 +67,6 @@ export const messages = {
       timeSaved: 'TIME SAVED',
       timeSavedValue: '12h/week',
       value: 'Value: ~$2,000 in dev time',
-      devTimeValue: 'Value: ~$2,000 in dev time',
       cta: 'See full blueprint',
     },
     pipeline: {
@@ -270,7 +264,6 @@ export const messages = {
       workWithMe: 'Trabajemos juntos',
     },
     hero: {
-      tagline: 'INGENIERÍA DE SISTEMAS AI · LATAM',
       kicker: 'INGENIERO DE SISTEMAS AI · LATAM',
       cert: 'CERTIFICADO POR ANTHROPIC',
       certSub: 'Claude Code in Action · 2026',
@@ -282,16 +275,11 @@ export const messages = {
         'ahorran 15h/semana.',
         'envían cada semana.',
       ] as readonly string[],
-      heading1: 'Construyo sistemas de AI',
-      heading2: 'que corren en producción.',
-      heading3: 'Luego te muestro cómo.',
       description:
         'Certificado por Anthropic (Claude Code in Action, 2026). Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala — y documento la arquitectura, costos y código funcional públicamente cada semana.',
       cta1: 'Obtén el blueprint de AI de esta semana',
       cta2: 'Ver lo que construí',
       proof: '2M+ registros procesados · 10+ servicios AWS · $12/mes infra · escala LATAM',
-      socialProof:
-        'Únete a 500+ ingenieros y founders siguiendo sistemas de AI que realmente funcionan.',
     },
     footer: {
       tagline:
@@ -334,7 +322,6 @@ export const messages = {
       timeSaved: 'TIEMPO AHORRADO',
       timeSavedValue: '12h/semana',
       value: 'Valor: ~$2,000 en tiempo de desarrollo',
-      devTimeValue: 'Valor: ~$2,000 en tiempo de desarrollo',
       cta: 'Ver blueprint completo',
     },
     pipeline: {

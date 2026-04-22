@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     // Generated artifacts
     'coverage/**',
     'playwright-report/**',
+    // Design reference bundle (Babel-inline React prototype) — not production code
+    'design_handoff_crisfon6_redesign/**',
   ]),
   // Respect the TypeScript convention of prefixing intentionally unused params with _.
   {

@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* === Shadcn token bridge (dark-only, warmer neutral) === */
+  /* === Shadcn token bridge === */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -37,7 +37,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Radius — slightly rounder for friendliness */
+  /* Radius */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -46,11 +46,15 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* === Custom project tokens (CSS variable bridges) === */
+  /* === Accent (Claude orange default; blue opt-in alias) === */
   --color-accent: var(--c-accent);
   --color-accent-light: var(--c-accent-light);
   --color-accent-dim: var(--c-accent-dim);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-accent-weak: var(--c-accent-weak);
+  --color-accent-blue: var(--c-accent-blue);
 
+  /* === Surface / text (legacy cool palette kept for compat) === */
   --color-surface-0: var(--c-surface-0);
   --color-surface-1: var(--c-surface-1);
   --color-surface-2: var(--c-surface-2);
@@ -64,6 +68,17 @@
   --color-text-tertiary: var(--c-text-tertiary);
   --color-text-muted: var(--c-text-muted);
 
+  /* === Warm palette (new hi-fi redesign) === */
+  --color-warm-bg: var(--c-warm-bg);
+  --color-warm-bg-elev: var(--c-warm-bg-elev);
+  --color-warm-bg-subtle: var(--c-warm-bg-subtle);
+  --color-warm-fg: var(--c-warm-fg);
+  --color-warm-fg-muted: var(--c-warm-fg-muted);
+  --color-warm-fg-faint: var(--c-warm-fg-faint);
+  --color-warm-border: var(--c-warm-border);
+  --color-warm-border-strong: var(--c-warm-border-strong);
+
+  /* === Semantic chips === */
   --color-green: #34d399;
   --color-green-dim: rgba(52, 211, 153, 0.1);
   --color-amber: #fbbf24;
@@ -77,17 +92,48 @@
   --color-anthropic: #d4844a;
   --color-anthropic-dim: rgba(212, 132, 74, 0.1);
 
-  /* Fonts — literal names, NOT var() references */
+  /* === Fonts === */
   --font-sans: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', ui-monospace, monospace;
   --font-heading: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+
+  /* === Hi-fi spacing scale (sp-1..10 = 4..128px) === */
+  --spacing-sp-1: 4px;
+  --spacing-sp-2: 8px;
+  --spacing-sp-3: 12px;
+  --spacing-sp-4: 16px;
+  --spacing-sp-5: 24px;
+  --spacing-sp-6: 32px;
+  --spacing-sp-7: 48px;
+  --spacing-sp-8: 64px;
+  --spacing-sp-9: 96px;
+  --spacing-sp-10: 128px;
+
+  /* === Hi-fi radii === */
+  --radius-sp-sm: 6px;
+  --radius-sp-md: 10px;
+  --radius-sp-lg: 16px;
+  --radius-sp-xl: 24px;
+
+  /* === Motion tokens (available as CSS vars, not Tailwind utilities) === */
+  --animate-duration-fast: 180ms;
+  --animate-duration-med: 420ms;
+  --animate-duration-slow: 800ms;
 }
 
-/* Light mode (default) */
+/* ============================================
+   Light mode (default)
+   ============================================ */
 :root {
-  --c-accent: #3b6fd6;
-  --c-accent-light: #5b8be6;
-  --c-accent-dim: #e8eef8;
+  /* Accent — Claude orange default */
+  --c-accent: #d97757;
+  --c-accent-light: #e28f74;
+  --c-accent-dim: rgba(217, 119, 87, 0.12);
+  --c-accent-soft: #f4c9b8;
+  --c-accent-weak: rgba(217, 119, 87, 0.12);
+  --c-accent-blue: #3b6fd6;
+
+  /* Legacy cool surfaces — kept for back-compat on pages not yet migrated */
   --c-surface-0: oklch(0.98 0.002 260);
   --c-surface-1: oklch(0.96 0.003 260);
   --c-surface-2: oklch(0.93 0.004 260);
@@ -98,45 +144,77 @@
   --c-text-secondary: oklch(0.35 0.01 260);
   --c-text-tertiary: oklch(0.5 0.01 260);
   --c-text-muted: oklch(0.62 0.01 260);
-  --background: oklch(0.98 0.002 260);
-  --foreground: oklch(0.15 0.01 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.5 0.18 260);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.95 0.005 260);
-  --secondary-foreground: oklch(0.2 0.01 260);
-  --muted: oklch(0.95 0.005 260);
-  --muted-foreground: oklch(0.45 0.01 260);
-  --accent: oklch(0.95 0.005 260);
-  --accent-foreground: oklch(0.2 0.01 260);
+
+  /* Warm palette (hi-fi redesign) */
+  --c-warm-bg: #fafaf7;
+  --c-warm-bg-elev: #ffffff;
+  --c-warm-bg-subtle: #f2f1ec;
+  --c-warm-fg: #141413;
+  --c-warm-fg-muted: #5f5e5a;
+  --c-warm-fg-faint: #9a9895;
+  --c-warm-border: #e8e6e0;
+  --c-warm-border-strong: #d5d2cb;
+
+  /* Motion + easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-med: 420ms;
+  --dur-slow: 800ms;
+
+  /* Shadows (light theme) */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 19, 0.04), 0 1px 3px rgba(20, 20, 19, 0.03);
+  --shadow-md: 0 4px 12px rgba(20, 20, 19, 0.06), 0 2px 4px rgba(20, 20, 19, 0.04);
+  --shadow-lg: 0 20px 40px rgba(20, 20, 19, 0.08), 0 8px 16px rgba(20, 20, 19, 0.06);
+
+  /* shadcn bridge */
+  --background: var(--c-warm-bg);
+  --foreground: var(--c-warm-fg);
+  --card: var(--c-warm-bg-elev);
+  --card-foreground: var(--c-warm-fg);
+  --popover: var(--c-warm-bg-elev);
+  --popover-foreground: var(--c-warm-fg);
+  --primary: var(--c-accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--c-warm-bg-subtle);
+  --secondary-foreground: var(--c-warm-fg);
+  --muted: var(--c-warm-bg-subtle);
+  --muted-foreground: var(--c-warm-fg-muted);
+  --accent: var(--c-warm-bg-subtle);
+  --accent-foreground: var(--c-warm-fg);
   --destructive: oklch(0.55 0.22 25);
-  --border: oklch(0 0 0 / 8%);
-  --input: oklch(0 0 0 / 8%);
-  --ring: oklch(0.5 0.18 260);
-  --chart-1: oklch(0.65 0.15 260);
+  --border: var(--c-warm-border);
+  --input: var(--c-warm-border);
+  --ring: var(--c-accent);
+  --chart-1: var(--c-accent);
   --chart-2: oklch(0.65 0.15 150);
   --chart-3: oklch(0.65 0.15 50);
   --chart-4: oklch(0.65 0.15 300);
   --chart-5: oklch(0.65 0.15 200);
   --radius: 0.75rem;
-  --sidebar: oklch(0.18 0.005 260);
-  --sidebar-foreground: oklch(0.95 0.005 260);
-  --sidebar-primary: oklch(0.65 0.15 260);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.24 0.005 260);
-  --sidebar-accent-foreground: oklch(0.9 0.005 260);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.5 0.18 260);
+  --sidebar: var(--c-warm-bg-elev);
+  --sidebar-foreground: var(--c-warm-fg);
+  --sidebar-primary: var(--c-accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--c-warm-bg-subtle);
+  --sidebar-accent-foreground: var(--c-warm-fg);
+  --sidebar-border: var(--c-warm-border);
+  --sidebar-ring: var(--c-accent);
 }
 
-/* Dark mode */
+/* ============================================
+   Dark mode
+   ============================================ */
 .dark {
-  --c-accent: #6d9fff;
-  --c-accent-light: #93b8ff;
-  --c-accent-dim: #1e3a5f;
+  /* Accent — same Claude orange in dark (per prototype spec) */
+  --c-accent: #d97757;
+  --c-accent-light: #e28f74;
+  --c-accent-dim: rgba(217, 119, 87, 0.14);
+  --c-accent-soft: #f4c9b8;
+  --c-accent-weak: rgba(217, 119, 87, 0.12);
+  --c-accent-blue: #6d9fff;
+
+  /* Legacy cool surfaces */
   --c-surface-0: oklch(0.16 0.005 260);
   --c-surface-1: oklch(0.19 0.005 260);
   --c-surface-2: oklch(0.22 0.005 260);
@@ -147,37 +225,54 @@
   --c-text-secondary: oklch(0.72 0.01 260);
   --c-text-tertiary: oklch(0.55 0.01 260);
   --c-text-muted: oklch(0.42 0.01 260);
-  --background: oklch(0.16 0.005 260);
-  --foreground: oklch(0.95 0.005 260);
-  --card: oklch(0.19 0.006 260);
-  --card-foreground: oklch(0.95 0.005 260);
-  --popover: oklch(0.19 0.006 260);
-  --popover-foreground: oklch(0.95 0.005 260);
-  --primary: oklch(0.65 0.15 260);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.24 0.005 260);
-  --secondary-foreground: oklch(0.9 0.005 260);
-  --muted: oklch(0.24 0.005 260);
-  --muted-foreground: oklch(0.6 0.01 260);
-  --accent: oklch(0.24 0.005 260);
-  --accent-foreground: oklch(0.9 0.005 260);
+
+  /* Warm palette — dark */
+  --c-warm-bg: #0e0e0c;
+  --c-warm-bg-elev: #171714;
+  --c-warm-bg-subtle: #1e1e1b;
+  --c-warm-fg: #f5f4ef;
+  --c-warm-fg-muted: #a8a69f;
+  --c-warm-fg-faint: #6b6a64;
+  --c-warm-border: #262623;
+  --c-warm-border-strong: #363632;
+
+  /* Shadows (darker, more pronounced) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.45), 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  /* shadcn bridge */
+  --background: var(--c-warm-bg);
+  --foreground: var(--c-warm-fg);
+  --card: var(--c-warm-bg-elev);
+  --card-foreground: var(--c-warm-fg);
+  --popover: var(--c-warm-bg-elev);
+  --popover-foreground: var(--c-warm-fg);
+  --primary: var(--c-accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--c-warm-bg-subtle);
+  --secondary-foreground: var(--c-warm-fg);
+  --muted: var(--c-warm-bg-subtle);
+  --muted-foreground: var(--c-warm-fg-muted);
+  --accent: var(--c-warm-bg-subtle);
+  --accent-foreground: var(--c-warm-fg);
   --destructive: oklch(0.65 0.2 25);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.65 0.15 260);
-  --chart-1: oklch(0.65 0.15 260);
+  --border: var(--c-warm-border);
+  --input: var(--c-warm-border);
+  --ring: var(--c-accent);
+  --chart-1: var(--c-accent);
   --chart-2: oklch(0.65 0.15 150);
   --chart-3: oklch(0.65 0.15 50);
   --chart-4: oklch(0.65 0.15 300);
   --chart-5: oklch(0.65 0.15 200);
-  --sidebar: oklch(0.18 0.005 260);
-  --sidebar-foreground: oklch(0.95 0.005 260);
-  --sidebar-primary: oklch(0.65 0.15 260);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.24 0.005 260);
-  --sidebar-accent-foreground: oklch(0.9 0.005 260);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.65 0.15 260);
+  --sidebar: var(--c-warm-bg-elev);
+  --sidebar-foreground: var(--c-warm-fg);
+  --sidebar-primary: var(--c-accent);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--c-warm-bg-subtle);
+  --sidebar-accent-foreground: var(--c-warm-fg);
+  --sidebar-border: var(--c-warm-border);
+  --sidebar-ring: var(--c-accent);
 }
 
 @layer base {
@@ -193,72 +288,235 @@
 }
 
 ::selection {
-  background: oklch(0.65 0.15 260);
-  color: white;
+  background: var(--c-accent);
+  color: #ffffff;
 }
 
-/* Blueprint dot-grid — the signature texture */
+/* ============================================
+   Signature textures + gradients
+   ============================================ */
+
 .blueprint-grid {
-  background-image: radial-gradient(circle, oklch(0.65 0.15 260 / 6%) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgb(from var(--c-accent) r g b / 0.08) 1px,
+    transparent 1px
+  );
   background-size: 24px 24px;
 }
 
 .blueprint-grid-dense {
-  background-image: radial-gradient(circle, oklch(0.65 0.15 260 / 5%) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgb(from var(--c-accent) r g b / 0.06) 1px,
+    transparent 1px
+  );
   background-size: 16px 16px;
 }
 
-/* Gradient text — warmer */
 .gradient-text {
-  background: linear-gradient(135deg, #93b8ff 0%, #6d9fff 50%, #a78bfa 100%);
+  background: linear-gradient(
+    135deg,
+    var(--c-accent-soft) 0%,
+    var(--c-accent) 60%,
+    var(--c-accent-light) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Subtle shadow for depth — shifted from borders-only to subtle shadows */
 .card-shadow {
-  box-shadow:
-    0 1px 2px oklch(0 0 0 / 20%),
-    0 4px 12px oklch(0 0 0 / 10%);
+  box-shadow: var(--shadow-md);
 }
 
-/* Glow for featured elements */
 .glow {
   box-shadow:
-    0 1px 2px oklch(0 0 0 / 20%),
-    0 4px 16px oklch(0 0 0 / 10%),
-    0 0 24px oklch(0.65 0.15 260 / 8%);
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    0 0 24px rgb(from var(--c-accent) r g b / 0.14);
 }
 
-/* Card interactions — subtle lift */
 .card-hover {
   transition:
-    box-shadow 0.2s ease,
-    transform 0.2s ease,
-    border-color 0.2s ease;
+    box-shadow var(--dur-med) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 2px 4px oklch(0 0 0 / 20%),
-    0 8px 24px oklch(0 0 0 / 12%);
-  border-color: var(--color-border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-warm-border-strong);
 }
 
-/* Left-border accent cards */
 .card-accent-left {
   border-left-width: 2px;
 }
 
-/* Metric emphasis */
 .metric-value {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
 
-/* Smooth page transitions */
-@media (prefers-reduced-motion: no-reduce) {
+/* ============================================
+   Reveal (IntersectionObserver driven)
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+.reveal[data-revealed='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Hi-fi keyframes
+   ============================================ */
+
+/* Pulse dot — kicker live indicator */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.4s var(--ease-in-out) infinite;
+}
+
+/* Legacy pulse kept for existing usages */
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Orb drifts — two variants alternating */
+@keyframes orb-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(80px, -40px, 0) scale(1.15);
+  }
+}
+@keyframes orb-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  50% {
+    transform: translate3d(-60px, 50px, 0) scale(1);
+  }
+}
+.orb-a {
+  animation: orb-drift-a 28s var(--ease-in-out) infinite;
+}
+.orb-b {
+  animation: orb-drift-b 34s var(--ease-in-out) infinite;
+}
+
+/* Shimmer sweep — cert badge */
+@keyframes shimmer-sweep {
+  0%,
+  40% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+.shimmer-sweep {
+  animation: shimmer-sweep 4s ease-in-out infinite;
+}
+
+/* Flow sweep — pipeline nodes (stagger via inline delay) */
+@keyframes flow-sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+.flow-sweep {
+  animation: flow-sweep 3s linear infinite;
+}
+
+/* Marquee — infinite horizontal scroll */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-scroll 40s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Page-in transition */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-in {
+  animation: page-in 600ms var(--ease-out);
+}
+
+/* Cursor blink — hero brand wordmark */
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.cursor-blink {
+  animation: cursor-blink 1s steps(2, start) infinite;
+}
+
+/* Legacy fade-in kept for existing usages */
+@media (prefers-reduced-motion: no-preference) {
   .animate-in {
     animation: fadeInUp 0.4s ease-out;
   }
@@ -275,16 +533,20 @@
   }
 }
 
-/* Pulse for live indicators */
-@keyframes pulse-subtle {
-  0%,
-  100% {
-    opacity: 1;
+/* ============================================
+   Reduced motion guard — disables all hi-fi animations
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  50% {
-    opacity: 0.5;
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
-}
-.pulse-subtle {
-  animation: pulse-subtle 2s ease-in-out infinite;
 }

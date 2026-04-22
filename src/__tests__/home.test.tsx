@@ -1,40 +1,39 @@
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Home from '@/app/page';
 
-test('renders hero heading', () => {
+vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
+
+test('renders the brand wordmark in an h1', () => {
   render(<Home />);
   const heading = screen.getByRole('heading', { level: 1 });
-  expect(heading).toBeDefined();
-  expect(heading.textContent).toContain('I build AI systems');
+  expect(heading.textContent).toMatch(/crisfon6/);
 });
 
-test('renders Featured Projects section', () => {
+test('renders Featured Projects section kicker', () => {
   render(<Home />);
   expect(screen.getByText('Featured Projects')).toBeDefined();
 });
 
-test('renders dual CTA section (newsletter + contact)', () => {
+test('renders newsletter panel with weekly blueprints kicker', () => {
   render(<Home />);
-  expect(screen.getByText('Get a production-ready AI template every week')).toBeDefined();
-  expect(screen.getByText(/Building AI into your product/)).toBeDefined();
+  expect(screen.getByText(/WEEKLY BLUEPRINTS/i)).toBeDefined();
 });
 
-test('renders stats section', () => {
+test('renders stats labels', () => {
   render(<Home />);
   expect(screen.getByText('Years shipping products')).toBeDefined();
   expect(screen.getByText('Users served')).toBeDefined();
 });
 
-test('renders social proof text', () => {
+test('renders automation of the week card with CTA', () => {
   render(<Home />);
-  expect(
-    screen.getByText('Join 500+ engineers and founders following AI systems that actually ship.')
-  ).toBeDefined();
+  expect(screen.getByText('AUTOMATION OF THE WEEK')).toBeDefined();
+  expect(screen.getByText('AI-Powered Document Processor')).toBeDefined();
 });
 
-test('renders contact email links', () => {
+test('renders contact email CTA (mailto link)', () => {
   render(<Home />);
-  const emailLinks = screen.getAllByText('crisfon6@crisfon6.com');
-  expect(emailLinks.length).toBeGreaterThanOrEqual(1);
+  const emailCta = screen.getByTestId('contact-cta-email');
+  expect(emailCta.getAttribute('href')).toMatch(/mailto:crisfon6@crisfon6\.com/);
 });

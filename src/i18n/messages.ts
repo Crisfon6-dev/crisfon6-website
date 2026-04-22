@@ -9,15 +9,22 @@ export const messages = {
       workWithMe: 'Work with me',
     },
     hero: {
-      tagline: 'AI SYSTEMS ENGINEER · LATAM',
-      heading1: 'I build AI systems',
-      heading2: 'that run in production.',
-      heading3: 'Then I show you how.',
+      kicker: 'AI SYSTEMS ENGINEER · LATAM',
+      cert: 'ANTHROPIC CERTIFIED',
+      certSub: 'Claude Code in Action · 2026',
+      brand: 'crisfon6',
+      headlinePrefix: 'I build AI systems that',
+      typewords: [
+        'run in production.',
+        'scale to millions.',
+        'save 15h/week.',
+        'ship weekly.',
+      ] as readonly string[],
       description:
         'Certified by Anthropic (Claude Code in Action, 2026). I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale — then I document the architecture, costs, and working code publicly every week.',
       cta1: "Get this week's AI blueprint",
       cta2: "See what I've built",
-      socialProof: 'Join 500+ engineers and founders following AI systems that actually ship.',
+      proof: '2M+ records processed · 10+ AWS services · $12/mo infra · LATAM-scale',
     },
     footer: {
       tagline:
@@ -50,12 +57,44 @@ export const messages = {
     },
     automation: {
       sectionTitle: 'AUTOMATION OF THE WEEK',
+      live: 'LIVE',
+      edition: '#06',
       title: 'AI-Powered Document Processor',
       description:
         'Ingest PDFs, extract structured data with Claude API, store in PostgreSQL. Deployed on AWS Lambda with S3 triggers.',
       infraCost: 'INFRA COST',
+      infraCostValue: '~$12/month',
       timeSaved: 'TIME SAVED',
-      devTimeValue: 'Value: ~$2,000 in dev time',
+      timeSavedValue: '12h/week',
+      value: 'Value: ~$2,000 in dev time',
+      cta: 'See full blueprint',
+    },
+    pipeline: {
+      nodes: [
+        { label: 'S3', sub: 'ingest' },
+        { label: 'Lambda', sub: 'orchestrate' },
+        { label: 'Claude', sub: 'extract' },
+        { label: 'Postgres', sub: 'store' },
+      ] as readonly { label: string; sub: string }[],
+    },
+    marquee: {
+      items: [
+        'AWS',
+        'CDK',
+        'Lambda',
+        'Claude API',
+        'MCP',
+        'Next.js',
+        'Python',
+        'FastAPI',
+        'TypeScript',
+        'Angular',
+        'Node',
+        'PostgreSQL',
+        'pgvector',
+        'S3',
+        'DynamoDB',
+      ] as readonly string[],
     },
     featuredProjects: 'Featured Projects',
     about: {
@@ -82,6 +121,28 @@ export const messages = {
         "This isn't hypothetical. Every automation template in PowerAI was first deployed in a real system. Every architecture diagram was drawn after the code ran in production.",
       whyPara3:
         "If you're building with AI, I want to hear what you're solving. The best ideas in this newsletter come from conversations with engineers who are actually shipping.",
+      timeline: [
+        {
+          year: '2026',
+          title: 'Anthropic Certified — Claude Code in Action',
+          description: 'Production-grade AI engineering certification. First LATAM cohort.',
+        },
+        {
+          year: '2024 — present',
+          title: 'Technical Lead · Digital Credit Marketplace',
+          description: 'Millions of users across LATAM. Cloud-native AWS infra.',
+        },
+        {
+          year: '2023',
+          title: 'Cloud infrastructure for US startups',
+          description: 'Fully automated provisioning, zero-paperwork pipelines.',
+        },
+        {
+          year: '2020',
+          title: 'Entered FinTech',
+          description: 'Shipping high-availability payment systems from day one.',
+        },
+      ] as readonly { year: string; title: string; description: string }[],
     },
     projects: {
       heading: "Systems I've shipped.",
@@ -151,6 +212,34 @@ export const messages = {
       stayConnected: 'The best way to stay connected',
       stayConnectedDescription:
         'Every week I share a production-ready AI automation blueprint with architecture diagrams, cost breakdowns, and working code.',
+      services: [
+        {
+          title: 'Strategic Conversations',
+          description:
+            'Founders & CTOs navigating AI adoption, agentic systems, engineering at scale.',
+        },
+        {
+          title: 'Open Source & Collaboration',
+          description: 'Production-ready AI automation templates. Open to building together.',
+        },
+        {
+          title: 'Leadership Opportunities',
+          description:
+            'Selectively open to VP Engineering or CTO roles at AI-native companies at scale.',
+        },
+        {
+          title: 'AI Engineering Advisory',
+          description: 'Build vs buy, stack selection, production deployment strategy.',
+        },
+      ] as readonly { title: string; description: string }[],
+      contact: {
+        linkedinLabel: 'LinkedIn',
+        linkedinSub: '/in/crisfon6',
+        emailLabel: 'Email',
+        emailSub: 'crisfon6@crisfon6.com',
+        githubLabel: 'GitHub',
+        githubSub: '@crisfon6',
+      },
     },
     building: {
       sectionLabel: "WHAT I'M BUILDING",
@@ -175,16 +264,22 @@ export const messages = {
       workWithMe: 'Trabajemos juntos',
     },
     hero: {
-      tagline: 'INGENIERÍA DE SISTEMAS AI · LATAM',
-      heading1: 'Construyo sistemas de AI',
-      heading2: 'que corren en producción.',
-      heading3: 'Luego te muestro cómo.',
+      kicker: 'INGENIERO DE SISTEMAS AI · LATAM',
+      cert: 'CERTIFICADO POR ANTHROPIC',
+      certSub: 'Claude Code in Action · 2026',
+      brand: 'crisfon6',
+      headlinePrefix: 'Construyo sistemas de AI que',
+      typewords: [
+        'corren en producción.',
+        'escalan a millones.',
+        'ahorran 15h/semana.',
+        'envían cada semana.',
+      ] as readonly string[],
       description:
         'Certificado por Anthropic (Claude Code in Action, 2026). Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala — y documento la arquitectura, costos y código funcional públicamente cada semana.',
       cta1: 'Obtén el blueprint de AI de esta semana',
       cta2: 'Ver lo que construí',
-      socialProof:
-        'Únete a 500+ ingenieros y founders siguiendo sistemas de AI que realmente funcionan.',
+      proof: '2M+ registros procesados · 10+ servicios AWS · $12/mes infra · escala LATAM',
     },
     footer: {
       tagline:
@@ -217,12 +312,44 @@ export const messages = {
     },
     automation: {
       sectionTitle: 'AUTOMATIZACIÓN DE LA SEMANA',
+      live: 'EN VIVO',
+      edition: '#06',
       title: 'Procesador de Documentos con IA',
       description:
         'Ingesta de PDFs, extracción de datos estructurados con Claude API, almacenamiento en PostgreSQL. Deployado en AWS Lambda con triggers de S3.',
       infraCost: 'COSTO INFRA',
+      infraCostValue: '~$12/mes',
       timeSaved: 'TIEMPO AHORRADO',
-      devTimeValue: 'Valor: ~$2,000 en tiempo de desarrollo',
+      timeSavedValue: '12h/semana',
+      value: 'Valor: ~$2,000 en tiempo de desarrollo',
+      cta: 'Ver blueprint completo',
+    },
+    pipeline: {
+      nodes: [
+        { label: 'S3', sub: 'ingesta' },
+        { label: 'Lambda', sub: 'orquesta' },
+        { label: 'Claude', sub: 'extrae' },
+        { label: 'Postgres', sub: 'almacena' },
+      ] as readonly { label: string; sub: string }[],
+    },
+    marquee: {
+      items: [
+        'AWS',
+        'CDK',
+        'Lambda',
+        'Claude API',
+        'MCP',
+        'Next.js',
+        'Python',
+        'FastAPI',
+        'TypeScript',
+        'Angular',
+        'Node',
+        'PostgreSQL',
+        'pgvector',
+        'S3',
+        'DynamoDB',
+      ] as readonly string[],
     },
     featuredProjects: 'Proyectos Destacados',
     about: {
@@ -249,6 +376,28 @@ export const messages = {
         'Esto no es teórico. Cada template de automatización en PowerAI fue primero deployado en un sistema real. Cada diagrama de arquitectura fue dibujado después de que el código corrió en producción.',
       whyPara3:
         'Si estás construyendo con AI, quiero escuchar qué estás resolviendo. Las mejores ideas de este newsletter vienen de conversaciones con ingenieros que realmente están enviando a producción.',
+      timeline: [
+        {
+          year: '2026',
+          title: 'Certificación Anthropic — Claude Code in Action',
+          description: 'Certificación de ingeniería de AI production-grade. Primera cohorte LATAM.',
+        },
+        {
+          year: '2024 — actual',
+          title: 'Technical Lead · Marketplace de Crédito Digital',
+          description: 'Millones de usuarios en LATAM. Infra cloud-native en AWS.',
+        },
+        {
+          year: '2023',
+          title: 'Infraestructura cloud para startups de EEUU',
+          description: 'Aprovisionamiento automatizado, pipelines sin papeles.',
+        },
+        {
+          year: '2020',
+          title: 'Entré a FinTech',
+          description: 'Envío sistemas de pagos de alta disponibilidad desde el día 1.',
+        },
+      ] as readonly { year: string; title: string; description: string }[],
     },
     projects: {
       heading: 'Sistemas que he deployado.',
@@ -319,6 +468,35 @@ export const messages = {
       stayConnected: 'La mejor forma de mantenernos conectados',
       stayConnectedDescription:
         'Cada semana comparto un blueprint de automatización con AI listo para producción con diagramas de arquitectura, análisis de costos y código funcional.',
+      services: [
+        {
+          title: 'Conversaciones Estratégicas',
+          description:
+            'Founders y CTOs navegando adopción de AI, sistemas agénticos, ingeniería a escala.',
+        },
+        {
+          title: 'Open Source y Colaboración',
+          description:
+            'Templates de automatización con AI listos para producción. Abierto a colaborar.',
+        },
+        {
+          title: 'Oportunidades de Liderazgo',
+          description:
+            'Selectivamente abierto a roles VP Engineering o CTO en empresas AI-native a escala.',
+        },
+        {
+          title: 'Asesoría en Ingeniería AI',
+          description: 'Build vs buy, selección de stack, estrategia de deployment a producción.',
+        },
+      ] as readonly { title: string; description: string }[],
+      contact: {
+        linkedinLabel: 'LinkedIn',
+        linkedinSub: '/in/crisfon6',
+        emailLabel: 'Email',
+        emailSub: 'crisfon6@crisfon6.com',
+        githubLabel: 'GitHub',
+        githubSub: '@crisfon6',
+      },
     },
     building: {
       sectionLabel: 'LO QUE ESTOY CONSTRUYENDO',

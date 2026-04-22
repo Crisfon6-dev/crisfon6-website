@@ -1,96 +1,98 @@
 'use client';
 
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/i18n/LanguageProvider';
+import { SubpageHeader } from '@/components/primitives/SubpageHeader';
+import { Atmosphere } from '@/components/primitives/Atmosphere';
+import { Chip } from '@/components/primitives/Chip';
+import { Kicker } from '@/components/primitives/Kicker';
 
-const automations = [
+type Automation = {
+  num: string;
+  title: string;
+  description: string;
+  stack: readonly string[];
+  cost: string;
+  costUnit: string;
+  timeSaved: string;
+  timeUnit: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  live?: boolean;
+};
+
+const AUTOMATIONS: readonly Automation[] = [
   {
+    num: '01',
     title: 'AI-Powered Document Processor',
     description:
-      'Ingest PDFs, extract structured data with Claude API, and store results in PostgreSQL. Deployed on AWS Lambda with S3 triggers — fully serverless.',
+      'Ingest PDFs, extract structured data with Claude API, store in PostgreSQL. Serverless on AWS Lambda with S3 triggers.',
     stack: ['Claude API', 'AWS Lambda', 'S3', 'PostgreSQL', 'Python'],
     cost: '$12',
-    costUnit: '/mo at 1K docs',
+    costUnit: '/mo @ 1K docs',
     timeSaved: '15h',
     timeUnit: '/week',
     difficulty: 'Intermediate',
-    difficultyColor: 'text-amber bg-amber-dim',
-    week: 1,
-    certifiedStack: true,
+    live: true,
   },
   {
+    num: '02',
     title: 'Slack to Notion Meeting Summarizer',
     description:
-      'Captures Slack threads, summarizes discussions with an LLM, and creates structured Notion pages with action items and owners.',
+      'Captures Slack threads, summarizes discussions with an LLM, and creates structured Notion pages with action items.',
     stack: ['Claude API', 'Slack API', 'Notion API', 'Python', 'Lambda'],
     cost: '$5',
     costUnit: '/mo',
     timeSaved: '8h',
     timeUnit: '/week',
     difficulty: 'Beginner',
-    difficultyColor: 'text-green bg-green-dim',
-    week: 2,
-    certifiedStack: true,
   },
   {
+    num: '03',
     title: 'Automated Lead Scoring Pipeline',
     description:
-      'Ingests form submissions, enriches with public data, scores leads using AI, and routes high-intent prospects to your CRM automatically.',
+      'Ingest form submissions, enrich with public data, score leads with AI, route high-intent prospects to your CRM.',
     stack: ['Claude API', 'n8n', 'PostgreSQL', 'REST APIs', 'Python'],
     cost: '$18',
     costUnit: '/mo',
     timeSaved: '10h',
     timeUnit: '/week',
     difficulty: 'Intermediate',
-    difficultyColor: 'text-amber bg-amber-dim',
-    week: 3,
-    certifiedStack: true,
   },
   {
+    num: '04',
     title: 'MCP Agent: Code Review Assistant',
     description:
-      'An MCP-powered agent that reviews pull requests, flags security issues, suggests improvements, and posts inline comments — triggered by GitHub webhooks.',
+      'MCP agent reviews PRs, flags security issues, posts inline comments — triggered by GitHub webhooks.',
     stack: ['MCP Protocol', 'Claude API', 'GitHub API', 'TypeScript', 'Lambda'],
     cost: '$8',
     costUnit: '/mo',
     timeSaved: '12h',
     timeUnit: '/week',
     difficulty: 'Advanced',
-    difficultyColor: 'text-red bg-red-dim',
-    week: 4,
-    certifiedStack: true,
   },
   {
+    num: '05',
     title: 'Invoice Processing Automation',
     description:
-      'Extract line items, totals, and vendor info from invoice PDFs. Validates against PO data and flags discrepancies before auto-filing.',
+      'Extract line items, totals, and vendor info from invoice PDFs. Validates against PO data before auto-filing.',
     stack: ['Claude API', 'S3', 'DynamoDB', 'Lambda', 'Python'],
     cost: '$10',
-    costUnit: '/mo at 500 invoices',
+    costUnit: '/mo @ 500 invoices',
     timeSaved: '20h',
     timeUnit: '/week',
     difficulty: 'Intermediate',
-    difficultyColor: 'text-amber bg-amber-dim',
-    week: 5,
-    certifiedStack: true,
   },
   {
+    num: '06',
     title: 'Content Repurposing Engine',
     description:
-      'Takes a long-form blog post and generates LinkedIn posts, X threads, email snippets, and social cards — all on-brand and ready to publish.',
+      'Takes a long-form blog post and generates LinkedIn posts, X threads, email snippets, and social cards.',
     stack: ['Claude API', 'n8n', 'Markdown', 'Python', 'S3'],
     cost: '$6',
     costUnit: '/mo',
     timeSaved: '6h',
     timeUnit: '/week',
     difficulty: 'Beginner',
-    difficultyColor: 'text-green bg-green-dim',
-    week: 6,
-    certifiedStack: true,
   },
 ];
 
@@ -98,142 +100,152 @@ export function AutomationsContent() {
   const { t } = useLanguage();
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
-      <h1 className="text-4xl font-bold text-text-primary mb-4 tracking-tight">
-        {t.automations.heading}
-      </h1>
-      <p className="text-text-secondary mb-4 max-w-2xl text-lg leading-relaxed">
-        {t.automations.description}
-      </p>
-      <p className="text-sm text-text-muted mb-14">
-        {t.automations.subscribeTo}{' '}
-        <Link href="/newsletter" className="text-accent-light hover:text-accent transition-colors">
-          PowerAI
-        </Link>{' '}
-        {t.automations.toGetDelivered}
-      </p>
+    <main className="page-in relative">
+      <Atmosphere />
+      <SubpageHeader
+        number="04"
+        label="AUTOMATIONS"
+        title={t.automations.heading}
+        description={t.automations.description}
+      />
 
-      <div className="space-y-5">
-        {automations.map((auto) => (
-          <Card key={auto.title} className="card-shadow card-hover bg-surface-1/30 border-border">
-            <CardHeader>
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="outline" className="font-mono text-[10px] tracking-widest">
-                  WEEK {auto.week}
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className={`font-mono text-[10px] tracking-widest ${auto.difficultyColor}`}
+      <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
+        <ul className="grid grid-cols-1 gap-sp-5 md:grid-cols-2">
+          {AUTOMATIONS.map((auto) => (
+            <li key={auto.num} data-testid="automation-card">
+              <article className="group flex h-full flex-col gap-sp-4 rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5 transition-all hover:-translate-y-0.5 hover:border-warm-border-strong">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[13px] tracking-[0.14em] text-warm-fg-faint">
+                    #{auto.num}
+                  </span>
+                  <div className="flex gap-sp-2">
+                    {auto.live ? <Chip variant="live">{t.automation.live}</Chip> : null}
+                    <Chip
+                      variant={
+                        auto.difficulty === 'Beginner'
+                          ? 'accent'
+                          : auto.difficulty === 'Intermediate'
+                            ? 'default'
+                            : 'outline'
+                      }
+                    >
+                      {auto.difficulty}
+                    </Chip>
+                  </div>
+                </div>
+                <h2
+                  className="font-heading text-warm-fg"
+                  style={{
+                    fontSize: 'clamp(20px, 2.2vw, 26px)',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.2,
+                    fontWeight: 600,
+                  }}
                 >
-                  {auto.difficulty}
-                </Badge>
-                {auto.certifiedStack && (
-                  <Badge
-                    variant="outline"
-                    className="font-mono text-[10px] tracking-widest text-violet border-violet/30 bg-violet-dim"
-                  >
-                    ANTHROPIC CERTIFIED
-                  </Badge>
-                )}
-              </div>
-              <CardTitle className="text-xl font-bold text-text-primary tracking-tight">
-                {auto.title}
-              </CardTitle>
-              <CardDescription className="text-text-secondary leading-relaxed text-sm">
-                {auto.description}
-              </CardDescription>
-            </CardHeader>
+                  {auto.title}
+                </h2>
+                <p className="text-sm leading-relaxed text-warm-fg-muted">{auto.description}</p>
 
-            <CardContent className="space-y-5">
-              <Separator className="bg-border-emphasis" />
+                <dl className="grid grid-cols-2 gap-sp-3">
+                  <div>
+                    <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-warm-fg-faint">
+                      {t.automation.infraCost}
+                    </dt>
+                    <dd className="metric-value mt-1 text-xl text-warm-fg">
+                      {auto.cost}
+                      <span className="ml-1 text-sm font-normal text-warm-fg-muted">
+                        {auto.costUnit}
+                      </span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-warm-fg-faint">
+                      {t.automation.timeSaved}
+                    </dt>
+                    <dd className="metric-value mt-1 text-xl text-accent">
+                      {auto.timeSaved}
+                      <span className="ml-1 text-sm font-normal text-warm-fg-muted">
+                        {auto.timeUnit}
+                      </span>
+                    </dd>
+                  </div>
+                </dl>
 
-              {/* Metrics */}
-              <div className="flex flex-wrap gap-8">
-                <div>
-                  <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                    INFRA COST
-                  </p>
-                  <p className="text-2xl font-bold text-green metric-value">
-                    {auto.cost}
-                    <span className="text-sm text-text-tertiary font-normal">{auto.costUnit}</span>
-                  </p>
+                <div className="mt-auto flex flex-wrap gap-1.5 border-t border-warm-border pt-sp-4">
+                  {auto.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-sp-sm border border-warm-border bg-warm-bg px-2 py-0.5 text-[11px] font-mono text-warm-fg-muted"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-                <div>
-                  <p className="text-[10px] text-text-muted font-mono mb-1 tracking-widest">
-                    TIME SAVED
-                  </p>
-                  <p className="text-2xl font-bold text-accent-light metric-value">
-                    {auto.timeSaved}
-                    <span className="text-sm text-text-tertiary font-normal">{auto.timeUnit}</span>
-                  </p>
-                </div>
-              </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-              <Separator className="bg-border-emphasis" />
-
-              {/* Stack */}
-              <div className="flex flex-wrap gap-1.5">
-                {auto.stack.map((tech) => (
-                  <Badge
-                    key={tech}
-                    variant="secondary"
-                    className="text-xs text-text-muted bg-surface-2 font-normal"
-                  >
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* GitHub Section */}
-      <Card className="mt-10 card-shadow bg-surface-1/30 border-border">
-        <CardContent className="flex flex-col sm:flex-row sm:items-center gap-6 py-6">
-          <div className="flex-1">
-            <p className="text-[10px] font-mono text-text-muted tracking-widest mb-2">
-              {t.automations.githubLabel}
-            </p>
-            <h2 className="text-xl font-bold text-text-primary mb-2 tracking-tight">
+      {/* GitHub panel */}
+      <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
+        <div className="flex flex-col items-start gap-sp-5 rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="max-w-xl">
+            <Kicker>{t.automations.githubLabel}</Kicker>
+            <h2
+              className="mt-sp-3 font-heading text-warm-fg"
+              style={{
+                fontSize: 'clamp(20px, 2.2vw, 26px)',
+                letterSpacing: '-0.02em',
+                fontWeight: 600,
+              }}
+            >
               {t.automations.githubHeading}
             </h2>
-            <p className="text-sm text-text-secondary leading-relaxed">
+            <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">
               {t.automations.githubDescription}
             </p>
           </div>
-          <Button variant="outline" size="sm" asChild className="shrink-0">
-            <a href="https://github.com/Crisfon6-dev" target="_blank" rel="noopener noreferrer">
-              {t.automations.githubCta}
-            </a>
-          </Button>
-        </CardContent>
-      </Card>
+          <a
+            href="https://github.com/Crisfon6-dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="automations-github"
+            className="inline-flex items-center gap-2 rounded-sp-xl border border-warm-border px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
+          >
+            {t.automations.githubCta} <span aria-hidden>→</span>
+          </a>
+        </div>
+      </section>
 
-      {/* CTA */}
-      <Card className="mt-6 border-accent-dim blueprint-grid card-shadow">
-        <CardContent className="text-center py-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-green pulse-subtle" />
-            <p className="text-[10px] font-mono text-text-muted tracking-widest">
-              {t.automations.ctaLabel}
-            </p>
-          </div>
-          <h2 className="text-2xl font-bold text-text-primary mb-3 tracking-tight">
+      {/* Newsletter CTA */}
+      <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
+        <div className="rounded-sp-xl bg-warm-fg px-sp-6 py-sp-8 text-center text-warm-bg">
+          <Kicker accent dot>
+            <span>{t.automations.ctaLabel}</span>
+          </Kicker>
+          <h2
+            className="mt-sp-4 font-heading"
+            style={{
+              fontSize: 'clamp(24px, 3vw, 36px)',
+              letterSpacing: '-0.02em',
+              fontWeight: 600,
+            }}
+          >
             {t.automations.ctaHeading}
           </h2>
-          <p className="text-text-secondary mb-6 max-w-lg mx-auto">
+          <p className="mx-auto mt-sp-3 max-w-xl text-sm opacity-80">
             {t.automations.ctaDescription}
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-accent hover:bg-accent-light text-white px-8 py-3 h-auto font-medium"
+          <Link
+            href="/newsletter"
+            data-testid="automations-cta"
+            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
           >
-            <Link href="/newsletter">{t.cta.subscribeZTP}</Link>
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+            {t.cta.subscribeZTP} <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

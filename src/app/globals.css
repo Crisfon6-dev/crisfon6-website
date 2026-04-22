@@ -475,6 +475,7 @@
 }
 .shimmer-sweep {
   animation: shimmer-sweep 4s ease-in-out infinite;
+  animation-delay: 2s;
 }
 
 /* Flow sweep — pipeline nodes (stagger via inline delay) */

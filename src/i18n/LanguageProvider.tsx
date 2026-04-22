@@ -41,11 +41,12 @@ const writeStoredLocale = (locale: Locale): void => {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<Locale>('en');
 
-  // Hydrate from localStorage after mount (SSR-safe)
+  // Hydrate from localStorage after mount (SSR-safe — unavoidable setState in effect)
   useEffect(() => {
     const stored = readStoredLocale();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored && stored !== locale) setLocale(stored);
-    // intentional: run once on mount
+    // intentional: run once on mount to sync server-rendered 'en' with persisted pref
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

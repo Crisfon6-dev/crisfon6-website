@@ -358,6 +358,20 @@
   letter-spacing: -0.02em;
 }
 
+/* Giant footer wordmark — spec §Home-9 / styles.css:979 */
+.footer-mega {
+  font-size: clamp(80px, 18vw, 260px);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.85;
+  color: var(--c-warm-fg);
+  opacity: 0.06;
+  margin-bottom: -0.2em;
+  user-select: none;
+  font-family: var(--font-heading);
+  pointer-events: none;
+}
+
 /* ============================================
    Reveal (IntersectionObserver driven)
    ============================================ */

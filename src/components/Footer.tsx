@@ -37,9 +37,9 @@ export function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="border-t border-border blueprint-grid">
+    <footer className="border-t border-border blueprint-grid overflow-hidden">
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 relative">
           {/* Brand */}
           <div className="max-w-xs">
             <div className="mb-3">
@@ -86,7 +86,11 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator className="mt-10 mb-6" />
+        <div className="footer-mega mt-16 text-center" aria-hidden>
+          crisfon6
+        </div>
+
+        <Separator className="mt-6 mb-6" />
 
         <div className="flex items-center justify-between">
           <p className="text-xs text-muted-foreground">

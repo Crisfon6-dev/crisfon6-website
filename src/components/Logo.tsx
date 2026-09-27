@@ -12,41 +12,31 @@ export function LogoIcon({ size = 28, className }: { size?: number; className?: 
       {/* Hexagon */}
       <path
         d="M24 4L42 14.4v19.2L24 44 6 33.6V14.4L24 4Z"
-        stroke="#60a5fa"
-        strokeWidth="2.5"
+        stroke="#d97757"
+        strokeWidth="3"
         strokeLinejoin="round"
         fill="none"
       />
       {/* < bracket */}
       <polyline
-        points="19,18 12,24 19,30"
-        stroke="#f8fafc"
-        strokeWidth="2.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        points="20,14 12,24 20,34"
+        stroke="currentColor"
+        strokeWidth="4.2"
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
         fill="none"
-      />
-      {/* / slash */}
-      <line
-        x1="26"
-        y1="17"
-        x2="22"
-        y2="31"
-        stroke="#f8fafc"
-        strokeWidth="2.8"
-        strokeLinecap="round"
       />
       {/* > bracket */}
       <polyline
-        points="29,18 36,24 29,30"
-        stroke="#f8fafc"
-        strokeWidth="2.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        points="28,14 36,24 28,34"
+        stroke="currentColor"
+        strokeWidth="4.2"
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
         fill="none"
       />
       {/* Accent dot — top-right vertex */}
-      <circle cx="42" cy="14.4" r="2.6" fill="#22c55e" />
+      <circle cx="42" cy="14.4" r="2.8" fill="#e28f74" />
     </svg>
   );
 }

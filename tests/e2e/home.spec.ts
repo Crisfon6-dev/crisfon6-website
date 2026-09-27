@@ -21,7 +21,7 @@ test.describe('Home page (hi-fi)', () => {
 
   test('stats section shows year label', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('Years shipping products')).toBeVisible();
+    await expect(page.getByText('Years shipping to production (since 2021)')).toBeVisible();
   });
 
   test('automation section renders with pipeline', async ({ page }) => {

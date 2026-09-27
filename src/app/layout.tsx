@@ -25,12 +25,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Cristhian Fonseca | AI Systems Engineer · LATAM',
+    default: 'Cristhian Fonseca | Technical Lead · AI Systems · LATAM',
     template: '%s | Cristhian Fonseca',
   },
   description:
-    'Anthropic-certified AI Systems Engineer building agentic systems, MCP workflows, and LLM pipelines at production scale. Weekly AI engineering blueprints with real architecture and working code.',
+    'Technical Lead with 5+ years building cloud-native FinTech and banking platforms, and AI agents that run in production. Weekly AI engineering blueprints with real architecture and working code.',
   keywords: [
+    'Technical Lead',
     'AI Systems Engineer',
     'Claude Code',
     'Anthropic',
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Cristhian Fonseca' }],
   openGraph: {
-    title: 'Cristhian Fonseca | AI Systems Engineer · LATAM',
+    title: 'Cristhian Fonseca | Technical Lead · AI Systems · LATAM',
     description:
       'Anthropic-certified. I build AI systems that run in production — then I show you how.',
     url: 'https://crisfon6.com',
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cristhian Fonseca | AI Systems Engineer · LATAM',
+    title: 'Cristhian Fonseca | Technical Lead · AI Systems · LATAM',
     description:
       'Anthropic-certified. I build AI systems that run in production — then I show you how.',
   },
@@ -93,13 +94,47 @@ export default function RootLayout({
           data={{
             '@context': 'https://schema.org',
             '@type': 'Person',
+            '@id': 'https://crisfon6.com/#person',
             name: 'Cristhian Fonseca',
+            alternateName: 'Cristhian Javier Delgado Fonseca',
             url: 'https://crisfon6.com',
-            jobTitle: 'AI Systems Engineer · LATAM',
-            email: 'crisfon6@crisfon6.com',
+            jobTitle: 'Technical Lead',
+            email: 'mailto:crisfon6@crisfon6.com',
+            address: { '@type': 'PostalAddress', addressCountry: 'CO' },
+            worksFor: { '@type': 'Organization', name: 'Prosperas' },
+            alumniOf: {
+              '@type': 'CollegeOrUniversity',
+              name: 'Universidad Autónoma de Bucaramanga',
+            },
+            hasCredential: [
+              {
+                '@type': 'EducationalOccupationalCredential',
+                name: 'Claude Code in Action',
+                recognizedBy: { '@type': 'Organization', name: 'Anthropic' },
+                dateCreated: '2026-02',
+              },
+              {
+                '@type': 'EducationalOccupationalCredential',
+                name: 'AWS Partner: Accreditation (Technical)',
+                recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services' },
+                dateCreated: '2020-07',
+              },
+            ],
+            knowsAbout: [
+              'AWS',
+              'AWS CDK',
+              'Model Context Protocol',
+              'LLM agents',
+              'Claude API',
+              'FastAPI',
+              'Angular',
+              'Java Spring Boot',
+              'PostgreSQL',
+              'FinTech',
+            ],
             sameAs: [
-              'https://github.com/Crisfon6-dev',
               'https://www.linkedin.com/in/crisfon6/',
+              'https://github.com/Crisfon6-dev',
               'https://www.instagram.com/crisfon6/',
             ],
           }}

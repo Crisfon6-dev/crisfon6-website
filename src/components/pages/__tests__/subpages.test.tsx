@@ -246,6 +246,11 @@ describe('NewsletterContent', () => {
       'beehiiv.com'
     );
   });
+
+  it('does not claim an unverified subscriber count (newsletter is not live yet)', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    expect(container.textContent).not.toMatch(/500\+/);
+  });
 });
 
 describe('BlogContent', () => {

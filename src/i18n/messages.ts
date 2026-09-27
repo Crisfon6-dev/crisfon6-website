@@ -185,7 +185,7 @@ export const messages = {
       description:
         'A production-ready AI automation template every week. Architecture diagrams, deployment guides, cost breakdowns, and working code — shipped from real systems, not recycled tutorials.',
       authority: 'Built by an Anthropic-certified AI engineer shipping at LATAM scale.',
-      joinBuilders: 'FREE — JOIN 500+ BUILDERS',
+      joinBuilders: 'FREE — EVERY WEEK',
       startGetting: 'Start getting blueprints',
       noSpam: 'Free forever — cancel anytime. No spam, ever.',
       whatYouGet: 'WHAT YOU GET EVERY WEEK',
@@ -444,7 +444,7 @@ export const messages = {
         'Un template de automatización con AI listo para producción cada semana. Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional — de sistemas reales, no tutoriales reciclados.',
       authority:
         'Creado por un ingeniero de AI certificado por Anthropic construyendo a escala LATAM.',
-      joinBuilders: 'GRATIS — ÚNETE A 500+ BUILDERS',
+      joinBuilders: 'GRATIS — CADA SEMANA',
       startGetting: 'Empezá a recibir blueprints',
       noSpam: 'Gratis para siempre — cancelá cuando quieras. Sin spam.',
       whatYouGet: 'LO QUE RECIBÍS CADA SEMANA',

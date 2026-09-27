@@ -18,8 +18,14 @@ test('renders social links including email', () => {
 test('renders navigation links', () => {
   render(<Footer />);
   expect(screen.getByText('About')).toBeDefined();
+  expect(screen.getByText('Experience')).toBeDefined();
   expect(screen.getByText('Projects')).toBeDefined();
   expect(screen.getByText('PowerAI')).toBeDefined();
+});
+
+test('links Experience to /experience', () => {
+  render(<Footer />);
+  expect(screen.getByText('Experience').closest('a')?.getAttribute('href')).toBe('/experience');
 });
 
 test('renders copyright', () => {

@@ -30,9 +30,16 @@ describe('Navbar', () => {
   it('renders the primary nav links', () => {
     renderNav();
     expect(screen.getAllByRole('link', { name: 'About' }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: 'Experience' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Projects' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Automations' }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole('link', { name: 'Blog' }).length).toBeGreaterThan(0);
+  });
+
+  it('links Experience to /experience', () => {
+    renderNav();
+    const links = screen.getAllByRole('link', { name: 'Experience' });
+    expect(links.some((l) => l.getAttribute('href') === '/experience')).toBe(true);
   });
 
   it('renders the subscribe CTA', () => {

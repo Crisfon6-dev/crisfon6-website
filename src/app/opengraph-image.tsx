@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Cristhian Fonseca — AI Systems Engineer · LATAM';
+export const alt = 'Cristhian Fonseca — Technical Lead · AI Systems · LATAM';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -79,7 +79,7 @@ export default function Image() {
             display: 'flex',
           }}
         />
-        <div style={{ display: 'flex' }}>AI Systems Engineer · LATAM</div>
+        <div style={{ display: 'flex' }}>Technical Lead · AI Systems · LATAM</div>
       </div>
 
       <div

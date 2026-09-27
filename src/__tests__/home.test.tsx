@@ -1,6 +1,7 @@
 import { expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Home from '@/app/page';
+import { KEY_FACTS } from '@/data/career';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 
@@ -20,10 +21,10 @@ test('renders newsletter panel with weekly blueprints kicker', () => {
   expect(screen.getByText(/WEEKLY BLUEPRINTS/i)).toBeDefined();
 });
 
-test('renders stats labels', () => {
+test('renders stats labels from career.ts key facts', () => {
   render(<Home />);
-  expect(screen.getByText('Years shipping products')).toBeDefined();
-  expect(screen.getByText('Users served')).toBeDefined();
+  expect(screen.getByText(KEY_FACTS[0].label.en)).toBeDefined();
+  expect(screen.getByText(KEY_FACTS[1].label.en)).toBeDefined();
 });
 
 test('renders automation of the week card with CTA', () => {

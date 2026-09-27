@@ -1,23 +1,10 @@
 'use client';
 
 import { useLanguage } from '@/i18n/LanguageProvider';
-import { CountUp } from '@/components/primitives/CountUp';
-
-type StatEntry = {
-  end: number;
-  suffix: string;
-  labelKey: 'years' | 'records' | 'aws' | 'users';
-};
-
-const STATS: readonly StatEntry[] = [
-  { end: 4, suffix: '+', labelKey: 'years' },
-  { end: 2, suffix: 'M+', labelKey: 'records' },
-  { end: 10, suffix: '+', labelKey: 'aws' },
-  { end: 1, suffix: 'M+', labelKey: 'users' },
-];
+import { KEY_FACTS } from '@/data/career';
 
 export function StatsSection() {
-  const { t } = useLanguage();
+  const { locale } = useLanguage();
 
   return (
     <section
@@ -26,8 +13,8 @@ export function StatsSection() {
       className="mx-auto max-w-6xl px-sp-5 py-sp-7"
     >
       <ul className="grid grid-cols-2 divide-x divide-warm-border border-y border-warm-border sm:grid-cols-4">
-        {STATS.map((stat) => (
-          <li key={stat.labelKey} className="flex flex-col gap-sp-2 px-sp-5 py-sp-6">
+        {KEY_FACTS.map((fact) => (
+          <li key={fact.label.en} className="flex flex-col gap-sp-2 px-sp-5 py-sp-6">
             <span
               className="metric-value font-heading text-warm-fg"
               style={{
@@ -37,10 +24,10 @@ export function StatsSection() {
                 fontWeight: 600,
               }}
             >
-              <CountUp end={stat.end} suffix={stat.suffix} />
+              {fact.value}
             </span>
             <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
-              {t.stats[stat.labelKey]}
+              {fact.label[locale]}
             </span>
           </li>
         ))}

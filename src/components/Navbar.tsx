@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 
 const linkKeys = [
   { href: '/about', key: 'about' as const },
+  { href: '/experience', key: 'experience' as const },
   { href: '/projects', key: 'projects' as const },
   { href: '/automations', key: 'automations' as const },
   { href: '/blog', key: 'blog' as const },

@@ -28,12 +28,10 @@ describe('AboutContent', () => {
     expect(screen.getByTestId('anthropic-card')).toBeTruthy();
   });
 
-  it('renders Timeline with 4 items from i18n', () => {
+  it('renders Timeline with 6 items: 5 employment roles + the Anthropic cert', () => {
     const { container } = render(wrap(<AboutContent />));
     const ol = container.querySelectorAll('ol');
-    const hasTimeline = Array.from(ol).some(
-      (el) => el.querySelectorAll('li').length === messages.en.about.timeline.length
-    );
+    const hasTimeline = Array.from(ol).some((el) => el.querySelectorAll('li').length === 6);
     expect(hasTimeline).toBe(true);
   });
 

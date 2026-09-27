@@ -103,7 +103,7 @@ export function WorkWithMeContent() {
                 </li>
                 <li>
                   <a
-                    href="https://github.com/crisfon6"
+                    href="https://github.com/Crisfon6-dev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between gap-sp-3 rounded-sp-sm border border-warm-bg/15 px-sp-4 py-sp-3 text-sm transition-colors hover:border-accent hover:bg-accent-weak"

@@ -94,6 +94,13 @@ export function HeroSection() {
       <p className="mt-sp-5 font-mono text-[13px] tracking-[0.02em] text-warm-fg-faint">
         {t.hero.proof}
       </p>
+      <Link
+        href="/experience"
+        data-testid="hero-full-work-history"
+        className="mt-sp-2 inline-block text-sm font-medium text-accent hover:underline"
+      >
+        {t.hero.fullWorkHistory}
+      </Link>
 
       {/* Meta links row */}
       <ul className="mt-sp-5 flex flex-wrap gap-sp-4 font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted">
@@ -114,7 +121,7 @@ export function HeroSection() {
         </li>
         <li>
           <a
-            href="https://github.com/crisfon6"
+            href="https://github.com/Crisfon6-dev"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accent"

@@ -4,44 +4,23 @@ import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { Kicker } from '@/components/primitives/Kicker';
 import { Chip } from '@/components/primitives/Chip';
+import { CASE_STUDIES } from '@/data/career';
 
-type Project = {
-  title: string;
-  description: string;
-  result: string;
-  tag: string;
-  href: string;
-};
-
-const PROJECTS: readonly Project[] = [
-  {
-    title: 'AI Automation Templates',
-    description:
-      'Open-source AI automation blueprints — architecture diagrams, cost breakdowns, and working code. New drop weekly.',
-    result: 'New template weekly',
-    tag: 'AI · OPEN SOURCE',
-    href: '/automations',
-  },
-  {
-    title: 'FinTech Credit Marketplace',
-    description:
-      'Digital credit marketplace in a major telecom Super App. Zero-paperwork loans across LATAM.',
-    result: 'Millions of users served',
-    tag: 'FINTECH',
-    href: '/projects',
-  },
-  {
-    title: 'Enterprise Banking Platform',
-    description:
-      'End-to-end banking modules for a major institution. Regulatory compliance baked in.',
-    result: '3+ years in production',
-    tag: 'BANKING',
-    href: '/projects',
-  },
-];
+const FEATURED_IDS = ['ai-in-production', 'credit-marketplace', 'aws-cost-audit'] as const;
 
 export function FeaturedProjectsSection() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+
+  const PROJECTS = FEATURED_IDS.map((id) => {
+    const cs = CASE_STUDIES.find((c) => c.id === id)!;
+    return {
+      title: cs.title[locale],
+      description: cs.context?.[locale] ?? cs.whatIDid[0][locale],
+      result: cs.outcomes[0]?.[locale] ?? cs.status[locale],
+      tag: cs.tag,
+      href: `/projects#${cs.id}`,
+    };
+  });
 
   return (
     <section

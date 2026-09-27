@@ -4,12 +4,20 @@ import { getAllPosts } from '@/lib/blog';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://crisfon6.com';
 
-  const staticRoutes = ['', '/about', '/projects', '/automations', '/blog', '/newsletter'];
+  const staticRoutes = [
+    '',
+    '/about',
+    '/experience',
+    '/projects',
+    '/automations',
+    '/blog',
+    '/newsletter',
+  ];
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: route === '/blog' ? 'weekly' : 'monthly',
-    priority: route === '' ? 1 : 0.8,
+    priority: route === '' ? 1 : route === '/experience' ? 0.9 : 0.8,
   }));
 
   const posts = getAllPosts();

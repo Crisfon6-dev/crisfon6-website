@@ -3,38 +3,29 @@
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { SubpageHeader } from '@/components/primitives/SubpageHeader';
-import { Timeline } from '@/components/primitives/Timeline';
+import { Timeline, type TimelineItem } from '@/components/primitives/Timeline';
 import { Kicker } from '@/components/primitives/Kicker';
 import { Chip } from '@/components/primitives/Chip';
 import { Atmosphere } from '@/components/primitives/Atmosphere';
-
-const STACK_CATEGORIES = [
-  {
-    title: 'AI & Automation',
-    items:
-      'LLMs, Claude API, MCP Protocol & Agents, Agentic Workflows, Prompt Engineering, Generative AI, Neural Networks, Workflow Automation',
-  },
-  {
-    title: 'Cloud & DevOps',
-    items:
-      'AWS (CDK, Lambda, RDS, S3, Cognito, CloudWatch, EC2, SES, SNS, API Gateway, Route 53, ElastiCache), Docker, CI/CD, Nginx',
-  },
-  {
-    title: 'Full Stack',
-    items:
-      'Python, TypeScript, JavaScript, Java — FastAPI, Angular, Django, Spring Boot, NestJS, Node.js, Flutter — PostgreSQL, MongoDB, Redis',
-  },
-] as const;
-
-const CERTS = [
-  { name: 'Claude Code in Action', org: 'Anthropic (2026)' },
-  { name: 'B.Eng. Systems Engineering', org: 'UNAB — Bucaramanga' },
-  { name: 'Neural Networks and Deep Learning', org: 'Coursera / deeplearning.ai' },
-  { name: 'AWS Partner: Technical Accreditation', org: 'Amazon Web Services' },
-] as const;
+import { ROLES, CREDENTIALS, STACK_GROUPS, formatPeriod, sortRoles } from '@/data/career';
 
 export function AboutContent() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+
+  const employmentRoles = sortRoles(ROLES).filter((r) => r.kind === 'employment');
+  const anthropicCert = CREDENTIALS.find((c) => c.name.en === 'Claude Code in Action')!;
+  const timelineItems: TimelineItem[] = [
+    ...employmentRoles.map((role) => ({
+      year: formatPeriod(role.start, role.end, locale, locale === 'es' ? 'Presente' : 'Present'),
+      title: `${role.title[locale]} · ${role.employer[locale]}`,
+      description: role.clientLine[locale],
+    })),
+    {
+      year: anthropicCert.date,
+      title: anthropicCert.name[locale],
+      description: anthropicCert.issuer,
+    },
+  ];
 
   return (
     <main className="page-in relative">
@@ -91,7 +82,7 @@ export function AboutContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.about.experience}</Kicker>
         <div className="mt-sp-6">
-          <Timeline items={[...t.about.timeline]} />
+          <Timeline items={timelineItems} />
         </div>
       </section>
 
@@ -99,13 +90,15 @@ export function AboutContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.about.coreStack}</Kicker>
         <div className="mt-sp-6 grid gap-sp-4 md:grid-cols-3">
-          {STACK_CATEGORIES.map((cat) => (
+          {STACK_GROUPS.map((group) => (
             <article
-              key={cat.title}
+              key={group.group}
               className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
             >
-              <h3 className="text-sm font-semibold text-warm-fg">{cat.title}</h3>
-              <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">{cat.items}</p>
+              <h3 className="text-sm font-semibold text-warm-fg">{group.group}</h3>
+              <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">
+                {group.items.join(', ')}
+              </p>
             </article>
           ))}
         </div>
@@ -125,11 +118,17 @@ export function AboutContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.about.education}</Kicker>
         <div className="mt-sp-5 flex flex-wrap gap-sp-2">
-          {CERTS.map((cert) => (
-            <Chip key={cert.name} variant="default" className="px-sp-3 py-sp-2 text-sm normal-case">
-              <span className="font-medium text-warm-fg">{cert.name}</span>
+          {CREDENTIALS.map((cred) => (
+            <Chip
+              key={cred.name.en}
+              variant="default"
+              className="px-sp-3 py-sp-2 text-sm normal-case"
+            >
+              <span className="font-medium text-warm-fg">{cred.name[locale]}</span>
               <span className="mx-1.5 text-warm-fg-faint">·</span>
-              <span className="text-warm-fg-muted">{cert.org}</span>
+              <span className="text-warm-fg-muted">
+                {cred.issuer} · {cred.date}
+              </span>
             </Chip>
           ))}
         </div>

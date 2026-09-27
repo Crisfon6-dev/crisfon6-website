@@ -133,8 +133,8 @@ export default function RootLayout({
               'FinTech',
             ],
             sameAs: [
-              'https://github.com/Crisfon6-dev',
               'https://www.linkedin.com/in/crisfon6/',
+              'https://github.com/Crisfon6-dev',
               'https://www.instagram.com/crisfon6/',
             ],
           }}

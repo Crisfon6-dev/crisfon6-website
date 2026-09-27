@@ -137,7 +137,6 @@ export const messages = {
     },
     experience: {
       label: 'EXPERIENCE',
-      heading: 'Technical Lead.',
       keyFacts: 'AT A GLANCE',
       history: 'WORK HISTORY',
       current: 'Current',
@@ -396,7 +395,6 @@ export const messages = {
     },
     experience: {
       label: 'EXPERIENCIA',
-      heading: 'Technical Lead.',
       keyFacts: 'EN RESUMEN',
       history: 'HISTORIA LABORAL',
       current: 'Actual',

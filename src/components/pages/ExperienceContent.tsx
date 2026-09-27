@@ -161,7 +161,7 @@ export function ExperienceContent() {
         <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2 lg:grid-cols-4">
           {KEY_FACTS.map((fact) => (
             <li
-              key={fact.label[locale]}
+              key={fact.label.en}
               className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
             >
               <p className="font-heading text-3xl font-semibold text-warm-fg">{fact.value}</p>

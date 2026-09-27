@@ -17,23 +17,23 @@ test.describe('UX toggles — theme + language', () => {
   test('language toggle flips hero copy EN <-> ES', async ({ page }) => {
     await page.goto('/');
     const toggle = page.getByRole('button', { name: /language|ES|EN/i }).first();
-    await expect(page.getByText('AI SYSTEMS ENGINEER · LATAM')).toBeVisible();
+    await expect(page.getByText('TECHNICAL LEAD · AI SYSTEMS · LATAM')).toBeVisible();
     await toggle.click();
-    await expect(page.getByText('INGENIERO DE SISTEMAS AI · LATAM')).toBeVisible();
+    await expect(page.getByText('TECHNICAL LEAD · SISTEMAS DE IA · LATAM')).toBeVisible();
   });
 
   test('language toggle persists across reload via localStorage', async ({ page }) => {
     await page.goto('/');
     const toggle = page.getByRole('button', { name: /language|ES|EN/i }).first();
     await toggle.click();
-    await expect(page.getByText('INGENIERO DE SISTEMAS AI · LATAM')).toBeVisible();
+    await expect(page.getByText('TECHNICAL LEAD · SISTEMAS DE IA · LATAM')).toBeVisible();
 
     // localStorage should hold cf6.lang=es
     const stored = await page.evaluate(() => localStorage.getItem('cf6.lang'));
     expect(stored).toBe('es');
 
     await page.reload();
-    await expect(page.getByText('INGENIERO DE SISTEMAS AI · LATAM')).toBeVisible();
+    await expect(page.getByText('TECHNICAL LEAD · SISTEMAS DE IA · LATAM')).toBeVisible();
   });
 
   test('scrolled nav gains data-scrolled="true" attribute', async ({ page }) => {

@@ -2,6 +2,7 @@ export const messages = {
   en: {
     nav: {
       about: 'About',
+      experience: 'Experience',
       projects: 'Projects',
       automations: 'Automations',
       blog: 'Blog',
@@ -147,10 +148,41 @@ export const messages = {
     projects: {
       heading: "Systems I've shipped.",
       description:
-        'FinTech platforms serving millions, cloud infrastructure for US startups, and open-source AI automation templates — all shipped to production, built with real AI stacks, not demos.',
+        'FinTech and banking platforms in production, cloud infrastructure for a US platform, and AI agents that run on real data — each tied to the employer, period and role.',
       ctaHeading: 'Want the AI architecture blueprints?',
       ctaDescription:
         'Every week I publish a new AI automation template with architecture diagrams, deployment guides, and working code.',
+      roleLink: 'See role in experience →',
+      context: 'Context',
+      whatIDid: 'What I did',
+      outcome: 'Outcome',
+      tierA: 'FEATURED',
+      tierB: 'PRODUCTION ENGINEERING',
+      tierC: 'EARLIER WORK',
+      preLaunch:
+        'Pre-launch: no user metrics yet. Code is private; happy to walk through it in an interview.',
+    },
+    experience: {
+      label: 'EXPERIENCE',
+      heading: 'Technical Lead.',
+      keyFacts: 'AT A GLANCE',
+      history: 'WORK HISTORY',
+      current: 'Current',
+      present: 'Present',
+      seeCaseStudy: 'See case study →',
+      education: 'EDUCATION & CERTIFICATIONS',
+      verify: 'Verify ↗',
+      openTo: 'Open to',
+      print: 'Save as PDF',
+      emailMe: 'Email me',
+      confidential:
+        "Client names are withheld under confidentiality agreements. I'm happy to share them — and references — during a hiring process.",
+      ctaHeading: 'Hiring for a remote Technical Lead?',
+      ctaDescription: "Email me and I'll share references and client details for your process.",
+      founderWork: 'FOUNDER WORK',
+      howIWork: 'HOW I WORK',
+      writing: 'WRITING',
+      testimonials: 'WHAT PEOPLE SAY',
     },
     automations: {
       heading: 'AI automations you can steal.',
@@ -257,6 +289,7 @@ export const messages = {
   es: {
     nav: {
       about: 'Sobre mi',
+      experience: 'Experiencia',
       projects: 'Proyectos',
       automations: 'Automatizaciones',
       blog: 'Blog',
@@ -402,10 +435,41 @@ export const messages = {
     projects: {
       heading: 'Sistemas que he deployado.',
       description:
-        'Plataformas FinTech sirviendo a millones, infraestructura cloud para startups en EEUU, y templates open-source de automatización con IA — todo deployado a producción, construido con stacks de AI reales, no demos.',
+        'Plataformas FinTech y bancarias en producción, infraestructura cloud para una plataforma de EE. UU. y agentes de IA sobre datos reales — cada uno ligado a la empresa, el periodo y el cargo.',
       ctaHeading: '¿Querés los blueprints de arquitectura AI?',
       ctaDescription:
         'Cada semana publico un nuevo template de automatización con IA, diagramas de arquitectura, guías de deploy y código funcional.',
+      roleLink: 'Ver cargo en experiencia →',
+      context: 'Contexto',
+      whatIDid: 'Qué hice',
+      outcome: 'Resultado',
+      tierA: 'DESTACADOS',
+      tierB: 'INGENIERÍA EN PRODUCCIÓN',
+      tierC: 'TRABAJO ANTERIOR',
+      preLaunch:
+        'Pre-lanzamiento: aún no hay métricas de usuarios. El código es privado; con gusto lo recorro en una entrevista.',
+    },
+    experience: {
+      label: 'EXPERIENCIA',
+      heading: 'Technical Lead.',
+      keyFacts: 'EN RESUMEN',
+      history: 'HISTORIA LABORAL',
+      current: 'Actual',
+      present: 'Presente',
+      seeCaseStudy: 'Ver caso →',
+      education: 'EDUCACIÓN Y CERTIFICACIONES',
+      verify: 'Verificar ↗',
+      openTo: 'Disponible para',
+      print: 'Guardar como PDF',
+      emailMe: 'Escríbeme',
+      confidential:
+        'Los nombres de clientes se omiten por acuerdos de confidencialidad. Con gusto los comparto — junto con referencias — dentro de un proceso de contratación.',
+      ctaHeading: '¿Buscas un Technical Lead remoto?',
+      ctaDescription: 'Escríbeme y te comparto referencias y detalles de clientes para tu proceso.',
+      founderWork: 'PROYECTOS PROPIOS',
+      howIWork: 'CÓMO TRABAJO',
+      writing: 'ESCRITOS',
+      testimonials: 'LO QUE DICEN',
     },
     automations: {
       heading: 'Automatizaciones con IA que podés robar.',

@@ -579,3 +579,31 @@
     transform: none !important;
   }
 }
+
+/* ============================================
+   Print — /experience "Save as PDF" produces a clean CV
+   ============================================ */
+@media print {
+  nav,
+  footer,
+  [data-print-hide] {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  article {
+    break-inside: avoid;
+  }
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 10px;
+  }
+  @page {
+    margin: 14mm;
+  }
+}

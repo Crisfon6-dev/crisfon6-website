@@ -106,6 +106,13 @@ describe('career data', () => {
     });
   });
 
+  describe('founder role date fidelity', () => {
+    it("does not assert a month content.md never gave (start is year-only, not 'YYYY-MM')", () => {
+      const role = ROLES.find((r) => r.id === 'founder')!;
+      expect(role.start).toMatch(/^\d{4}$/);
+    });
+  });
+
   describe('bilingual completeness', () => {
     it('every case study has non-empty en/es text in every field', () => {
       for (const cs of CASE_STUDIES) {

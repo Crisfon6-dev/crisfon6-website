@@ -1,13 +1,15 @@
 export type L = { en: string; es: string };
 export type YearMonth = `${number}-${string}`;
+export type Year = `${number}`;
+export type DatePrecision = YearMonth | Year;
 
 export type Role = {
   id: 'prosperas' | 'esoluzion' | 'imkglobal' | 'dualboot' | 'accenture' | 'founder';
   kind: 'employment' | 'founder';
   employer: L;
   title: L;
-  start: YearMonth;
-  end: YearMonth | null;
+  start: DatePrecision;
+  end: DatePrecision | null;
   type: L;
   location?: string;
   clientLine: L;
@@ -374,7 +376,7 @@ export const ROLES: readonly Role[] = [
       es: 'Producto de IA conversacional (stealth)',
     },
     title: { en: 'Founder & Tech Lead', es: 'Fundador y Tech Lead' },
-    start: '2026-01',
+    start: '2026',
     end: null,
     type: { en: 'Side project · Founder', es: 'Proyecto propio · Fundador' },
     clientLine: {
@@ -1135,27 +1137,26 @@ export const STACK_GROUPS: readonly StackGroup[] = [
 ];
 
 export function formatPeriod(
-  start: YearMonth,
-  end: YearMonth | null,
+  start: DatePrecision,
+  end: DatePrecision | null,
   locale: 'en' | 'es',
   presentLabel: string
 ): string {
-  const fmt = new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric' });
-  const formatYearMonth = (ym: YearMonth) => {
-    const [year, month] = ym.split('-').map(Number);
-    return fmt.format(new Date(year, month - 1, 1));
+  const monthFmt = new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric' });
+  const yearFmt = new Intl.DateTimeFormat(locale, { year: 'numeric' });
+  const formatOne = (value: DatePrecision) => {
+    if (/^\d{4}$/.test(value)) {
+      return yearFmt.format(new Date(Number(value), 0, 1));
+    }
+    const [year, month] = value.split('-').map(Number);
+    return monthFmt.format(new Date(year, month - 1, 1));
   };
-  const startLabel = formatYearMonth(start);
-  const endLabel = end ? formatYearMonth(end) : presentLabel;
+  const startLabel = formatOne(start);
+  const endLabel = end ? formatOne(end) : presentLabel;
   return `${startLabel} – ${endLabel}`;
 }
 
 export function formatRolePeriod(role: Role, locale: 'en' | 'es', presentLabel: string): string {
-  if (role.kind === 'founder') {
-    const startYear = role.start.slice(0, 4);
-    const endYear = role.end ? role.end.slice(0, 4) : presentLabel;
-    return `${startYear} – ${endYear}`;
-  }
   return formatPeriod(role.start, role.end, locale, presentLabel);
 }
 

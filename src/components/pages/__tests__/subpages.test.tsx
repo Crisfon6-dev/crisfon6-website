@@ -10,7 +10,7 @@ import { WorkWithMeContent } from '../WorkWithMeContent';
 import { NewsletterContent } from '../NewsletterContent';
 import { BlogContent } from '../BlogContent';
 import { messages } from '@/i18n/messages';
-import { ROLES, CREDENTIALS } from '@/data/career';
+import { ROLES, CREDENTIALS, CASE_STUDIES } from '@/data/career';
 import type { BlogPost } from '@/lib/blog';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
@@ -49,17 +49,67 @@ describe('ProjectsContent', () => {
     expect(screen.getByText(/03 · PROJECTS/)).toBeTruthy();
   });
 
-  it('renders 7 project cards with exactly one featured', () => {
+  it('renders 12 project cards: 4 per tier, exactly one featured (ai-in-production)', () => {
     const { container } = render(wrap(<ProjectsContent />));
     const cards = container.querySelectorAll('[data-testid="project-card"]');
-    expect(cards.length).toBe(7);
+    expect(cards.length).toBe(12);
+
+    const byTier = { A: 0, B: 0, C: 0 };
+    for (const card of Array.from(cards)) {
+      const tier = card.getAttribute('data-tier') as 'A' | 'B' | 'C';
+      byTier[tier]++;
+    }
+    expect(byTier).toEqual({ A: 4, B: 4, C: 4 });
+
     const featured = Array.from(cards).filter((c) => c.getAttribute('data-featured') === 'true');
     expect(featured.length).toBe(1);
+    expect(featured[0].id).toBe('ai-in-production');
   });
 
-  it('renders a CTA to /newsletter', () => {
-    render(wrap(<ProjectsContent />));
+  it('gives each card an id equal to the case study id', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const cs of CASE_STUDIES) {
+      expect(container.querySelector(`#${cs.id}[data-testid="project-card"]`)).toBeTruthy();
+    }
+  });
+
+  it('shows Employer · Period · Role and a link to /experience#<roleId> on every card', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const cs of CASE_STUDIES) {
+      const card = container.querySelector(`#${cs.id}`);
+      expect(card, `${cs.id} should render`).toBeTruthy();
+      const role = ROLES.find((r) => r.id === cs.roleId)!;
+      expect(card?.textContent).toContain(role.employer.en);
+      const roleLink = card?.querySelector(`a[href="/experience#${cs.roleId}"]`);
+      expect(roleLink, `${cs.id} should link to /experience#${cs.roleId}`).toBeTruthy();
+    }
+  });
+
+  it('does not render the Outcome section when outcomes is empty', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const card = container.querySelector('#identity-integrity');
+    expect(card?.querySelector('[data-testid="outcome"]')).toBeTruthy();
+    const emptyCard = container.querySelector('#production-reliability');
+    expect(emptyCard?.querySelector('[data-testid="outcome"]')).toBeNull();
+  });
+
+  it('renders 5 incident rows with symptom/cause/fix on production-reliability', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const rows = container.querySelectorAll('#production-reliability [data-testid="incident-row"]');
+    expect(rows.length).toBe(5);
+  });
+
+  it('shows the pre-launch footnote and no links on conversational-ai-product', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const card = container.querySelector('#conversational-ai-product');
+    expect(card?.textContent).toContain(messages.en.projects.preLaunch);
+    expect(card?.querySelector('a[href^="http"]')).toBeNull();
+  });
+
+  it('renders a CTA to /newsletter and a link to /experience', () => {
+    const { container } = render(wrap(<ProjectsContent />));
     expect(screen.getByTestId('projects-cta').getAttribute('href')).toBe('/newsletter');
+    expect(container.querySelector('a[href="/experience"]')).toBeTruthy();
   });
 });
 

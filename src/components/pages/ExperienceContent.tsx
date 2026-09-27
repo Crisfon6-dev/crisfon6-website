@@ -14,7 +14,7 @@ import {
   WRITING,
   TESTIMONIALS,
   PROFILE,
-  formatPeriod,
+  formatRolePeriod,
   sortRoles,
 } from '@/data/career';
 
@@ -25,6 +25,7 @@ export function ExperienceContent() {
   const employmentRoles = sorted.filter((r) => r.kind === 'employment');
   const founderRoles = sorted.filter((r) => r.kind === 'founder');
   const writingWithUrl = WRITING.filter((w) => w.url);
+  const anthropicCert = CREDENTIALS.find((c) => c.name.en === 'Claude Code in Action');
 
   const renderRole = (role: (typeof sorted)[number]) => {
     const isCurrent = role.kind === 'employment' && role.end === null;
@@ -36,7 +37,7 @@ export function ExperienceContent() {
         className="grid gap-sp-4 border-b border-warm-border py-sp-6 last:border-none lg:grid-cols-[192px_1fr]"
       >
         <div className="font-mono text-xs text-warm-fg-muted">
-          <p>{formatPeriod(role.start, role.end, locale, t.experience.present)}</p>
+          <p>{formatRolePeriod(role, locale, t.experience.present)}</p>
           <p className="mt-1">{role.type[locale]}</p>
           {role.location ? <p className="mt-1">{role.location}</p> : null}
           {isCurrent ? (
@@ -275,7 +276,7 @@ export function ExperienceContent() {
 
       {/* How to verify */}
       <section data-testid="verify" className="mx-auto max-w-6xl px-sp-5 py-sp-6">
-        <Kicker>How to verify this</Kicker>
+        <Kicker>{locale === 'es' ? 'Cómo verificar esto' : 'How to verify this'}</Kicker>
         <ul className="mt-sp-5 space-y-sp-3 text-sm">
           <li>
             <a
@@ -299,10 +300,10 @@ export function ExperienceContent() {
               {locale === 'es' ? 'Código y trabajo open source' : 'Code and open-source work'}
             </a>
           </li>
-          {CREDENTIALS.find((c) => c.name.en === 'Claude Code in Action')?.verifyUrl ? (
+          {anthropicCert?.verifyUrl ? (
             <li>
               <a
-                href={CREDENTIALS.find((c) => c.name.en === 'Claude Code in Action')?.verifyUrl}
+                href={anthropicCert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-accent hover:underline"

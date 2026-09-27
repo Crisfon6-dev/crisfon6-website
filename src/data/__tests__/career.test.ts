@@ -7,6 +7,7 @@ import {
   PRINCIPLES,
   TESTIMONIALS,
   formatPeriod,
+  formatRolePeriod,
   sortRoles,
   type L,
 } from '../career';
@@ -90,6 +91,18 @@ describe('career data', () => {
 
     it('formats a closed role in Spanish with short month names', () => {
       expect(formatPeriod('2021-05', '2022-06', 'es', 'Presente')).toBe('may 2021 – jun 2022');
+    });
+  });
+
+  describe('formatRolePeriod', () => {
+    it('shows month + year for an employment role', () => {
+      const role = ROLES.find((r) => r.id === 'prosperas')!;
+      expect(formatRolePeriod(role, 'en', 'Present')).toBe('May 2025 – Present');
+    });
+
+    it('shows year only for the founder role (content.md only gives a year, no month)', () => {
+      const role = ROLES.find((r) => r.id === 'founder')!;
+      expect(formatRolePeriod(role, 'en', 'Present')).toBe('2026 – Present');
     });
   });
 

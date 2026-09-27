@@ -164,10 +164,11 @@ describe('ExperienceContent', () => {
     expect(verifyLinks.length).toBe(CREDENTIALS.filter((c) => c.verifyUrl).length);
   });
 
-  it('renders in Spanish when the stored locale is es', () => {
+  it('renders in Spanish when the stored locale is es, including the verify heading', () => {
     window.localStorage.setItem('cf6.lang', 'es');
     render(wrap(<ExperienceContent />));
     expect(screen.getByText(/CV · EXPERIENCIA/)).toBeTruthy();
+    expect(screen.getByText('Cómo verificar esto')).toBeTruthy();
   });
 
   it('calls window.print when "Save as PDF" is clicked', () => {

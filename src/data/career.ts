@@ -1150,6 +1150,15 @@ export function formatPeriod(
   return `${startLabel} – ${endLabel}`;
 }
 
+export function formatRolePeriod(role: Role, locale: 'en' | 'es', presentLabel: string): string {
+  if (role.kind === 'founder') {
+    const startYear = role.start.slice(0, 4);
+    const endYear = role.end ? role.end.slice(0, 4) : presentLabel;
+    return `${startYear} – ${endYear}`;
+  }
+  return formatPeriod(role.start, role.end, locale, presentLabel);
+}
+
 export function sortRoles(roles: readonly Role[]): Role[] {
   const founder = roles.filter((r) => r.kind === 'founder');
   const employment = roles.filter((r) => r.kind === 'employment');

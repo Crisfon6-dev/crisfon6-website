@@ -6,7 +6,7 @@ import { SubpageHeader } from '@/components/primitives/SubpageHeader';
 import { Atmosphere } from '@/components/primitives/Atmosphere';
 import { Chip } from '@/components/primitives/Chip';
 import { Kicker } from '@/components/primitives/Kicker';
-import { CASE_STUDIES, ROLES, formatPeriod, type CaseStudy } from '@/data/career';
+import { CASE_STUDIES, ROLES, formatRolePeriod, type CaseStudy } from '@/data/career';
 
 const TIERS: readonly CaseStudy['tier'][] = ['A', 'B', 'C'];
 
@@ -22,16 +22,14 @@ export function ProjectsContent() {
 
   const renderCard = (cs: CaseStudy) => {
     const role = ROLES.find((r) => r.id === cs.roleId)!;
-    const period = formatPeriod(role.start, role.end, locale, t.experience.present);
+    const period = formatRolePeriod(role, locale, t.experience.present);
     const isFeaturedHero = cs.tier === 'A' && cs.featured;
 
     return (
       <li
         key={cs.id}
         id={cs.id}
-        className={
-          isFeaturedHero ? 'lg:col-span-12' : cs.tier === 'C' ? 'lg:col-span-6' : 'lg:col-span-6'
-        }
+        className={isFeaturedHero ? 'lg:col-span-12' : 'lg:col-span-6'}
         data-testid="project-card"
         data-tier={cs.tier}
         data-featured={cs.featured ? 'true' : 'false'}

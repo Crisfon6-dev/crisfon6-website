@@ -110,6 +110,13 @@ export function AutomationsContent() {
         description={t.automations.description}
       />
 
+      <p
+        data-testid="automations-estimate-note"
+        className="mx-auto max-w-6xl px-sp-5 pb-sp-5 font-mono text-[12px] uppercase tracking-[0.1em] text-warm-fg-muted"
+      >
+        {t.automations.estimateNote}
+      </p>
+
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
         <ul className="grid grid-cols-1 gap-sp-5 md:grid-cols-2">
           {AUTOMATIONS.map((auto) => (

@@ -44,4 +44,18 @@ describe('page copy follows the owner voice and brain rules', () => {
       }
     }
   });
+
+  it('the work-with-me card says who it is for and offers references, in both languages', () => {
+    expect(messages.en.workWithMe.stayConnected).toBe('Hiring? Email me.');
+    expect(messages.es.workWithMe.stayConnected).toBe('¿Contratas? Escríbeme.');
+    for (const locale of LOCALES) {
+      expect(messages[locale].workWithMe.proofHeading).not.toMatch(/TRACK RECORD|HISTORIAL/i);
+      expect(messages[locale].workWithMe.services[0].description).toMatch(/Technical Lead/);
+    }
+  });
+
+  it('flags the automation figures as estimates in both languages', () => {
+    expect(messages.en.automations.estimateNote).toMatch(/estimate/i);
+    expect(messages.es.automations.estimateNote).toMatch(/estimaci/i);
+  });
 });

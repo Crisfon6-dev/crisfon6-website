@@ -40,18 +40,16 @@ export function PrincipleStatement() {
     <section
       ref={ref}
       data-testid="principle-statement"
-      className="relative flex min-h-[70vh] items-center bg-warm-fg text-warm-bg"
+      className="mx-auto max-w-6xl px-sp-5 py-sp-8"
     >
       <div
-        data-testid="principle-fade"
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-transparent to-warm-fg"
-      />
-      <div className="mx-auto w-full max-w-6xl px-sp-5 py-sp-9">
+        data-testid="principle-band"
+        className="rounded-sp-xl bg-warm-fg px-sp-6 py-sp-9 text-warm-bg sm:px-sp-8"
+      >
         <h2
           className="font-heading"
           style={{
-            fontSize: 'clamp(36px, 6vw, 84px)',
+            fontSize: 'clamp(36px, 5.4vw, 76px)',
             letterSpacing: '-0.03em',
             lineHeight: 1.02,
             fontWeight: 600,

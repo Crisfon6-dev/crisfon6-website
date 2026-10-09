@@ -72,7 +72,7 @@ export function HeroSection() {
         <Link
           href="/projects"
           data-testid="hero-cta-secondary"
-          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
+          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border bg-warm-bg px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
         >
           {t.hero.cta2}
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
@@ -86,7 +86,13 @@ export function HeroSection() {
         data-testid="hero-availability"
         className="mt-sp-5 flex flex-wrap items-center gap-x-sp-3 gap-y-1 text-[15px] text-warm-fg"
       >
-        <span>{t.hero.availability}</span>
+        <span>
+          <span data-testid="hero-name" className="font-semibold">
+            {t.hero.name}
+          </span>
+          {' · '}
+          {t.hero.availability}
+        </span>
         <a href="mailto:crisfon6@crisfon6.com" className="font-medium text-accent hover:underline">
           {t.cta.emailMe} →
         </a>

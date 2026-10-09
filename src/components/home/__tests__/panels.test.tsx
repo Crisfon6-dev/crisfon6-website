@@ -78,6 +78,15 @@ describe('ContactPanel', () => {
     );
   });
 
+  it('fills the right side with the three facts a hiring manager needs, in both languages', () => {
+    render(wrap(<ContactPanel />));
+    const items = screen.getByTestId('contact-facts').querySelectorAll('li');
+    expect(Array.from(items).map((li) => li.textContent)).toEqual([
+      ...messages.en.cta.contactFacts,
+    ]);
+    expect(messages.es.cta.contactFacts.length).toBe(3);
+  });
+
   it('is a slab, not a grey SaaS block', () => {
     render(wrap(<ContactPanel />));
     expect(screen.getByTestId('contact-panel').querySelector('.slab')).toBeTruthy();

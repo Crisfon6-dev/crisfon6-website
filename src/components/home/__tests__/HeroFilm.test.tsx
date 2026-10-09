@@ -246,6 +246,14 @@ describe('HeroFilm: film mode', () => {
     expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(0);
   });
 
+  it('lets each plate take the height of its content, anchored to the bottom, with no dead space', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 5600);
+    const wrapper = screen.getByTestId('film-chapter').parentElement!;
+    expect(wrapper.className).not.toMatch(/min-h/);
+  });
+
   it('aligns the chapter plate to the page column', () => {
     setEnv({ width: 1440 });
     render(wrap(<HeroFilm />));

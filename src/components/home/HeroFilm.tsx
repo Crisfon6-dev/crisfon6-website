@@ -224,7 +224,7 @@ function FilmStage() {
           style={{ opacity: plate }}
         >
           <div className="mx-auto max-w-6xl px-sp-5">
-            <div className="pointer-events-auto max-w-md [&>article]:min-h-[21rem]">
+            <div className="pointer-events-auto max-w-md">
               <ChapterPlate key={chapter.id} chapter={chapter} testId="film-chapter" />
             </div>
           </div>

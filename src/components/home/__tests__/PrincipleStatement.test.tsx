@@ -158,11 +158,14 @@ describe('PrincipleStatement', () => {
 });
 
 describe('PrincipleStatement layout', () => {
-  it('sits on the page column and fades in from the page instead of cutting in', () => {
+  it('is an inset dark band on the page column, not a full-bleed black bar', () => {
     render(wrap(<PrincipleStatement />));
     const section = screen.getByTestId('principle-statement');
-    expect(section.querySelector('.max-w-6xl')).toBeTruthy();
-    expect(section.querySelector('[data-testid="principle-fade"]')).toBeTruthy();
-    expect(section.className).not.toMatch(/min-h-screen/);
+    expect(section.className).not.toMatch(/bg-warm-fg/);
+    expect(section.className).not.toMatch(/min-h/);
+    const band = section.querySelector('[data-testid="principle-band"]')!;
+    expect(band.className).toMatch(/bg-warm-fg/);
+    expect(band.className).toMatch(/rounded-sp-xl/);
+    expect(section.className).toMatch(/max-w-6xl/);
   });
 });

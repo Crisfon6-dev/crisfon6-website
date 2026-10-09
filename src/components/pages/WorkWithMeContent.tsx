@@ -76,7 +76,15 @@ export function WorkWithMeContent() {
               <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">
                 {t.workWithMe.stayConnectedDescription}
               </p>
-              <ul className="mt-sp-5 space-y-sp-3">
+              <a
+                href="mailto:crisfon6@crisfon6.com"
+                data-testid="contact-card-email"
+                className="mt-sp-5 inline-flex w-full items-center justify-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+              >
+                {t.cta.emailMe}
+                <span aria-hidden>→</span>
+              </a>
+              <ul className="mt-sp-4 space-y-sp-3">
                 <li>
                   <a
                     href="https://linkedin.com/in/crisfon6"
@@ -87,18 +95,6 @@ export function WorkWithMeContent() {
                     <span className="font-medium">{t.workWithMe.contact.linkedinLabel}</span>
                     <span className="font-mono text-[12px] text-warm-fg-muted">
                       {t.workWithMe.contact.linkedinSub}
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="mailto:crisfon6@crisfon6.com"
-                    data-testid="contact-card-email"
-                    className="flex items-center justify-between gap-sp-3 rounded-sp-sm border border-warm-border px-sp-4 py-sp-3 text-sm transition-colors hover:border-accent hover:bg-accent-weak"
-                  >
-                    <span className="font-medium">{t.workWithMe.contact.emailLabel}</span>
-                    <span className="font-mono text-[12px] text-warm-fg-muted">
-                      {t.workWithMe.contact.emailSub}
                     </span>
                   </a>
                 </li>
@@ -118,9 +114,10 @@ export function WorkWithMeContent() {
               </ul>
               <Link
                 href="/newsletter"
-                className="mt-sp-5 inline-flex w-full items-center justify-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+                data-testid="contact-card-newsletter"
+                className="mt-sp-5 inline-block text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
               >
-                {t.cta.subscribeZTP}
+                {t.cta.subscribeNewsletter} →
               </Link>
             </div>
           </aside>

@@ -83,11 +83,18 @@ describe('HeroSection', () => {
     renderHero();
     const line = screen.getByTestId('hero-availability');
     expect(line.textContent).toContain('Cristhian Fonseca');
+    expect(screen.getByTestId('hero-name').textContent).toBe(messages.en.hero.name);
+    expect(screen.getByTestId('hero-name').className).toMatch(/font-semibold/);
     expect(line.textContent).toContain('US teams');
     expect(line.textContent).toContain('CT/ET');
     expect(line.querySelector('a')?.getAttribute('href')).toBe('mailto:crisfon6@crisfon6.com');
     expect(messages.es.hero.availability).toContain('EE. UU.');
     expect(messages.es.hero.availability).toContain('CT/ET');
+  });
+
+  it('keeps the secondary button readable over the film with an opaque fill', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-cta-secondary').className).toMatch(/(^|\s)bg-warm-bg(\s|$)/);
   });
 
   it('renders all four meta links', () => {

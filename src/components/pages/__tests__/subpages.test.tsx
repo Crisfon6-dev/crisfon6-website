@@ -231,6 +231,50 @@ describe('WorkWithMeContent', () => {
     expect(screen.getByTestId('contact-card')).toBeTruthy();
     expect(screen.getByTestId('contact-card-email').getAttribute('href')).toMatch(/^mailto:/);
   });
+
+  it('leads with the hiring path: the leadership card comes first', () => {
+    const { container } = render(wrap(<WorkWithMeContent />));
+    const first = container.querySelectorAll('[data-testid="service-card"]')[0];
+    expect(first.textContent).toContain(messages.en.workWithMe.leadership);
+  });
+
+  it('makes email the primary action of the contact card and the newsletter a quiet link', () => {
+    render(wrap(<WorkWithMeContent />));
+    const email = screen.getByTestId('contact-card-email');
+    expect(email.textContent).toContain(messages.en.cta.emailMe);
+    expect(email.className).toMatch(/bg-accent/);
+    const newsletter = screen.getByTestId('contact-card-newsletter');
+    expect(newsletter.getAttribute('href')).toBe('/newsletter');
+    expect(newsletter.className).not.toMatch(/bg-accent/);
+  });
+
+  it('no longer promises a track record above a newsletter pitch', () => {
+    render(wrap(<WorkWithMeContent />));
+    expect(screen.queryByText('TRACK RECORD')).toBeNull();
+    expect(screen.getByTestId('contact-card').textContent).toContain(
+      messages.en.workWithMe.stayConnected
+    );
+  });
+});
+
+describe('NewsletterContent: no cadence promise and no unshipped templates', () => {
+  it('drops the W1-W6 labels and lists only the template that exists, plus an honest more-to-come', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    expect(screen.queryByText(/^W\d$/)).toBeNull();
+    expect(container.textContent).toContain('AI-Powered Document Processor');
+    expect(container.textContent).not.toContain('Content Repurposing Engine');
+    expect(container.textContent).toContain(messages.en.newsletter.templateMore);
+  });
+
+  it('mentions the Anthropic credential once, not as repeated marketing', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    expect((container.textContent ?? '').match(/Anthropic/g)?.length ?? 0).toBeLessThanOrEqual(1);
+  });
+
+  it('gives a hiring visitor a way to email', () => {
+    render(wrap(<NewsletterContent />));
+    expect(screen.getByTestId('newsletter-hiring-link').getAttribute('href')).toMatch(/^mailto:/);
+  });
 });
 
 describe('NewsletterContent', () => {
@@ -303,5 +347,14 @@ describe('BlogContent', () => {
   it('renders newsletter CTA', () => {
     render(wrap(<BlogContent publishedPosts={samplePosts} />));
     expect(screen.getByTestId('blog-cta').getAttribute('href')).toBe('/newsletter');
+  });
+});
+
+describe('AutomationsContent: unsourced figures are flagged, not deleted', () => {
+  it('tells the reader the cost and time figures are illustrative estimates', () => {
+    render(wrap(<AutomationsContent />));
+    expect(screen.getByTestId('automations-estimate-note').textContent).toBe(
+      messages.en.automations.estimateNote
+    );
   });
 });

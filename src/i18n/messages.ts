@@ -23,7 +23,8 @@ export const messages = {
       cta1: 'Get the latest AI blueprint',
       cta2: "See what I've built",
       bridge: 'Six chapters. One order: product, business, then code.',
-      availability: 'Cristhian Fonseca · Open to remote contracts with US teams (CT/ET overlap)',
+      name: 'Cristhian Fonseca',
+      availability: 'Open to remote contracts with US teams (CT/ET overlap)',
       fullWorkHistory: 'Full work history →',
     },
     chapters: {
@@ -76,6 +77,11 @@ export const messages = {
       openTo: 'I connect with founders, CTOs, and senior engineers shipping products at scale.',
       connectLinkedIn: 'Connect on LinkedIn',
       emailMe: 'Email me',
+      contactFacts: [
+        'Remote · US teams (CT/ET overlap)',
+        'Full-time or contract',
+        'References on request',
+      ] as readonly string[],
       subscribeNewsletter: 'Subscribe to newsletter',
       subscribeZTP: 'Subscribe to PowerAI',
       viewBlueprint: 'View blueprint',
@@ -191,6 +197,8 @@ export const messages = {
       heading: 'AI automations you can steal.',
       description:
         'Every template in this library is built by an engineer certified in Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Production blueprints from systems that actually run, with architecture diagrams, deployment guides, cost breakdowns, and working code. Built from real systems, not tutorials.',
+      estimateNote:
+        'Cost and time figures on these templates are illustrative estimates, not measurements.',
       subscribeTo: 'Subscribe to',
       toGetDelivered: 'to get each one delivered.',
       ctaLabel: 'AI BLUEPRINTS',
@@ -221,7 +229,10 @@ export const messages = {
       startGetting: 'Start getting blueprints',
       noSpam: 'Free forever — cancel anytime. No spam, ever.',
       whatYouGet: 'WHAT YOU GET',
-      recentTemplates: 'RECENT & UPCOMING TEMPLATES',
+      recentTemplates: 'TEMPLATES',
+      templateShipped: 'Shipped',
+      templateMore: 'More in progress.',
+      hiring: 'Hiring? Email me.',
       whoIsThisFor: 'WHO IS THIS FOR',
       finalCtaHeading: 'Architecture, costs and working code from systems that run.',
       finalCtaDescription:
@@ -243,11 +254,15 @@ export const messages = {
       advisoryDescription:
         "If you're a founder evaluating AI systems architecture, I consult on build vs. buy decisions, stack selection, and production deployment strategy.",
       advisoryCta: 'Email me',
-      proofHeading: 'TRACK RECORD',
-      stayConnected: 'The best way to stay connected',
+      proofHeading: 'CONTACT',
+      stayConnected: 'Hiring? Email me.',
       stayConnectedDescription:
-        'Production blueprints from systems that actually run — architecture diagrams, cost breakdowns, and working code.',
+        "Remote roles with US teams (CT/ET overlap). Email me the role and I'll send references.",
       services: [
+        {
+          title: 'Leadership Opportunities',
+          description: 'Remote Technical Lead / Staff roles with US teams, full-time or contract.',
+        },
         {
           title: 'Strategic Conversations',
           description:
@@ -256,10 +271,6 @@ export const messages = {
         {
           title: 'Open Source & Collaboration',
           description: 'Production-ready AI automation templates. Open to building together.',
-        },
-        {
-          title: 'Leadership Opportunities',
-          description: 'Remote Technical Lead / Staff roles with US teams, full-time or contract.',
         },
         {
           title: 'AI Engineering Advisory',
@@ -311,8 +322,8 @@ export const messages = {
       cta1: 'Obtén el último blueprint de AI',
       cta2: 'Ver lo que construí',
       bridge: 'Seis capítulos. Un orden: producto, negocio y, al final, código.',
-      availability:
-        'Cristhian Fonseca · Disponible para contratos remotos con equipos de EE. UU. (solape CT/ET)',
+      name: 'Cristhian Fonseca',
+      availability: 'Disponible para contratos remotos con equipos de EE. UU. (solape CT/ET)',
       fullWorkHistory: 'Historia laboral completa →',
     },
     chapters: {
@@ -365,6 +376,11 @@ export const messages = {
       openTo: 'Conecto con founders, CTOs e ingenieros senior creando productos a escala.',
       connectLinkedIn: 'Conectar en LinkedIn',
       emailMe: 'Enviar email',
+      contactFacts: [
+        'Remoto · equipos de EE. UU. (solape CT/ET)',
+        'Tiempo completo o contrato',
+        'Referencias si las pedís',
+      ] as readonly string[],
       subscribeNewsletter: 'Suscribirse al newsletter',
       subscribeZTP: 'Suscribirse a PowerAI',
       viewBlueprint: 'Ver blueprint',
@@ -480,6 +496,8 @@ export const messages = {
       heading: 'Automatizaciones con IA que podés robar.',
       description:
         'Cada template en esta biblioteca lo crea un ingeniero certificado en Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Blueprints de producción, de sistemas que de verdad corren, con diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De sistemas reales, no tutoriales.',
+      estimateNote:
+        'Las cifras de costo y tiempo de estos templates son estimaciones ilustrativas, no mediciones.',
       subscribeTo: 'Suscribete a',
       toGetDelivered: 'para recibirlos.',
       ctaLabel: 'BLUEPRINTS DE AI',
@@ -510,7 +528,10 @@ export const messages = {
       startGetting: 'Empezá a recibir blueprints',
       noSpam: 'Gratis para siempre — cancelá cuando quieras. Sin spam.',
       whatYouGet: 'LO QUE RECIBÍS',
-      recentTemplates: 'TEMPLATES RECIENTES Y PRÓXIMOS',
+      recentTemplates: 'TEMPLATES',
+      templateShipped: 'Publicado',
+      templateMore: 'Más en camino.',
+      hiring: '¿Contratas? Escríbeme.',
       whoIsThisFor: 'PARA QUIÉN ES ESTO',
       finalCtaHeading: 'Arquitectura, costos y código funcional de sistemas que corren.',
       finalCtaDescription:
@@ -532,11 +553,16 @@ export const messages = {
       advisoryDescription:
         'Si sos un founder evaluando arquitectura de sistemas AI, consulto sobre decisiones de build vs. buy, selección de stack y estrategia de deployment a producción.',
       advisoryCta: 'Enviar email',
-      proofHeading: 'TRAYECTORIA',
-      stayConnected: 'La mejor forma de mantenernos conectados',
+      proofHeading: 'CONTACTO',
+      stayConnected: '¿Contratas? Escríbeme.',
       stayConnectedDescription:
-        'Blueprints de producción, de sistemas que de verdad corren — con diagramas de arquitectura, análisis de costos y código funcional.',
+        'Roles remotos con equipos de EE. UU. (solape CT/ET). Escríbeme el rol y te envío referencias.',
       services: [
+        {
+          title: 'Oportunidades de Liderazgo',
+          description:
+            'Roles remotos de Technical Lead / Staff con equipos de EE. UU., tiempo completo o contrato.',
+        },
         {
           title: 'Conversaciones Estratégicas',
           description:
@@ -546,11 +572,6 @@ export const messages = {
           title: 'Open Source y Colaboración',
           description:
             'Templates de automatización con AI listos para producción. Abierto a colaborar.',
-        },
-        {
-          title: 'Oportunidades de Liderazgo',
-          description:
-            'Roles remotos de Technical Lead / Staff con equipos de EE. UU., tiempo completo o contrato.',
         },
         {
           title: 'Asesoría en Ingeniería AI',

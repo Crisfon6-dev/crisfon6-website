@@ -9,9 +9,9 @@ import { SubscribeForm } from '@/components/SubscribeForm';
 
 const BENEFITS = [
   {
-    title: 'Anthropic-Certified Patterns',
+    title: 'Architecture-First Patterns',
     description:
-      'Every template is built with Anthropic-certified AI engineering standards — production-grade, architecture-first, cost-conscious.',
+      'Every template is built architecture-first: production-grade, cost-conscious, nothing you have to untangle later.',
   },
   {
     title: 'Architecture Diagrams',
@@ -32,14 +32,7 @@ const BENEFITS = [
   },
 ] as const;
 
-const SAMPLE_TOPICS = [
-  'AI-Powered Document Processor · $12/mo @ 1K docs',
-  'Slack to Notion Meeting Summarizer',
-  'Automated Lead Scoring Pipeline',
-  'MCP Agent: Code Review Assistant',
-  'Invoice Processing Automation',
-  'Content Repurposing Engine',
-] as const;
+const SHIPPED_TEMPLATES = ['AI-Powered Document Processor · $12/mo @ 1K docs'] as const;
 
 const AUDIENCES = [
   {
@@ -122,14 +115,15 @@ export function NewsletterContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.newsletter.recentTemplates}</Kicker>
         <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border">
-          {SAMPLE_TOPICS.map((topic, i) => (
+          {SHIPPED_TEMPLATES.map((topic) => (
             <li key={topic} className="flex items-center gap-sp-4 py-sp-4">
-              <span className="w-12 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
-                W{i + 1}
+              <span className="w-20 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
+                {t.newsletter.templateShipped}
               </span>
               <p className="text-sm text-warm-fg">{topic}</p>
             </li>
           ))}
+          <li className="py-sp-4 text-sm text-warm-fg-muted">{t.newsletter.templateMore}</li>
         </ul>
       </section>
 
@@ -170,6 +164,13 @@ export function NewsletterContent() {
           <p className="mt-sp-3 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
             {t.cta.freeForever}
           </p>
+          <a
+            href="mailto:crisfon6@crisfon6.com"
+            data-testid="newsletter-hiring-link"
+            className="mt-sp-4 inline-block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+          >
+            {t.newsletter.hiring} →
+          </a>
         </div>
       </section>
     </main>

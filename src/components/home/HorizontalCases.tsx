@@ -40,7 +40,7 @@ export function HorizontalCases() {
       aria-labelledby="horizontal-cases-title"
       style={{ height: `${(1 + CASES_TRAVEL_VH) * 100}vh` }}
     >
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] items-center overflow-hidden">
         <div
           data-testid="cases-track"
           style={
@@ -79,7 +79,9 @@ export function HorizontalCases() {
               data-testid="case-card"
               className="group flex w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-6 transition-colors hover:border-warm-border-strong"
             >
-              <Chip variant="outline">{c.tag}</Chip>
+              <Chip variant="outline" className="self-start">
+                {c.tag}
+              </Chip>
               <h3
                 className="font-heading text-warm-fg"
                 style={{
@@ -92,7 +94,7 @@ export function HorizontalCases() {
                 {c.title}
               </h3>
               <p className="text-warm-fg-muted">{c.description}</p>
-              <span className="mt-auto font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
+              <span className="mt-auto font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg">
                 {c.result}
               </span>
             </Link>

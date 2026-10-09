@@ -96,6 +96,14 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
     });
   });
 
+  it('does not use the low-contrast accent text color for the result labels', () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    for (const card of screen.getAllByTestId('case-card')) {
+      expect(card.querySelectorAll('.text-accent').length).toBe(0);
+    }
+  });
+
   it('maps the pinned scroll progress linearly to the track position', () => {
     setEnv(1440);
     render(wrap(<FeaturedCases />));

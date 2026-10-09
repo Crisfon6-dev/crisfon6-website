@@ -62,11 +62,14 @@ function StillsGrid() {
           <li key={still.id}>
             <figure>
               <FrameImage src={still.src} />
-              <figcaption data-testid={`still-caption-${still.id}`} className="mt-sp-3">
+              <figcaption
+                data-testid={`still-caption-${still.id}`}
+                className="mt-sp-3 flex flex-wrap items-baseline gap-x-sp-3 gap-y-1"
+              >
                 <span className="metric-value text-warm-fg" style={{ fontSize: '28px' }}>
                   {value}
                 </span>
-                <span className="ml-sp-3 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
+                <span className="text-balance font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
                   {label}
                 </span>
               </figcaption>
@@ -185,7 +188,7 @@ function FilmStage() {
       data-mode="film"
       style={{ height: `${(1 + FILM_TRAVEL_VH) * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden bg-warm-bg">
+      <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-hidden bg-warm-bg">
         {active ? (
           <img
             src={HERO_FILM_ASSETS.poster}
@@ -212,12 +215,12 @@ function FilmStage() {
         {text ? (
           <div
             data-testid="film-overlay"
-            className="absolute bottom-sp-7 left-sp-5 max-w-sm rounded-sp-lg border border-warm-border bg-warm-bg/90 px-sp-5 py-sp-4 backdrop-blur-sm sm:left-sp-8"
+            className="absolute bottom-sp-7 left-sp-5 max-w-md rounded-sp-lg border border-warm-border bg-warm-bg/90 px-sp-5 py-sp-4 backdrop-blur-sm sm:left-sp-8"
           >
             <p className="metric-value text-warm-fg" style={{ fontSize: '40px' }}>
               {text.value}
             </p>
-            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
+            <p className="mt-1 text-balance font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
               {text.label}
             </p>
           </div>

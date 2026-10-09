@@ -2,6 +2,7 @@
 
 import {
   HeroSection,
+  HeroFilm,
   StatsSection,
   StackMarqueeSection,
   AutomationSection,
@@ -16,6 +17,7 @@ export function HomeContent() {
     <main className="page-in relative">
       <Atmosphere />
       <HeroSection />
+      <HeroFilm />
       <StatsSection />
       <StackMarqueeSection />
       <AutomationSection />

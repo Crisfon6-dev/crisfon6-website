@@ -1,4 +1,5 @@
 export { HeroSection } from './HeroSection';
+export { HeroFilm } from './HeroFilm';
 export { StatsSection } from './StatsSection';
 export { StackMarqueeSection } from './StackMarqueeSection';
 export { AutomationSection } from './AutomationSection';

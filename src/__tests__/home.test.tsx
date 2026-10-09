@@ -39,3 +39,11 @@ test('renders contact email CTA (mailto link)', () => {
   const emailCta = screen.getByTestId('contact-cta-email');
   expect(emailCta.getAttribute('href')).toMatch(/mailto:crisfon6@crisfon6\.com/);
 });
+
+test('places the film stage right after the hero and before the stats', () => {
+  const { container } = render(<Home />);
+  const order = Array.from(container.querySelectorAll('[data-testid]'))
+    .map((el) => el.getAttribute('data-testid'))
+    .filter((id) => id === 'hero' || id === 'hero-film' || id === 'stats');
+  expect(order).toEqual(['hero', 'hero-film', 'stats']);
+});

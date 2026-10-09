@@ -34,6 +34,7 @@ export const messages = {
         'AI systems engineer. Building and shipping in public. Production blueprints from systems that actually run.',
       pages: 'PAGES',
       connect: 'CONNECT',
+      aiMedia: 'The hero film and its imagery were generated with AI.',
     },
     cta: {
       productionBlueprints: 'PRODUCTION BLUEPRINTS',
@@ -293,6 +294,7 @@ export const messages = {
         'Ingeniero de sistemas AI. Construyendo y publicando en público. Blueprints de producción, de sistemas que de verdad corren.',
       pages: 'PAGINAS',
       connect: 'CONECTAR',
+      aiMedia: 'La película del hero y sus imágenes fueron generadas con IA.',
     },
     cta: {
       productionBlueprints: 'BLUEPRINTS DE PRODUCCIÓN',

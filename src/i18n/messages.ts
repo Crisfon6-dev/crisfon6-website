@@ -215,21 +215,21 @@ export const messages = {
       heading: 'PowerAI',
       description:
         'Production blueprints from systems that actually run. Architecture diagrams, deployment guides, cost breakdowns, and working code — not recycled tutorials.',
-      authority: 'Built by an Anthropic-certified AI engineer shipping at LATAM scale.',
+      authority:
+        'Written by Cristhian Fonseca, Anthropic-certified, from systems that run in production.',
       joinBuilders: 'FREE · PRODUCTION BLUEPRINTS',
       startGetting: 'Start getting blueprints',
       noSpam: 'Free forever — cancel anytime. No spam, ever.',
       whatYouGet: 'WHAT YOU GET',
       recentTemplates: 'RECENT & UPCOMING TEMPLATES',
       whoIsThisFor: 'WHO IS THIS FOR',
-      finalCtaHeading: "The most useful AI engineering newsletter you'll read this week.",
+      finalCtaHeading: 'Architecture, costs and working code from systems that run.',
       finalCtaDescription:
         'Tested, production-ready AI automation templates delivered to your inbox. Built by someone who ships.',
     },
     workWithMe: {
-      heading: "Let's build something with AI that actually works.",
-      description:
-        "I'm always looking to connect with ambitious founders, CTOs, and engineers shipping products at scale.",
+      heading: 'Hiring for a US team? Start here.',
+      description: 'I connect with founders, CTOs, and engineers shipping products at scale.',
       strategic: 'Strategic Conversations',
       strategicDescription:
         "I enjoy meeting founders and CTOs navigating AI adoption, agentic systems, and engineering at scale. If you're building something ambitious, let's talk.",
@@ -505,21 +505,20 @@ export const messages = {
       description:
         'Blueprints de producción, de sistemas que de verdad corren. Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional — no tutoriales reciclados.',
       authority:
-        'Creado por un ingeniero de AI certificado por Anthropic construyendo a escala LATAM.',
+        'Escrito por Cristhian Fonseca, certificado por Anthropic, a partir de sistemas que corren en producción.',
       joinBuilders: 'GRATIS · BLUEPRINTS DE PRODUCCIÓN',
       startGetting: 'Empezá a recibir blueprints',
       noSpam: 'Gratis para siempre — cancelá cuando quieras. Sin spam.',
       whatYouGet: 'LO QUE RECIBÍS',
       recentTemplates: 'TEMPLATES RECIENTES Y PRÓXIMOS',
       whoIsThisFor: 'PARA QUIÉN ES ESTO',
-      finalCtaHeading: 'El newsletter de ingeniería AI más útil que vas a leer esta semana.',
+      finalCtaHeading: 'Arquitectura, costos y código funcional de sistemas que corren.',
       finalCtaDescription:
         'Templates de automatización listos para producción en tu inbox. Creados por alguien que envía a producción.',
     },
     workWithMe: {
-      heading: 'Construyamos algo con AI que realmente funcione.',
-      description:
-        'Siempre busco conectar con founders, CTOs e ingenieros ambiciosos creando productos a escala.',
+      heading: '¿Contratas para un equipo en EE. UU.? Empieza aquí.',
+      description: 'Conecto con founders, CTOs e ingenieros que crean productos a escala.',
       strategic: 'Conversaciones Estratégicas',
       strategicDescription:
         'Me gusta conocer founders y CTOs navegando la adopción de AI, sistemas agénticos e ingeniería a escala. Si estás construyendo algo ambicioso, hablemos.',

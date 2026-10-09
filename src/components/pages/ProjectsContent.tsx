@@ -34,7 +34,7 @@ export function ProjectsContent() {
         data-tier={cs.tier}
         data-featured={cs.featured ? 'true' : 'false'}
       >
-        <article className="group relative flex h-full flex-col gap-sp-4 overflow-hidden rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-6 transition-all hover:-translate-y-0.5 hover:border-warm-border-strong">
+        <article className="group relative flex h-full flex-col gap-sp-4 overflow-hidden slab p-sp-6 transition-all hover:-translate-y-0.5 hover:border-warm-border-strong">
           <div className="flex flex-wrap items-center gap-sp-2">
             <Chip variant="outline">{cs.tag}</Chip>
             <Chip variant="default">{cs.status[locale]}</Chip>
@@ -162,6 +162,7 @@ export function ProjectsContent() {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="projects"
         number="03"
         label="PROJECTS"
         title={t.projects.heading}
@@ -179,7 +180,7 @@ export function ProjectsContent() {
 
       {/* Building in public */}
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
-        <div className="rounded-sp-lg border border-warm-border bg-warm-bg-subtle p-sp-6">
+        <div className="slab p-sp-6">
           <p className="text-sm leading-relaxed text-warm-fg-muted">
             {locale === 'es' ? (
               <>
@@ -219,7 +220,7 @@ export function ProjectsContent() {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-xl bg-warm-fg px-sp-6 py-sp-8 text-center text-warm-bg">
+        <div className="slab px-sp-6 py-sp-8 text-center text-warm-fg">
           <h2
             className="font-heading"
             style={{
@@ -230,7 +231,9 @@ export function ProjectsContent() {
           >
             {t.projects.ctaHeading}
           </h2>
-          <p className="mx-auto mt-sp-3 max-w-xl text-sm opacity-80">{t.projects.ctaDescription}</p>
+          <p className="mx-auto mt-sp-3 max-w-xl text-sm text-warm-fg-muted">
+            {t.projects.ctaDescription}
+          </p>
           <div className="mt-sp-5 flex flex-wrap items-center justify-center gap-sp-3">
             <Link
               href="/newsletter"
@@ -241,7 +244,7 @@ export function ProjectsContent() {
             </Link>
             <Link
               href="/experience"
-              className="inline-flex items-center gap-2 rounded-sp-xl border border-warm-border/40 px-sp-5 py-sp-3 text-sm font-medium text-warm-bg transition-colors hover:border-warm-border-strong"
+              className="inline-flex items-center gap-2 rounded-sp-xl border border-warm-border px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-elev"
             >
               {t.nav.experience}
             </Link>

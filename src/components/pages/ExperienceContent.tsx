@@ -91,6 +91,7 @@ export function ExperienceContent() {
     <main className="page-in relative">
       <Atmosphere data-print-hide />
       <SubpageHeader
+        plate="experience"
         number="CV"
         label={t.experience.label}
         title={
@@ -160,10 +161,7 @@ export function ExperienceContent() {
         <Kicker>{t.experience.keyFacts}</Kicker>
         <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2 lg:grid-cols-4">
           {KEY_FACTS.map((fact) => (
-            <li
-              key={fact.label.en}
-              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
-            >
+            <li key={fact.label.en} className="slab p-sp-5">
               <p className="font-heading text-3xl font-semibold text-warm-fg">{fact.value}</p>
               <p className="mt-2 text-sm text-warm-fg-muted">{fact.label[locale]}</p>
             </li>
@@ -206,10 +204,7 @@ export function ExperienceContent() {
         <Kicker>{t.experience.education}</Kicker>
         <ul className="mt-sp-5 grid gap-sp-3 md:grid-cols-2">
           {CREDENTIALS.map((cred) => (
-            <li
-              key={cred.name.en}
-              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-4"
-            >
+            <li key={cred.name.en} className="slab p-sp-4">
               <p className="text-sm font-medium text-warm-fg">{cred.name[locale]}</p>
               <p className="mt-1 text-xs text-warm-fg-muted">
                 {cred.issuer} · {cred.date}
@@ -258,10 +253,7 @@ export function ExperienceContent() {
           <Kicker>{t.experience.testimonials}</Kicker>
           <ul className="mt-sp-5 grid gap-sp-4 md:grid-cols-2">
             {TESTIMONIALS.map((tm) => (
-              <li
-                key={tm.name}
-                className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
-              >
+              <li key={tm.name} className="slab p-sp-5">
                 <p className="text-sm italic text-warm-fg-muted">
                   &ldquo;{tm.quote[locale]}&rdquo;
                 </p>
@@ -327,7 +319,7 @@ export function ExperienceContent() {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-lg border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+        <div className="slab p-sp-6 text-center">
           <h2
             className="font-heading text-warm-fg"
             style={{

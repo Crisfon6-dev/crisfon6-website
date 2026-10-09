@@ -103,6 +103,7 @@ export function AutomationsContent() {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="automations"
         number="04"
         label="AUTOMATIONS"
         title={t.automations.heading}
@@ -113,7 +114,7 @@ export function AutomationsContent() {
         <ul className="grid grid-cols-1 gap-sp-5 md:grid-cols-2">
           {AUTOMATIONS.map((auto) => (
             <li key={auto.num} data-testid="automation-card">
-              <article className="group flex h-full flex-col gap-sp-4 rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5 transition-all hover:-translate-y-0.5 hover:border-warm-border-strong">
+              <article className="group flex h-full flex-col gap-sp-4 slab p-sp-5 transition-all hover:-translate-y-0.5 hover:border-warm-border-strong">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[13px] tracking-[0.14em] text-warm-fg-faint">
                     #{auto.num}
@@ -189,7 +190,7 @@ export function AutomationsContent() {
 
       {/* GitHub panel */}
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
-        <div className="flex flex-col items-start gap-sp-5 rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col items-start gap-sp-5 slab p-sp-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="max-w-xl">
             <Kicker>{t.automations.githubLabel}</Kicker>
             <h2
@@ -220,8 +221,8 @@ export function AutomationsContent() {
 
       {/* Newsletter CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-xl bg-warm-fg px-sp-6 py-sp-8 text-center text-warm-bg">
-          <Kicker accent dot>
+        <div className="slab px-sp-6 py-sp-8 text-center text-warm-fg">
+          <Kicker dot>
             <span>{t.automations.ctaLabel}</span>
           </Kicker>
           <h2
@@ -234,7 +235,7 @@ export function AutomationsContent() {
           >
             {t.automations.ctaHeading}
           </h2>
-          <p className="mx-auto mt-sp-3 max-w-xl text-sm opacity-80">
+          <p className="mx-auto mt-sp-3 max-w-xl text-sm text-warm-fg-muted">
             {t.automations.ctaDescription}
           </p>
           <Link

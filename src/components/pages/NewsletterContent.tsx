@@ -67,32 +67,25 @@ export function NewsletterContent() {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="newsletter"
         number="07"
         label="POWERAI"
         title={t.newsletter.heading}
         description={t.newsletter.description}
       />
 
-      {/* Dark newsletter panel */}
+      {/* Signup panel */}
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
         <div
-          data-testid="newsletter-dark-panel"
-          className="relative overflow-hidden rounded-sp-xl bg-warm-fg px-sp-6 py-sp-8 text-warm-bg sm:px-sp-8 sm:py-sp-9"
+          data-testid="newsletter-signup-panel"
+          className="slab px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9"
         >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-30"
-            style={{
-              background:
-                'radial-gradient(circle at 85% 20%, rgb(from var(--c-accent) r g b / 0.5) 0%, transparent 60%)',
-            }}
-          />
           <div className="relative mx-auto max-w-2xl">
-            <Kicker accent dot>
+            <Kicker dot>
               <span>{t.newsletter.joinBuilders}</span>
             </Kicker>
             <h2
-              className="mt-sp-4 font-heading"
+              className="mt-sp-4 font-heading text-warm-fg"
               style={{
                 fontSize: 'clamp(28px, 3.6vw, 44px)',
                 letterSpacing: '-0.02em',
@@ -102,7 +95,9 @@ export function NewsletterContent() {
             >
               {t.newsletter.finalCtaHeading}
             </h2>
-            <p className="mt-sp-4 text-sm leading-relaxed opacity-80">{t.newsletter.authority}</p>
+            <p className="mt-sp-4 text-sm leading-relaxed text-warm-fg-muted">
+              {t.newsletter.authority}
+            </p>
             <div className="mt-sp-5">
               <SubscribeForm />
             </div>
@@ -115,10 +110,7 @@ export function NewsletterContent() {
         <Kicker>{t.newsletter.whatYouGet}</Kicker>
         <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2">
           {BENEFITS.map((b) => (
-            <li
-              key={b.title}
-              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
-            >
+            <li key={b.title} className="slab p-sp-5">
               <h3 className="text-sm font-semibold text-warm-fg">{b.title}</h3>
               <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">{b.description}</p>
             </li>
@@ -155,7 +147,7 @@ export function NewsletterContent() {
 
       {/* Final CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-xl border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+        <div className="slab p-sp-6 text-center">
           <h2
             className="font-heading text-warm-fg"
             style={{

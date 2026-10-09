@@ -241,7 +241,7 @@ describe('NewsletterContent', () => {
 
   it('renders the dark panel with SubscribeForm', () => {
     const { container } = render(wrap(<NewsletterContent />));
-    expect(screen.getByTestId('newsletter-dark-panel')).toBeTruthy();
+    expect(screen.getByTestId('newsletter-signup-panel')).toBeTruthy();
     expect(container.querySelector('form')).not.toBeNull();
     expect(container.querySelector('input[type="email"]')).not.toBeNull();
   });

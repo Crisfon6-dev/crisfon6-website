@@ -52,6 +52,7 @@ export function BlogContent({ publishedPosts }: Props) {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="blog"
         number="05"
         label="BLOG"
         title={t.blog.heading}
@@ -135,7 +136,7 @@ export function BlogContent({ publishedPosts }: Props) {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-xl border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+        <div className="slab p-sp-6 text-center">
           <h2
             className="font-heading text-warm-fg"
             style={{

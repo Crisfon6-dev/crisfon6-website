@@ -18,6 +18,12 @@ describe('next.config headers', () => {
     expect(cacheControl(hero!)).toBe('public, max-age=31536000, immutable');
   });
 
+  it('caches the versioned page stills for a year, immutable', async () => {
+    const plates = (await rules()).find((rule) => rule.source === '/plates/:path*');
+    expect(plates, 'a rule for /plates/:path*').toBeDefined();
+    expect(cacheControl(plates!)).toBe('public, max-age=31536000, immutable');
+  });
+
   it('never applies the immutable policy to the HTML routes', async () => {
     const broad = (await rules()).filter(
       (rule) => rule.source === '/' || rule.source === '/:path*' || rule.source === '/(.*)'

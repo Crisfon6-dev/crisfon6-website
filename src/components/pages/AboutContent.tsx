@@ -31,6 +31,7 @@ export function AboutContent() {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="about"
         number="02"
         label="ABOUT"
         title={
@@ -53,10 +54,7 @@ export function AboutContent() {
             <p className="font-medium text-warm-fg">{t.about.intro4}</p>
           </div>
 
-          <aside
-            data-testid="anthropic-card"
-            className="glow relative overflow-hidden rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
-          >
+          <aside data-testid="anthropic-card" className="glow relative overflow-hidden slab p-sp-5">
             <span
               aria-hidden
               className="shimmer-sweep pointer-events-none absolute inset-0"
@@ -94,10 +92,7 @@ export function AboutContent() {
         <Kicker>{t.about.coreStack}</Kicker>
         <div className="mt-sp-6 grid gap-sp-4 md:grid-cols-3">
           {STACK_GROUPS.map((group) => (
-            <article
-              key={group.group}
-              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
-            >
+            <article key={group.group} className="slab p-sp-5">
               <h3 className="text-sm font-semibold text-warm-fg">{group.group}</h3>
               <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">
                 {group.items.join(', ')}
@@ -139,7 +134,7 @@ export function AboutContent() {
 
       {/* Inline CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-lg border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+        <div className="slab p-sp-6 text-center">
           <h2
             className="font-heading text-warm-fg"
             style={{

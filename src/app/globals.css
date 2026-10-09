@@ -621,3 +621,19 @@
   transform-origin: top;
   transform: scaleY(var(--timeline-progress, 1));
 }
+
+/* Typewriter: reserve the space of its longest phrase so typing never shifts the layout.
+   The typed text and an invisible copy of the longest phrase share one grid cell. */
+.typewriter {
+  display: inline-grid;
+  vertical-align: top;
+}
+.typewriter > span,
+.typewriter::after {
+  grid-area: 1 / 1;
+}
+.typewriter::after {
+  content: attr(data-ghost);
+  visibility: hidden;
+  pointer-events: none;
+}

@@ -16,9 +16,9 @@ test('renders Featured Projects section kicker', () => {
   expect(screen.getByText('Featured Projects')).toBeDefined();
 });
 
-test('renders newsletter panel with weekly blueprints kicker', () => {
+test('renders newsletter panel with production blueprints kicker', () => {
   render(<Home />);
-  expect(screen.getByText(/WEEKLY BLUEPRINTS/i)).toBeDefined();
+  expect(screen.getByText('PRODUCTION BLUEPRINTS')).toBeDefined();
 });
 
 test('renders stats labels from career.ts key facts', () => {
@@ -27,9 +27,10 @@ test('renders stats labels from career.ts key facts', () => {
   expect(screen.getByText(KEY_FACTS[1].label.en)).toBeDefined();
 });
 
-test('renders automation of the week card with CTA', () => {
+test('renders the featured automation card with CTA and no edition number', () => {
   render(<Home />);
-  expect(screen.getByText('AUTOMATION OF THE WEEK')).toBeDefined();
+  expect(screen.getByText('FEATURED AUTOMATION')).toBeDefined();
+  expect(screen.queryByText('#06')).toBeNull();
   expect(screen.getByText('AI-Powered Document Processor')).toBeDefined();
 });
 

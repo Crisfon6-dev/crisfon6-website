@@ -68,7 +68,7 @@ export function NewsletterContent() {
       <Atmosphere />
       <SubpageHeader
         number="07"
-        label="POWERAI · EDITION #06"
+        label="POWERAI"
         title={t.newsletter.heading}
         description={t.newsletter.description}
       />

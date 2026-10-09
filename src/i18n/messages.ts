@@ -10,36 +10,37 @@ export const messages = {
       workWithMe: 'Work with me',
     },
     hero: {
-      kicker: 'TECHNICAL LEAD · AI SYSTEMS · LATAM',
+      kicker: 'TECH LEAD · AI ORCHESTRATOR · LATAM',
       cert: 'ANTHROPIC CERTIFIED',
       certSub: 'Claude Code in Action · 2026',
       brand: 'crisfon6',
       headlinePrefix: 'I build AI systems that',
       typewords: [
         'run in production.',
-        'serve 100K+ users a month.',
-        'save 15h/week.',
-        'ship weekly.',
+        'serve ~100K users a month.',
+        'the business actually needs.',
       ] as readonly string[],
       description:
-        'Certified by Anthropic (Claude Code in Action, 2026). I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale — then I document the architecture, costs, and working code publicly every week.',
-      cta1: "Get this week's AI blueprint",
+        'Certified by Anthropic (Claude Code in Action, 2026). I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale. Production blueprints from systems that actually run.',
+      businessAngle:
+        'Technology serves the business, not the other way around. I build what moves the metric, not what looks good in the codebase.',
+      cta1: 'Get the latest AI blueprint',
       cta2: "See what I've built",
       proof: '−43% AWS bill · 30× faster data exports · 5+ years in production',
       fullWorkHistory: 'Full work history →',
     },
     footer: {
       tagline:
-        'AI systems engineer. Building and shipping in public. Weekly blueprints you can deploy.',
+        'AI systems engineer. Building and shipping in public. Production blueprints from systems that actually run.',
       pages: 'PAGES',
       connect: 'CONNECT',
     },
     cta: {
-      weeklyBlueprints: 'WEEKLY BLUEPRINTS',
-      getFreeTemplate: 'Get a production-ready AI template every week',
+      productionBlueprints: 'PRODUCTION BLUEPRINTS',
+      getFreeTemplate: 'Production blueprints from systems that actually run',
       noFluff:
         'Architecture diagrams, deployment guides, cost breakdowns, and working code. Shipped from production, not tutorials.',
-      dontMiss: "Get this week's AI blueprint",
+      dontMiss: 'Get the latest AI blueprint',
       freeForever: 'Free forever. Unsubscribe anytime.',
       letsTalk: "LET'S CONNECT",
       buildingSomething: "Building AI into your product? Let's talk.",
@@ -52,9 +53,8 @@ export const messages = {
       viewAll: 'View all',
     },
     automation: {
-      sectionTitle: 'AUTOMATION OF THE WEEK',
+      sectionTitle: 'FEATURED AUTOMATION',
       live: 'LIVE',
-      edition: '#06',
       title: 'AI-Powered Document Processor',
       description:
         'Ingest PDFs, extract structured data with Claude API, store in PostgreSQL. Deployed on AWS Lambda with S3 triggers.',
@@ -98,6 +98,8 @@ export const messages = {
       heading2: 'And I document everything.',
       intro1:
         "I'm Cristhian Fonseca — a Technical Lead with 5+ years building cloud-native FinTech and banking platforms.",
+      businessAngle:
+        'Technology serves the business, not the other way around. I build what moves the metric, not what looks good in the codebase.',
       intro2:
         "Right now I lead engineering for a digital credit marketplace inside a major telecom's Super App — ~100K monthly active users within a 45M-user ecosystem. Cloud-native on AWS, automated provisioning, zero-paperwork loans.",
       intro3:
@@ -124,7 +126,7 @@ export const messages = {
         'FinTech and banking platforms in production, cloud infrastructure for a US platform, and AI agents that run on real data — each tied to the employer, period and role.',
       ctaHeading: 'Want the AI architecture blueprints?',
       ctaDescription:
-        'Every week I publish a new AI automation template with architecture diagrams, deployment guides, and working code.',
+        'Production blueprints from systems that actually run: architecture diagrams, deployment guides, and working code.',
       roleLink: 'See role in experience →',
       context: 'Context',
       whatIDid: 'What I did',
@@ -159,17 +161,17 @@ export const messages = {
     automations: {
       heading: 'AI automations you can steal.',
       description:
-        'Every template in this library is built by an engineer certified in Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Published every week with architecture diagrams, deployment guides, cost breakdowns, and working code. Built from real systems, not tutorials.',
+        'Every template in this library is built by an engineer certified in Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Production blueprints from systems that actually run, with architecture diagrams, deployment guides, cost breakdowns, and working code. Built from real systems, not tutorials.',
       subscribeTo: 'Subscribe to',
       toGetDelivered: 'to get each one delivered.',
-      ctaLabel: 'WEEKLY AI BLUEPRINT',
+      ctaLabel: 'AI BLUEPRINTS',
       ctaHeading: 'Get the blueprint before everyone else',
       ctaDescription:
-        'Architecture diagrams, deployment guides, cost breakdowns, and working code. Delivered every week. Free.',
+        'Architecture diagrams, deployment guides, cost breakdowns, and working code. Delivered to your inbox. Free.',
       githubLabel: 'OPEN SOURCE',
       githubHeading: 'All code is on GitHub.',
       githubDescription:
-        'Every template ships with the full working code — no paywalls, no login required. Star the repo and follow along as new automations drop weekly.',
+        'Every template ships with the full working code — no paywalls, no login required. Star the repo and follow along as new automations land.',
       githubCta: 'View on GitHub',
     },
     blog: {
@@ -183,17 +185,17 @@ export const messages = {
     newsletter: {
       heading: 'PowerAI',
       description:
-        'A production-ready AI automation template every week. Architecture diagrams, deployment guides, cost breakdowns, and working code — shipped from real systems, not recycled tutorials.',
+        'Production blueprints from systems that actually run. Architecture diagrams, deployment guides, cost breakdowns, and working code — not recycled tutorials.',
       authority: 'Built by an Anthropic-certified AI engineer shipping at LATAM scale.',
-      joinBuilders: 'FREE — EVERY WEEK',
+      joinBuilders: 'FREE · PRODUCTION BLUEPRINTS',
       startGetting: 'Start getting blueprints',
       noSpam: 'Free forever — cancel anytime. No spam, ever.',
-      whatYouGet: 'WHAT YOU GET EVERY WEEK',
+      whatYouGet: 'WHAT YOU GET',
       recentTemplates: 'RECENT & UPCOMING TEMPLATES',
       whoIsThisFor: 'WHO IS THIS FOR',
       finalCtaHeading: "The most useful AI engineering newsletter you'll read this week.",
       finalCtaDescription:
-        'Tested, production-ready AI automation templates delivered to your inbox every week. Built by someone who ships.',
+        'Tested, production-ready AI automation templates delivered to your inbox. Built by someone who ships.',
     },
     workWithMe: {
       heading: "Let's build something with AI that actually works.",
@@ -204,7 +206,7 @@ export const messages = {
         "I enjoy meeting founders and CTOs navigating AI adoption, agentic systems, and engineering at scale. If you're building something ambitious, let's talk.",
       openSource: 'Open Source & Collaboration',
       openSourceDescription:
-        "Every week I publish production-ready AI automation templates. If you're building in the AI/automation space, I'm open to collaborating on projects.",
+        "I publish production-ready AI automation templates from systems that actually run. If you're building in the AI/automation space, I'm open to collaborating on projects.",
       leadership: 'Leadership Opportunities',
       leadershipDescription:
         'Remote Technical Lead / Staff roles with US teams (CT/ET overlap), full-time or contract.',
@@ -215,7 +217,7 @@ export const messages = {
       proofHeading: 'TRACK RECORD',
       stayConnected: 'The best way to stay connected',
       stayConnectedDescription:
-        'Every week I share a production-ready AI automation blueprint with architecture diagrams, cost breakdowns, and working code.',
+        'Production blueprints from systems that actually run — architecture diagrams, cost breakdowns, and working code.',
       services: [
         {
           title: 'Strategic Conversations',
@@ -247,7 +249,6 @@ export const messages = {
     building: {
       sectionLabel: "WHAT I'M BUILDING",
       liveLabel: 'LIVE',
-      currentWeekLabel: 'CURRENT EDITION',
       subscribersLabel: 'SUBSCRIBERS',
       subscribeLabel: 'Subscribe free',
       nextLabel: 'COMING SOON',
@@ -268,36 +269,37 @@ export const messages = {
       workWithMe: 'Trabajemos juntos',
     },
     hero: {
-      kicker: 'TECHNICAL LEAD · SISTEMAS DE IA · LATAM',
+      kicker: 'TECH LEAD · ORQUESTADOR DE IA · LATAM',
       cert: 'CERTIFICADO POR ANTHROPIC',
       certSub: 'Claude Code in Action · 2026',
       brand: 'crisfon6',
       headlinePrefix: 'Construyo sistemas de AI que',
       typewords: [
         'corren en producción.',
-        'sirven a 100K+ usuarios al mes.',
-        'ahorran 15h/semana.',
-        'envían cada semana.',
+        'sirven a ~100K usuarios al mes.',
+        'el negocio de verdad necesita.',
       ] as readonly string[],
       description:
-        'Certificado por Anthropic (Claude Code in Action, 2026). Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala — y documento la arquitectura, costos y código funcional públicamente cada semana.',
-      cta1: 'Obtén el blueprint de AI de esta semana',
+        'Certificado por Anthropic (Claude Code in Action, 2026). Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala. Blueprints de producción, de sistemas que de verdad corren.',
+      businessAngle:
+        'La tecnología obedece al negocio, no al revés. Construyo lo que mueve la métrica, no lo que luce bonito en el código.',
+      cta1: 'Obtén el último blueprint de AI',
       cta2: 'Ver lo que construí',
       proof: '−43% en la factura de AWS · exportaciones 30× más rápidas · 5+ años en producción',
       fullWorkHistory: 'Historia laboral completa →',
     },
     footer: {
       tagline:
-        'Ingeniero de sistemas AI. Construyendo y publicando en público. Blueprints que podés deployar, cada semana.',
+        'Ingeniero de sistemas AI. Construyendo y publicando en público. Blueprints de producción, de sistemas que de verdad corren.',
       pages: 'PAGINAS',
       connect: 'CONECTAR',
     },
     cta: {
-      weeklyBlueprints: 'BLUEPRINTS SEMANALES',
-      getFreeTemplate: 'Recibe un template de automatización listo para producción cada semana',
+      productionBlueprints: 'BLUEPRINTS DE PRODUCCIÓN',
+      getFreeTemplate: 'Blueprints de producción, de sistemas que de verdad corren',
       noFluff:
         'Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De producción, no de tutoriales.',
-      dontMiss: 'Obtén el blueprint de AI de esta semana',
+      dontMiss: 'Obtén el último blueprint de AI',
       freeForever: 'Gratis para siempre. Cancela cuando quieras.',
       letsTalk: 'CONECTEMOS',
       buildingSomething: '¿Integrando AI en tu producto? Hablemos.',
@@ -310,9 +312,8 @@ export const messages = {
       viewAll: 'Ver todos',
     },
     automation: {
-      sectionTitle: 'AUTOMATIZACIÓN DE LA SEMANA',
+      sectionTitle: 'AUTOMATIZACIÓN DESTACADA',
       live: 'EN VIVO',
-      edition: '#06',
       title: 'Procesador de Documentos con IA',
       description:
         'Ingesta de PDFs, extracción de datos estructurados con Claude API, almacenamiento en PostgreSQL. Deployado en AWS Lambda con triggers de S3.',
@@ -356,6 +357,8 @@ export const messages = {
       heading2: 'Y documento todo.',
       intro1:
         'Soy Cristhian Fonseca — Technical Lead con más de 5 años construyendo plataformas cloud-native de FinTech y banca.',
+      businessAngle:
+        'La tecnología obedece al negocio, no al revés. Construyo lo que mueve la métrica, no lo que luce bonito en el código.',
       intro2:
         'Hoy lidero la ingeniería de un marketplace de crédito digital dentro de la Super App de una gran telco — ~100K usuarios activos mensuales en un ecosistema de 45M. Cloud-native en AWS, aprovisionamiento automatizado, créditos sin papeles.',
       intro3:
@@ -382,7 +385,7 @@ export const messages = {
         'Plataformas FinTech y bancarias en producción, infraestructura cloud para una plataforma de EE. UU. y agentes de IA sobre datos reales — cada uno ligado a la empresa, el periodo y el cargo.',
       ctaHeading: '¿Querés los blueprints de arquitectura AI?',
       ctaDescription:
-        'Cada semana publico un nuevo template de automatización con IA, diagramas de arquitectura, guías de deploy y código funcional.',
+        'Blueprints de producción, de sistemas que de verdad corren: diagramas de arquitectura, guías de deploy y código funcional.',
       roleLink: 'Ver cargo en experiencia →',
       context: 'Contexto',
       whatIDid: 'Qué hice',
@@ -417,17 +420,17 @@ export const messages = {
     automations: {
       heading: 'Automatizaciones con IA que podés robar.',
       description:
-        'Cada template en esta biblioteca lo crea un ingeniero certificado en Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Publicados cada semana con diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De sistemas reales, no tutoriales.',
+        'Cada template en esta biblioteca lo crea un ingeniero certificado en Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Blueprints de producción, de sistemas que de verdad corren, con diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De sistemas reales, no tutoriales.',
       subscribeTo: 'Suscribete a',
       toGetDelivered: 'para recibirlos.',
-      ctaLabel: 'BLUEPRINT DE AI SEMANAL',
+      ctaLabel: 'BLUEPRINTS DE AI',
       ctaHeading: 'Recibí el blueprint antes que todos',
       ctaDescription:
-        'Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. Cada semana. Gratis.',
+        'Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. Directo a tu inbox. Gratis.',
       githubLabel: 'CÓDIGO ABIERTO',
       githubHeading: 'Todo el código está en GitHub.',
       githubDescription:
-        'Cada template viene con el código completo y funcional — sin paywalls, sin login requerido. Dale una estrella al repo y seguí cada automatización nueva que sale cada semana.',
+        'Cada template viene con el código completo y funcional — sin paywalls, sin login requerido. Dale una estrella al repo y seguí cada automatización nueva que se publique.',
       githubCta: 'Ver en GitHub',
     },
     blog: {
@@ -441,18 +444,18 @@ export const messages = {
     newsletter: {
       heading: 'PowerAI',
       description:
-        'Un template de automatización con AI listo para producción cada semana. Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional — de sistemas reales, no tutoriales reciclados.',
+        'Blueprints de producción, de sistemas que de verdad corren. Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional — no tutoriales reciclados.',
       authority:
         'Creado por un ingeniero de AI certificado por Anthropic construyendo a escala LATAM.',
-      joinBuilders: 'GRATIS — CADA SEMANA',
+      joinBuilders: 'GRATIS · BLUEPRINTS DE PRODUCCIÓN',
       startGetting: 'Empezá a recibir blueprints',
       noSpam: 'Gratis para siempre — cancelá cuando quieras. Sin spam.',
-      whatYouGet: 'LO QUE RECIBÍS CADA SEMANA',
+      whatYouGet: 'LO QUE RECIBÍS',
       recentTemplates: 'TEMPLATES RECIENTES Y PRÓXIMOS',
       whoIsThisFor: 'PARA QUIÉN ES ESTO',
       finalCtaHeading: 'El newsletter de ingeniería AI más útil que vas a leer esta semana.',
       finalCtaDescription:
-        'Templates de automatización listos para producción en tu inbox cada semana. Creados por alguien que envía a producción.',
+        'Templates de automatización listos para producción en tu inbox. Creados por alguien que envía a producción.',
     },
     workWithMe: {
       heading: 'Construyamos algo con AI que realmente funcione.',
@@ -463,7 +466,7 @@ export const messages = {
         'Me gusta conocer founders y CTOs navegando la adopción de AI, sistemas agénticos e ingeniería a escala. Si estás construyendo algo ambicioso, hablemos.',
       openSource: 'Open Source y Colaboración',
       openSourceDescription:
-        'Cada semana publico templates de automatización con AI listos para producción. Si construís en el espacio de AI/automatización, estoy abierto a colaborar.',
+        'Publico templates de automatización con AI listos para producción, de sistemas que de verdad corren. Si construís en el espacio de AI/automatización, estoy abierto a colaborar.',
       leadership: 'Oportunidades de Liderazgo',
       leadershipDescription:
         'Roles remotos de Technical Lead / Staff con equipos de EE. UU. (horario CT/ET), tiempo completo o contrato.',
@@ -474,7 +477,7 @@ export const messages = {
       proofHeading: 'TRAYECTORIA',
       stayConnected: 'La mejor forma de mantenernos conectados',
       stayConnectedDescription:
-        'Cada semana comparto un blueprint de automatización con AI listo para producción con diagramas de arquitectura, análisis de costos y código funcional.',
+        'Blueprints de producción, de sistemas que de verdad corren — con diagramas de arquitectura, análisis de costos y código funcional.',
       services: [
         {
           title: 'Conversaciones Estratégicas',
@@ -508,7 +511,6 @@ export const messages = {
     building: {
       sectionLabel: 'LO QUE ESTOY CONSTRUYENDO',
       liveLabel: 'EN VIVO',
-      currentWeekLabel: 'EDICIÓN ACTUAL',
       subscribersLabel: 'SUSCRIPTORES',
       subscribeLabel: 'Suscribirse gratis',
       nextLabel: 'PRÓXIMAMENTE',

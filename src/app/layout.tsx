@@ -25,11 +25,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Cristhian Fonseca | Technical Lead · AI Systems · LATAM',
+    default: 'Cristhian Fonseca | Tech Lead · AI Orchestrator · LATAM',
     template: '%s | Cristhian Fonseca',
   },
   description:
-    'Technical Lead with 5+ years building cloud-native FinTech and banking platforms, and AI agents that run in production. Weekly AI engineering blueprints with real architecture and working code.',
+    'Technical Lead with 5+ years building cloud-native FinTech and banking platforms, and AI agents that run in production. Production blueprints from systems that actually run.',
   keywords: [
     'Technical Lead',
     'AI Systems Engineer',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Cristhian Fonseca' }],
   openGraph: {
-    title: 'Cristhian Fonseca | Technical Lead · AI Systems · LATAM',
+    title: 'Cristhian Fonseca | Tech Lead · AI Orchestrator · LATAM',
     description:
       'Anthropic-certified. I build AI systems that run in production — then I show you how.',
     url: 'https://crisfon6.com',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cristhian Fonseca | Technical Lead · AI Systems · LATAM',
+    title: 'Cristhian Fonseca | Tech Lead · AI Orchestrator · LATAM',
     description:
       'Anthropic-certified. I build AI systems that run in production — then I show you how.',
   },

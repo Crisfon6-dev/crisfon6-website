@@ -23,6 +23,12 @@ describe('AboutContent', () => {
     expect(screen.getByText(/02 · ABOUT/)).toBeTruthy();
   });
 
+  it('renders the business-angle paragraph right after intro1', () => {
+    render(wrap(<AboutContent />));
+    const intro1 = screen.getByText(messages.en.about.intro1);
+    expect(intro1.nextElementSibling?.getAttribute('data-testid')).toBe('about-business-angle');
+  });
+
   it('renders an Anthropic credential card', () => {
     render(wrap(<AboutContent />));
     expect(screen.getByTestId('anthropic-card')).toBeTruthy();
@@ -47,17 +53,17 @@ describe('ProjectsContent', () => {
     expect(screen.getByText(/03 · PROJECTS/)).toBeTruthy();
   });
 
-  it('renders 12 project cards: 4 per tier, exactly one featured (ai-in-production)', () => {
+  it('renders 13 project cards: 5 tier A, 4 tier B, 4 tier C, exactly one featured (ai-in-production)', () => {
     const { container } = render(wrap(<ProjectsContent />));
     const cards = container.querySelectorAll('[data-testid="project-card"]');
-    expect(cards.length).toBe(12);
+    expect(cards.length).toBe(13);
 
     const byTier = { A: 0, B: 0, C: 0 };
     for (const card of Array.from(cards)) {
       const tier = card.getAttribute('data-tier') as 'A' | 'B' | 'C';
       byTier[tier]++;
     }
-    expect(byTier).toEqual({ A: 4, B: 4, C: 4 });
+    expect(byTier).toEqual({ A: 5, B: 4, C: 4 });
 
     const featured = Array.from(cards).filter((c) => c.getAttribute('data-featured') === 'true');
     expect(featured.length).toBe(1);
@@ -77,7 +83,7 @@ describe('ProjectsContent', () => {
       const card = container.querySelector(`#${cs.id}`);
       expect(card, `${cs.id} should render`).toBeTruthy();
       const role = ROLES.find((r) => r.id === cs.roleId)!;
-      expect(card?.textContent).toContain(role.employer.en);
+      expect(card?.textContent).toContain(cs.meta ? cs.meta.en : role.employer.en);
       const roleLink = card?.querySelector(`a[href="/experience#${cs.roleId}"]`);
       expect(roleLink, `${cs.id} should link to /experience#${cs.roleId}`).toBeTruthy();
     }
@@ -97,9 +103,9 @@ describe('ProjectsContent', () => {
     expect(rows.length).toBe(5);
   });
 
-  it('shows the pre-launch footnote and no links on conversational-ai-product', () => {
+  it('shows the pre-launch footnote and no links on aphrodite', () => {
     const { container } = render(wrap(<ProjectsContent />));
-    const card = container.querySelector('#conversational-ai-product');
+    const card = container.querySelector('#aphrodite');
     expect(card?.textContent).toContain(messages.en.projects.preLaunch);
     expect(card?.querySelector('a[href^="http"]')).toBeNull();
   });
@@ -139,9 +145,9 @@ describe('ExperienceContent', () => {
     }
   });
 
-  it('shows exactly 2 "Current" chips, and none on the founder role', () => {
+  it('shows exactly 1 "Current" chip (eSoluzion ended Aug 2026), and none on the founder role', () => {
     const { container } = render(wrap(<ExperienceContent />));
-    expect(container.querySelectorAll('[data-testid="current-chip"]').length).toBe(2);
+    expect(container.querySelectorAll('[data-testid="current-chip"]').length).toBe(1);
     const founder = container.querySelector('#founder[data-testid="role"]');
     expect(founder?.querySelector('[data-testid="current-chip"]')).toBeNull();
   });

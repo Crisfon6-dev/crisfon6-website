@@ -51,7 +51,9 @@ export function ProjectsContent() {
             {cs.title[locale]}
           </h2>
           <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
-            {role.employer[locale]} · {period} · {role.title[locale]}
+            {cs.meta
+              ? cs.meta[locale]
+              : `${role.employer[locale]} · ${period} · ${role.title[locale]}`}
           </p>
 
           {cs.context ? (
@@ -181,13 +183,13 @@ export function ProjectsContent() {
           <p className="text-sm leading-relaxed text-warm-fg-muted">
             {locale === 'es' ? (
               <>
-                Fuera del trabajo con clientes publico lo que aprendo: blueprints semanales de
+                Fuera del trabajo con clientes publico lo que aprendo: blueprints de producción de
                 automatización con IA en <strong>PowerAI</strong>, análisis técnicos en el{' '}
                 <strong>blog</strong> y código en <strong>GitHub</strong>.
               </>
             ) : (
               <>
-                Outside client work I publish what I learn: weekly AI automation blueprints in{' '}
+                Outside client work I publish what I learn: production AI automation blueprints in{' '}
                 <strong>PowerAI</strong>, technical deep dives on the <strong>blog</strong>, and
                 code on <strong>GitHub</strong>.
               </>

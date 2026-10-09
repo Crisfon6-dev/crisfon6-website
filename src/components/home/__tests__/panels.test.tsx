@@ -35,9 +35,13 @@ describe('AutomationSection', () => {
 });
 
 describe('FeaturedProjectsSection', () => {
-  it('renders 3 project cards', () => {
+  it('renders 4 project cards with the orchestration harness second', () => {
     const { container } = render(wrap(<FeaturedProjectsSection />));
-    expect(container.querySelectorAll('ul > li').length).toBe(3);
+    const items = container.querySelectorAll('ul > li');
+    expect(items.length).toBe(4);
+    expect(items[1].querySelector('a')?.getAttribute('href')).toBe(
+      '/projects#ai-orchestration-harness'
+    );
   });
 
   it('marks only the first card as featured (data-featured="true")', () => {
@@ -50,8 +54,9 @@ describe('FeaturedProjectsSection', () => {
     const { container } = render(wrap(<FeaturedProjectsSection />));
     const items = container.querySelectorAll('ul > li');
     expect(items[0].className).toMatch(/lg:col-span-12/);
-    expect(items[1].className).toMatch(/lg:col-span-6/);
-    expect(items[2].className).toMatch(/lg:col-span-6/);
+    expect(items[1].className).toMatch(/lg:col-span-4/);
+    expect(items[2].className).toMatch(/lg:col-span-4/);
+    expect(items[3].className).toMatch(/lg:col-span-4/);
   });
 });
 
@@ -63,16 +68,19 @@ describe('NewsletterPanel', () => {
     expect(emailInput).not.toBeNull();
   });
 
-  it('renders the weekly blueprints kicker', () => {
+  it('renders the production blueprints kicker', () => {
     render(wrap(<NewsletterPanel />));
-    expect(screen.getByText(messages.en.cta.weeklyBlueprints)).toBeTruthy();
+    expect(screen.getByText(messages.en.cta.productionBlueprints)).toBeTruthy();
   });
 });
 
 describe('ContactPanel', () => {
   it('renders primary and email CTAs', () => {
     render(wrap(<ContactPanel />));
-    expect(screen.getByTestId('contact-cta-primary').getAttribute('href')).toBe('/work-with-me');
+    const linkedin = screen.getByTestId('contact-cta-primary');
+    expect(linkedin.getAttribute('href')).toBe('https://www.linkedin.com/in/crisfon6/');
+    expect(linkedin.getAttribute('target')).toBe('_blank');
+    expect(linkedin.getAttribute('rel')).toMatch(/noopener/);
     expect(screen.getByTestId('contact-cta-email').getAttribute('href')).toMatch(/^mailto:/);
   });
 

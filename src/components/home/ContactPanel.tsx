@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { Kicker } from '@/components/primitives/Kicker';
+import { PROFILE } from '@/data/career';
 
 export function ContactPanel() {
   const { t } = useLanguage();
@@ -30,16 +30,18 @@ export function ContactPanel() {
           </h2>
           <p className="mt-sp-4 text-[15px] leading-relaxed text-warm-fg-muted">{t.cta.openTo}</p>
           <div className="mt-sp-5 flex flex-wrap gap-sp-3">
-            <Link
-              href="/work-with-me"
+            <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
               data-testid="contact-cta-primary"
               className="group inline-flex items-center gap-2 rounded-sp-xl bg-warm-fg px-sp-5 py-sp-3 text-sm font-medium text-warm-bg transition-transform hover:-translate-y-0.5"
             >
               {t.cta.connectLinkedIn}
               <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
-                →
+                ↗
               </span>
-            </Link>
+            </a>
             <a
               href="mailto:crisfon6@crisfon6.com"
               data-testid="contact-cta-email"

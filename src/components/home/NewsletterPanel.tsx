@@ -24,7 +24,7 @@ export function NewsletterPanel() {
         />
         <div className="relative mx-auto max-w-2xl text-center">
           <Kicker accent>
-            <span>{t.cta.weeklyBlueprints}</span>
+            <span>{t.cta.productionBlueprints}</span>
           </Kicker>
           <h2
             id="newsletter-panel-title"

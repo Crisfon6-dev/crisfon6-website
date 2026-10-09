@@ -17,7 +17,7 @@ Cristhian Fonseca is a Technical Lead with 5+ years building cloud-native FinTec
 
 ## Newsletter: PowerAI
 
-A free weekly newsletter with production-ready AI automation templates. Each issue includes architecture diagrams, deployment guides, cost breakdowns, and working code.
+A free newsletter with production blueprints from systems that actually run. Each issue includes architecture diagrams, deployment guides, cost breakdowns, and working code.
 
 - [Subscribe](https://crisfon6.com/newsletter)
 
@@ -33,7 +33,7 @@ ${postList}
 - [Projects](https://crisfon6.com/projects): FinTech and AI projects portfolio
 - [Automations](https://crisfon6.com/automations): AI automation templates with costs
 - [Blog](https://crisfon6.com/blog): Technical articles and tutorials
-- [Newsletter](https://crisfon6.com/newsletter): Weekly AI automation blueprints
+- [Newsletter](https://crisfon6.com/newsletter): Production AI automation blueprints
 
 ## Contact
 

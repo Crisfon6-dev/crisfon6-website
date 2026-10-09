@@ -6,7 +6,12 @@ import { Kicker } from '@/components/primitives/Kicker';
 import { Chip } from '@/components/primitives/Chip';
 import { CASE_STUDIES } from '@/data/career';
 
-const FEATURED_IDS = ['ai-in-production', 'credit-marketplace', 'aws-cost-audit'] as const;
+const FEATURED_IDS = [
+  'ai-in-production',
+  'ai-orchestration-harness',
+  'credit-marketplace',
+  'aws-cost-audit',
+] as const;
 
 export function FeaturedProjectsSection() {
   const { t, locale } = useLanguage();
@@ -56,7 +61,7 @@ export function FeaturedProjectsSection() {
         {PROJECTS.map((p, i) => {
           const featured = i === 0;
           return (
-            <li key={p.title} className={featured ? 'lg:col-span-12' : 'lg:col-span-6'}>
+            <li key={p.title} className={featured ? 'lg:col-span-12' : 'lg:col-span-4'}>
               <Link
                 href={p.href}
                 data-featured={featured ? 'true' : 'false'}

@@ -45,6 +45,9 @@ export function AboutContent() {
         <div className="grid gap-sp-7 lg:grid-cols-[1fr_320px]">
           <div className="space-y-sp-4 text-base leading-relaxed text-warm-fg-muted">
             <p>{t.about.intro1}</p>
+            <p data-testid="about-business-angle" className="font-medium text-warm-fg">
+              {t.about.businessAngle}
+            </p>
             <p>{t.about.intro2}</p>
             <p>{t.about.intro3}</p>
             <p className="font-medium text-warm-fg">{t.about.intro4}</p>

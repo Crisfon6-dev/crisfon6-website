@@ -35,7 +35,6 @@ export function AutomationSection() {
         <div className="flex flex-col gap-sp-5">
           <div className="flex flex-wrap items-center gap-sp-3">
             <Chip variant="live">{t.automation.live}</Chip>
-            <Chip variant="outline">{t.automation.edition}</Chip>
           </div>
           <h2
             id="automation-title"

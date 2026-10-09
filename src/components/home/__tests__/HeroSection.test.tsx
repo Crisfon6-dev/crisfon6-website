@@ -43,6 +43,22 @@ describe('HeroSection', () => {
     expect(screen.getByTestId('hero-cta-secondary').getAttribute('href')).toBe('/projects');
   });
 
+  it('renders the business-angle subtitle under the description', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-business-angle').textContent).toBe(
+      messages.en.hero.businessAngle
+    );
+  });
+
+  it('promises no cadence: typewords drop the unverified claims', () => {
+    expect(messages.en.hero.typewords).toEqual([
+      'run in production.',
+      'serve ~100K users a month.',
+      'the business actually needs.',
+    ]);
+    expect(messages.es.hero.typewords).toContain('el negocio de verdad necesita.');
+  });
+
   it('renders the proof mono line', () => {
     renderHero();
     expect(screen.getByText(messages.en.hero.proof)).toBeTruthy();

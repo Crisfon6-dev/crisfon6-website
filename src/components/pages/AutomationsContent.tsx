@@ -29,7 +29,7 @@ const AUTOMATIONS: readonly Automation[] = [
     stack: ['Claude API', 'AWS Lambda', 'S3', 'PostgreSQL', 'Python'],
     cost: '$12',
     costUnit: '/mo @ 1K docs',
-    timeSaved: '15h',
+    timeSaved: '12h',
     timeUnit: '/week',
     difficulty: 'Intermediate',
     live: true,

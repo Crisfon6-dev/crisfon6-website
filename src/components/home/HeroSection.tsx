@@ -65,6 +65,12 @@ export function HeroSection() {
       <p className="mt-sp-5 max-w-[520px] text-base leading-relaxed text-warm-fg-muted">
         {t.hero.description}
       </p>
+      <p
+        data-testid="hero-business-angle"
+        className="mt-sp-3 max-w-[520px] border-l-2 border-accent pl-sp-3 text-[15px] leading-relaxed text-warm-fg"
+      >
+        {t.hero.businessAngle}
+      </p>
 
       {/* CTAs */}
       <div className="mt-sp-6 flex flex-wrap items-center gap-sp-3">

@@ -94,6 +94,10 @@ export const messages = {
       ] as readonly string[],
     },
     featuredProjects: 'Featured Projects',
+    systemDiagram: {
+      kicker: 'THE SYSTEM',
+      label: 'A layered production system, drawn line by line as you scroll.',
+    },
     about: {
       heading1: 'I build AI systems that run at scale.',
       heading2: 'And I document everything.',
@@ -354,6 +358,10 @@ export const messages = {
       ] as readonly string[],
     },
     featuredProjects: 'Proyectos Destacados',
+    systemDiagram: {
+      kicker: 'EL SISTEMA',
+      label: 'Un sistema de producción en capas, dibujado línea a línea mientras se hace scroll.',
+    },
     about: {
       heading1: 'Construyo sistemas de AI que corren a escala.',
       heading2: 'Y documento todo.',

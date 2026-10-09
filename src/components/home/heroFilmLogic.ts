@@ -16,17 +16,5 @@ export function activeOverlay(
   return overlays.find((o) => progress >= o.from && progress < o.to) ?? null;
 }
 
-/**
- * Progress (0..1) through a pinned wrapper, from its top edge's position.
- * The pinned stage can travel `wrapperHeight - viewportHeight` pixels.
- */
-export function scrollProgress(
-  rectTop: number,
-  wrapperHeight: number,
-  viewportHeight: number
-): number {
-  if (![rectTop, wrapperHeight, viewportHeight].every(Number.isFinite)) return 0;
-  const travel = wrapperHeight - viewportHeight;
-  if (travel <= 0) return 0;
-  return Math.min(1, Math.max(0, -rectTop / travel));
-}
+/** Progress through a pinned wrapper; implemented in lib/scrollMath and shared with other sections. */
+export { pinnedProgress as scrollProgress } from '@/lib/scrollMath';

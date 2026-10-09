@@ -4,28 +4,12 @@ import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { Kicker } from '@/components/primitives/Kicker';
 import { Chip } from '@/components/primitives/Chip';
-import { CASE_STUDIES } from '@/data/career';
-
-const FEATURED_IDS = [
-  'ai-in-production',
-  'ai-orchestration-harness',
-  'credit-marketplace',
-  'aws-cost-audit',
-] as const;
+import { getFeaturedCases } from './featuredCaseData';
 
 export function FeaturedProjectsSection() {
   const { t, locale } = useLanguage();
 
-  const PROJECTS = FEATURED_IDS.map((id) => {
-    const cs = CASE_STUDIES.find((c) => c.id === id)!;
-    return {
-      title: cs.title[locale],
-      description: cs.context?.[locale] ?? cs.whatIDid[0][locale],
-      result: cs.outcomes[0]?.[locale] ?? cs.status[locale],
-      tag: cs.tag,
-      href: `/projects#${cs.id}`,
-    };
-  });
+  const PROJECTS = getFeaturedCases(locale);
 
   return (
     <section

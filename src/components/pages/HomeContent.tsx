@@ -6,7 +6,9 @@ import {
   StatsSection,
   StackMarqueeSection,
   AutomationSection,
-  FeaturedProjectsSection,
+  FeaturedCases,
+  SystemDiagram,
+  PrincipleStatement,
   NewsletterPanel,
   ContactPanel,
 } from '@/components/home';
@@ -21,7 +23,9 @@ export function HomeContent() {
       <StatsSection />
       <StackMarqueeSection />
       <AutomationSection />
-      <FeaturedProjectsSection />
+      <FeaturedCases />
+      <SystemDiagram />
+      <PrincipleStatement />
       <NewsletterPanel />
       <ContactPanel />
     </main>

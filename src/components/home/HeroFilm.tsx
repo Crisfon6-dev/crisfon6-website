@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { chooseFilmMode, type FilmMode } from './heroFilmMode';
+import { prefersReducedMotion, subscribeViewport } from './viewportEnv';
 import { activeOverlay, progressToTime, scrollProgress } from './heroFilmLogic';
 import { HERO_FILM_OVERLAYS, overlayText } from './heroFilmOverlays';
 import {
@@ -16,27 +17,13 @@ import {
   HERO_FILM_ASSETS,
 } from './heroFilmAssets';
 
-const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
-
 function readMode(): FilmMode {
-  const reducedMotion =
-    typeof window.matchMedia === 'function' && window.matchMedia(REDUCED_MOTION).matches;
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
   return chooseFilmMode({
-    reducedMotion,
+    reducedMotion: prefersReducedMotion(),
     width: window.innerWidth,
     saveData: Boolean(connection?.saveData),
   });
-}
-
-function subscribe(onChange: () => void) {
-  window.addEventListener('resize', onChange);
-  const query = typeof window.matchMedia === 'function' ? window.matchMedia(REDUCED_MOTION) : null;
-  query?.addEventListener?.('change', onChange);
-  return () => {
-    window.removeEventListener('resize', onChange);
-    query?.removeEventListener?.('change', onChange);
-  };
 }
 
 /** `null` on the server and during hydration, so the first paint never guesses the mode. */
@@ -241,7 +228,7 @@ function FilmStage() {
 }
 
 export function HeroFilm() {
-  const mode = useSyncExternalStore(subscribe, readMode, getServerMode);
+  const mode = useSyncExternalStore(subscribeViewport, readMode, getServerMode);
 
   if (mode === 'film') return <FilmStage />;
   if (mode === 'stills') {

@@ -47,3 +47,33 @@ test('places the film stage right after the hero and before the stats', () => {
     .filter((id) => id === 'hero' || id === 'hero-film' || id === 'stats');
   expect(order).toEqual(['hero', 'hero-film', 'stats']);
 });
+
+test('lays out the home page in order, with the new scroll sections after the featured cases', () => {
+  const { container } = render(<Home />);
+  const wanted = new Set([
+    'hero',
+    'hero-film',
+    'stats',
+    'automation',
+    'featured-projects',
+    'horizontal-cases',
+    'system-diagram',
+    'principle-statement',
+    'contact-panel',
+  ]);
+  const order = Array.from(container.querySelectorAll('[data-testid]'))
+    .map((el) => el.getAttribute('data-testid') as string)
+    .filter((id) => wanted.has(id))
+    // the featured cases are either the vertical grid or the horizontal track
+    .map((id) => (id === 'featured-projects' || id === 'horizontal-cases' ? 'cases' : id));
+  expect(order).toEqual([
+    'hero',
+    'hero-film',
+    'stats',
+    'automation',
+    'cases',
+    'system-diagram',
+    'principle-statement',
+    'contact-panel',
+  ]);
+});

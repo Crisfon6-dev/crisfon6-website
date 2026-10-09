@@ -8,7 +8,14 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { chooseFilmMode, type FilmMode } from './heroFilmMode';
 import { prefersReducedMotion, subscribeViewport } from './viewportEnv';
-import { activeOverlay, progressToTime, scrollProgress } from './heroFilmLogic';
+import {
+  VEIL_MIN,
+  activeOverlay,
+  filmProgress,
+  heroShadeOpacity,
+  progressToTime,
+  veilOpacity,
+} from './heroFilmLogic';
 import { HERO_FILM_OVERLAYS, overlayText } from './heroFilmOverlays';
 import {
   FILM_DURATION_SECONDS,
@@ -94,6 +101,8 @@ function FilmStage() {
   const [posterLoaded, setPosterLoaded] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [veil, setVeil] = useState(VEIL_MIN);
+  const [heroShade, setHeroShade] = useState(1);
 
   // Film assets wait for the page load, so the hero text paints first.
   useEffect(() => {
@@ -120,15 +129,16 @@ function FilmStage() {
     return () => observer.disconnect();
   }, []);
 
-  // Scroll position -> progress (state for overlays, ref for the easing loop).
+  // Page scroll -> progress (state for overlays and veil, ref for the easing loop).
   useEffect(() => {
     const read = () => {
-      const el = wrapperRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const next = scrollProgress(rect.top, rect.height, window.innerHeight);
+      const y = window.scrollY;
+      const vh = window.innerHeight;
+      const next = filmProgress(y, vh, FILM_TRAVEL_VH);
       progressRef.current = next;
       setProgress(next);
+      setVeil(veilOpacity(y, vh, FILM_TRAVEL_VH));
+      setHeroShade(heroShadeOpacity(y, vh));
       kickRef.current();
     };
     read();
@@ -186,9 +196,14 @@ function FilmStage() {
       ref={wrapperRef}
       data-testid="hero-film"
       data-mode="film"
-      style={{ height: `${(1 + FILM_TRAVEL_VH) * 100}vh` }}
+      style={{ height: `${FILM_TRAVEL_VH * 100}vh` }}
     >
-      <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-hidden bg-warm-bg">
+      {/* The film is the page's surface: fixed behind everything, content scrolls over it. */}
+      <div
+        data-testid="film-backdrop"
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-warm-bg"
+      >
         {active ? (
           <img
             src={HERO_FILM_ASSETS.poster}
@@ -212,20 +227,37 @@ function FilmStage() {
             videoReady ? 'opacity-100' : 'opacity-0'
           }`}
         />
-        {text ? (
-          <div
-            data-testid="film-overlay"
-            className="absolute bottom-sp-7 left-sp-5 max-w-md rounded-sp-lg border border-warm-border bg-warm-bg/90 px-sp-5 py-sp-4 backdrop-blur-sm sm:left-sp-8"
-          >
-            <p className="metric-value text-warm-fg" style={{ fontSize: '40px' }}>
-              {text.value}
-            </p>
-            <p className="mt-1 text-balance font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
-              {text.label}
-            </p>
-          </div>
-        ) : null}
+        <div
+          data-testid="film-hero-shade"
+          className="absolute inset-0 bg-gradient-to-r from-warm-bg via-warm-bg/60 to-transparent"
+          style={{ opacity: heroShade }}
+        />
+        <div
+          data-testid="film-veil"
+          className="absolute inset-0 bg-warm-bg"
+          style={{ opacity: veil }}
+        />
       </div>
+      {text ? (
+        <div
+          data-testid="film-overlay"
+          className="pointer-events-none fixed inset-x-0 bottom-sp-8 z-10"
+        >
+          <div className="mx-auto max-w-6xl px-sp-5">
+            <div className="max-w-xl border-l-2 border-accent pl-sp-4">
+              <p
+                className="metric-value text-warm-fg"
+                style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}
+              >
+                {text.value}
+              </p>
+              <p className="mt-1 text-balance font-mono text-xs uppercase tracking-[0.14em] text-warm-fg">
+                {text.label}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

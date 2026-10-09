@@ -5,7 +5,8 @@ import type { ReactNode } from 'react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { KEY_FACTS } from '@/data/career';
 import { HeroFilm } from '../HeroFilm';
-import { HERO_FILM_ASSETS } from '../heroFilmAssets';
+import { HERO_FILM_ASSETS, FILM_TRAVEL_VH } from '../heroFilmAssets';
+import { VEIL_MIN, VEIL_MAX, VEIL_RAMP_VH } from '../heroFilmLogic';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 
@@ -51,6 +52,13 @@ function stageNearViewport() {
       [{ isIntersecting: true } as IntersectionObserverEntry],
       {} as IntersectionObserver
     );
+  });
+}
+
+function scrollTo(y: number) {
+  Object.defineProperty(window, 'scrollY', { value: y, configurable: true, writable: true });
+  act(() => {
+    window.dispatchEvent(new Event('scroll'));
   });
 }
 
@@ -160,23 +168,9 @@ describe('HeroFilm: film mode', () => {
     setEnv({ width: 1440 });
     render(wrap(<HeroFilm />));
     stageNearViewport();
-    const stage = screen.getByTestId('hero-film');
-    // wrapper 6400px, viewport 800px: travel 5600px
+    // viewport 800px, 7 screens of travel: 5600px of scroll covers the whole film
     const at = (progress: number) => {
-      vi.spyOn(stage, 'getBoundingClientRect').mockReturnValue({
-        top: -progress * 5600,
-        height: 6400,
-        bottom: 6400 - progress * 5600,
-        left: 0,
-        right: 1440,
-        width: 1440,
-        x: 0,
-        y: -progress * 5600,
-        toJSON: () => ({}),
-      });
-      act(() => {
-        window.dispatchEvent(new Event('scroll'));
-      });
+      scrollTo(progress * 5600);
     };
 
     at(0.5); // shot 4 (data): 30x
@@ -187,6 +181,49 @@ describe('HeroFilm: film mode', () => {
 
     at(0.93); // shot 7 (reveal): 5+
     expect(screen.getByTestId('film-overlay').textContent).toContain(KEY_FACTS[0].value);
+  });
+
+  it('is the page background: a fixed, full-viewport layer behind the content', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    const backdrop = screen.getByTestId('film-backdrop');
+    expect(backdrop.className).toMatch(/\bfixed\b/);
+    expect(backdrop.className).toMatch(/\binset-0\b/);
+    expect(backdrop.className).toMatch(/-z-10/);
+    expect(backdrop.querySelector('video')).toBeTruthy();
+  });
+
+  it('reserves the whole film travel so no later section reaches the screen before the film ends', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    expect(screen.getByTestId('hero-film').style.height).toBe(`${FILM_TRAVEL_VH * 100}vh`);
+  });
+
+  it('covers the film with the page colour only after the film has played', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0);
+    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MIN, 5);
+    scrollTo(5600 + VEIL_RAMP_VH * 800);
+    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MAX, 5);
+  });
+
+  it('shades the left side for the hero text at the top and removes it by one screen down', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0);
+    expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(1);
+    scrollTo(800);
+    expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(0);
+  });
+
+  it('shows overlay figures as page typography, not as a card', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 5600);
+    const overlay = screen.getByTestId('film-overlay');
+    expect(overlay.outerHTML).not.toMatch(/backdrop-blur|bg-warm-bg\/90|rounded-sp-lg/);
+    expect(overlay.querySelector('.max-w-6xl')).toBeTruthy();
   });
 });
 

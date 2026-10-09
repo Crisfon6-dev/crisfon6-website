@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-const FILM = '[data-testid="hero-film"]';
-
 test.describe('Hero film: desktop', () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -9,18 +7,15 @@ test.describe('Hero film: desktop', () => {
     await page.goto('/');
     const film = page.getByTestId('hero-film');
     await expect(film).toHaveAttribute('data-mode', 'film');
-    await expect(film.locator('video')).toHaveAttribute('src', /hero-v1-desktop\.mp4/);
+    await expect(film.locator('video')).toHaveAttribute('src', /hero-v2-desktop\.mp4/);
     await page.waitForFunction(() => {
       const video = document.querySelector<HTMLVideoElement>('[data-testid="hero-film"] video');
       return !!video && video.readyState >= 2 && video.duration > 0;
     });
 
-    // halfway through the pinned travel: shot 4, the 30x fact, around 14 s of a 28 s film
-    await page.evaluate((selector) => {
-      const el = document.querySelector(selector)!;
-      const rect = el.getBoundingClientRect();
-      window.scrollTo(0, rect.top + window.scrollY + 0.5 * (rect.height - window.innerHeight));
-    }, FILM);
+    // halfway through the film: 7 screens of page scroll cover it, so shot 4 (the 30x fact) is at
+    // about 14 s of a 28 s film
+    await page.evaluate(() => window.scrollTo(0, 0.5 * 7 * window.innerHeight));
 
     await expect(page.getByTestId('film-overlay')).toContainText('30×');
     await expect

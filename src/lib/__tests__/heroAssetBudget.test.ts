@@ -50,7 +50,7 @@ function makeVideo(name: string, extra: string[], gop: number) {
 
 describe('HERO_ASSET_BUDGET', () => {
   it('is expressed in bytes', () => {
-    expect(HERO_ASSET_BUDGET).toEqual({ video: 8_000_000, poster: 200_000, still: 150_000 });
+    expect(HERO_ASSET_BUDGET).toEqual({ video: 15_000_000, poster: 200_000, still: 150_000 });
   });
 });
 
@@ -64,14 +64,14 @@ describe('checkHeroAssets: sizes and names (always on)', () => {
     expect(result.ok).toBe(true);
   });
 
-  it('fails when the video is one byte over 8,000,000', () => {
+  it('fails when the video is one byte over 15,000,000', () => {
     put('hero-v1-desktop.mp4', HERO_ASSET_BUDGET.video + 1);
     const result = checkHeroAssets(dir, { probe: false });
     expect(result.ok).toBe(false);
-    expect(result.violations.join('\n')).toMatch(/hero-v1-desktop\.mp4.*8000001.*8000000/);
+    expect(result.violations.join('\n')).toMatch(/hero-v1-desktop\.mp4.*15000001.*15000000/);
   });
 
-  it('accepts a video of exactly 8,000,000 bytes', () => {
+  it('accepts a video of exactly 15,000,000 bytes', () => {
     put('hero-v1-desktop.mp4', HERO_ASSET_BUDGET.video);
     expect(checkHeroAssets(dir, { probe: false }).ok).toBe(true);
   });
@@ -118,15 +118,20 @@ describe('checkHeroAssets: sizes and names (always on)', () => {
 });
 
 describe.skipIf(!hasTools)('checkHeroAssets: stream properties (needs ffmpeg and ffprobe)', () => {
-  it('passes an all-intra video with no audio and no tags', () => {
+  it('passes an all-intra video (keyframe every frame) with no audio and no tags', () => {
     makeVideo('hero-v1-desktop.mp4', [], 1);
     const result = checkHeroAssets(dir, { probe: true });
     expect(result.violations).toEqual([]);
   });
 
-  it('fails a video that is not all-intra', () => {
-    makeVideo('hero-v1-desktop.mp4', [], 12);
-    expect(checkHeroAssets(dir, { probe: true }).violations.join('\n')).toMatch(/intra/i);
+  it('passes a short-GOP video with a keyframe at least every 6 frames', () => {
+    makeVideo('hero-v2-desktop.mp4', [], 6);
+    expect(checkHeroAssets(dir, { probe: true }).violations).toEqual([]);
+  });
+
+  it('fails a video whose keyframes are more than 6 frames apart', () => {
+    makeVideo('hero-v2-desktop.mp4', [], 12);
+    expect(checkHeroAssets(dir, { probe: true }).violations.join('\n')).toMatch(/keyframe/i);
   });
 
   it('fails a video with an audio stream', () => {

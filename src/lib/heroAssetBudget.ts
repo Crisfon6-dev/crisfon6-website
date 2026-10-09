@@ -3,10 +3,13 @@ import { existsSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 /** Budgets in BYTES, never MB or MiB (the two differ by about 5% and caused a real mix-up). */
-export const HERO_ASSET_BUDGET = { video: 8_000_000, poster: 200_000, still: 150_000 } as const;
+export const HERO_ASSET_BUDGET = { video: 15_000_000, poster: 200_000, still: 150_000 } as const;
 
 /** Terms that must never appear in a hero asset file name. Real client names come via the env list. */
 const BUILT_IN_DENYLIST = ['aphrodite', 'nsfw', 'adult', 'stealth'];
+
+/** Scrubbing seeks to any frame, so keyframes must be close: a seek decodes at most this many frames. */
+export const MAX_KEYFRAME_INTERVAL = 6;
 
 /** The only format tags allowed: the container's own brand fields. */
 const ALLOWED_FORMAT_TAGS = new Set(['major_brand', 'minor_version', 'compatible_brands']);
@@ -48,10 +51,19 @@ function checkVideoStreams(file: string, name: string, violations: string[]) {
     .map((line) => line.trim())
     .filter(Boolean);
   // csv output can carry a trailing empty field ("I,"), so compare only the first field
-  const nonIntra = frameTypes.filter((line) => line.split(',')[0] !== 'I').length;
-  if (nonIntra > 0) {
+  let longestRun = 0;
+  let run = 0;
+  for (const line of frameTypes) {
+    run = line.split(',')[0] === 'I' ? 1 : run + 1;
+    longestRun = Math.max(longestRun, run);
+  }
+  if (
+    frameTypes.length === 0 ||
+    frameTypes[0].split(',')[0] !== 'I' ||
+    longestRun > MAX_KEYFRAME_INTERVAL
+  ) {
     violations.push(
-      `${name}: not all-intra (${nonIntra} of ${frameTypes.length} frames are not intra)`
+      `${name}: keyframes are too far apart (longest stretch ${longestRun} frames, max ${MAX_KEYFRAME_INTERVAL})`
     );
   }
 

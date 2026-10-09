@@ -1,6 +1,6 @@
 /** Versioned names so a changed asset gets a new URL and `/hero/*` can be cached for a year. */
 export const HERO_FILM_ASSETS = {
-  video: '/hero/hero-v1-desktop.mp4',
+  video: '/hero/hero-v2-desktop.mp4',
   poster: '/hero/hero-v1-poster.webp',
   stills: [
     { id: 'compute', src: '/hero/hero-v1-compute.webp', factIndex: 2 },

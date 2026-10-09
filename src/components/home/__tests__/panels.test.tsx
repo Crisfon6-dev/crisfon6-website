@@ -1,38 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
-import { AutomationSection } from '../AutomationSection';
 import { FeaturedProjectsSection } from '../FeaturedProjectsSection';
 import { NewsletterPanel } from '../NewsletterPanel';
 import { ContactPanel } from '../ContactPanel';
 import { messages } from '@/i18n/messages';
 
 const wrap = (node: React.ReactNode) => <LanguageProvider>{node}</LanguageProvider>;
-
-describe('AutomationSection', () => {
-  it('renders title, description, Live chip, and metrics', () => {
-    render(wrap(<AutomationSection />));
-    expect(screen.getByText(messages.en.automation.title)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.description)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.live)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.infraCostValue)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.timeSavedValue)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.value)).toBeTruthy();
-  });
-
-  it('wraps a Pipeline of 4 nodes', () => {
-    const { container } = render(wrap(<AutomationSection />));
-    const pipeline = container.querySelector('[aria-label="pipeline"]');
-    expect(pipeline).not.toBeNull();
-    expect(pipeline!.querySelectorAll('li').length).toBe(4);
-  });
-
-  it('has CTA linking to /automations', () => {
-    render(wrap(<AutomationSection />));
-    const cta = screen.getByTestId('automation-cta');
-    expect(cta.getAttribute('href')).toBe('/automations');
-  });
-});
 
 describe('FeaturedProjectsSection', () => {
   it('renders 4 project cards with the orchestration harness second', () => {

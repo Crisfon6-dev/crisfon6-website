@@ -49,16 +49,8 @@ export function FeaturedProjectsSection() {
               <Link
                 href={p.href}
                 data-featured={featured ? 'true' : 'false'}
-                className="group relative flex h-full flex-col gap-sp-4 overflow-hidden rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-6 transition-all hover:-translate-y-0.5 hover:border-warm-border-strong hover:shadow-lg"
+                className="slab group relative flex h-full flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
               >
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute right-0 top-0 h-40 w-40 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background:
-                      'radial-gradient(circle at top right, rgb(from var(--c-accent) r g b / 0.18) 0%, transparent 60%)',
-                  }}
-                />
                 <Chip variant="outline">{p.tag}</Chip>
                 <h3
                   className="font-heading text-warm-fg"
@@ -72,17 +64,12 @@ export function FeaturedProjectsSection() {
                   {p.title}
                 </h3>
                 <p className="text-warm-fg-muted">{p.description}</p>
-                <div className="mt-auto flex items-center justify-between gap-sp-3">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
-                    {p.result}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="inline-block text-xl text-warm-fg-faint transition-transform duration-300 group-hover:-rotate-45 group-hover:text-accent"
-                  >
+                <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-warm-fg">
+                  {t.chapters.seeCase}
+                  <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
                     →
                   </span>
-                </div>
+                </span>
               </Link>
             </li>
           );

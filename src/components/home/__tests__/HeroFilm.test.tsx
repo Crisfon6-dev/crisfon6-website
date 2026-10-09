@@ -4,9 +4,11 @@ import { renderToString } from 'react-dom/server';
 import type { ReactNode } from 'react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { KEY_FACTS } from '@/data/career';
+import { messages } from '@/i18n/messages';
 import { HeroFilm } from '../HeroFilm';
 import { HERO_FILM_ASSETS, FILM_TRAVEL_VH } from '../heroFilmAssets';
 import { VEIL_MIN, VEIL_MAX, VEIL_RAMP_VH } from '../heroFilmLogic';
+import { HOME_CHAPTERS, chapterFact } from '../homeChapters';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 
@@ -62,8 +64,6 @@ function scrollTo(y: number) {
   });
 }
 
-const FACT_FOR_STILL = { compute: 2, data: 3, delivery: 1, reveal: 0 } as const;
-
 beforeEach(() => {
   ioCallback = null;
   vi.stubGlobal('IntersectionObserver', FakeIO);
@@ -76,38 +76,61 @@ afterEach(() => {
 });
 
 describe('HeroFilm: stills mode', () => {
-  it('on a small screen shows the poster and four captioned stills, and no video', () => {
+  it('on a small screen tells the six chapters with the poster and five stills, and no video', () => {
     setEnv({ width: 390 });
     const { container } = render(wrap(<HeroFilm />));
-    const stage = screen.getByTestId('hero-film');
-    expect(stage.getAttribute('data-mode')).toBe('stills');
+    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
     expect(container.querySelector('video')).toBeNull();
-    expect(container.querySelectorAll('img').length).toBe(5);
+    expect(container.querySelectorAll('img').length).toBe(6);
     expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeTruthy();
     for (const still of HERO_FILM_ASSETS.stills) {
       expect(container.querySelector(`img[src="${still.src}"]`), still.id).toBeTruthy();
     }
-  });
-
-  it('captions each still with exactly its KEY_FACTS value and label (EN)', () => {
-    setEnv({ width: 390 });
-    render(wrap(<HeroFilm />));
-    for (const still of HERO_FILM_ASSETS.stills) {
-      const fact = KEY_FACTS[FACT_FOR_STILL[still.id]];
-      const caption = screen.getByTestId(`still-caption-${still.id}`);
-      expect(caption.textContent).toContain(fact.value);
-      expect(caption.textContent).toContain(fact.label.en);
+    for (const chapter of HOME_CHAPTERS) {
+      expect(screen.getByTestId(`chapter-${chapter.id}`), chapter.id).toBeTruthy();
     }
   });
 
-  it('captions each still in Spanish when the language is ES', () => {
+  it('shows each chapter title, claim and verified figure in English', () => {
+    setEnv({ width: 390 });
+    render(wrap(<HeroFilm />));
+    for (const chapter of HOME_CHAPTERS) {
+      const plate = screen.getByTestId(`chapter-${chapter.id}`);
+      const copy = messages.en.chapters.items[chapter.id];
+      expect(plate.textContent).toContain(copy.title);
+      expect(plate.textContent).toContain(copy.claim);
+      const fact = chapterFact(chapter, 'en');
+      if (fact) {
+        expect(screen.getByTestId(`chapter-${chapter.id}-value`).textContent).toBe(fact.value);
+        expect(screen.getByTestId(`chapter-${chapter.id}-label`).textContent).toBe(fact.label);
+      } else {
+        expect(screen.queryByTestId(`chapter-${chapter.id}-value`)).toBeNull();
+      }
+    }
+  });
+
+  it('shows the chapters in Spanish when the language is ES', () => {
     setEnv({ width: 390 });
     window.localStorage.setItem('cf6.lang', 'es');
     render(wrap(<HeroFilm />));
-    for (const still of HERO_FILM_ASSETS.stills) {
-      const fact = KEY_FACTS[FACT_FOR_STILL[still.id]];
-      expect(screen.getByTestId(`still-caption-${still.id}`).textContent).toContain(fact.label.es);
+    for (const chapter of HOME_CHAPTERS) {
+      const plate = screen.getByTestId(`chapter-${chapter.id}`);
+      expect(plate.textContent).toContain(messages.es.chapters.items[chapter.id].title);
+      const fact = chapterFact(chapter, 'es');
+      if (fact) {
+        expect(screen.getByTestId(`chapter-${chapter.id}-label`).textContent).toBe(fact.label);
+      }
     }
+  });
+
+  it('links each chapter to its case and the last one to work-with-me', () => {
+    setEnv({ width: 390 });
+    render(wrap(<HeroFilm />));
+    const href = (id: string) =>
+      screen.getByTestId(`chapter-${id}`).querySelector('a')?.getAttribute('href');
+    expect(href('compute')).toBe('/projects#aws-cost-audit');
+    expect(href('reveal')).toBe('/work-with-me');
+    expect(href('blueprint')).toBeUndefined();
   });
 
   it('is used when the user prefers reduced motion, even on a wide screen', () => {
@@ -164,23 +187,29 @@ describe('HeroFilm: film mode', () => {
     expect(container.querySelector('video')?.getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('shows the verified overlay for the shot at the scroll position and nothing in gaps', () => {
+  it('shows the chapter for the scroll position, with its verified figure', () => {
     setEnv({ width: 1440 });
     render(wrap(<HeroFilm />));
     stageNearViewport();
     // viewport 800px, 7 screens of travel: 5600px of scroll covers the whole film
-    const at = (progress: number) => {
-      scrollTo(progress * 5600);
-    };
+    scrollTo(0.5 * 5600); // shot 4: data
+    expect(screen.getByTestId('film-chapter').getAttribute('data-chapter')).toBe('data');
+    expect(screen.getByTestId('film-chapter-value').textContent).toBe(KEY_FACTS[3].value);
 
-    at(0.5); // shot 4 (data): 30x
-    expect(screen.getByTestId('film-overlay').textContent).toContain(KEY_FACTS[3].value);
+    scrollTo(0.1 * 5600); // shot 1: blueprint, no figure
+    expect(screen.getByTestId('film-chapter').getAttribute('data-chapter')).toBe('blueprint');
+    expect(screen.queryByTestId('film-chapter-value')).toBeNull();
 
-    at(0.1); // shot 1: no overlay
-    expect(screen.queryByTestId('film-overlay')).toBeNull();
+    scrollTo(0.93 * 5600); // shot 7: reveal
+    expect(screen.getByTestId('film-chapter').getAttribute('data-chapter')).toBe('reveal');
+    expect(screen.getByTestId('film-chapter-value').textContent).toBe(KEY_FACTS[0].value);
+  });
 
-    at(0.93); // shot 7 (reveal): 5+
-    expect(screen.getByTestId('film-overlay').textContent).toContain(KEY_FACTS[0].value);
+  it('removes the chapter plate once the film is over so it never covers later sections', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(5600 + 800);
+    expect(screen.queryByTestId('film-chapter')).toBeNull();
   });
 
   it('is the page background: a fixed, full-viewport layer behind the content', () => {
@@ -217,13 +246,13 @@ describe('HeroFilm: film mode', () => {
     expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(0);
   });
 
-  it('shows overlay figures as page typography, not as a card', () => {
+  it('aligns the chapter plate to the page column', () => {
     setEnv({ width: 1440 });
     render(wrap(<HeroFilm />));
     scrollTo(0.5 * 5600);
-    const overlay = screen.getByTestId('film-overlay');
-    expect(overlay.outerHTML).not.toMatch(/backdrop-blur|bg-warm-bg\/90|rounded-sp-lg/);
-    expect(overlay.querySelector('.max-w-6xl')).toBeTruthy();
+    const plate = screen.getByTestId('film-chapter');
+    expect(plate.className).toMatch(/\bslab\b/);
+    expect(plate.closest('.max-w-6xl')).toBeTruthy();
   });
 });
 

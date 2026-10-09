@@ -3,11 +3,7 @@
 import {
   HeroSection,
   HeroFilm,
-  StatsSection,
-  StackMarqueeSection,
-  AutomationSection,
   FeaturedCases,
-  SystemDiagram,
   PrincipleStatement,
   NewsletterPanel,
   ContactPanel,
@@ -20,11 +16,7 @@ export function HomeContent() {
       <Atmosphere />
       <HeroSection />
       <HeroFilm />
-      <StatsSection />
-      <StackMarqueeSection />
-      <AutomationSection />
       <FeaturedCases />
-      <SystemDiagram />
       <PrincipleStatement />
       <NewsletterPanel />
       <ContactPanel />

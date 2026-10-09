@@ -1,11 +1,7 @@
 export { HeroSection } from './HeroSection';
 export { HeroFilm } from './HeroFilm';
-export { StatsSection } from './StatsSection';
-export { StackMarqueeSection } from './StackMarqueeSection';
-export { AutomationSection } from './AutomationSection';
 export { FeaturedProjectsSection } from './FeaturedProjectsSection';
 export { NewsletterPanel } from './NewsletterPanel';
 export { ContactPanel } from './ContactPanel';
-export { SystemDiagram } from './SystemDiagram';
 export { PrincipleStatement } from './PrincipleStatement';
 export { FeaturedCases } from './FeaturedCases';

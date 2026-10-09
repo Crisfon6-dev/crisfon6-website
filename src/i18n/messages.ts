@@ -15,19 +15,46 @@ export const messages = {
       certSub: 'Claude Code in Action · 2026',
       brand: 'crisfon6',
       headlinePrefix: 'I build AI systems that',
-      typewords: [
-        'run in production.',
-        'serve ~100K users a month.',
-        'the business actually needs.',
-      ] as readonly string[],
+      headlineAccent: 'run in production.',
       description:
-        'Certified by Anthropic (Claude Code in Action, 2026). I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale. Production blueprints from systems that actually run.',
+        'I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale.',
       businessAngle:
         'Technology serves the business, not the other way around. I build what moves the metric, not what looks good in the codebase.',
       cta1: 'Get the latest AI blueprint',
       cta2: "See what I've built",
-      proof: '−43% AWS bill · 30× faster data exports · 5+ years in production',
+      bridge: 'Six chapters. One order: product, business, then code.',
       fullWorkHistory: 'Full work history →',
+    },
+    chapters: {
+      label: 'Chapter',
+      seeCase: 'Read the case',
+      workWithMe: 'Work with me',
+      items: {
+        blueprint: {
+          title: 'Start with the blueprint',
+          claim: 'Before any code, I ask who it hurts and what it costs.',
+        },
+        compute: {
+          title: 'Cut the bill',
+          claim: 'The cloud bill was a business problem, not an infrastructure one.',
+        },
+        data: {
+          title: 'Make data instant',
+          claim: 'Teams stopped waiting on reports and started deciding.',
+        },
+        agents: {
+          title: 'Put agents to work',
+          claim: 'A backlog went in. Reviewed pull requests came out, in a day.',
+        },
+        delivery: {
+          title: 'Deliver to real users',
+          claim: 'Real users, inside a much bigger ecosystem.',
+        },
+        reveal: {
+          title: 'See it run',
+          claim: 'Years in production teach what demos never show.',
+        },
+      },
     },
     footer: {
       tagline:
@@ -94,10 +121,6 @@ export const messages = {
       ] as readonly string[],
     },
     featuredProjects: 'Featured Projects',
-    systemDiagram: {
-      kicker: 'THE SYSTEM',
-      label: 'A layered production system, drawn line by line as you scroll.',
-    },
     about: {
       heading1: 'I build AI systems that run at scale.',
       heading2: 'And I document everything.',
@@ -279,19 +302,46 @@ export const messages = {
       certSub: 'Claude Code in Action · 2026',
       brand: 'crisfon6',
       headlinePrefix: 'Construyo sistemas de AI que',
-      typewords: [
-        'corren en producción.',
-        'sirven a ~100K usuarios al mes.',
-        'el negocio de verdad necesita.',
-      ] as readonly string[],
+      headlineAccent: 'corren en producción.',
       description:
-        'Certificado por Anthropic (Claude Code in Action, 2026). Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala. Blueprints de producción, de sistemas que de verdad corren.',
+        'Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala.',
       businessAngle:
         'La tecnología obedece al negocio, no al revés. Construyo lo que mueve la métrica, no lo que luce bonito en el código.',
       cta1: 'Obtén el último blueprint de AI',
       cta2: 'Ver lo que construí',
-      proof: '−43% en la factura de AWS · exportaciones 30× más rápidas · 5+ años en producción',
+      bridge: 'Seis capítulos. Un orden: producto, negocio y, al final, código.',
       fullWorkHistory: 'Historia laboral completa →',
+    },
+    chapters: {
+      label: 'Capítulo',
+      seeCase: 'Leer el caso',
+      workWithMe: 'Trabaja conmigo',
+      items: {
+        blueprint: {
+          title: 'Empieza por el plano',
+          claim: 'Antes del código, pregunto a quién le duele y cuánto cuesta.',
+        },
+        compute: {
+          title: 'Recorta la factura',
+          claim: 'La factura de nube era un problema de negocio, no de infraestructura.',
+        },
+        data: {
+          title: 'Datos al instante',
+          claim: 'Los equipos dejaron de esperar reportes y empezaron a decidir.',
+        },
+        agents: {
+          title: 'Pon a trabajar a los agentes',
+          claim: 'Entra un backlog. Salen pull requests revisados, en un día.',
+        },
+        delivery: {
+          title: 'Entrega a usuarios reales',
+          claim: 'Usuarios reales, dentro de un ecosistema mucho mayor.',
+        },
+        reveal: {
+          title: 'Míralo funcionar',
+          claim: 'Los años en producción enseñan lo que ninguna demo muestra.',
+        },
+      },
     },
     footer: {
       tagline:
@@ -358,10 +408,6 @@ export const messages = {
       ] as readonly string[],
     },
     featuredProjects: 'Proyectos Destacados',
-    systemDiagram: {
-      kicker: 'EL SISTEMA',
-      label: 'Un sistema de producción en capas, dibujado línea a línea mientras se hace scroll.',
-    },
     about: {
       heading1: 'Construyo sistemas de AI que corren a escala.',
       heading2: 'Y documento todo.',

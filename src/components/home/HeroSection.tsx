@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
-import { Typewriter } from '@/components/primitives/Typewriter';
 import { Kicker } from '@/components/primitives/Kicker';
 
 export function HeroSection() {
@@ -15,19 +14,8 @@ export function HeroSection() {
         <Kicker dot>
           <span>{t.hero.kicker}</span>
         </Kicker>
-        <span className="relative inline-flex items-center gap-1.5 overflow-hidden rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-          <span
-            aria-hidden
-            className="shimmer-sweep pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(90deg, transparent 0%, rgb(from var(--c-accent) r g b / 0.28) 50%, transparent 100%)',
-            }}
-          />
-          <span aria-hidden className="relative">
-            ✦
-          </span>
-          <span className="relative">{t.hero.cert}</span>
+        <span className="inline-flex items-center rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+          {t.hero.cert}
         </span>
       </div>
 
@@ -41,15 +29,12 @@ export function HeroSection() {
           fontWeight: 700,
         }}
       >
-        <span>crisfon</span>
-        <span className="gradient-text">6</span>
-        <span aria-hidden className="cursor-blink ml-1 text-accent">
-          |
-        </span>
+        crisfon<span className="text-accent">6</span>
       </h1>
 
       {/* Headline with typewriter */}
       <p
+        data-testid="hero-headline"
         className="mt-sp-5 text-warm-fg"
         style={{
           fontSize: 'clamp(28px, 3.6vw, 44px)',
@@ -58,7 +43,7 @@ export function HeroSection() {
           fontWeight: 500,
         }}
       >
-        {t.hero.headlinePrefix} <Typewriter words={[...t.hero.typewords]} className="text-accent" />
+        {t.hero.headlinePrefix} <span className="text-accent">{t.hero.headlineAccent}</span>
       </p>
 
       {/* Blurb */}
@@ -96,9 +81,12 @@ export function HeroSection() {
         </Link>
       </div>
 
-      {/* Proof */}
-      <p className="mt-sp-5 font-mono text-[13px] tracking-[0.02em] text-warm-fg-faint">
-        {t.hero.proof}
+      {/* Bridge into the film */}
+      <p
+        data-testid="hero-bridge"
+        className="mt-sp-5 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted"
+      >
+        {t.hero.bridge}
       </p>
       <Link
         href="/experience"

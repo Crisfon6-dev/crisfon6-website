@@ -11,7 +11,6 @@ export type FeaturedCase = {
   id: (typeof FEATURED_IDS)[number];
   title: string;
   description: string;
-  result: string;
   tag: string;
   href: string;
 };
@@ -24,7 +23,6 @@ export function getFeaturedCases(locale: 'en' | 'es'): FeaturedCase[] {
       id,
       title: cs.title[locale],
       description: cs.context?.[locale] ?? cs.whatIDid[0][locale],
-      result: cs.outcomes[0]?.[locale] ?? cs.status[locale],
       tag: cs.tag,
       href: `/projects#${cs.id}`,
     };

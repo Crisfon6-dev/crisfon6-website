@@ -30,11 +30,22 @@ describe('HeroSection', () => {
     expect(h1.textContent).toMatch(/crisfon6/);
   });
 
-  it('wraps the typewriter words with accent styling', () => {
+  it('states the promise in a static headline with the accent on the claim', () => {
+    renderHero();
+    const headline = screen.getByTestId('hero-headline');
+    expect(headline.textContent).toBe(
+      `${messages.en.hero.headlinePrefix} ${messages.en.hero.headlineAccent}`
+    );
+    expect(headline.querySelector('span.text-accent')?.textContent).toBe(
+      messages.en.hero.headlineAccent
+    );
+  });
+
+  it('drops the SaaS tells: no shimmer badge, no gradient 6, no blinking cursor', () => {
     const { container } = renderHero();
-    // Typewriter renders an initially-empty <span class="text-accent">
-    const accentSpan = container.querySelector('span.text-accent');
-    expect(accentSpan).not.toBeNull();
+    expect(container.querySelector('.shimmer-sweep')).toBeNull();
+    expect(container.querySelector('.gradient-text')).toBeNull();
+    expect(container.querySelector('.cursor-blink')).toBeNull();
   });
 
   it('renders both CTAs with the correct hrefs', () => {
@@ -50,18 +61,22 @@ describe('HeroSection', () => {
     );
   });
 
-  it('promises no cadence: typewords drop the unverified claims', () => {
-    expect(messages.en.hero.typewords).toEqual([
-      'run in production.',
-      'serve ~100K users a month.',
-      'the business actually needs.',
-    ]);
-    expect(messages.es.hero.typewords).toContain('el negocio de verdad necesita.');
+  it('has the headline claim in both languages and no rotating typewriter words', () => {
+    expect(messages.en.hero.headlineAccent).toBe('run in production.');
+    expect(messages.es.hero.headlineAccent).toBe('corren en producción.');
+    expect('typewords' in messages.en.hero).toBe(false);
   });
 
-  it('renders the proof mono line', () => {
+  it('bridges into the film instead of repeating its figures', () => {
     renderHero();
-    expect(screen.getByText(messages.en.hero.proof)).toBeTruthy();
+    expect(screen.getByTestId('hero-bridge').textContent).toBe(messages.en.hero.bridge);
+    expect('proof' in messages.en.hero).toBe(false);
+    expect(screen.queryByText(/−43%/)).toBeNull();
+  });
+
+  it('does not repeat the certification line inside the paragraph; the badge carries it', () => {
+    expect(messages.en.hero.description).not.toMatch(/Certified by Anthropic/);
+    expect(messages.es.hero.description).not.toMatch(/Certificado por Anthropic/);
   });
 
   it('renders all four meta links', () => {

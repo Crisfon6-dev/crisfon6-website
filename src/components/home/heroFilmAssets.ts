@@ -2,11 +2,13 @@
 export const HERO_FILM_ASSETS = {
   video: '/hero/hero-v2-desktop.mp4',
   poster: '/hero/hero-v1-poster.webp',
+  /** One still per chapter that has its own shot; the blueprint chapter uses the poster. */
   stills: [
-    { id: 'compute', src: '/hero/hero-v1-compute.webp', factIndex: 2 },
-    { id: 'data', src: '/hero/hero-v1-data.webp', factIndex: 3 },
-    { id: 'delivery', src: '/hero/hero-v1-delivery.webp', factIndex: 1 },
-    { id: 'reveal', src: '/hero/hero-v1-reveal.webp', factIndex: 0 },
+    { id: 'compute', src: '/hero/hero-v1-compute.webp' },
+    { id: 'data', src: '/hero/hero-v1-data.webp' },
+    { id: 'agents', src: '/hero/hero-v1-agents.webp' },
+    { id: 'delivery', src: '/hero/hero-v1-delivery.webp' },
+    { id: 'reveal', src: '/hero/hero-v1-reveal.webp' },
   ],
 } as const;
 

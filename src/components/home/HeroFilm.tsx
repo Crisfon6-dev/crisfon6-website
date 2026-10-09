@@ -5,18 +5,18 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { useLanguage } from '@/i18n/LanguageProvider';
 import { chooseFilmMode, type FilmMode } from './heroFilmMode';
 import { prefersReducedMotion, subscribeViewport } from './viewportEnv';
 import {
   VEIL_MIN,
-  activeOverlay,
   filmProgress,
   heroShadeOpacity,
+  plateOpacity,
   progressToTime,
   veilOpacity,
 } from './heroFilmLogic';
-import { HERO_FILM_OVERLAYS, overlayText } from './heroFilmOverlays';
+import { ChapterPlate } from './ChapterPlate';
+import { HOME_CHAPTERS, activeChapter } from './homeChapters';
 import {
   FILM_DURATION_SECONDS,
   FILM_FRAME,
@@ -52,44 +52,23 @@ function FrameImage({ src, lazy = true }: { src: string; lazy?: boolean }) {
 }
 
 function StillsGrid() {
-  const { locale } = useLanguage();
+  const imageFor = (id: string) =>
+    id === 'blueprint'
+      ? HERO_FILM_ASSETS.poster
+      : HERO_FILM_ASSETS.stills.find((still) => still.id === id)!.src;
   return (
-    <ul className="mx-auto grid max-w-6xl gap-sp-5 px-sp-5 py-sp-8 sm:grid-cols-2">
-      <li>
-        <figure>
-          <FrameImage src={HERO_FILM_ASSETS.poster} />
-        </figure>
-      </li>
-      {HERO_FILM_ASSETS.stills.map((still) => {
-        const { value, label } = overlayText(
-          { factIndex: still.factIndex, from: 0, to: 1 },
-          locale
-        );
-        return (
-          <li key={still.id}>
-            <figure>
-              <FrameImage src={still.src} />
-              <figcaption
-                data-testid={`still-caption-${still.id}`}
-                className="mt-sp-3 flex flex-wrap items-baseline gap-x-sp-3 gap-y-1"
-              >
-                <span className="metric-value text-warm-fg" style={{ fontSize: '28px' }}>
-                  {value}
-                </span>
-                <span className="text-balance font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
-                  {label}
-                </span>
-              </figcaption>
-            </figure>
-          </li>
-        );
-      })}
-    </ul>
+    <ol className="mx-auto grid max-w-6xl gap-sp-7 px-sp-5 py-sp-8 md:grid-cols-2">
+      {HOME_CHAPTERS.map((chapter) => (
+        <li key={chapter.id} className="flex flex-col gap-sp-4">
+          <FrameImage src={imageFor(chapter.id)} />
+          <ChapterPlate chapter={chapter} testId={`chapter-${chapter.id}`} />
+        </li>
+      ))}
+    </ol>
   );
 }
 
 function FilmStage() {
-  const { locale } = useLanguage();
   const wrapperRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressRef = useRef(0);
@@ -103,6 +82,7 @@ function FilmStage() {
   const [progress, setProgress] = useState(0);
   const [veil, setVeil] = useState(VEIL_MIN);
   const [heroShade, setHeroShade] = useState(1);
+  const [plate, setPlate] = useState(0);
 
   // Film assets wait for the page load, so the hero text paints first.
   useEffect(() => {
@@ -139,6 +119,7 @@ function FilmStage() {
       setProgress(next);
       setVeil(veilOpacity(y, vh, FILM_TRAVEL_VH));
       setHeroShade(heroShadeOpacity(y, vh));
+      setPlate(plateOpacity(y, vh, FILM_TRAVEL_VH));
       kickRef.current();
     };
     read();
@@ -188,8 +169,7 @@ function FilmStage() {
   }, [posterLoaded]);
 
   const active = near && pageLoaded;
-  const overlay = activeOverlay(progress, HERO_FILM_OVERLAYS);
-  const text = overlay ? overlayText(overlay, locale) : null;
+  const chapter = activeChapter(progress);
 
   return (
     <section
@@ -238,22 +218,14 @@ function FilmStage() {
           style={{ opacity: veil }}
         />
       </div>
-      {text ? (
+      {plate > 0 ? (
         <div
-          data-testid="film-overlay"
-          className="pointer-events-none fixed inset-x-0 bottom-sp-8 z-10"
+          className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10"
+          style={{ opacity: plate }}
         >
           <div className="mx-auto max-w-6xl px-sp-5">
-            <div className="max-w-xl border-l-2 border-accent pl-sp-4">
-              <p
-                className="metric-value text-warm-fg"
-                style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}
-              >
-                {text.value}
-              </p>
-              <p className="mt-1 text-balance font-mono text-xs uppercase tracking-[0.14em] text-warm-fg">
-                {text.label}
-              </p>
+            <div className="pointer-events-auto max-w-md">
+              <ChapterPlate key={chapter.id} chapter={chapter} testId="film-chapter" />
             </div>
           </div>
         </div>

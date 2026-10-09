@@ -49,7 +49,7 @@ export function HorizontalCases() {
               transform: 'translateX(min(0px, calc(var(--cases-progress) * (100vw - 100%))))',
             } as CSSProperties
           }
-          className="flex w-max items-stretch gap-sp-5 px-sp-5 will-change-transform"
+          className="flex w-max items-stretch gap-sp-5 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-sp-5 will-change-transform"
         >
           <div className="flex w-[min(420px,36vw)] shrink-0 flex-col justify-center pr-sp-5">
             <Kicker>{t.featuredProjects}</Kicker>
@@ -77,7 +77,7 @@ export function HorizontalCases() {
               key={c.id}
               href={c.href}
               data-testid="case-card"
-              className="group flex w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-6 transition-colors hover:border-warm-border-strong"
+              className="slab group flex w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
             >
               <Chip variant="outline" className="self-start">
                 {c.tag}
@@ -94,8 +94,11 @@ export function HorizontalCases() {
                 {c.title}
               </h3>
               <p className="text-warm-fg-muted">{c.description}</p>
-              <span className="mt-auto font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg">
-                {c.result}
+              <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-warm-fg">
+                {t.chapters.seeCase}
+                <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
+                  →
+                </span>
               </span>
             </Link>
           ))}

@@ -3,6 +3,7 @@ import { act, render, screen } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import type { ReactNode } from 'react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
+import { messages } from '@/i18n/messages';
 import { CASE_STUDIES } from '@/data/career';
 import { FeaturedCases } from '../FeaturedCases';
 import { chooseCasesLayout, CASES_MIN_WIDTH } from '../casesLayout';
@@ -73,7 +74,7 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
     );
   });
 
-  it('shows each card title, tag and first outcome from career.ts (EN)', () => {
+  it('shows each card title and tag from career.ts (EN); the outcome lives in the case page', () => {
     setEnv(1440);
     render(wrap(<FeaturedCases />));
     const cards = screen.getAllByTestId('case-card');
@@ -81,7 +82,6 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
       const cs = CASE_STUDIES.find((c) => c.id === id)!;
       expect(cards[i].textContent).toContain(cs.title.en);
       expect(cards[i].textContent).toContain(cs.tag);
-      expect(cards[i].textContent).toContain(cs.outcomes[0]?.en ?? cs.status.en);
     });
   });
 
@@ -94,6 +94,25 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
       const cs = CASE_STUDIES.find((c) => c.id === id)!;
       expect(cards[i].textContent).toContain(cs.title.es);
     });
+  });
+
+  it('hands off with a read-the-case cue and repeats no figure from the chapters', () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    const cards = screen.getAllByTestId('case-card');
+    FEATURED_IDS.forEach((id, i) => {
+      const cs = CASE_STUDIES.find((c) => c.id === id)!;
+      expect(cards[i].textContent).toContain(messages.en.chapters.seeCase);
+      expect(cards[i].textContent).not.toContain(cs.outcomes[0].en);
+    });
+  });
+
+  it("draws the cards as slabs, the film's glass-and-thickness surface", () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    for (const card of screen.getAllByTestId('case-card')) {
+      expect(card.className).toMatch(/\bslab\b/);
+    }
   });
 
   it('does not use the low-contrast accent text color for the result labels', () => {

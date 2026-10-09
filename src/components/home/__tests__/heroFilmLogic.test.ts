@@ -1,15 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import {
   progressToTime,
-  activeOverlay,
-  scrollProgress,
   filmProgress,
   veilOpacity,
   heroShadeOpacity,
+  plateOpacity,
   VEIL_MIN,
   VEIL_MAX,
   VEIL_RAMP_VH,
-  type FilmOverlay,
 } from '../heroFilmLogic';
 
 describe('progressToTime', () => {
@@ -33,60 +31,6 @@ describe('progressToTime', () => {
     expect(progressToTime(0.5, 0)).toBe(0);
     expect(progressToTime(0.5, -3)).toBe(0);
     expect(progressToTime(0.5, Number.NaN)).toBe(0);
-  });
-});
-
-describe('activeOverlay', () => {
-  const overlays: readonly FilmOverlay[] = [
-    { factIndex: 2, from: 0.3, to: 0.4 },
-    { factIndex: 3, from: 0.45, to: 0.55 },
-  ];
-
-  it('returns the overlay whose window contains the progress', () => {
-    expect(activeOverlay(0.35, overlays)).toEqual(overlays[0]);
-    expect(activeOverlay(0.5, overlays)).toEqual(overlays[1]);
-  });
-
-  it('includes the start boundary and excludes the end boundary', () => {
-    expect(activeOverlay(0.3, overlays)).toEqual(overlays[0]);
-    expect(activeOverlay(0.4, overlays)).toBeNull();
-  });
-
-  it('returns null in the gaps and outside the film', () => {
-    expect(activeOverlay(0.1, overlays)).toBeNull();
-    expect(activeOverlay(0.42, overlays)).toBeNull();
-    expect(activeOverlay(0.9, overlays)).toBeNull();
-    expect(activeOverlay(-1, overlays)).toBeNull();
-    expect(activeOverlay(2, overlays)).toBeNull();
-  });
-
-  it('returns null for a non-finite progress or an empty list', () => {
-    expect(activeOverlay(Number.NaN, overlays)).toBeNull();
-    expect(activeOverlay(0.35, [])).toBeNull();
-  });
-});
-
-describe('scrollProgress', () => {
-  // wrapper 6400px tall, viewport 800px: 5600px of travel
-  it('is 0 while the wrapper top is at or below the viewport top', () => {
-    expect(scrollProgress(0, 6400, 800)).toBe(0);
-    expect(scrollProgress(300, 6400, 800)).toBe(0);
-  });
-
-  it('is 1 once the pinned travel is used up', () => {
-    expect(scrollProgress(-5600, 6400, 800)).toBe(1);
-    expect(scrollProgress(-9000, 6400, 800)).toBe(1);
-  });
-
-  it('is linear in between', () => {
-    expect(scrollProgress(-2800, 6400, 800)).toBe(0.5);
-    expect(scrollProgress(-1400, 6400, 800)).toBe(0.25);
-  });
-
-  it('is 0 when there is no travel or the inputs are not finite', () => {
-    expect(scrollProgress(-100, 800, 800)).toBe(0);
-    expect(scrollProgress(-100, 600, 800)).toBe(0);
-    expect(scrollProgress(Number.NaN, 6400, 800)).toBe(0);
   });
 });
 
@@ -136,5 +80,29 @@ describe('heroShadeOpacity (extra left-side shade that keeps the hero text reada
     expect(heroShadeOpacity(400, 800)).toBeLessThan(1);
     expect(heroShadeOpacity(800, 800)).toBe(0);
     expect(heroShadeOpacity(5000, 800)).toBe(0);
+  });
+});
+
+describe('plateOpacity (the chapter plate must not cover the hero, nor outlive the film)', () => {
+  it('is hidden while the hero is on screen', () => {
+    expect(plateOpacity(0, 800, 7)).toBe(0);
+    expect(plateOpacity(0.45 * 800, 800, 7)).toBe(0);
+  });
+
+  it('fades in as the hero scrolls out and is fully visible while the film plays', () => {
+    expect(plateOpacity(0.65 * 800, 800, 7)).toBeCloseTo(0.5, 5);
+    expect(plateOpacity(0.85 * 800, 800, 7)).toBe(1);
+    expect(plateOpacity(2800, 800, 7)).toBe(1);
+    expect(plateOpacity(5600, 800, 7)).toBe(1);
+  });
+
+  it('fades out over half a screen after the film ends and is gone after that', () => {
+    expect(plateOpacity(5600 + 200, 800, 7)).toBeCloseTo(0.5, 5);
+    expect(plateOpacity(5600 + 400, 800, 7)).toBe(0);
+    expect(plateOpacity(99999, 800, 7)).toBe(0);
+  });
+
+  it('is visible for invalid input rather than hiding the story', () => {
+    expect(plateOpacity(Number.NaN, 800, 7)).toBe(1);
   });
 });

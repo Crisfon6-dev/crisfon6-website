@@ -17,7 +17,8 @@ test.describe('Hero film: desktop', () => {
     // about 14 s of a 28 s film
     await page.evaluate(() => window.scrollTo(0, 0.5 * 7 * window.innerHeight));
 
-    await expect(page.getByTestId('film-overlay')).toContainText('30×');
+    await expect(page.getByTestId('film-chapter')).toContainText('30×');
+    await expect(page.getByTestId('film-chapter')).toHaveAttribute('data-chapter', 'data');
     await expect
       .poll(() => film.locator('video').evaluate((video: HTMLVideoElement) => video.currentTime))
       .toBeGreaterThan(13.5);
@@ -29,7 +30,7 @@ test.describe('Hero film: desktop', () => {
 });
 
 test.describe('Hero film: stills instead of video', () => {
-  const stillIds = ['compute', 'data', 'delivery', 'reveal'];
+  const chapterIds = ['blueprint', 'compute', 'data', 'agents', 'delivery', 'reveal'];
 
   test('on a small screen there is no video and no MP4 request', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -40,8 +41,8 @@ test.describe('Hero film: stills instead of video', () => {
     await page.goto('/');
     await expect(page.getByTestId('hero-film')).toHaveAttribute('data-mode', 'stills');
     await expect(page.locator('video')).toHaveCount(0);
-    for (const id of stillIds) {
-      await expect(page.getByTestId(`still-caption-${id}`)).toBeAttached();
+    for (const id of chapterIds) {
+      await expect(page.getByTestId(`chapter-${id}`)).toBeAttached();
     }
     expect(mp4).toEqual([]);
   });
@@ -63,14 +64,23 @@ test.describe('Hero film: stills instead of video', () => {
   });
 });
 
-test.describe('Hero film: captions are the verified facts', () => {
+test.describe('Hero film: chapters carry the verified facts', () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
   test('in English', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByTestId('still-caption-compute')).toContainText('−43%');
-    await expect(page.getByTestId('still-caption-data')).toContainText('30×');
-    await expect(page.getByTestId('still-caption-delivery')).toContainText('~100K');
-    await expect(page.getByTestId('still-caption-reveal')).toContainText('5+');
+    await expect(page.getByTestId('chapter-compute-value')).toHaveText('−43%');
+    await expect(page.getByTestId('chapter-data-value')).toHaveText('30×');
+    await expect(page.getByTestId('chapter-agents-value')).toHaveText('13 → 11');
+    await expect(page.getByTestId('chapter-delivery-value')).toHaveText('~100K');
+    await expect(page.getByTestId('chapter-reveal-value')).toHaveText('5+');
+    await expect(page.getByTestId('chapter-blueprint-value')).toHaveCount(0);
+  });
+
+  test('in Spanish', async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem('cf6.lang', 'es'));
+    await page.goto('/');
+    await expect(page.getByTestId('chapter-compute')).toContainText('Recorta la factura');
+    await expect(page.getByTestId('chapter-reveal')).toContainText('Míralo funcionar');
   });
 });

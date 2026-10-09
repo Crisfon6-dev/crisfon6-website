@@ -1,19 +1,8 @@
-export type FilmOverlay = { factIndex: number; from: number; to: number };
-
 /** Maps scroll progress through the pinned section linearly to video time, clamped. */
 export function progressToTime(progress: number, duration: number): number {
   if (!Number.isFinite(progress) || !Number.isFinite(duration) || duration <= 0) return 0;
   const clamped = Math.min(1, Math.max(0, progress));
   return clamped * duration;
-}
-
-/** Returns the overlay whose [from, to) window contains the progress, or null. */
-export function activeOverlay(
-  progress: number,
-  overlays: readonly FilmOverlay[]
-): FilmOverlay | null {
-  if (!Number.isFinite(progress)) return null;
-  return overlays.find((o) => progress >= o.from && progress < o.to) ?? null;
 }
 
 /** Progress through a pinned wrapper; implemented in lib/scrollMath and shared with other sections. */
@@ -46,4 +35,16 @@ export function veilOpacity(scrollY: number, viewportHeight: number, travelVh: n
 export function heroShadeOpacity(scrollY: number, viewportHeight: number): number {
   if (![scrollY, viewportHeight].every(Number.isFinite) || viewportHeight <= 0) return 0;
   return Math.min(1, Math.max(0, 1 - scrollY / viewportHeight));
+}
+
+/**
+ * Opacity of the chapter plate: hidden while the hero text is on screen, fully visible while the
+ * film plays, gone half a screen after it ends.
+ */
+export function plateOpacity(scrollY: number, viewportHeight: number, travelVh: number): number {
+  if (![scrollY, viewportHeight, travelVh].every(Number.isFinite) || viewportHeight <= 0) return 1;
+  const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+  const fadeIn = clamp01((scrollY - viewportHeight * 0.45) / (viewportHeight * 0.4));
+  const fadeOut = clamp01(1 - (scrollY - viewportHeight * travelVh) / (viewportHeight * 0.5));
+  return Math.min(fadeIn, fadeOut);
 }

@@ -49,7 +49,7 @@ export function HorizontalCases() {
               transform: 'translateX(min(0px, calc(var(--cases-progress) * (100vw - 100%))))',
             } as CSSProperties
           }
-          className="flex w-max items-stretch gap-sp-5 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-sp-5 will-change-transform"
+          className="flex w-max items-stretch gap-sp-5 px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] will-change-transform"
         >
           <div className="flex w-[min(420px,36vw)] shrink-0 flex-col justify-center pr-sp-5">
             <Kicker>{t.featuredProjects}</Kicker>

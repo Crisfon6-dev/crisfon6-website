@@ -13,7 +13,7 @@ export function ContactPanel() {
       className="mx-auto max-w-6xl px-sp-5 py-sp-8"
       aria-labelledby="contact-panel-title"
     >
-      <div className="relative overflow-hidden rounded-sp-xl border border-warm-border bg-warm-bg-subtle px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9">
+      <div className="slab px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9">
         <div className="relative max-w-2xl">
           <Kicker>{t.cta.letsTalk}</Kicker>
           <h2

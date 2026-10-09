@@ -18,8 +18,8 @@ export function HomeContent() {
       <HeroFilm />
       <FeaturedCases />
       <PrincipleStatement />
-      <NewsletterPanel />
       <ContactPanel />
+      <NewsletterPanel />
     </main>
   );
 }

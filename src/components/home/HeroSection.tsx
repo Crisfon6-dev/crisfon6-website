@@ -81,10 +81,21 @@ export function HeroSection() {
         </Link>
       </div>
 
+      {/* Who, and that he is open to US contracts */}
+      <p
+        data-testid="hero-availability"
+        className="mt-sp-5 flex flex-wrap items-center gap-x-sp-3 gap-y-1 text-[15px] text-warm-fg"
+      >
+        <span>{t.hero.availability}</span>
+        <a href="mailto:crisfon6@crisfon6.com" className="font-medium text-accent hover:underline">
+          {t.cta.emailMe} →
+        </a>
+      </p>
+
       {/* Bridge into the film */}
       <p
         data-testid="hero-bridge"
-        className="mt-sp-5 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted"
+        className="mt-sp-3 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted"
       >
         {t.hero.bridge}
       </p>

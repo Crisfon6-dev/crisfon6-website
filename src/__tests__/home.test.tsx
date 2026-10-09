@@ -34,7 +34,7 @@ test('renders contact email CTA (mailto link)', () => {
   expect(emailCta.getAttribute('href')).toMatch(/mailto:crisfon6@crisfon6\.com/);
 });
 
-test('lays out the story in order: hero, film, cases, principle, contact', () => {
+test('lays out the story in order: hero, film, cases, principle, contact, then the newsletter', () => {
   const { container } = render(<Home />);
   const wanted = new Set([
     'hero',
@@ -43,11 +43,19 @@ test('lays out the story in order: hero, film, cases, principle, contact', () =>
     'horizontal-cases',
     'principle-statement',
     'contact-panel',
+    'newsletter-panel',
   ]);
   const order = Array.from(container.querySelectorAll('[data-testid]'))
     .map((el) => el.getAttribute('data-testid') as string)
     .filter((id) => wanted.has(id))
     // the featured cases are either the vertical grid or the horizontal track
     .map((id) => (id === 'featured-projects' || id === 'horizontal-cases' ? 'cases' : id));
-  expect(order).toEqual(['hero', 'hero-film', 'cases', 'principle-statement', 'contact-panel']);
+  expect(order).toEqual([
+    'hero',
+    'hero-film',
+    'cases',
+    'principle-statement',
+    'contact-panel',
+    'newsletter-panel',
+  ]);
 });

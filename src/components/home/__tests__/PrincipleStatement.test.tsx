@@ -156,3 +156,13 @@ describe('PrincipleStatement', () => {
     expect(html).toMatch(/opacity:1/);
   });
 });
+
+describe('PrincipleStatement layout', () => {
+  it('sits on the page column and fades in from the page instead of cutting in', () => {
+    render(wrap(<PrincipleStatement />));
+    const section = screen.getByTestId('principle-statement');
+    expect(section.querySelector('.max-w-6xl')).toBeTruthy();
+    expect(section.querySelector('[data-testid="principle-fade"]')).toBeTruthy();
+    expect(section.className).not.toMatch(/min-h-screen/);
+  });
+});

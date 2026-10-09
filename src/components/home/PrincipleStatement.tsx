@@ -40,9 +40,14 @@ export function PrincipleStatement() {
     <section
       ref={ref}
       data-testid="principle-statement"
-      className="flex min-h-screen items-center bg-warm-fg text-warm-bg"
+      className="relative flex min-h-[70vh] items-center bg-warm-fg text-warm-bg"
     >
-      <div className="mx-auto max-w-4xl px-sp-5 py-sp-9">
+      <div
+        data-testid="principle-fade"
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-transparent to-warm-fg"
+      />
+      <div className="mx-auto w-full max-w-6xl px-sp-5 py-sp-9">
         <h2
           className="font-heading"
           style={{
@@ -54,7 +59,7 @@ export function PrincipleStatement() {
         >
           <Words words={title} offset={0} total={total} progress={progress} />
         </h2>
-        <p className="mt-sp-6 max-w-2xl text-lg leading-relaxed sm:text-xl">
+        <p className="mt-sp-6 max-w-3xl text-lg leading-relaxed sm:text-xl">
           <Words words={proof} offset={title.length} total={total} progress={progress} />
         </p>
       </div>

@@ -23,6 +23,7 @@ export const messages = {
       cta1: 'Get the latest AI blueprint',
       cta2: "See what I've built",
       bridge: 'Six chapters. One order: product, business, then code.',
+      availability: 'Cristhian Fonseca · Open to remote contracts with US teams (CT/ET overlap)',
       fullWorkHistory: 'Full work history →',
     },
     chapters: {
@@ -71,7 +72,7 @@ export const messages = {
       dontMiss: 'Get the latest AI blueprint',
       freeForever: 'Free forever. Unsubscribe anytime.',
       letsTalk: "LET'S CONNECT",
-      buildingSomething: "Building AI into your product? Let's talk.",
+      buildingSomething: 'Hiring a senior engineer for a US team? Email me.',
       openTo: 'I connect with founders, CTOs, and senior engineers shipping products at scale.',
       connectLinkedIn: 'Connect on LinkedIn',
       emailMe: 'Email me',
@@ -310,6 +311,8 @@ export const messages = {
       cta1: 'Obtén el último blueprint de AI',
       cta2: 'Ver lo que construí',
       bridge: 'Seis capítulos. Un orden: producto, negocio y, al final, código.',
+      availability:
+        'Cristhian Fonseca · Disponible para contratos remotos con equipos de EE. UU. (solape CT/ET)',
       fullWorkHistory: 'Historia laboral completa →',
     },
     chapters: {
@@ -358,7 +361,7 @@ export const messages = {
       dontMiss: 'Obtén el último blueprint de AI',
       freeForever: 'Gratis para siempre. Cancela cuando quieras.',
       letsTalk: 'CONECTEMOS',
-      buildingSomething: '¿Integrando AI en tu producto? Hablemos.',
+      buildingSomething: '¿Buscas un ingeniero senior para un equipo en EE. UU.? Escríbeme.',
       openTo: 'Conecto con founders, CTOs e ingenieros senior creando productos a escala.',
       connectLinkedIn: 'Conectar en LinkedIn',
       emailMe: 'Enviar email',

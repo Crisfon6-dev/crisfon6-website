@@ -79,6 +79,17 @@ describe('HeroSection', () => {
     expect(messages.es.hero.description).not.toMatch(/Certificado por Anthropic/);
   });
 
+  it('says who he is and that he is open to US contracts, with a direct way to write', () => {
+    renderHero();
+    const line = screen.getByTestId('hero-availability');
+    expect(line.textContent).toContain('Cristhian Fonseca');
+    expect(line.textContent).toContain('US teams');
+    expect(line.textContent).toContain('CT/ET');
+    expect(line.querySelector('a')?.getAttribute('href')).toBe('mailto:crisfon6@crisfon6.com');
+    expect(messages.es.hero.availability).toContain('EE. UU.');
+    expect(messages.es.hero.availability).toContain('CT/ET');
+  });
+
   it('renders all four meta links', () => {
     renderHero();
     expect(screen.getByRole('link', { name: /linkedin/i }).getAttribute('href')).toContain(

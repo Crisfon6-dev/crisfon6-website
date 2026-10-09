@@ -209,7 +209,7 @@ function FilmStage() {
         />
         <div
           data-testid="film-hero-shade"
-          className="absolute inset-0 bg-gradient-to-r from-warm-bg via-warm-bg/60 to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-warm-bg/90 via-warm-bg/45 to-transparent"
           style={{ opacity: heroShade }}
         />
         <div
@@ -224,7 +224,7 @@ function FilmStage() {
           style={{ opacity: plate }}
         >
           <div className="mx-auto max-w-6xl px-sp-5">
-            <div className="pointer-events-auto max-w-md">
+            <div className="pointer-events-auto max-w-md [&>article]:min-h-[21rem]">
               <ChapterPlate key={chapter.id} chapter={chapter} testId="film-chapter" />
             </div>
           </div>

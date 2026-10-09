@@ -42,6 +42,12 @@ describe('NewsletterPanel', () => {
     expect(emailInput).not.toBeNull();
   });
 
+  it('is a slab with no dark gradient block', () => {
+    const { container } = render(wrap(<NewsletterPanel />));
+    expect(screen.getByTestId('newsletter-panel').querySelector('.slab')).toBeTruthy();
+    expect(container.querySelector('[style*="radial-gradient"]')).toBeNull();
+  });
+
   it('renders the production blueprints kicker', () => {
     render(wrap(<NewsletterPanel />));
     expect(screen.getByText(messages.en.cta.productionBlueprints)).toBeTruthy();
@@ -61,5 +67,19 @@ describe('ContactPanel', () => {
   it('renders the lets-talk kicker', () => {
     render(wrap(<ContactPanel />));
     expect(screen.getByText(messages.en.cta.letsTalk)).toBeTruthy();
+  });
+
+  it('speaks to the person hiring, in both languages', () => {
+    expect(messages.en.cta.buildingSomething).toBe(
+      'Hiring a senior engineer for a US team? Email me.'
+    );
+    expect(messages.es.cta.buildingSomething).toBe(
+      '¿Buscas un ingeniero senior para un equipo en EE. UU.? Escríbeme.'
+    );
+  });
+
+  it('is a slab, not a grey SaaS block', () => {
+    render(wrap(<ContactPanel />));
+    expect(screen.getByTestId('contact-panel').querySelector('.slab')).toBeTruthy();
   });
 });

@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import type { ReactNode } from 'react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { PRINCIPLES } from '@/data/career';
-import { PrincipleStatement } from '../PrincipleStatement';
+import { PrincipleStatement, PRINCIPLE_DIM_OPACITY } from '../PrincipleStatement';
 
 const wrap = (node: ReactNode) => <LanguageProvider>{node}</LanguageProvider>;
 const normalise = (text: string | null) => (text ?? '').replace(/\s+/g, ' ').trim();
@@ -49,6 +49,25 @@ afterEach(() => {
   window.localStorage.removeItem('cf6.lang');
 });
 
+describe('PrincipleStatement dimmed state', () => {
+  it('keeps unrevealed words readable: at least 4.5:1 for 20px text on the dark background', () => {
+    // text #f5f4ef over background #141413 at opacity a: blend, then WCAG contrast
+    const channel = (c: number) => {
+      const v = c / 255;
+      return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+    };
+    const luminance = (rgb: number[]) =>
+      0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
+    const fg = [0xf5, 0xf4, 0xef];
+    const bg = [0x14, 0x14, 0x13];
+    const a = PRINCIPLE_DIM_OPACITY;
+    const blended = fg.map((c, i) => bg[i] + a * (c - bg[i]));
+    const l1 = luminance(blended);
+    const l2 = luminance(bg);
+    expect((l1 + 0.05) / (l2 + 0.05)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
 describe('PrincipleStatement', () => {
   it('shows exactly the first principle (title and proof) in English, and nothing else', () => {
     stubMatchMedia(false);
@@ -90,7 +109,7 @@ describe('PrincipleStatement', () => {
     const o = opacities(container);
     const wordCount = `${PRINCIPLES[0].title.en} ${PRINCIPLES[0].proof.en}`.split(' ').length;
     expect(o.length).toBe(wordCount);
-    for (const value of o) expect(value).toBeCloseTo(0.15, 5);
+    for (const value of o) expect(value).toBeCloseTo(PRINCIPLE_DIM_OPACITY, 5);
   });
 
   it('reveals every word by the end of the pass', () => {
@@ -133,7 +152,7 @@ describe('PrincipleStatement', () => {
 
   it('is fully visible in the server render', () => {
     const html = renderToString(wrap(<PrincipleStatement />));
-    expect(html).not.toMatch(/opacity:0\.15/);
+    expect(html).not.toMatch(new RegExp(`opacity:${PRINCIPLE_DIM_OPACITY}\\b`));
     expect(html).toMatch(/opacity:1/);
   });
 });

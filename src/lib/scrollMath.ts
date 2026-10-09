@@ -54,3 +54,22 @@ export function pinnedProgress(
   if (travel <= 0) return 0;
   return clamp01(-rectTop / travel);
 }
+
+/**
+ * Progress (0..1) from the element's CENTER position: 0 when the center is at `from` of the
+ * viewport height (measured from the top), 1 when it reaches `to`. Use it for content that must
+ * finish animating while it is still in the middle of the screen, not after it has scrolled away.
+ */
+export function centerProgress(
+  rectTop: number,
+  rectHeight: number,
+  viewportHeight: number,
+  from = 0.85,
+  to = 0.4
+): number {
+  if (![rectTop, rectHeight, viewportHeight, from, to].every(Number.isFinite)) return 0;
+  const span = viewportHeight * (from - to);
+  if (span <= 0) return 0;
+  const center = rectTop + rectHeight / 2;
+  return clamp01((viewportHeight * from - center) / span);
+}

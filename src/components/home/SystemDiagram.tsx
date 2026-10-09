@@ -14,7 +14,7 @@ const STROKE = {
 
 export function SystemDiagram() {
   const { t } = useLanguage();
-  const { ref, progress } = useScrollProgress<HTMLElement>({ startAt: 0.9, endAt: 0.35 });
+  const { ref, progress } = useScrollProgress<HTMLElement>({ centerFrom: 0.85, centerTo: 0.5 });
 
   return (
     <section ref={ref} data-testid="system-diagram" className="mx-auto max-w-6xl px-sp-5 py-sp-8">
@@ -26,7 +26,7 @@ export function SystemDiagram() {
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="mx-auto mt-sp-6 h-auto w-full max-w-xl"
+        className="mx-auto mt-sp-6 h-auto w-full max-w-2xl"
       >
         {DIAGRAM_ELEMENTS.map((el) => (
           <path

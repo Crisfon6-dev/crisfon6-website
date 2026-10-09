@@ -1,11 +1,18 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { passProgress } from './scrollMath';
+import { centerProgress, passProgress } from './scrollMath';
 
 const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
 
-type Options = { startAt?: number; endAt?: number };
+type Options = {
+  /** Edge-based pass: starts when the top reaches `startAt`, ends when the bottom reaches `endAt`. */
+  startAt?: number;
+  endAt?: number;
+  /** Center-based pass (wins over the edge options): center from `centerFrom` to `centerTo`. */
+  centerFrom?: number;
+  centerTo?: number;
+};
 
 /**
  * Progress (0..1) of an element passing through the viewport.
@@ -15,6 +22,8 @@ type Options = { startAt?: number; endAt?: number };
 export function useScrollProgress<T extends HTMLElement>({
   startAt = 0.8,
   endAt = 0.4,
+  centerFrom,
+  centerTo = 0.4,
 }: Options = {}) {
   const ref = useRef<T | null>(null);
   const [progress, setProgress] = useState(1);
@@ -27,7 +36,11 @@ export function useScrollProgress<T extends HTMLElement>({
     if (reduced) return;
     const read = () => {
       const rect = el.getBoundingClientRect();
-      setProgress(passProgress(rect.top, rect.height, window.innerHeight, startAt, endAt));
+      setProgress(
+        centerFrom !== undefined
+          ? centerProgress(rect.top, rect.height, window.innerHeight, centerFrom, centerTo)
+          : passProgress(rect.top, rect.height, window.innerHeight, startAt, endAt)
+      );
     };
     read();
     window.addEventListener('scroll', read, { passive: true });
@@ -36,7 +49,7 @@ export function useScrollProgress<T extends HTMLElement>({
       window.removeEventListener('scroll', read);
       window.removeEventListener('resize', read);
     };
-  }, [startAt, endAt]);
+  }, [startAt, endAt, centerFrom, centerTo]);
 
   return { ref, progress };
 }

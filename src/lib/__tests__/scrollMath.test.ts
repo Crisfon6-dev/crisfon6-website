@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { clamp01, passProgress, pinnedProgress, segmentProgress, wordOpacity } from '../scrollMath';
+import {
+  centerProgress,
+  clamp01,
+  passProgress,
+  pinnedProgress,
+  segmentProgress,
+  wordOpacity,
+} from '../scrollMath';
 
 describe('clamp01', () => {
   it('clamps to 0..1 and maps non-finite values to 0', () => {
@@ -95,5 +102,34 @@ describe('pinnedProgress', () => {
   it('is 0 without travel or with non-finite input', () => {
     expect(pinnedProgress(-100, 800, 800)).toBe(0);
     expect(pinnedProgress(Number.NaN, 6400, 800)).toBe(0);
+  });
+});
+
+describe('centerProgress', () => {
+  // viewport 1000, element 800 tall; its CENTER goes from 85% of the viewport (progress 0)
+  // up to 40% of the viewport (progress 1): 450px of travel. center = top + 400.
+  it('is 0 while the element center is at or below the start line', () => {
+    expect(centerProgress(450, 800, 1000)).toBe(0); // center exactly at 850
+    expect(centerProgress(900, 800, 1000)).toBe(0);
+  });
+
+  it('is 1 once the center has reached the end line', () => {
+    expect(centerProgress(0, 800, 1000)).toBe(1); // center exactly at 400
+    expect(centerProgress(-300, 800, 1000)).toBe(1);
+  });
+
+  it('is linear in between', () => {
+    expect(centerProgress(225, 800, 1000)).toBeCloseTo(0.5, 10); // center 625, halfway between 850 and 400
+  });
+
+  it('honors custom lines (200px element, center from 50% to 20% of a 1000px viewport)', () => {
+    expect(centerProgress(400, 200, 1000, 0.5, 0.2)).toBe(0); // center 500
+    expect(centerProgress(250, 200, 1000, 0.5, 0.2)).toBeCloseTo(0.5, 10); // center 350
+    expect(centerProgress(100, 200, 1000, 0.5, 0.2)).toBe(1); // center 200
+  });
+
+  it('is 0 for non-finite input or an inverted span', () => {
+    expect(centerProgress(Number.NaN, 800, 1000)).toBe(0);
+    expect(centerProgress(0, 800, 1000, 0.4, 0.85)).toBe(0);
   });
 });

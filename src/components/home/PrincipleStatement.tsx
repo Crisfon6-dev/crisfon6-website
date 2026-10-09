@@ -5,6 +5,9 @@ import { PRINCIPLES } from '@/data/career';
 import { useScrollProgress } from '@/lib/useScrollProgress';
 import { wordOpacity } from '@/lib/scrollMath';
 
+/** Unrevealed words stay readable (4.5:1 against the dark background), so a pause mid-reveal is safe. */
+export const PRINCIPLE_DIM_OPACITY = 0.5;
+
 type WordsProps = { words: string[]; offset: number; total: number; progress: number };
 
 function Words({ words, offset, total, progress }: WordsProps) {
@@ -14,7 +17,7 @@ function Words({ words, offset, total, progress }: WordsProps) {
         <span
           key={`${offset + i}-${word}`}
           data-word
-          style={{ opacity: wordOpacity(offset + i, total, progress) }}
+          style={{ opacity: wordOpacity(offset + i, total, progress, PRINCIPLE_DIM_OPACITY) }}
           className="transition-opacity duration-150"
         >
           {word}{' '}
@@ -27,7 +30,7 @@ function Words({ words, offset, total, progress }: WordsProps) {
 /** Full-screen statement: the first principle from career.ts, revealed word by word on scroll. */
 export function PrincipleStatement() {
   const { locale } = useLanguage();
-  const { ref, progress } = useScrollProgress<HTMLElement>({ startAt: 0.85, endAt: 0.3 });
+  const { ref, progress } = useScrollProgress<HTMLElement>({ centerFrom: 0.8, centerTo: 0.45 });
   const principle = PRINCIPLES[0];
   const title = principle.title[locale].split(' ');
   const proof = principle.proof[locale].split(' ');

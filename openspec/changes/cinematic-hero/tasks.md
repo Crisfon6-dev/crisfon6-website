@@ -31,7 +31,7 @@
 - [x] 4.9 Compose `HeroFilm` directly after `HeroSection` in `HomeContent` (test: order hero, film, stats); keep existing home tests green
 - [x] 4.10 Write a failing byte-budget check for `public/hero/` (bytes only; versioned names; poster/still/video limits; no mobile video; ffprobe checks for all-intra, no audio and no format tags run when ffprobe exists); implement the check until it passes against fixtures and fails on violations
 - [x] 4.11 Add a static test that no file outside the home film module references `/hero/`
-- [ ] 4.12 Run targeted tests, `npm run lint`, `npm run type-check`
+- [x] 4.12 Run targeted tests, `npm run lint`, `npm run type-check`
 
 ## 5. Clip Generation (chained)
 
@@ -59,11 +59,11 @@
 
 ## 8. Scroll sections, test-first
 
-- [ ] 8.1 `Timeline` line-draw: failing tests (items unchanged, progress line fills, reduced motion fully filled), then implement; used by About
-- [ ] 8.2 `SystemDiagram` section: failing tests (progress to dash offset, reduced motion fully drawn, no `text` elements, no unverified copy), then implement
-- [ ] 8.3 `PrincipleStatement` section: failing tests (text equals `PRINCIPLES[0]` in EN and ES, words reveal with progress, reduced motion shows all), then implement
-- [ ] 8.4 `HorizontalCases` section: failing tests (desktop track of the 4 featured cards with progress to translation, links `/projects#id` preserved, fallback to the vertical grid under 1024px or reduced motion), then implement
-- [ ] 8.5 Compose the sections into `HomeContent` in a sensible order; extend the claim-alignment test to the new sections
+- [x] 8.1 `Timeline` line-draw: failing tests (items unchanged, progress line fills, reduced motion fully filled), then implement; used by About
+- [x] 8.2 `SystemDiagram` section: failing tests (progress to dash offset, reduced motion fully drawn, no `text` elements, no unverified copy), then implement
+- [x] 8.3 `PrincipleStatement` section: failing tests (text equals `PRINCIPLES[0]` in EN and ES, words reveal with progress, reduced motion shows all), then implement
+- [x] 8.4 `HorizontalCases` section: failing tests (desktop track of the 4 featured cards with progress to translation, links `/projects#id` preserved, fallback to the vertical grid under 1024px or reduced motion), then implement
+- [x] 8.5 Compose the sections into `HomeContent` in a sensible order; extend the claim-alignment test to the new sections
 
 ## 9. Verification
 

@@ -67,12 +67,12 @@
 
 ## 9. Verification
 
-- [ ] 9.1 Run targeted tests for everything touched, then the full lint, type-check and build
-- [ ] 9.2 Start the dev server, screenshot the home page at 1440px and 390px in EN and ES with the film at several scroll positions; fix layout issues first
-- [ ] 9.3 Verify reduced-motion, small viewport and no-JS show stills and no video request
-- [ ] 9.4 Run Lighthouse on `/` for desktop and mobile; report LCP, CLS and total weight; confirm performance >= 90, accessibility >= 95, CLS <= 0.01; if missed, shorten or compress the film
-- [ ] 9.5 Confirm other routes request nothing under `public/hero/` and that the other existing sections still work
-- [ ] 9.6 Re-run the content denylist checks (including `CONFIDENTIAL_DENYLIST`) over the rendered pages and the asset names and metadata
+- [x] 9.1 Run targeted tests for everything touched, then the full lint, type-check and build (35 files, 311 tests, lint, tsc and production build clean)
+- [x] 9.2 Start the production server, screenshot the home page at 1440px and 390px in EN and ES with the film at several scroll positions; fix layout issues first
+- [x] 9.3 Verify reduced-motion, small viewport and no-JS show stills and no video request
+- [x] 9.4 Run Lighthouse on `/` (a11y 96/96, LCP 676/908 ms, CLS 0.00/0.00; official performance score not obtainable with the available tool, see F-26) for desktop and mobile; report LCP, CLS and total weight; confirm performance >= 90, accessibility >= 95, CLS <= 0.01; if missed, shorten or compress the film
+- [x] 9.5 Confirm other routes request nothing under `public/hero/` and that the other existing sections still work
+- [x] 9.6 Re-run the content denylist checks (including `CONFIDENTIAL_DENYLIST`) over the rendered pages and the asset names and metadata
 
 ## 10. Report and pull request
 

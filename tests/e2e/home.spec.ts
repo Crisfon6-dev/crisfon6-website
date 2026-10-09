@@ -26,7 +26,7 @@ test.describe('Home page (hi-fi)', () => {
 
   test('automation section renders with pipeline', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('AUTOMATION OF THE WEEK')).toBeVisible();
+    await expect(page.getByText('FEATURED AUTOMATION')).toBeVisible();
     await expect(page.getByLabel('pipeline')).toBeVisible();
   });
 

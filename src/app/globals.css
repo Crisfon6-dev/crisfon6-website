@@ -607,3 +607,17 @@
     margin: 14mm;
   }
 }
+
+/* Timeline: the accent line fills as the list scrolls through the viewport.
+   --timeline-progress is set by Timeline; unset (no JS) it falls back to fully drawn. */
+.timeline-progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background: var(--c-accent);
+  transform-origin: top;
+  transform: scaleY(var(--timeline-progress, 1));
+}

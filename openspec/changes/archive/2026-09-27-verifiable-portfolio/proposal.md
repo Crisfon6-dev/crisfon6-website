@@ -1,7 +1,7 @@
 # Proposal — Verifiable portfolio (`/experience` + case-study `/projects`)
 
 **Change id:** `2026-09-27-verifiable-portfolio`
-**Status:** proposed · **v2 2026-09-27** — content enriched from Cristhian's three private engineering knowledge bases (see `content.md` header); 12 case studies in 3 tiers, founder project (anonymized), How I work, Writing, open decisions §12
+**Status:** implemented and archived 2026-10-10 (shipped in PR #24; archived by hand because the OpenSpec CLI rejects change ids that start with a digit) · **v2 2026-09-27** — content enriched from Cristhian's three private engineering knowledge bases (see `content.md` header); 12 case studies in 3 tiers, founder project (anonymized), How I work, Writing, open decisions §12
 **Owner:** Cristhian Fonseca
 
 ## Why

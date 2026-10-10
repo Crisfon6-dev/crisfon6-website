@@ -80,8 +80,8 @@
   --color-warm-border-strong: var(--c-warm-border-strong);
 
   /* === Semantic chips === */
-  --color-green: #34d399;
-  --color-green-dim: rgba(52, 211, 153, 0.1);
+  --color-green: #047857;
+  --color-green-dim: rgba(4, 120, 87, 0.1);
   --color-amber: #fbbf24;
   --color-amber-dim: rgba(251, 191, 36, 0.1);
   --color-red: #f87171;
@@ -213,6 +213,8 @@
   /* Accent — same Claude orange in dark (per prototype spec) */
   --c-accent: #d97757;
   --c-accent-text: #e8906f;
+  --color-green: #34d399;
+  --color-green-dim: rgba(52, 211, 153, 0.1);
   --c-accent-fill: #b5532f;
   --c-accent-light: #e28f74;
   --c-accent-dim: rgba(217, 119, 87, 0.14);
@@ -656,6 +658,9 @@
   box-shadow:
     inset 0 1px 0 color-mix(in oklab, var(--c-warm-bg-elev) 100%, white 40%),
     0 4px 12px rgb(20 20 19 / 0.06);
+}
+.dark .slab::before {
+  display: none;
 }
 .dark .slab {
   box-shadow:

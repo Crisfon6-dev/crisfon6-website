@@ -3,6 +3,7 @@
 import {
   HeroSection,
   HeroFilm,
+  ProofStrip,
   FeaturedCases,
   PrincipleStatement,
   NewsletterPanel,
@@ -15,6 +16,7 @@ export function HomeContent() {
     <div className="page-in relative">
       <Atmosphere />
       <HeroSection />
+      <ProofStrip />
       <HeroFilm />
       <FeaturedCases />
       <PrincipleStatement />

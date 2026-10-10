@@ -69,12 +69,12 @@ export function AboutContent() {
             <Kicker accent dot>
               <span>{t.hero.cert}</span>
             </Kicker>
-            <h3
+            <h2
               className="relative mt-sp-3 font-heading text-warm-fg"
               style={{ fontSize: '22px', letterSpacing: '-0.02em', fontWeight: 600 }}
             >
               Claude Code in Action
-            </h3>
+            </h2>
             <p className="relative mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
               Anthropic · Feb 2026
             </p>
@@ -96,7 +96,7 @@ export function AboutContent() {
         <div className="mt-sp-6 grid gap-sp-4 md:grid-cols-3">
           {STACK_GROUPS.map((group) => (
             <article key={group.group} className="slab p-sp-5">
-              <h3 className="text-sm font-semibold text-warm-fg">{group.group}</h3>
+              <h2 className="text-sm font-semibold text-warm-fg">{group.group}</h2>
               <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">
                 {group.items.join(', ')}
               </p>

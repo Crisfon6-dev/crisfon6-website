@@ -6,7 +6,7 @@ import { useScrollProgress } from '@/lib/useScrollProgress';
 import { wordOpacity } from '@/lib/scrollMath';
 
 /** Unrevealed words stay readable (4.5:1 against the dark background), so a pause mid-reveal is safe. */
-export const PRINCIPLE_DIM_OPACITY = 0.5;
+export const PRINCIPLE_DIM_OPACITY = 0.72;
 
 type WordsProps = { words: string[]; offset: number; total: number; progress: number };
 

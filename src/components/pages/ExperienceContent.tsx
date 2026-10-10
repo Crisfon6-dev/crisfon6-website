@@ -8,6 +8,7 @@ import { Chip } from '@/components/primitives/Chip';
 import { Atmosphere } from '@/components/primitives/Atmosphere';
 import {
   ROLES,
+  CASE_STUDIES,
   CREDENTIALS,
   KEY_FACTS,
   PRINCIPLES,
@@ -70,17 +71,29 @@ export function ExperienceContent() {
             ))}
           </div>
           {role.caseStudyIds.length > 0 ? (
-            <div className="mt-sp-4 flex flex-wrap gap-sp-4">
-              {role.caseStudyIds.map((id) => (
-                <Link
-                  key={id}
-                  href={`/projects#${id}`}
-                  className="text-sm font-medium text-accent-text hover:underline"
-                >
-                  {t.experience.seeCaseStudy}
-                </Link>
-              ))}
-            </div>
+            <ul className="mt-sp-4 grid gap-x-sp-5 sm:grid-cols-2">
+              {role.caseStudyIds.map((id) => {
+                const study = CASE_STUDIES.find((c) => c.id === id);
+                return (
+                  <li key={id}>
+                    <Link
+                      href={`/projects#${id}`}
+                      className="group flex min-h-11 flex-col justify-center py-1 text-sm font-medium text-accent-text hover:underline"
+                    >
+                      {study ? (
+                        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-warm-fg-muted">
+                          {study.tag}
+                        </span>
+                      ) : null}
+                      <span>
+                        {t.experience.seeCaseStudy}
+                        {study ? <span className="sr-only"> — {study.title[locale]}</span> : null}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           ) : null}
         </div>
       </article>
@@ -114,20 +127,25 @@ export function ExperienceContent() {
         <div className="flex flex-wrap items-center justify-between gap-sp-4 border-y border-warm-border py-sp-4 text-sm text-warm-fg-muted">
           <div className="flex flex-wrap items-center gap-sp-4">
             <span>{PROFILE.location[locale]}</span>
-            <span aria-hidden>·</span>
+            <span aria-hidden className="hidden sm:inline">
+              ·
+            </span>
             <span>
               {t.experience.openTo}: {PROFILE.openTo[locale]}
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-sp-3">
-            <a href={`mailto:${PROFILE.email}`} className="hover:underline">
+          <div className="flex flex-wrap items-center gap-x-sp-4">
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="inline-flex min-h-11 items-center hover:underline"
+            >
               {t.experience.emailMe}
             </a>
             <a
               href={PROFILE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="inline-flex min-h-11 items-center hover:underline"
             >
               LinkedIn
             </a>
@@ -135,7 +153,7 @@ export function ExperienceContent() {
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="inline-flex min-h-11 items-center hover:underline"
             >
               GitHub
             </a>

@@ -86,7 +86,7 @@ export function BlogContent({ publishedPosts }: Props) {
       {/* Upcoming */}
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
         <Kicker>{t.blog.comingNext}</Kicker>
-        <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border opacity-60">
+        <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border">
           {UPCOMING.map((post) => (
             <li key={post.title} data-testid="upcoming-post">
               <div className="flex flex-wrap items-center gap-sp-4 py-sp-5">

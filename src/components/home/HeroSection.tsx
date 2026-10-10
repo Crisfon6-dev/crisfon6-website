@@ -82,7 +82,7 @@ export function HeroSection() {
         <Link
           href="/newsletter"
           data-testid="hero-cta-newsletter"
-          className="text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
         >
           {t.hero.cta1} →
         </Link>
@@ -112,7 +112,7 @@ export function HeroSection() {
       <Link
         href="/experience"
         data-testid="hero-full-work-history"
-        className="mt-sp-2 inline-block text-sm font-medium text-accent-text hover:underline"
+        className="mt-sp-2 inline-flex min-h-11 items-center text-sm font-medium text-accent-text hover:underline"
       >
         {t.hero.fullWorkHistory}
       </Link>

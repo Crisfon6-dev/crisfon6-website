@@ -191,7 +191,7 @@ function FilmStage() {
             aria-hidden="true"
             decoding="async"
             onLoad={() => setPosterLoaded(true)}
-            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.42] dark:saturate-[0.8] dark:contrast-[1.05]"
+            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.36] dark:saturate-[0.8] dark:contrast-[1.05]"
           />
         ) : null}
         <video
@@ -203,13 +203,13 @@ function FilmStage() {
           tabIndex={-1}
           aria-hidden="true"
           onLoadedData={() => setVideoReady(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 dark:brightness-[0.42] dark:saturate-[0.8] dark:contrast-[1.05] ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 dark:brightness-[0.36] dark:saturate-[0.8] dark:contrast-[1.05] ${
             videoReady ? 'opacity-100' : 'opacity-0'
           }`}
         />
         <div
           data-testid="film-hero-shade"
-          className="absolute inset-0 bg-gradient-to-r from-warm-bg/90 via-warm-bg/45 to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-warm-bg/90 via-warm-bg/45 to-transparent dark:from-warm-bg/95 dark:via-warm-bg/75"
           style={{ opacity: heroShade }}
         />
         <div

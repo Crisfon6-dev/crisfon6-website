@@ -77,6 +77,19 @@ describe('Navbar', () => {
     expect(screen.getByTestId('mobile-menu')).toBeTruthy();
   });
 
+  it('collapses to the hamburger below lg: the full nav does not fit a 768px tablet', () => {
+    renderNav();
+    const toggle = screen.getByRole('button', { name: /open menu|toggle menu/i });
+    expect(toggle.className).toContain('lg:hidden');
+    expect(toggle.className).not.toMatch(/(^|\s)md:hidden/);
+    const desktopGroup = document.querySelector('div.hidden.items-center')!;
+    expect(desktopGroup.className).toContain('lg:flex');
+    expect(desktopGroup.className).not.toMatch(/(^|\s)md:flex/);
+    fireEvent.click(toggle);
+    expect(screen.getByTestId('mobile-menu').className).toContain('lg:hidden');
+    expect(screen.getByTestId('mobile-menu').className).not.toMatch(/(^|\s)md:hidden/);
+  });
+
   it('closes the mobile overlay when a link inside it is clicked', () => {
     renderNav();
     fireEvent.click(screen.getByRole('button', { name: /open menu|toggle menu/i }));

@@ -1,4 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { render, act } from '@testing-library/react';
 import { Typewriter } from '../Typewriter';
 
@@ -95,5 +97,50 @@ describe('Typewriter', () => {
     // advancing after unmount should not throw or update
     expect(() => vi.advanceTimersByTime(5000)).not.toThrow();
     expect(container.textContent).toBe('');
+  });
+});
+
+describe('Typewriter reserved space (no layout shift)', () => {
+  it('exposes the longest word as the ghost used to reserve space', () => {
+    const { container } = render(
+      <Typewriter words={['short', 'the longest phrase here', 'mid size']} />
+    );
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.getAttribute('data-ghost')).toBe('the longest phrase here');
+  });
+
+  it('keeps the ghost out of the DOM text, so text content only has what is typed', async () => {
+    const { container } = render(<Typewriter words={['abc', 'a much longer word']} />);
+    expect(container.textContent).toBe('');
+    await advance(60);
+    expect(container.textContent).toBe('a');
+  });
+
+  it('has an empty ghost when there are no words', () => {
+    const { container } = render(<Typewriter words={[]} />);
+    expect((container.firstElementChild as HTMLElement).getAttribute('data-ghost')).toBe('');
+  });
+
+  it('styles the ghost as invisible text that still takes up space, sharing one grid cell', () => {
+    // comments are removed first so they cannot end up inside a selector
+    const css = readFileSync(path.join(process.cwd(), 'src/app/globals.css'), 'utf8').replace(
+      /\/\*[\s\S]*?\*\//g,
+      ''
+    );
+    // every rule whose selector list mentions the selector, with all its declarations joined
+    const declarations = (selector: string) => {
+      const bodies: string[] = [];
+      for (const match of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+        const selectors = match[1].split(',').map((part) => part.trim());
+        if (selectors.includes(selector)) bodies.push(match[2]);
+      }
+      expect(bodies.length, `a rule for ${selector}`).toBeGreaterThan(0);
+      return bodies.join(' ');
+    };
+    expect(declarations('.typewriter')).toMatch(/display:\s*inline-grid/);
+    const ghost = declarations('.typewriter::after');
+    expect(ghost).toMatch(/content:\s*attr\(data-ghost\)/);
+    expect(ghost).toMatch(/visibility:\s*hidden/);
+    expect(ghost).toMatch(/grid-area:\s*1\s*\/\s*1/);
   });
 });

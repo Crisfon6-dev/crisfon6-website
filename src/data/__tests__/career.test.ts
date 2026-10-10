@@ -23,11 +23,11 @@ describe('career data', () => {
     expect(ROLES).toHaveLength(6);
   });
 
-  it('has 12 case studies (4 per tier)', () => {
-    expect(CASE_STUDIES).toHaveLength(12);
+  it('has 13 case studies (5 tier A, 4 tier B, 4 tier C)', () => {
+    expect(CASE_STUDIES).toHaveLength(13);
     const byTier = { A: 0, B: 0, C: 0 };
     for (const cs of CASE_STUDIES) byTier[cs.tier]++;
-    expect(byTier).toEqual({ A: 4, B: 4, C: 4 });
+    expect(byTier).toEqual({ A: 5, B: 4, C: 4 });
   });
 
   it('has exactly one featured case study: ai-in-production', () => {
@@ -57,8 +57,8 @@ describe('career data', () => {
       const sorted = sortRoles(ROLES).map((r) => r.id);
       expect(sorted).toEqual([
         'prosperas',
-        'esoluzion',
         'imkglobal',
+        'esoluzion',
         'dualboot',
         'accenture',
         'founder',
@@ -148,11 +148,51 @@ describe('career data', () => {
     });
   });
 
-  describe('conversational-ai-product anonymity', () => {
-    it('has no repoUrl or liveUrl', () => {
-      const cs = CASE_STUDIES.find((c) => c.id === 'conversational-ai-product');
+  describe('eSoluzion dates (aligned with LinkedIn)', () => {
+    it('ends in Aug 2026 and is no longer current', () => {
+      const role = ROLES.find((r) => r.id === 'esoluzion')!;
+      expect(role.end).toBe('2026-08');
+      expect(formatRolePeriod(role, 'en', 'Present')).toBe('Oct 2022 – Aug 2026');
+      expect(ROLES.filter((r) => r.kind === 'employment' && r.end === null)).toHaveLength(1);
+    });
+  });
+
+  describe('aphrodite (pre-launch, no invented traction)', () => {
+    it('is named, has no repoUrl or liveUrl, and carries the pre-launch footnote', () => {
+      const cs = CASE_STUDIES.find((c) => c.id === 'aphrodite');
+      expect(cs?.title.en).toBe('Aphrodite — AI companion marketplace');
       expect(cs?.repoUrl).toBeUndefined();
       expect(cs?.liveUrl).toBeUndefined();
+      expect(cs?.footnote?.en).toMatch(/Pre-launch/);
+    });
+
+    it('leads with the product/business layer before the technical detail', () => {
+      const cs = CASE_STUDIES.find((c) => c.id === 'aphrodite')!;
+      expect(cs.context?.en).toMatch(
+        /^A marketplace where AI that actually knows each user fights loneliness\./
+      );
+      expect(cs.context?.es).toMatch(
+        /^Un marketplace donde una IA que de verdad conoce a cada usuario combate la soledad\./
+      );
+    });
+  });
+
+  describe('ai-orchestration-harness', () => {
+    it('is a tier A case study with a meta override and the verified stack', () => {
+      const cs = CASE_STUDIES.find((c) => c.id === 'ai-orchestration-harness')!;
+      expect(cs.tier).toBe('A');
+      expect(cs.meta?.en).toBe(
+        'Aphrodite + Prosperas · 2025 – Present · Tech Lead / AI Orchestrator'
+      );
+      expect(cs.stack).toEqual([
+        'Claude Code',
+        'Claude API',
+        'MCP',
+        'claude-flow',
+        'Linear',
+        'OpenSpec',
+      ]);
+      expect(cs.whatIDid).toHaveLength(5);
     });
   });
 });

@@ -25,7 +25,8 @@ export type CaseStudy = {
     | 'ai-in-production'
     | 'credit-marketplace'
     | 'aws-cost-audit'
-    | 'conversational-ai-product'
+    | 'aphrodite'
+    | 'ai-orchestration-harness'
     | 'analytics-platform'
     | 'production-reliability'
     | 'identity-integrity'
@@ -35,6 +36,8 @@ export type CaseStudy = {
     | 'govtech-tourism-apps'
     | 'banking-telecom-data';
   tier: 'A' | 'B' | 'C';
+  // Overrides the "Employer · Period · Role" line when a case study spans several roles.
+  meta?: L;
   incidents?: readonly Incident[];
   footnote?: L;
   roleId: Role['id'];
@@ -97,8 +100,8 @@ export const PROFILE: Profile = {
     es: 'Roles remotos de Technical Lead / Senior AI Engineer con equipos de EE. UU. · tiempo completo o contrato',
   },
   summary: {
-    en: "Technical Lead and full-stack engineer with 5+ years building cloud-native FinTech and banking platforms. I lead engineering for a digital credit marketplace embedded in a major telecom's Super App — ~100K monthly active users inside a 45M-user ecosystem — and since 2022 I've built core banking modules for an enterprise banking client. I build AI systems that run in production — an MCP server the business uses to query live data, an autonomous triage agent, a multi-agent delivery pipeline — and I own the AWS underneath: I cut our cloud bill by 43% and trace every incident to root cause.",
-    es: 'Technical Lead e ingeniero full-stack con más de 5 años construyendo plataformas cloud-native de FinTech y banca. Lidero la ingeniería de un marketplace de crédito digital integrado en la Super App de una gran telco — ~100K usuarios activos mensuales dentro de un ecosistema de 45M — y desde 2022 construyo módulos de core bancario para un cliente de banca empresarial. Construyo sistemas de IA que corren en producción — un servidor MCP con el que el negocio consulta datos en vivo, un agente autónomo de triage, un pipeline de entrega multiagente — y soy dueño del AWS que hay debajo: bajé nuestra factura cloud un 43% y llevo cada incidente hasta su causa raíz.',
+    en: "Technical Lead and full-stack engineer with 5+ years building cloud-native FinTech and banking platforms. I lead engineering for a digital credit marketplace embedded in a major telecom's Super App — ~100K monthly active users inside a 45M-user ecosystem — and between 2022 and 2026 I built core banking modules for an enterprise banking client. I build AI systems that run in production — an MCP server the business uses to query live data, an autonomous triage agent, a multi-agent delivery pipeline — and I own the AWS underneath: I cut our cloud bill by 43% and trace every incident to root cause.",
+    es: 'Technical Lead e ingeniero full-stack con más de 5 años construyendo plataformas cloud-native de FinTech y banca. Lidero la ingeniería de un marketplace de crédito digital integrado en la Super App de una gran telco — ~100K usuarios activos mensuales dentro de un ecosistema de 45M — y entre 2022 y 2026 construí módulos de core bancario para un cliente de banca empresarial. Construyo sistemas de IA que corren en producción — un servidor MCP con el que el negocio consulta datos en vivo, un agente autónomo de triage, un pipeline de entrega multiagente — y soy dueño del AWS que hay debajo: bajé nuestra factura cloud un 43% y llevo cada incidente hasta su causa raíz.',
   },
   confidential: {
     en: "Client names are withheld under confidentiality agreements. I'm happy to share them — and references — during a hiring process.",
@@ -169,7 +172,7 @@ export const ROLES: readonly Role[] = [
         es: 'Construí un servidor MCP de solo lectura con el que gerentes y analistas consultan datos de producción en lenguaje natural. Encontré y corregí de raíz un subconteo del 98,4% y cerré sus brechas de seguridad con revisión adversarial.',
       },
       {
-        en: 'Built an autonomous production-triage agent (headless Claude Code with the Sentry, Jira and Slack MCPs) that runs every weekday under a strict no-commit contract.',
+        en: 'Built an autonomous production-triage agent (headless Claude Code with the Sentry, Jira and Slack MCPs) that runs on weekdays under a strict no-commit contract.',
         es: 'Construí un agente autónomo de triage de producción (Claude Code headless con los MCP de Sentry, Jira y Slack) que corre cada día hábil bajo un contrato estricto de cero commits.',
       },
       {
@@ -210,6 +213,7 @@ export const ROLES: readonly Role[] = [
       'production-reliability',
       'identity-integrity',
       'public-platform-surfaces',
+      'ai-orchestration-harness',
     ],
   },
   {
@@ -221,7 +225,7 @@ export const ROLES: readonly Role[] = [
       es: 'Full-Stack Developer (consultoría frontend)',
     },
     start: '2022-10',
-    end: null,
+    end: '2026-08',
     type: { en: 'Contract · Remote', es: 'Contrato · Remoto' },
     location: 'Remote',
     clientLine: {
@@ -230,8 +234,8 @@ export const ROLES: readonly Role[] = [
     },
     bullets: [
       {
-        en: 'Build and maintain Angular interfaces across multiple core banking modules.',
-        es: 'Construyo y mantengo interfaces en Angular para varios módulos de core bancario.',
+        en: 'Built and maintained Angular interfaces across multiple core banking modules.',
+        es: 'Construí y mantuve interfaces en Angular para varios módulos de core bancario.',
       },
       {
         en: "Designed end-to-end modules in Java (Spring Boot) and Thymeleaf that meet the bank's code-quality and regulatory-compliance standards.",
@@ -242,12 +246,12 @@ export const ROLES: readonly Role[] = [
         es: 'Remedié vulnerabilidades de seguridad en un código Java legado reemplazando métodos inseguros basados en regex.',
       },
       {
-        en: 'Deliver features with product owners and QA against business requirements.',
-        es: 'Entrego funcionalidades junto a product owners y QA contra requerimientos de negocio.',
+        en: 'Delivered features with product owners and QA against business requirements.',
+        es: 'Entregué funcionalidades junto a product owners y QA contra requerimientos de negocio.',
       },
       {
-        en: "Integrating an AI chat assistant into an internal credit-analysis application through the bank's corporate AI gateway, including enterprise authentication flows (Spring MVC, Thymeleaf).",
-        es: 'Integro un asistente de chat con IA en una aplicación interna de análisis de crédito a través del gateway corporativo de IA del banco, incluyendo flujos de autenticación empresariales (Spring MVC, Thymeleaf).',
+        en: "Integrated an AI chat assistant into an internal credit-analysis application through the bank's corporate AI gateway, including enterprise authentication flows (Spring MVC, Thymeleaf).",
+        es: 'Integré un asistente de chat con IA en una aplicación interna de análisis de crédito a través del gateway corporativo de IA del banco, incluyendo flujos de autenticación empresariales (Spring MVC, Thymeleaf).',
       },
     ],
     stack: ['Angular', 'TypeScript', 'Java', 'Spring Boot', 'Thymeleaf'],
@@ -372,21 +376,21 @@ export const ROLES: readonly Role[] = [
     id: 'founder',
     kind: 'founder',
     employer: {
-      en: 'Conversational AI product (stealth)',
-      es: 'Producto de IA conversacional (stealth)',
+      en: 'Aphrodite — AI companion marketplace',
+      es: 'Aphrodite — marketplace de compañeros de IA',
     },
     title: { en: 'Founder & Tech Lead', es: 'Fundador y Tech Lead' },
     start: '2026',
     end: null,
     type: { en: 'Side project · Founder', es: 'Proyecto propio · Fundador' },
     clientLine: {
-      en: 'Pre-launch. Details under NDA; happy to walk through the code in an interview.',
-      es: 'Pre-lanzamiento. Detalles bajo confidencialidad; con gusto recorro el código en una entrevista.',
+      en: 'A marketplace where AI that actually knows each user fights loneliness. It runs several internal micro-economies, so the product and the business model are built together. Pre-launch; happy to walk through the code in an interview.',
+      es: 'Un marketplace donde una IA que de verdad conoce a cada usuario combate la soledad. Activa varias microeconomías internas: el producto y el modelo de negocio se construyen juntos. Pre-lanzamiento; con gusto recorro el código en una entrevista.',
     },
     bullets: [
       {
-        en: 'Founded and build, solo, a multi-sided conversational AI product: hexagonal architecture, two-tier conversational memory with crypto-shredding erasure, a pre-LLM safety gate, and signed idempotent payments.',
-        es: 'Fundé y construyo, solo, un producto de IA conversacional de varios lados: arquitectura hexagonal, memoria conversacional de dos niveles con borrado por crypto-shredding, un filtro de seguridad previo al LLM y pagos firmados e idempotentes.',
+        en: 'Founded and build, solo, Aphrodite, an AI companion marketplace: hexagonal architecture, two-tier conversational memory with crypto-shredding erasure, a pre-LLM safety gate, and signed idempotent payments.',
+        es: 'Fundé y construyo, solo, Aphrodite, un marketplace de compañeros de IA: arquitectura hexagonal, memoria conversacional de dos niveles con borrado por crypto-shredding, un filtro de seguridad previo al LLM y pagos firmados e idempotentes.',
       },
       {
         en: 'Deliver with a multi-agent software factory (planner, coder and adversarial reviewer agents working from specs), backed by 3,000+ automated tests and rollback exercised in production.',
@@ -403,7 +407,7 @@ export const ROLES: readonly Role[] = [
       'Cloudflare',
       'Claude Code',
     ],
-    caseStudyIds: ['conversational-ai-product'],
+    caseStudyIds: ['aphrodite', 'ai-orchestration-harness'],
   },
 ];
 
@@ -449,7 +453,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
         es: 'Conciliado exacto contra conteos independientes',
       },
       { en: '30+ attack shapes, 0 leaks', es: '30+ formas de ataque, 0 fugas' },
-      { en: 'Triage agent runs every weekday', es: 'Agente de triage corre cada día hábil' },
+      { en: 'Triage agent runs on weekdays', es: 'Agente de triage corre cada día hábil' },
     ],
     stack: [
       'MCP',
@@ -463,6 +467,56 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       'Jira',
       'Slack',
     ],
+  },
+  {
+    id: 'ai-orchestration-harness',
+    tier: 'A',
+    roleId: 'founder',
+    meta: {
+      en: 'Aphrodite + Prosperas · 2025 – Present · Tech Lead / AI Orchestrator',
+      es: 'Aphrodite + Prosperas · 2025 – Presente · Tech Lead / AI Orchestrator',
+    },
+    tag: 'AI · ORCHESTRATION',
+    status: { en: 'In use', es: 'En uso' },
+    title: {
+      en: 'A multi-agent engineering org that ships — and reviews its own work',
+      es: 'Una organización de agentes que entrega y revisa su propio trabajo',
+    },
+    context: {
+      en: "Agents can write code. The hard part is who reviews it. I built the harness around that question: agents plan, build and review each other's work under explicit gates.",
+      es: 'Los agentes pueden escribir código. Lo difícil es quién lo revisa. Construí el arnés alrededor de esa pregunta: los agentes planifican, construyen y se revisan entre sí bajo controles explícitos.',
+    },
+    whatIDid: [
+      {
+        en: 'Built an adversarial evaluator panel: two blind judges review every branch independently, a synthesizer confirms findings, and a separate fixer applies only confirmed defects. The loop repeats until zero confirmed CRITICAL findings remain.',
+        es: 'Construí un panel evaluador adversarial: dos jueces ciegos revisan cada rama de forma independiente, un sintetizador confirma los hallazgos y un corrector aparte aplica solo los defectos confirmados. El ciclo se repite hasta que no queda ningún hallazgo CRITICAL confirmado.',
+      },
+      {
+        en: 'Built 20 purpose-built agents, including a simulated C-suite (CTO, CPO, CMO, finance, legal, trust & safety) for product decisions, and synthetic user personas that QA the product end to end.',
+        es: 'Construí 20 agentes a medida, incluyendo un C-suite simulado (CTO, CPO, CMO, finanzas, legal, trust & safety) para decisiones de producto, y personas de usuario sintéticas que prueban el producto de punta a punta.',
+      },
+      {
+        en: 'Built an autonomous backlog runner that pulls issues from Linear and works them in isolated workspaces. First full run: 13 issues → 11 merged PRs in one day.',
+        es: 'Construí un ejecutor autónomo de backlog que toma issues de Linear y los trabaja en espacios aislados. Primera corrida completa: 13 issues → 11 PRs mergeados en un día.',
+      },
+      {
+        en: 'Wired lifecycle hooks on 10 events, 3-tier model routing, vector memory, and spec-driven development (OpenSpec).',
+        es: 'Conecté hooks de ciclo de vida en 10 eventos, enrutamiento de modelos en 3 niveles, memoria vectorial y desarrollo guiado por specs (OpenSpec).',
+      },
+      {
+        en: 'At Prosperas: a swarm harness plus a weekday Sentry triage agent (max 3 tickets per run; it cannot commit or open PRs) and MCP agents over production data.',
+        es: 'En Prosperas: un arnés de enjambre más un agente de triage de Sentry en días hábiles (máximo 3 tickets por corrida; no puede hacer commits ni abrir PRs) y agentes MCP sobre datos de producción.',
+      },
+    ],
+    outcomes: [
+      { en: '13 issues → 11 merged PRs in one day', es: '13 issues → 11 PRs mergeados en un día' },
+      {
+        en: '2 blind judges + synthesizer + fixer',
+        es: '2 jueces ciegos + sintetizador + corrector',
+      },
+      { en: '20 purpose-built agents', es: '20 agentes a medida' },
+    ],
+    stack: ['Claude Code', 'Claude API', 'MCP', 'claude-flow', 'Linear', 'OpenSpec'],
   },
   {
     id: 'credit-marketplace',
@@ -557,18 +611,18 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     stack: ['AWS Cost Explorer', 'Budgets', 'CloudWatch', 'RDS (gp3, Graviton)', 'ECR', 'AWS CDK'],
   },
   {
-    id: 'conversational-ai-product',
+    id: 'aphrodite',
     tier: 'A',
     roleId: 'founder',
     tag: 'AI · FOUNDER',
     status: { en: 'Pre-launch', es: 'Pre-lanzamiento' },
     title: {
-      en: 'Founding and building a conversational AI product, solo, with an AI agent team',
-      es: 'Fundar y construir un producto de IA conversacional, solo, con un equipo de agentes de IA',
+      en: 'Aphrodite — AI companion marketplace',
+      es: 'Aphrodite — marketplace de compañeros de IA',
     },
     context: {
-      en: 'A multi-sided platform where creators design AI personas that hold long-running conversations. One engineer: me. So the architecture, the infrastructure and the delivery process had to make one person as effective as a team.',
-      es: 'Una plataforma de varios lados donde creadores diseñan personas de IA que sostienen conversaciones largas. Un solo ingeniero: yo. La arquitectura, la infraestructura y el proceso de entrega tenían que hacer que una persona rindiera como un equipo.',
+      en: 'A marketplace where AI that actually knows each user fights loneliness. It runs several internal micro-economies, so the product and the business model are built together. Creators design AI personas that hold long-running conversations. One engineer: me. So the architecture, the infrastructure and the delivery process had to make one person as effective as a team.',
+      es: 'Un marketplace donde una IA que de verdad conoce a cada usuario combate la soledad. Activa varias microeconomías internas: el producto y el modelo de negocio se construyen juntos. Los creadores diseñan personas de IA que sostienen conversaciones largas. Un solo ingeniero: yo. La arquitectura, la infraestructura y el proceso de entrega tenían que hacer que una persona rindiera como un equipo.',
     },
     whatIDid: [
       {
@@ -808,7 +862,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     tier: 'C',
     roleId: 'esoluzion',
     tag: 'BANKING',
-    status: { en: 'In production', es: 'En producción' },
+    status: { en: 'Delivered', es: 'Entregado' },
     title: {
       en: 'Core banking modules for an enterprise bank',
       es: 'Módulos de core bancario para un banco empresarial',
@@ -819,8 +873,8 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     },
     whatIDid: [
       {
-        en: 'Built and maintain Angular interfaces across multiple core banking modules.',
-        es: 'Construyo y mantengo interfaces en Angular para varios módulos de core bancario.',
+        en: 'Built and maintained Angular interfaces across multiple core banking modules.',
+        es: 'Construí y mantuve interfaces en Angular para varios módulos de core bancario.',
       },
       {
         en: 'Designed end-to-end modules in Java (Spring Boot) and Thymeleaf.',
@@ -831,12 +885,12 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
         es: 'Remedié vulnerabilidades de seguridad en Java legado reemplazando métodos inseguros basados en regex.',
       },
       {
-        en: "Integrating an AI chat assistant into an internal credit-analysis banking application through the bank's corporate AI gateway, including enterprise authentication flows (Spring MVC, Thymeleaf).",
+        en: "Integrated an AI chat assistant into an internal credit-analysis banking application through the bank's corporate AI gateway, including enterprise authentication flows (Spring MVC, Thymeleaf).",
         es: 'Integración de un asistente de chat con IA en una aplicación bancaria interna de análisis de crédito a través del gateway corporativo de IA del banco, incluyendo flujos de autenticación empresariales (Spring MVC, Thymeleaf).',
       },
     ],
     outcomes: [
-      { en: 'Continuous engagement since Oct 2022', es: 'Relación continua desde oct 2022' },
+      { en: 'Engagement Oct 2022 – Aug 2026', es: 'Relación oct 2022 – ago 2026' },
       { en: 'Regulatory compliance', es: 'Cumplimiento regulatorio' },
       { en: 'Legacy Java security remediation', es: 'Remediación de seguridad en Java legado' },
     ],

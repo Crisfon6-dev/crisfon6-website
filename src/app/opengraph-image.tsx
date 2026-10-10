@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Cristhian Fonseca — Technical Lead · AI Systems · LATAM';
+export const alt = 'Cristhian Fonseca — Tech Lead · AI Orchestrator · LATAM';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -79,7 +79,7 @@ export default function Image() {
             display: 'flex',
           }}
         />
-        <div style={{ display: 'flex' }}>Technical Lead · AI Systems · LATAM</div>
+        <div style={{ display: 'flex' }}>Tech Lead · AI Orchestrator · LATAM</div>
       </div>
 
       <div
@@ -167,7 +167,7 @@ export default function Image() {
             A
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
-            <div style={{ display: 'flex', fontWeight: 600, color: FG }}>Anthropic Certified</div>
+            <div style={{ display: 'flex', fontWeight: 600, color: FG }}>Claude Code in Action</div>
             <div
               style={{
                 display: 'flex',

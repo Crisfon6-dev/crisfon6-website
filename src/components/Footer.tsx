@@ -99,6 +99,9 @@ export function Footer() {
           </p>
           <p className="text-xs text-muted-foreground font-mono">Next.js + Vercel</p>
         </div>
+        <p data-testid="ai-media-note" className="mt-3 text-xs text-muted-foreground">
+          {t.footer.aiMedia}
+        </p>
       </div>
     </footer>
   );

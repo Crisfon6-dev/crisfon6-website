@@ -1,4 +1,7 @@
-import type { ReactNode } from 'react';
+'use client';
+
+import type { CSSProperties, ReactNode } from 'react';
+import { useScrollProgress } from '@/lib/useScrollProgress';
 
 export type TimelineItem = {
   year: string;
@@ -12,8 +15,13 @@ type TimelineProps = {
 };
 
 export function Timeline({ items, className = '' }: TimelineProps) {
+  const { ref, progress } = useScrollProgress<HTMLOListElement>();
   return (
-    <ol className={`relative ml-sp-4 border-l border-warm-border pl-sp-5 ${className}`.trim()}>
+    <ol
+      ref={ref}
+      style={{ '--timeline-progress': progress } as CSSProperties}
+      className={`timeline-progress relative ml-sp-4 border-l border-warm-border pl-sp-5 ${className}`.trim()}
+    >
       {items.map((item, i) => (
         <li key={`${item.year}-${i}`} className="relative pb-sp-6 last:pb-0">
           <span

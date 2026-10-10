@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
-import { Typewriter } from '@/components/primitives/Typewriter';
 import { Kicker } from '@/components/primitives/Kicker';
 
 export function HeroSection() {
@@ -15,19 +14,8 @@ export function HeroSection() {
         <Kicker dot>
           <span>{t.hero.kicker}</span>
         </Kicker>
-        <span className="relative inline-flex items-center gap-1.5 overflow-hidden rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-          <span
-            aria-hidden
-            className="shimmer-sweep pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(90deg, transparent 0%, rgb(from var(--c-accent) r g b / 0.28) 50%, transparent 100%)',
-            }}
-          />
-          <span aria-hidden className="relative">
-            ✦
-          </span>
-          <span className="relative">{t.hero.cert}</span>
+        <span className="inline-flex items-center rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+          {t.hero.cert}
         </span>
       </div>
 
@@ -41,15 +29,12 @@ export function HeroSection() {
           fontWeight: 700,
         }}
       >
-        <span>crisfon</span>
-        <span className="gradient-text">6</span>
-        <span aria-hidden className="cursor-blink ml-1 text-accent">
-          |
-        </span>
+        crisfon<span className="text-accent">6</span>
       </h1>
 
       {/* Headline with typewriter */}
       <p
+        data-testid="hero-headline"
         className="mt-sp-5 text-warm-fg"
         style={{
           fontSize: 'clamp(28px, 3.6vw, 44px)',
@@ -58,41 +43,71 @@ export function HeroSection() {
           fontWeight: 500,
         }}
       >
-        {t.hero.headlinePrefix} <Typewriter words={[...t.hero.typewords]} className="text-accent" />
+        {t.hero.headlinePrefix} <span className="text-accent">{t.hero.headlineAccent}</span>
       </p>
 
       {/* Blurb */}
       <p className="mt-sp-5 max-w-[520px] text-base leading-relaxed text-warm-fg-muted">
         {t.hero.description}
       </p>
+      <p
+        data-testid="hero-business-angle"
+        className="mt-sp-3 max-w-[520px] border-l-2 border-accent pl-sp-3 text-[15px] leading-relaxed text-warm-fg"
+      >
+        {t.hero.businessAngle}
+      </p>
 
-      {/* CTAs */}
+      {/* CTAs: hiring first, the cases second, the newsletter as a quiet link */}
       <div className="mt-sp-6 flex flex-wrap items-center gap-sp-3">
-        <Link
-          href="/newsletter"
+        <a
+          href="mailto:crisfon6@crisfon6.com"
           data-testid="hero-cta-primary"
           className="group inline-flex items-center gap-2 rounded-sp-xl bg-warm-fg px-sp-5 py-sp-3 text-sm font-medium text-warm-bg transition-transform hover:-translate-y-0.5"
         >
-          {t.hero.cta1}
+          {t.hero.ctaHire}
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
             →
           </span>
-        </Link>
+        </a>
         <Link
           href="/projects"
           data-testid="hero-cta-secondary"
-          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
+          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border bg-warm-bg px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
         >
           {t.hero.cta2}
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
             →
           </span>
         </Link>
+        <Link
+          href="/newsletter"
+          data-testid="hero-cta-newsletter"
+          className="text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+        >
+          {t.hero.cta1} →
+        </Link>
       </div>
 
-      {/* Proof */}
-      <p className="mt-sp-5 font-mono text-[13px] tracking-[0.02em] text-warm-fg-faint">
-        {t.hero.proof}
+      {/* Who, and that he is open to US contracts */}
+      <p
+        data-testid="hero-availability"
+        className="mt-sp-5 flex flex-wrap items-center gap-x-sp-3 gap-y-1 text-[15px] text-warm-fg"
+      >
+        <span>
+          <span data-testid="hero-name" className="font-semibold">
+            {t.hero.name}
+          </span>
+          {' · '}
+          {t.hero.availability}
+        </span>
+      </p>
+
+      {/* Bridge into the film */}
+      <p
+        data-testid="hero-bridge"
+        className="mt-sp-3 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted"
+      >
+        {t.hero.bridge}
       </p>
       <Link
         href="/experience"

@@ -81,6 +81,18 @@ describe('heroShadeOpacity (extra left-side shade that keeps the hero text reada
     expect(heroShadeOpacity(800, 800)).toBe(0);
     expect(heroShadeOpacity(5000, 800)).toBe(0);
   });
+
+  it('holds full strength while the hero text is still under it, then fades by one viewport', () => {
+    expect(heroShadeOpacity(0.3 * 800, 800)).toBe(1);
+    expect(heroShadeOpacity(0.5 * 800, 800)).toBeGreaterThan(0.7);
+    expect(heroShadeOpacity(0.6 * 800, 800)).toBeGreaterThan(0.5);
+    expect(heroShadeOpacity(0.9 * 800, 800)).toBeLessThan(0.2);
+  });
+
+  it('reads invalid input as no shade', () => {
+    expect(heroShadeOpacity(Number.NaN, 800)).toBe(0);
+    expect(heroShadeOpacity(100, 0)).toBe(0);
+  });
 });
 
 describe('plateOpacity (the chapter plate must not cover the hero, nor outlive the film)', () => {

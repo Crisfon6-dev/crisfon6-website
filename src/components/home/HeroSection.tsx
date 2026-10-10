@@ -82,7 +82,7 @@ export function HeroSection() {
         <Link
           href="/newsletter"
           data-testid="hero-cta-newsletter"
-          className="inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline dark:text-warm-fg"
         >
           {t.hero.cta1} →
         </Link>
@@ -105,7 +105,7 @@ export function HeroSection() {
       {/* Bridge into the film */}
       <p
         data-testid="hero-bridge"
-        className="mt-sp-3 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted"
+        className="mt-sp-3 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted dark:text-warm-fg"
       >
         {t.hero.bridge}
       </p>

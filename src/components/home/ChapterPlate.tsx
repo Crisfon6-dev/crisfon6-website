@@ -12,17 +12,21 @@ function Beat({
   id,
   name,
   visible,
+  collapse,
   children,
 }: {
   id: string;
   name: 'problem' | 'decision' | 'result';
   visible: boolean;
+  /** In the film panel an unrevealed beat takes no room, so the card builds up instead of showing a void. */
+  collapse: boolean;
   children: ReactNode;
 }) {
   return (
     <div
       data-testid={`${id}-beat-${name}`}
       data-visible={visible ? 'true' : 'false'}
+      data-collapse={collapse ? 'true' : undefined}
       className="beat mt-sp-4"
     >
       {children}
@@ -99,17 +103,17 @@ export function ChapterPlate({
 
       {isBlueprint ? (
         <>
-          <Beat id={testId} name="problem" visible={show.problem}>
+          <Beat id={testId} name="problem" visible={show.problem} collapse={compact}>
             <p className="font-heading text-xl text-warm-fg">{t.chapters.beats.whoHurts}</p>
           </Beat>
-          <Beat id={testId} name="decision" visible={show.decision}>
+          <Beat id={testId} name="decision" visible={show.decision} collapse={compact}>
             <p className="font-heading text-xl text-warm-fg">{t.chapters.beats.whatCosts}</p>
           </Beat>
         </>
       ) : null}
 
       {dossier.problem ? (
-        <Beat id={testId} name="problem" visible={show.problem}>
+        <Beat id={testId} name="problem" visible={show.problem} collapse={compact}>
           <BeatLabel>{t.chapters.beats.problem}</BeatLabel>
           <p className="mt-1 max-w-[52ch] text-[15px] leading-relaxed text-warm-fg">
             {dossier.problem}
@@ -118,7 +122,7 @@ export function ChapterPlate({
       ) : null}
 
       {dossier.decision ? (
-        <Beat id={testId} name="decision" visible={show.decision}>
+        <Beat id={testId} name="decision" visible={show.decision} collapse={compact}>
           <BeatLabel>{t.chapters.beats.decision}</BeatLabel>
           <p className="mt-1 max-w-[52ch] text-[15px] font-medium leading-relaxed text-warm-fg">
             {dossier.decision}
@@ -127,7 +131,7 @@ export function ChapterPlate({
       ) : null}
 
       {fact ? (
-        <Beat id={testId} name="result" visible={resultVisible}>
+        <Beat id={testId} name="result" visible={resultVisible} collapse={compact}>
           <div className="border-t border-warm-border pt-sp-4">
             <BeatLabel>{t.chapters.beats.result}</BeatLabel>
             <p

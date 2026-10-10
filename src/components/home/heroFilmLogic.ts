@@ -31,10 +31,17 @@ export function veilOpacity(scrollY: number, viewportHeight: number, travelVh: n
   return VEIL_MIN + (VEIL_MAX - VEIL_MIN) * t;
 }
 
-/** Left-side shade that keeps the hero text readable on the first screen, gone one screen down. */
+/** Share of a viewport the hero shade holds at full strength: the hero text is still on screen. */
+export const HERO_SHADE_HOLD_VH = 0.3;
+
+/**
+ * Left-side shade that keeps the hero text readable: full strength while the hero text is under it,
+ * then fading out so it is gone one viewport down.
+ */
 export function heroShadeOpacity(scrollY: number, viewportHeight: number): number {
   if (![scrollY, viewportHeight].every(Number.isFinite) || viewportHeight <= 0) return 0;
-  return Math.min(1, Math.max(0, 1 - scrollY / viewportHeight));
+  const faded = 1 - scrollY / viewportHeight;
+  return Math.min(1, Math.max(0, faded / (1 - HERO_SHADE_HOLD_VH)));
 }
 
 /**

@@ -2,11 +2,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import type { ReactNode } from 'react';
+import { ThemeProvider } from 'next-themes';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { KEY_FACTS } from '@/data/career';
 import { messages } from '@/i18n/messages';
 import { HeroFilm } from '../HeroFilm';
-import { HERO_FILM_ASSETS, FILM_TRAVEL_VH } from '../heroFilmAssets';
+import { HERO_FILM_ASSETS, HERO_FILM_ASSETS_NIGHT, FILM_TRAVEL_VH } from '../heroFilmAssets';
 import { VEIL_MIN, VEIL_MAX, VEIL_RAMP_VH } from '../heroFilmLogic';
 import { HOME_CHAPTERS, chapterFact } from '../homeChapters';
 
@@ -360,5 +361,66 @@ describe('HeroFilm: the chapter story is reachable without the visual panel', ()
     expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
       'pointer-events-auto'
     );
+  });
+});
+
+describe('HeroFilm: night footage in dark mode', () => {
+  beforeEach(() => scrollTo(0));
+
+  const wrapDark = (node: ReactNode) => (
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+      <LanguageProvider>{node}</LanguageProvider>
+    </ThemeProvider>
+  );
+
+  it('loads the night poster, then the night video, in dark mode', () => {
+    setEnv({ width: 1440 });
+    const { container } = render(wrapDark(<HeroFilm />));
+    stageNearViewport();
+    const poster = container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`);
+    expect(poster).toBeTruthy();
+    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeNull();
+    fireEvent.load(poster!);
+    expect(container.querySelector('video')?.getAttribute('src')).toBe(
+      HERO_FILM_ASSETS_NIGHT.video
+    );
+  });
+
+  it('no longer dims the footage with a CSS filter, since the night footage is dark itself', () => {
+    setEnv({ width: 1440 });
+    const { container } = render(wrapDark(<HeroFilm />));
+    stageNearViewport();
+    const poster = container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`)!;
+    fireEvent.load(poster);
+    expect(poster.className).not.toContain('brightness');
+    expect(container.querySelector('video')!.className).not.toContain('brightness');
+  });
+
+  it('uses the night stills and night backdrop poster in the stills layout', () => {
+    setEnv({ width: 390 });
+    const { container } = render(wrapDark(<HeroFilm />));
+    for (const still of HERO_FILM_ASSETS_NIGHT.stills) {
+      expect(container.querySelector(`img[src="${still.src}"]`), still.id).toBeTruthy();
+    }
+    expect(
+      screen.getByTestId('film-poster-backdrop').querySelector('img')!.getAttribute('src')
+    ).toBe(HERO_FILM_ASSETS_NIGHT.poster);
+  });
+
+  it('keeps the light footage in light mode', () => {
+    setEnv({ width: 1440 });
+    const { container } = render(wrap(<HeroFilm />));
+    stageNearViewport();
+    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeTruthy();
+    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`)).toBeNull();
+  });
+});
+
+describe('HeroFilm: text legibility over night footage', () => {
+  it('lowers the stills backdrop poster in dark mode, so text over it keeps 4.5:1', () => {
+    setEnv({ width: 390 });
+    render(wrap(<HeroFilm />));
+    const img = screen.getByTestId('film-poster-backdrop').querySelector('img')!;
+    expect(img.className).toContain('dark:opacity-35');
   });
 });

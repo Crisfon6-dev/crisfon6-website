@@ -124,3 +124,15 @@ describe('HeroSection', () => {
     expect(screen.queryByRole('link', { name: /instagram/i })).toBeNull();
   });
 });
+
+describe('HeroSection legibility over bright night footage', () => {
+  it('brightens the quiet newsletter link in dark mode so it holds 4.5:1 over the footage', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-cta-newsletter').className).toContain('dark:text-warm-fg');
+  });
+
+  it('brightens the bridge line in dark mode too, since a bright cube can pass behind it', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-bridge').className).toContain('dark:text-warm-fg');
+  });
+});

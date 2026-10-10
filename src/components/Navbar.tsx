@@ -226,7 +226,7 @@ export function Navbar() {
                 href={link.href}
                 onClick={closeMobile}
                 aria-current={pathname === link.href ? 'page' : undefined}
-                className="text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent-text"
+                className="flex min-h-11 items-center text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent-text"
               >
                 {t.nav[link.key]}
               </Link>
@@ -234,7 +234,7 @@ export function Navbar() {
             <Link
               href="/work-with-me"
               onClick={closeMobile}
-              className="text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent-text"
+              className="flex min-h-11 items-center text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent-text"
             >
               {t.nav.workWithMe}
             </Link>

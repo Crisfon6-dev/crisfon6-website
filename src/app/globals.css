@@ -80,8 +80,8 @@
   --color-warm-border-strong: var(--c-warm-border-strong);
 
   /* === Semantic chips === */
-  --color-green: #047857;
-  --color-green-dim: rgba(4, 120, 87, 0.1);
+  --color-green: var(--c-green);
+  --color-green-dim: var(--c-green-dim);
   --color-amber: #fbbf24;
   --color-amber-dim: rgba(251, 191, 36, 0.1);
   --color-red: #f87171;
@@ -130,6 +130,8 @@
   --c-accent: #d97757;
   /* Text/fill-grade accent: 4.5:1+ on paper and under white text. Brand orange stays decorative. */
   --c-accent-text: #a9462a;
+  --c-green: #047857;
+  --c-green-dim: rgba(4, 120, 87, 0.1);
   --c-accent-fill: #a9462a;
   --c-accent-light: #e28f74;
   --c-accent-dim: rgba(217, 119, 87, 0.12);
@@ -213,8 +215,8 @@
   /* Accent — same Claude orange in dark (per prototype spec) */
   --c-accent: #d97757;
   --c-accent-text: #e8906f;
-  --color-green: #34d399;
-  --color-green-dim: rgba(52, 211, 153, 0.1);
+  --c-green: #34d399;
+  --c-green-dim: rgba(52, 211, 153, 0.1);
   --c-accent-fill: #b5532f;
   --c-accent-light: #e28f74;
   --c-accent-dim: rgba(217, 119, 87, 0.14);

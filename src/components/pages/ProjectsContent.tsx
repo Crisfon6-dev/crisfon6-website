@@ -126,7 +126,7 @@ export function ProjectsContent() {
                 href={cs.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
+                className="inline-flex min-h-11 items-center font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
               >
                 Repo ↗
               </a>
@@ -136,14 +136,14 @@ export function ProjectsContent() {
                 href={cs.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
+                className="inline-flex min-h-11 items-center font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
               >
                 Live ↗
               </a>
             ) : null}
             <Link
               href={`/experience#${cs.roleId}`}
-              className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
+              className="inline-flex min-h-11 items-center font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
             >
               {t.projects.roleLink}
             </Link>
@@ -269,7 +269,7 @@ export function ProjectsContent() {
           <a
             href="mailto:crisfon6@crisfon6.com"
             data-testid="page-hiring-link"
-            className="mt-sp-4 block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+            className="mt-sp-4 flex min-h-11 items-center text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
           >
             {t.newsletter.hiring} →
           </a>

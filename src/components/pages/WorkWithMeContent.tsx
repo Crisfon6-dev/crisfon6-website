@@ -21,6 +21,13 @@ export function WorkWithMeContent() {
       />
 
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
+        <a
+          href="mailto:crisfon6@crisfon6.com"
+          data-testid="work-mobile-email"
+          className="mb-sp-5 inline-flex min-h-11 items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white lg:hidden"
+        >
+          {t.cta.emailMe} <span aria-hidden>→</span>
+        </a>
         <div className="grid gap-sp-6 lg:grid-cols-[1fr_320px]">
           {/* Services list */}
           <ul className="space-y-sp-4">

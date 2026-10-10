@@ -162,7 +162,7 @@ export function ExperienceContent() {
               data-testid="print-button"
               data-print-hide
               onClick={() => window.print()}
-              className="rounded-sp-md border border-warm-border px-sp-3 py-1.5 text-warm-fg transition-colors hover:border-warm-border-strong"
+              className="min-h-11 rounded-sp-md border border-warm-border px-sp-3 py-1.5 text-warm-fg transition-colors hover:border-warm-border-strong"
             >
               {t.experience.print}
             </button>

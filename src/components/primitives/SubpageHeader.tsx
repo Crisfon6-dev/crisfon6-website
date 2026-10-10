@@ -64,7 +64,7 @@ export function SubpageHeader({
               width={1280}
               height={720}
               decoding="async"
-              className="aspect-[4/3] max-h-44 h-auto w-full rounded-sp-md object-cover lg:max-h-none dark:brightness-[0.7] dark:contrast-[1.05]"
+              className="aspect-[4/3] max-h-44 h-auto w-full rounded-sp-md object-cover lg:max-h-none dark:brightness-[0.58] dark:contrast-[1.05]"
             />
           </div>
         </div>

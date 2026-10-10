@@ -47,7 +47,7 @@ export function HeroSection() {
       </p>
 
       {/* Blurb */}
-      <p className="mt-sp-5 max-w-[520px] text-base leading-relaxed text-warm-fg-muted">
+      <p className="mt-sp-5 max-w-[520px] text-base leading-relaxed text-warm-fg-muted dark:text-warm-fg/85">
         {t.hero.description}
       </p>
       <p

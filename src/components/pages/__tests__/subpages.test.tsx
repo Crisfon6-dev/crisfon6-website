@@ -1,14 +1,16 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { AboutContent } from '../AboutContent';
 import { ProjectsContent } from '../ProjectsContent';
+import { ExperienceContent } from '../ExperienceContent';
 import { AutomationsContent } from '../AutomationsContent';
 import { WorkWithMeContent } from '../WorkWithMeContent';
 import { NewsletterContent } from '../NewsletterContent';
 import { BlogContent } from '../BlogContent';
 import { messages } from '@/i18n/messages';
+import { ROLES, CREDENTIALS, CASE_STUDIES } from '@/data/career';
 import type { BlogPost } from '@/lib/blog';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
@@ -21,23 +23,83 @@ describe('AboutContent', () => {
     expect(screen.getByText(/02 · ABOUT/)).toBeTruthy();
   });
 
+  it('renders the business-angle paragraph right after intro1', () => {
+    render(wrap(<AboutContent />));
+    const intro1 = screen.getByText(messages.en.about.intro1);
+    expect(intro1.nextElementSibling?.getAttribute('data-testid')).toBe('about-business-angle');
+  });
+
   it('renders an Anthropic credential card', () => {
     render(wrap(<AboutContent />));
     expect(screen.getByTestId('anthropic-card')).toBeTruthy();
   });
 
-  it('renders Timeline with 4 items from i18n', () => {
+  it('renders Timeline with 6 items: 5 employment roles + the Anthropic cert', () => {
     const { container } = render(wrap(<AboutContent />));
     const ol = container.querySelectorAll('ol');
-    const hasTimeline = Array.from(ol).some(
-      (el) => el.querySelectorAll('li').length === messages.en.about.timeline.length
-    );
+    const hasTimeline = Array.from(ol).some((el) => el.querySelectorAll('li').length === 6);
     expect(hasTimeline).toBe(true);
+  });
+
+  it('keeps the credential card as tall as its content, not stretched to the text column', () => {
+    render(wrap(<AboutContent />));
+    expect(screen.getByTestId('anthropic-card').className).toMatch(/self-start/);
   });
 
   it('renders primary CTA to /work-with-me', () => {
     render(wrap(<AboutContent />));
     expect(screen.getByTestId('about-cta-primary').getAttribute('href')).toBe('/work-with-me');
+  });
+});
+
+describe('ProjectsContent: scannable tiers', () => {
+  afterEach(() => {
+    window.location.hash = '';
+  });
+
+  it('keeps tier A cards fully open and folds tiers B and C into collapsed rows', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const card of Array.from(container.querySelectorAll('[data-testid="project-card"]'))) {
+      const tier = card.getAttribute('data-tier');
+      const details = card.querySelector('details');
+      if (tier === 'A') expect(details, card.id).toBeNull();
+      else {
+        expect(details, card.id).toBeTruthy();
+        expect(details!.open, card.id).toBe(false);
+        expect(details!.querySelector('summary')?.textContent).toContain(
+          CASE_STUDIES.find((c) => c.id === card.id)!.title.en
+        );
+      }
+    }
+  });
+
+  it('lets each card take its own height instead of stretching to its neighbour', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const grids = Array.from(container.querySelectorAll('ul')).filter((ul) =>
+      ul.querySelector('[data-testid="project-card"]')
+    );
+    expect(grids.length).toBeGreaterThan(0);
+    for (const grid of grids) expect(grid.className).toMatch(/items-start/);
+  });
+
+  it('keeps a case from stretching its neighbour when it opens: no full-height wrapper', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const li of Array.from(container.querySelectorAll('[data-testid="project-card"]'))) {
+      expect(li.className, li.id).toMatch(/self-start/);
+      const details = li.querySelector('details');
+      if (details) expect(details.className, li.id).not.toMatch(/\bh-full\b/);
+    }
+  });
+
+  it('opens the case a link points at, so a hand-off from the home page lands on its content', () => {
+    window.location.hash = '#analytics-platform';
+    const { container } = render(wrap(<ProjectsContent />));
+    expect(container.querySelector<HTMLDetailsElement>('#analytics-platform details')!.open).toBe(
+      true
+    );
+    expect(container.querySelector<HTMLDetailsElement>('#identity-integrity details')!.open).toBe(
+      false
+    );
   });
 });
 
@@ -47,17 +109,146 @@ describe('ProjectsContent', () => {
     expect(screen.getByText(/03 · PROJECTS/)).toBeTruthy();
   });
 
-  it('renders 7 project cards with exactly one featured', () => {
+  it('renders 13 project cards: 5 tier A, 4 tier B, 4 tier C, exactly one featured (ai-in-production)', () => {
     const { container } = render(wrap(<ProjectsContent />));
     const cards = container.querySelectorAll('[data-testid="project-card"]');
-    expect(cards.length).toBe(7);
+    expect(cards.length).toBe(13);
+
+    const byTier = { A: 0, B: 0, C: 0 };
+    for (const card of Array.from(cards)) {
+      const tier = card.getAttribute('data-tier') as 'A' | 'B' | 'C';
+      byTier[tier]++;
+    }
+    expect(byTier).toEqual({ A: 5, B: 4, C: 4 });
+
     const featured = Array.from(cards).filter((c) => c.getAttribute('data-featured') === 'true');
     expect(featured.length).toBe(1);
+    expect(featured[0].id).toBe('ai-in-production');
   });
 
-  it('renders a CTA to /newsletter', () => {
-    render(wrap(<ProjectsContent />));
+  it('gives each card an id equal to the case study id', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const cs of CASE_STUDIES) {
+      expect(container.querySelector(`#${cs.id}[data-testid="project-card"]`)).toBeTruthy();
+    }
+  });
+
+  it('shows Employer · Period · Role and a link to /experience#<roleId> on every card', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const cs of CASE_STUDIES) {
+      const card = container.querySelector(`#${cs.id}`);
+      expect(card, `${cs.id} should render`).toBeTruthy();
+      const role = ROLES.find((r) => r.id === cs.roleId)!;
+      expect(card?.textContent).toContain(cs.meta ? cs.meta.en : role.employer.en);
+      const roleLink = card?.querySelector(`a[href="/experience#${cs.roleId}"]`);
+      expect(roleLink, `${cs.id} should link to /experience#${cs.roleId}`).toBeTruthy();
+    }
+  });
+
+  it('does not render the Outcome section when outcomes is empty', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const card = container.querySelector('#identity-integrity');
+    expect(card?.querySelector('[data-testid="outcome"]')).toBeTruthy();
+    const emptyCard = container.querySelector('#production-reliability');
+    expect(emptyCard?.querySelector('[data-testid="outcome"]')).toBeNull();
+  });
+
+  it('renders 5 incident rows with symptom/cause/fix on production-reliability', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const rows = container.querySelectorAll('#production-reliability [data-testid="incident-row"]');
+    expect(rows.length).toBe(5);
+  });
+
+  it('shows the pre-launch footnote and no links on aphrodite', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const card = container.querySelector('#aphrodite');
+    expect(card?.textContent).toContain(messages.en.projects.preLaunch);
+    expect(card?.querySelector('a[href^="http"]')).toBeNull();
+  });
+
+  it('renders a CTA to /newsletter and a link to /experience', () => {
+    const { container } = render(wrap(<ProjectsContent />));
     expect(screen.getByTestId('projects-cta').getAttribute('href')).toBe('/newsletter');
+    expect(container.querySelector('a[href="/experience"]')).toBeTruthy();
+  });
+});
+
+describe('ExperienceContent', () => {
+  afterEach(() => {
+    window.localStorage.removeItem('cf6.lang');
+  });
+
+  it('renders SubpageHeader "CV · EXPERIENCE"', () => {
+    render(wrap(<ExperienceContent />));
+    expect(screen.getByText(/CV · EXPERIENCE/)).toBeTruthy();
+  });
+
+  it('renders 6 roles: 5 under Work history, 1 under Founder work', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    const roles = container.querySelectorAll('[data-testid="role"]');
+    expect(roles.length).toBe(6);
+
+    const history = container.querySelector('[data-testid="work-history"]');
+    const founder = container.querySelector('[data-testid="founder-work"]');
+    expect(history?.querySelectorAll('[data-testid="role"]').length).toBe(5);
+    expect(founder?.querySelectorAll('[data-testid="role"]').length).toBe(1);
+  });
+
+  it('gives each role article an id equal to the role id', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    for (const role of ROLES) {
+      expect(container.querySelector(`#${role.id}[data-testid="role"]`)).toBeTruthy();
+    }
+  });
+
+  it('shows exactly 1 "Current" chip (eSoluzion ended Aug 2026), and none on the founder role', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    expect(container.querySelectorAll('[data-testid="current-chip"]').length).toBe(1);
+    const founder = container.querySelector('#founder[data-testid="role"]');
+    expect(founder?.querySelector('[data-testid="current-chip"]')).toBeNull();
+  });
+
+  it('renders a verify section with LinkedIn, GitHub and a mailto reference link', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    const verify = container.querySelector('[data-testid="verify"]');
+    expect(verify).toBeTruthy();
+    const hrefs = Array.from(verify?.querySelectorAll('a') ?? []).map((a) =>
+      a.getAttribute('href')
+    );
+    expect(hrefs.some((h) => h?.includes('linkedin.com/in/crisfon6'))).toBe(true);
+    expect(hrefs.some((h) => h?.includes('github.com/Crisfon6-dev'))).toBe(true);
+    expect(hrefs.some((h) => h?.startsWith('mailto:'))).toBe(true);
+  });
+
+  it('renders a certificate Verify link only when verifyUrl is defined', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    const verifyLinks = container.querySelectorAll('[data-testid="cert-verify"]');
+    expect(verifyLinks.length).toBe(CREDENTIALS.filter((c) => c.verifyUrl).length);
+  });
+
+  it('renders in Spanish when the stored locale is es, including the verify heading', () => {
+    window.localStorage.setItem('cf6.lang', 'es');
+    render(wrap(<ExperienceContent />));
+    expect(screen.getByText(/CV · EXPERIENCIA/)).toBeTruthy();
+    expect(screen.getByText('Cómo verificar esto')).toBeTruthy();
+  });
+
+  it('calls window.print when "Save as PDF" is clicked', () => {
+    const printSpy = vi.spyOn(window, 'print').mockImplementation(() => {});
+    render(wrap(<ExperienceContent />));
+    fireEvent.click(screen.getByTestId('print-button'));
+    expect(printSpy).toHaveBeenCalled();
+    printSpy.mockRestore();
+  });
+
+  it('hides the Writing section (no entry has a url yet)', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    expect(container.querySelector('[data-testid="writing-section"]')).toBeNull();
+  });
+
+  it('hides the Testimonials section (empty)', () => {
+    const { container } = render(wrap(<ExperienceContent />));
+    expect(container.querySelector('[data-testid="testimonials-section"]')).toBeNull();
   });
 });
 
@@ -96,6 +287,70 @@ describe('WorkWithMeContent', () => {
     expect(screen.getByTestId('contact-card')).toBeTruthy();
     expect(screen.getByTestId('contact-card-email').getAttribute('href')).toMatch(/^mailto:/);
   });
+
+  it('leads with the hiring path: the leadership card comes first', () => {
+    const { container } = render(wrap(<WorkWithMeContent />));
+    const first = container.querySelectorAll('[data-testid="service-card"]')[0];
+    expect(first.textContent).toContain(messages.en.workWithMe.leadership);
+  });
+
+  it('turns every service card into an email so no arrow is a dead affordance', () => {
+    const { container } = render(wrap(<WorkWithMeContent />));
+    const cards = container.querySelectorAll('[data-testid="service-card"]');
+    expect(cards.length).toBeGreaterThan(0);
+    messages.en.workWithMe.services.forEach((svc, i) => {
+      const link = cards[i].querySelector('a[href^="mailto:"]');
+      expect(link, svc.title).toBeTruthy();
+      expect(decodeURIComponent(link!.getAttribute('href')!)).toContain(svc.title);
+    });
+  });
+
+  it('makes email the primary action of the contact card and the newsletter a quiet link', () => {
+    render(wrap(<WorkWithMeContent />));
+    const email = screen.getByTestId('contact-card-email');
+    expect(email.textContent).toContain(messages.en.cta.emailMe);
+    expect(email.className).toMatch(/bg-accent/);
+    const newsletter = screen.getByTestId('contact-card-newsletter');
+    expect(newsletter.getAttribute('href')).toBe('/newsletter');
+    expect(newsletter.className).not.toMatch(/bg-accent/);
+  });
+
+  it('no longer promises a track record above a newsletter pitch', () => {
+    render(wrap(<WorkWithMeContent />));
+    expect(screen.queryByText('TRACK RECORD')).toBeNull();
+    expect(screen.getByTestId('contact-card').textContent).toContain(
+      messages.en.workWithMe.stayConnected
+    );
+  });
+});
+
+describe('NewsletterContent: benefits grid has no orphan card', () => {
+  it('lets the first benefit span both columns so five cards fill the grid evenly', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    const first = container.querySelector('[data-testid="benefit-card"]') as HTMLElement;
+    expect(first.className).toMatch(/sm:col-span-2/);
+    expect(container.querySelectorAll('[data-testid="benefit-card"]').length % 2).toBe(1);
+  });
+});
+
+describe('NewsletterContent: no cadence promise and no unshipped templates', () => {
+  it('drops the W1-W6 labels and lists only the template that exists, plus an honest more-to-come', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    expect(screen.queryByText(/^W\d$/)).toBeNull();
+    expect(container.textContent).toContain('AI-Powered Document Processor');
+    expect(container.textContent).not.toContain('Content Repurposing Engine');
+    expect(container.textContent).toContain(messages.en.newsletter.templateMore);
+  });
+
+  it('mentions the Anthropic credential once, not as repeated marketing', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    expect((container.textContent ?? '').match(/Anthropic/g)?.length ?? 0).toBeLessThanOrEqual(1);
+  });
+
+  it('gives a hiring visitor a way to email', () => {
+    render(wrap(<NewsletterContent />));
+    expect(screen.getByTestId('newsletter-hiring-link').getAttribute('href')).toMatch(/^mailto:/);
+  });
 });
 
 describe('NewsletterContent', () => {
@@ -106,7 +361,7 @@ describe('NewsletterContent', () => {
 
   it('renders the dark panel with SubscribeForm', () => {
     const { container } = render(wrap(<NewsletterContent />));
-    expect(screen.getByTestId('newsletter-dark-panel')).toBeTruthy();
+    expect(screen.getByTestId('newsletter-signup-panel')).toBeTruthy();
     expect(container.querySelector('form')).not.toBeNull();
     expect(container.querySelector('input[type="email"]')).not.toBeNull();
   });
@@ -116,6 +371,36 @@ describe('NewsletterContent', () => {
     expect(screen.getByTestId('newsletter-archive-cta').getAttribute('href')).toContain(
       'beehiiv.com'
     );
+  });
+
+  it('does not claim an unverified subscriber count (newsletter is not live yet)', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    expect(container.textContent).not.toMatch(/500\+/);
+  });
+});
+
+describe('BlogContent: upcoming list makes no unfulfilled promises', () => {
+  it('shows at most three upcoming rows and never one that is already published', () => {
+    const published: BlogPost[] = [
+      {
+        slug: 'ai-document-processor',
+        title: 'The $12/mo Document Processor: Claude API + Lambda + S3',
+        excerpt: 'x',
+        date: '2026-04-01',
+        readTime: '8 min',
+        tag: 'Automation',
+        tagColor: 'text-green bg-green-dim',
+        published: true,
+      },
+    ];
+    const { container } = render(wrap(<BlogContent publishedPosts={published} />));
+    const rows = container.querySelectorAll('[data-testid="upcoming-post"]');
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.length).toBeLessThanOrEqual(3);
+    for (const row of Array.from(rows)) {
+      expect(row.textContent).not.toContain('The $12/mo Document Processor');
+      expect(row.textContent).not.toMatch(/2M\+/);
+    }
   });
 });
 
@@ -163,5 +448,40 @@ describe('BlogContent', () => {
   it('renders newsletter CTA', () => {
     render(wrap(<BlogContent publishedPosts={samplePosts} />));
     expect(screen.getByTestId('blog-cta').getAttribute('href')).toBe('/newsletter');
+  });
+});
+
+describe('pages that end on the newsletter also end on a way to hire', () => {
+  it.each([
+    ['projects', () => <ProjectsContent />],
+    ['automations', () => <AutomationsContent />],
+    ['blog', () => <BlogContent publishedPosts={[]} />],
+  ])('%s has a hiring email link', (_name, page) => {
+    render(wrap(page()));
+    const link = screen.getByTestId('page-hiring-link');
+    expect(link.getAttribute('href')).toMatch(/^mailto:crisfon6@crisfon6\.com/);
+    expect(link.textContent).toContain(messages.en.newsletter.hiring);
+  });
+});
+
+describe('AutomationsContent: the label sits beside the figures', () => {
+  it('shows the illustrative-estimate label on every card that shows a cost or a time saved', () => {
+    const { container } = render(wrap(<AutomationsContent />));
+    const cards = container.querySelectorAll('[data-testid="automation-card"]');
+    expect(cards.length).toBe(6);
+    for (const card of Array.from(cards)) {
+      expect(card.querySelector('[data-testid="estimate-inline"]')?.textContent).toBe(
+        messages.en.automations.estimateInline
+      );
+    }
+  });
+});
+
+describe('AutomationsContent: unsourced figures are flagged, not deleted', () => {
+  it('tells the reader the cost and time figures are illustrative estimates', () => {
+    render(wrap(<AutomationsContent />));
+    expect(screen.getByTestId('automations-estimate-note').textContent).toBe(
+      messages.en.automations.estimateNote
+    );
   });
 });

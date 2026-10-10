@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: Props) {
               fontWeight: 600,
             }}
           >
-            Get more like this every week
+            Get more like this
           </h2>
           <p className="mx-auto mt-sp-3 max-w-md text-sm text-warm-fg-muted">
             Architecture diagrams, deployment guides, cost breakdowns, and working code.

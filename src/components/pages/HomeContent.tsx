@@ -2,10 +2,9 @@
 
 import {
   HeroSection,
-  StatsSection,
-  StackMarqueeSection,
-  AutomationSection,
-  FeaturedProjectsSection,
+  HeroFilm,
+  FeaturedCases,
+  PrincipleStatement,
   NewsletterPanel,
   ContactPanel,
 } from '@/components/home';
@@ -16,12 +15,11 @@ export function HomeContent() {
     <main className="page-in relative">
       <Atmosphere />
       <HeroSection />
-      <StatsSection />
-      <StackMarqueeSection />
-      <AutomationSection />
-      <FeaturedProjectsSection />
-      <NewsletterPanel />
+      <HeroFilm />
+      <FeaturedCases />
+      <PrincipleStatement />
       <ContactPanel />
+      <NewsletterPanel />
     </main>
   );
 }

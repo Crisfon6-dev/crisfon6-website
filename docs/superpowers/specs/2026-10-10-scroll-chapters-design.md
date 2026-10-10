@@ -18,8 +18,9 @@ reads a short case: Problem, Decision, Result. The film stays as the backdrop.
 
 ## Non-goals
 
-- No new video or image assets; no change to `FILM_TRAVEL_VH` in this change (pacing is tuned after
-  seeing real content).
+- Phase 1 generates no new video or image assets and does not change `FILM_TRAVEL_VH` (pacing is
+  tuned after seeing real content). The owner has authorised new footage if the agents judge it
+  necessary; that is Phase 2, below.
 - No new claims. Every figure and line is read from `src/data/career.ts`.
 - No change to the mobile/stills layout structure beyond rendering the same dossier under each still.
 
@@ -89,6 +90,15 @@ dark `.slab` rules. Contrast must hold at 4.5:1 over the film in both themes.
 - Data: a test that case-backed chapter text comes from `career.ts` (no hardcoded figures).
 - Existing chapter, copy-voice and e2e tests stay green or are updated with a stated reason.
 - Final gate: the same three-judge team (visual, CTO persona, accessibility) approves.
+
+## Phase 2 (conditional): new footage
+
+Only if the judge team, reviewing Phase 1 with real content in place, finds the scene itself is
+the limiting factor. Known candidates: (a) authored night footage, replacing the CSS brightness
+filter that darkens the light film in dark mode; (b) per-chapter scenes that react to the content
+(for example the cost figure ticking down as the scene changes). Generation spends Higgsfield
+credits on the owner's account, so before generating anything: check the balance, get a quote, and
+state the cost. The footer's existing AI-media disclosure must keep covering any new footage.
 
 ## Risks
 

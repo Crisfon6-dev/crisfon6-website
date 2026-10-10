@@ -300,7 +300,7 @@ export function ExperienceContent() {
                 rel="noopener noreferrer"
                 className="font-medium text-accent hover:underline"
               >
-                {locale === 'es' ? 'Certificado de Anthropic' : 'Anthropic certificate'}
+                {locale === 'es' ? 'Certificado del curso' : 'Course certificate'}
               </a>
             </li>
           ) : null}

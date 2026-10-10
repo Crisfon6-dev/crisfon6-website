@@ -92,7 +92,8 @@ describe('page copy follows the owner voice and brain rules', () => {
   });
 
   it('names the real credential, the course, and never claims an Anthropic certification', () => {
-    const OVERCLAIM = /Anthropic[- ]certified|certificado por Anthropic|ANTHROPIC CERTIFIED/i;
+    const OVERCLAIM =
+      /Anthropic[- ]certified|certificado por Anthropic|ANTHROPIC CERTIFIED|certified (in|by)|certificado (en|por)/i;
     const walk = (value: unknown, trail: string[] = []): [string, string][] =>
       typeof value === 'string'
         ? [[trail.join('.'), value]]

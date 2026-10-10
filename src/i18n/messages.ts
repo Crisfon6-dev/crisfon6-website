@@ -196,7 +196,7 @@ export const messages = {
     automations: {
       heading: 'AI automations you can steal.',
       description:
-        'Every template in this library is built by an engineer certified in Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Production blueprints from systems that actually run, with architecture diagrams, deployment guides, cost breakdowns, and working code. Built from real systems, not tutorials.',
+        'Every template in this library is built by an engineer who completed Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Production blueprints from systems that actually run, with architecture diagrams, deployment guides, cost breakdowns, and working code. Built from real systems, not tutorials.',
       estimateInline: 'Illustrative estimate, not a measurement.',
       estimateNote:
         'Cost and time figures on these templates are illustrative estimates, not measurements.',
@@ -496,7 +496,7 @@ export const messages = {
     automations: {
       heading: 'Automatizaciones con IA que puedes robar.',
       description:
-        'Cada template en esta biblioteca lo crea un ingeniero certificado en Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Blueprints de producción, de sistemas que de verdad corren, con diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De sistemas reales, no tutoriales.',
+        'Cada template en esta biblioteca lo crea un ingeniero que completó Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Blueprints de producción, de sistemas que de verdad corren, con diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De sistemas reales, no tutoriales.',
       estimateInline: 'Estimación ilustrativa, no una medición.',
       estimateNote:
         'Las cifras de costo y tiempo de estos templates son estimaciones ilustrativas, no mediciones.',

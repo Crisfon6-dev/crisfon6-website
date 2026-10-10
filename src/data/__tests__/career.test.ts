@@ -196,3 +196,21 @@ describe('career data', () => {
     });
   });
 });
+
+describe('case decision lines', () => {
+  const withDecision = ['aws-cost-audit', 'analytics-platform', 'ai-orchestration-harness'];
+
+  it.each(withDecision)('%s has a short bilingual decision line', (id) => {
+    const study = CASE_STUDIES.find((c) => c.id === id)!;
+    expect(study.decision, id).toBeDefined();
+    for (const locale of ['en', 'es'] as const) {
+      const line = study.decision![locale];
+      expect(line.length, `${id} ${locale}`).toBeGreaterThan(20);
+      expect(line.length, `${id} ${locale} stays one line`).toBeLessThanOrEqual(200);
+    }
+  });
+
+  it('leaves credit-marketplace without a decision rather than inventing one', () => {
+    expect(CASE_STUDIES.find((c) => c.id === 'credit-marketplace')!.decision).toBeUndefined();
+  });
+});

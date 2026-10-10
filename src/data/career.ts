@@ -45,6 +45,8 @@ export type CaseStudy = {
   status: L;
   title: L;
   context?: L;
+  /** One line: the choice that shows judgment. Shown as the middle beat of a home chapter. */
+  decision?: L;
   whatIDid: readonly L[];
   outcomes: readonly L[];
   stack: readonly string[];
@@ -486,6 +488,10 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       en: "Agents can write code. The hard part is who reviews it. I built the harness around that question: agents plan, build and review each other's work under explicit gates.",
       es: 'Los agentes pueden escribir código. Lo difícil es quién lo revisa. Construí el arnés alrededor de esa pregunta: los agentes planifican, construyen y se revisan entre sí bajo controles explícitos.',
     },
+    decision: {
+      en: 'Two blind judges review every branch independently; a separate fixer applies only confirmed defects.',
+      es: 'Dos jueces ciegos revisan cada rama de forma independiente; un corrector aparte aplica solo los defectos confirmados.',
+    },
     whatIDid: [
       {
         en: 'Built an adversarial evaluator panel: two blind judges review every branch independently, a synthesizer confirms findings, and a separate fixer applies only confirmed defects. The loop repeats until zero confirmed CRITICAL findings remain.',
@@ -587,6 +593,10 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     context: {
       en: 'The AWS bill had grown for years across 17 enabled regions, with no budget, no anomaly alerts and no one who could say what each resource was for.',
       es: 'La factura de AWS había crecido durante años en 17 regiones habilitadas, sin presupuesto, sin alertas de anomalías y sin nadie que supiera para qué servía cada recurso.',
+    },
+    decision: {
+      en: 'Refused a tempting downsize: the production cluster averaged 12.7% CPU, but its p99 was 97.5%.',
+      es: 'Rechacé una reducción tentadora: el clúster de producción promediaba 12,7% de CPU, pero su p99 era 97,5%.',
     },
     whatIDid: [
       {
@@ -691,6 +701,10 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     context: {
       en: "Dashboards lived in a managed BI service that was expensive, froze silently for weeks, and couldn't enforce the multi-tenant access rules the product already had.",
       es: 'Los dashboards vivían en un servicio de BI administrado que era caro, se congelaba en silencio durante semanas y no podía aplicar las reglas de acceso multi-cliente que el producto ya tenía.',
+    },
+    decision: {
+      en: "Reused the product's existing tenant scoping instead of rebuilding it in a BI tool, and proved parity on seven months of production data before retiring the old service.",
+      es: 'Reutilicé el aislamiento por cliente existente en vez de reconstruirlo en una herramienta de BI, y demostré paridad con siete meses de datos de producción antes de retirar el servicio anterior.',
     },
     whatIDid: [
       {

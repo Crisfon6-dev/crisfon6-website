@@ -130,4 +130,9 @@ describe('HeroSection legibility over bright night footage', () => {
     renderHero();
     expect(screen.getByTestId('hero-cta-newsletter').className).toContain('dark:text-warm-fg');
   });
+
+  it('brightens the bridge line in dark mode too, since a bright cube can pass behind it', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-bridge').className).toContain('dark:text-warm-fg');
+  });
 });

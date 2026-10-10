@@ -6,7 +6,7 @@ test.describe('UX toggles — theme + language', () => {
     const html = page.locator('html');
     const initial = await html.getAttribute('class');
     await page
-      .getByRole('button', { name: /theme|switch/i })
+      .getByRole('button', { name: /(dark|light) theme|tema (oscuro|luminoso)/i })
       .first()
       .click();
     await page.waitForTimeout(120);
@@ -16,7 +16,9 @@ test.describe('UX toggles — theme + language', () => {
 
   test('language toggle flips hero copy EN <-> ES', async ({ page }) => {
     await page.goto('/');
-    const toggle = page.getByRole('button', { name: /language|ES|EN/i }).first();
+    const toggle = page
+      .getByRole('button', { name: /Switch to (Spanish|English)|Cambiar a (español|inglés)/i })
+      .first();
     await expect(page.getByText('TECH LEAD · AI ORCHESTRATOR · LATAM')).toBeVisible();
     await toggle.click();
     await expect(page.getByText('TECH LEAD · ORQUESTADOR DE IA · LATAM')).toBeVisible();
@@ -24,7 +26,9 @@ test.describe('UX toggles — theme + language', () => {
 
   test('language toggle persists across reload via localStorage', async ({ page }) => {
     await page.goto('/');
-    const toggle = page.getByRole('button', { name: /language|ES|EN/i }).first();
+    const toggle = page
+      .getByRole('button', { name: /Switch to (Spanish|English)|Cambiar a (español|inglés)/i })
+      .first();
     await toggle.click();
     await expect(page.getByText('TECH LEAD · ORQUESTADOR DE IA · LATAM')).toBeVisible();
 

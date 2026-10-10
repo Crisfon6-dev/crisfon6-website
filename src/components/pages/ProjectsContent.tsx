@@ -213,7 +213,7 @@ export function ProjectsContent() {
               </>
             )}
           </p>
-          <div className="mt-sp-4 flex flex-wrap gap-sp-4 text-sm font-medium text-accent-text">
+          <div className="mt-sp-4 flex flex-wrap gap-x-sp-4 text-sm font-medium text-accent-text [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center">
             <Link href="/newsletter" className="hover:underline">
               {t.nav.subscribe}
             </Link>

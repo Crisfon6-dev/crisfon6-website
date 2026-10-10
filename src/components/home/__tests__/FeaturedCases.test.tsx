@@ -102,7 +102,7 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
     const cards = screen.getAllByTestId('case-card');
     FEATURED_IDS.forEach((id, i) => {
       const cs = CASE_STUDIES.find((c) => c.id === id)!;
-      expect(cards[i].textContent).toContain(messages.en.chapters.seeCase);
+      expect(cards[i].textContent).toContain(messages.en.cta.seeCase);
       expect(cards[i].textContent).not.toContain(cs.outcomes[0].en);
     });
   });
@@ -183,5 +183,43 @@ describe('FeaturedCases: fallback to the existing vertical grid', () => {
     const html = renderToString(wrap(<FeaturedCases />));
     expect(html).toContain('data-testid="featured-projects"');
     expect(html).not.toContain('horizontal-cases');
+  });
+});
+
+describe('decision line on the cards', () => {
+  it('shows it on a track card that has one and renders no empty element on one that does not', () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    const cards = screen.getAllByTestId('case-card');
+    FEATURED_IDS.forEach((id, i) => {
+      const cs = CASE_STUDIES.find((c) => c.id === id)!;
+      const line = cards[i].querySelector('[data-testid="case-decision"]');
+      if (cs.decision) expect(line?.textContent, id).toBe(cs.decision.en);
+      else expect(line, id).toBeNull();
+    });
+  });
+
+  it('does the same in the vertical grid layout', () => {
+    setEnv(800);
+    render(wrap(<FeaturedCases />));
+    const items = screen.getByTestId('featured-projects').querySelectorAll('li');
+    FEATURED_IDS.forEach((id, i) => {
+      const cs = CASE_STUDIES.find((c) => c.id === id)!;
+      const line = items[i].querySelector('[data-testid="case-decision"]');
+      if (cs.decision) expect(line?.textContent, id).toBe(cs.decision.en);
+      else expect(line, id).toBeNull();
+    });
+  });
+
+  it('speaks Spanish in the decision line', () => {
+    window.localStorage.setItem('cf6.lang', 'es');
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    const aws = CASE_STUDIES.find((c) => c.id === 'aws-cost-audit')!;
+    const idx = FEATURED_IDS.indexOf('aws-cost-audit');
+    const cards = screen.getAllByTestId('case-card');
+    expect(cards[idx].querySelector('[data-testid="case-decision"]')?.textContent).toBe(
+      aws.decision!.es
+    );
   });
 });

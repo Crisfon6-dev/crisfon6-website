@@ -64,6 +64,14 @@ export function FeaturedProjectsSection() {
                   {p.title}
                 </h3>
                 <p className="text-warm-fg-muted">{p.description}</p>
+                {p.decision ? (
+                  <p
+                    data-testid="case-decision"
+                    className="border-l-2 border-accent pl-sp-3 text-[15px] font-medium leading-relaxed text-warm-fg"
+                  >
+                    {p.decision}
+                  </p>
+                ) : null}
                 {p.proof ? (
                   <span
                     data-testid="case-proof"
@@ -73,7 +81,7 @@ export function FeaturedProjectsSection() {
                   </span>
                 ) : null}
                 <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-warm-fg">
-                  {t.chapters.seeCase}
+                  {t.cta.seeCase}
                   <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
                     →
                   </span>

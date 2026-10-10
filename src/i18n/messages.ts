@@ -101,6 +101,7 @@ export const messages = {
       subscribeZTP: 'Subscribe to PowerAI',
       viewBlueprint: 'View blueprint',
       viewAll: 'View all',
+      seeCase: 'Read the case',
     },
     automation: {
       sectionTitle: 'FEATURED AUTOMATION',
@@ -417,6 +418,7 @@ export const messages = {
       subscribeZTP: 'Suscribirse a PowerAI',
       viewBlueprint: 'Ver blueprint',
       viewAll: 'Ver todos',
+      seeCase: 'Leer el caso',
     },
     automation: {
       sectionTitle: 'AUTOMATIZACIÓN DESTACADA',

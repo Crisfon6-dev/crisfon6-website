@@ -16,6 +16,7 @@ import {
   veilOpacity,
 } from './heroFilmLogic';
 import { ChapterPlate } from './ChapterPlate';
+import { chapterProgress } from './chapterBeats';
 import { HOME_CHAPTERS, activeChapter } from './homeChapters';
 import {
   FILM_DURATION_SECONDS,
@@ -223,9 +224,18 @@ function FilmStage() {
           className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10"
           style={{ opacity: plate }}
         >
-          <div className="mx-auto max-w-6xl px-sp-5">
-            <div className="pointer-events-auto max-w-md">
-              <ChapterPlate key={chapter.id} chapter={chapter} testId="film-chapter" />
+          <div
+            className={`mx-auto flex max-w-6xl px-sp-5 ${
+              HOME_CHAPTERS.indexOf(chapter) % 2 === 1 ? 'justify-end' : 'justify-start'
+            }`}
+          >
+            <div className="pointer-events-auto w-full max-w-xl">
+              <ChapterPlate
+                key={chapter.id}
+                chapter={chapter}
+                testId="film-chapter"
+                localProgress={chapterProgress(progress, chapter)}
+              />
             </div>
           </div>
         </div>

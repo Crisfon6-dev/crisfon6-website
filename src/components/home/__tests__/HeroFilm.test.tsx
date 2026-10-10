@@ -293,3 +293,36 @@ describe('HeroFilm: server render', () => {
     expect(html).not.toContain('<video');
   });
 });
+
+describe('HeroFilm: chapter beats follow the scroll', () => {
+  it('reveals a chapter beat by beat as the page scrolls through its window', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    // chapter "data" spans progress 3/7..4/7 (0.4286..0.5714); 0.4286 + 0.1429 * 0.2 = ~0.4571
+    scrollTo(0.4571 * 5600);
+    const flag = (name: string) =>
+      screen.getByTestId(`film-chapter-beat-${name}`).getAttribute('data-visible');
+    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'false', 'false']);
+    scrollTo(0.5 * 5600);
+    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'true', 'false']);
+    scrollTo(0.56 * 5600);
+    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'true', 'true']);
+  });
+
+  it('shows every beat in the stills layout', () => {
+    setEnv({ width: 400 });
+    render(wrap(<HeroFilm />));
+    for (const chapter of HOME_CHAPTERS.filter((c) => c.id === 'compute')) {
+      expect(
+        screen.getByTestId(`chapter-${chapter.id}-beat-result`).getAttribute('data-visible')
+      ).toBe('true');
+    }
+  });
+
+  it('keeps the plate inside the page column while it alternates sides', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 5600);
+    expect(screen.getByTestId('film-chapter').closest('.max-w-6xl')).toBeTruthy();
+  });
+});

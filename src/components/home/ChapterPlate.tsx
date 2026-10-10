@@ -67,7 +67,7 @@ export function ChapterPlate({
     <article
       data-testid={testId}
       data-chapter={chapter.id}
-      className="slab chapter-in p-sp-5 sm:p-sp-6"
+      className="slab chapter-in p-sp-5 sm:p-sp-6 [@media(max-height:760px)]:sm:p-sp-5"
     >
       <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
         {t.chapters.label} {numeral}
@@ -78,7 +78,7 @@ export function ChapterPlate({
       >
         {copy.title}
       </h2>
-      <p className="mt-sp-2 max-w-[44ch] text-[15px] leading-relaxed text-warm-fg-muted">
+      <p className="mt-sp-2 max-w-[44ch] text-[15px] leading-relaxed text-warm-fg-muted [@media(max-height:760px)]:hidden">
         {copy.claim}
       </p>
 
@@ -133,7 +133,7 @@ export function ChapterPlate({
               {fact.label}
             </p>
             {dossier.support ? (
-              <p className="mt-sp-2 text-[15px] leading-relaxed text-warm-fg-muted">
+              <p className="mt-sp-2 text-[15px] leading-relaxed text-warm-fg-muted [@media(max-height:760px)]:hidden">
                 {dossier.support}
               </p>
             ) : null}

@@ -221,7 +221,7 @@ function FilmStage() {
       </div>
       {plate > 0 ? (
         <div
-          className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10"
+          className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10 [@media(max-height:760px)]:bottom-sp-4"
           style={{ opacity: plate }}
         >
           <div

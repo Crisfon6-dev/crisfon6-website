@@ -113,3 +113,13 @@ describe('ChapterPlate beats', () => {
     }
   });
 });
+
+describe('ChapterPlate on short viewports', () => {
+  it('drops the claim and the supporting line first, so the panel fits under the nav', () => {
+    renderPlate('compute', null);
+    const claim = screen.getByText(messages.en.chapters.items.compute.claim);
+    const support = screen.getByText(study('aws-cost-audit').outcomes[1].en);
+    expect(claim.className).toContain('[@media(max-height:760px)]:hidden');
+    expect(support.className).toContain('[@media(max-height:760px)]:hidden');
+  });
+});

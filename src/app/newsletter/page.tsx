@@ -4,7 +4,7 @@ import { NewsletterContent } from '@/components/pages/NewsletterContent';
 export const metadata: Metadata = {
   title: 'Newsletter',
   description:
-    'PowerAI — A free weekly AI automation template with architecture diagrams, deployment guides, cost breakdowns, and working code.',
+    'PowerAI — Production blueprints from systems that actually run: architecture diagrams, deployment guides, cost breakdowns, and working code.',
 };
 
 export default function Newsletter() {

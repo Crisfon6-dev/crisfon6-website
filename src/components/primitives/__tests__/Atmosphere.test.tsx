@@ -3,10 +3,10 @@ import { render } from '@testing-library/react';
 import { Atmosphere } from '../Atmosphere';
 
 describe('Atmosphere', () => {
-  it('renders two orbs (orb-a + orb-b)', () => {
+  it("has no blurred colour orbs: the surface is the film's cream ground, not a SaaS glow", () => {
     const { container } = render(<Atmosphere />);
-    expect(container.querySelector('.orb-a')).not.toBeNull();
-    expect(container.querySelector('.orb-b')).not.toBeNull();
+    expect(container.querySelector('.orb-a')).toBeNull();
+    expect(container.querySelector('.orb-b')).toBeNull();
   });
 
   it('renders blueprint-grid by default', () => {

@@ -8,3 +8,4 @@ export { Atmosphere } from './Atmosphere';
 export { Pipeline, type PipelineNode } from './Pipeline';
 export { SubpageHeader } from './SubpageHeader';
 export { Timeline, type TimelineItem } from './Timeline';
+export { Spine } from './Spine';

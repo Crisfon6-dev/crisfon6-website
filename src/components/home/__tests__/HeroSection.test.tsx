@@ -30,22 +30,92 @@ describe('HeroSection', () => {
     expect(h1.textContent).toMatch(/crisfon6/);
   });
 
-  it('wraps the typewriter words with accent styling', () => {
+  it('states the promise in a static headline with the accent on the claim', () => {
+    renderHero();
+    const headline = screen.getByTestId('hero-headline');
+    expect(headline.textContent).toBe(
+      `${messages.en.hero.headlinePrefix} ${messages.en.hero.headlineAccent}`
+    );
+    expect(headline.querySelector('span.text-accent')?.textContent).toBe(
+      messages.en.hero.headlineAccent
+    );
+  });
+
+  it('drops the SaaS tells: no shimmer badge, no gradient 6, no blinking cursor', () => {
     const { container } = renderHero();
-    // Typewriter renders an initially-empty <span class="text-accent">
-    const accentSpan = container.querySelector('span.text-accent');
-    expect(accentSpan).not.toBeNull();
+    expect(container.querySelector('.shimmer-sweep')).toBeNull();
+    expect(container.querySelector('.gradient-text')).toBeNull();
+    expect(container.querySelector('.cursor-blink')).toBeNull();
   });
 
-  it('renders both CTAs with the correct hrefs', () => {
+  it('renders the hiring action first, the cases second and the newsletter as a quiet link', () => {
     renderHero();
-    expect(screen.getByTestId('hero-cta-primary').getAttribute('href')).toBe('/newsletter');
+    expect(screen.getByTestId('hero-cta-primary').getAttribute('href')).toBe(
+      'mailto:crisfon6@crisfon6.com'
+    );
     expect(screen.getByTestId('hero-cta-secondary').getAttribute('href')).toBe('/projects');
+    expect(screen.getByTestId('hero-cta-newsletter').getAttribute('href')).toBe('/newsletter');
   });
 
-  it('renders the proof mono line', () => {
+  it('renders the business-angle subtitle under the description', () => {
     renderHero();
-    expect(screen.getByText(messages.en.hero.proof)).toBeTruthy();
+    expect(screen.getByTestId('hero-business-angle').textContent).toBe(
+      messages.en.hero.businessAngle
+    );
+  });
+
+  it('has the headline claim in both languages and no rotating typewriter words', () => {
+    expect(messages.en.hero.headlineAccent).toBe('run in production.');
+    expect(messages.es.hero.headlineAccent).toBe('corren en producción.');
+    expect('typewords' in messages.en.hero).toBe(false);
+  });
+
+  it('bridges into the film instead of repeating its figures', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-bridge').textContent).toBe(messages.en.hero.bridge);
+    expect('proof' in messages.en.hero).toBe(false);
+    expect(screen.queryByText(/−43%/)).toBeNull();
+  });
+
+  it('does not repeat the certification line inside the paragraph; the badge carries it', () => {
+    expect(messages.en.hero.description).not.toMatch(/Certified by Anthropic/);
+    expect(messages.es.hero.description).not.toMatch(/Certificado por Anthropic/);
+  });
+
+  it('says who he is and that he is open to US contracts', () => {
+    renderHero();
+    const line = screen.getByTestId('hero-availability');
+    expect(line.textContent).toContain('Cristhian Fonseca');
+    expect(screen.getByTestId('hero-name').textContent).toBe(messages.en.hero.name);
+    expect(screen.getByTestId('hero-name').className).toMatch(/font-semibold/);
+    expect(line.textContent).toContain('US teams');
+    expect(line.textContent).toContain('CT/ET');
+    expect(line.querySelector('a')).toBeNull();
+    expect(messages.es.hero.availability).toContain('EE. UU.');
+    expect(messages.es.hero.availability).toContain('CT/ET');
+  });
+
+  it('makes the hiring action the primary button, in both languages', () => {
+    renderHero();
+    const primary = screen.getByTestId('hero-cta-primary');
+    expect(primary.textContent).toContain(messages.en.hero.ctaHire);
+    expect(primary.className).toMatch(/bg-warm-fg/);
+    expect(messages.es.hero.ctaHire).toBe('¿Contratas? Escríbeme');
+    expect(screen.getByTestId('hero-cta-newsletter').className).not.toMatch(/bg-warm-fg/);
+  });
+
+  it('opens with the brand line, product and business before code', () => {
+    expect(messages.en.hero.businessAngle).toBe(
+      'I start with who it hurts and what it costs. The code comes last.'
+    );
+    expect(messages.es.hero.businessAngle).toBe(
+      'Empiezo por a quién le duele y cuánto cuesta. El código va al final.'
+    );
+  });
+
+  it('keeps the secondary button readable over the film with an opaque fill', () => {
+    renderHero();
+    expect(screen.getByTestId('hero-cta-secondary').className).toMatch(/(^|\s)bg-warm-bg(\s|$)/);
   });
 
   it('renders all four meta links', () => {

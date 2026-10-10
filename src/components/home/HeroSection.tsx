@@ -82,7 +82,7 @@ export function HeroSection() {
         <Link
           href="/newsletter"
           data-testid="hero-cta-newsletter"
-          className="inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline dark:text-warm-fg"
         >
           {t.hero.cta1} →
         </Link>

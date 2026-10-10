@@ -157,3 +157,19 @@ describe('ChapterPlate reveal chapter and links', () => {
     expect(screen.getByRole('link').getAttribute('tabindex')).toBeNull();
   });
 });
+
+describe('ChapterPlate unrevealed beats', () => {
+  it('collapses hidden beats in the film panel, so the card builds up instead of showing a void', () => {
+    renderPlate('compute', 0, { compact: true });
+    for (const beat of ['problem', 'decision', 'result']) {
+      expect(screen.getByTestId(`t-beat-${beat}`).getAttribute('data-collapse'), beat).toBe('true');
+    }
+  });
+
+  it('does not collapse beats in the stills layout, where everything is visible anyway', () => {
+    renderPlate('compute', null);
+    for (const beat of ['problem', 'decision', 'result']) {
+      expect(screen.getByTestId(`t-beat-${beat}`).getAttribute('data-collapse'), beat).toBeNull();
+    }
+  });
+});

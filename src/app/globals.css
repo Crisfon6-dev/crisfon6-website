@@ -713,6 +713,20 @@
   opacity: 0;
   transform: translateY(10px);
 }
+/* Film panel only: an unrevealed beat takes no room, so the card grows as the beats arrive. */
+.beat[data-collapse='true'] {
+  max-height: 32rem;
+  transition:
+    opacity 280ms var(--ease-out),
+    transform 280ms var(--ease-out),
+    max-height 280ms var(--ease-out),
+    margin-top 280ms var(--ease-out);
+}
+.beat[data-collapse='true'][data-visible='false'] {
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+}
 @media (prefers-reduced-motion: reduce) {
   .beat {
     transition: none;

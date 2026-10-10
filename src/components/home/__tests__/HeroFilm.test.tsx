@@ -415,3 +415,12 @@ describe('HeroFilm: night footage in dark mode', () => {
     expect(container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`)).toBeNull();
   });
 });
+
+describe('HeroFilm: text legibility over night footage', () => {
+  it('lowers the stills backdrop poster in dark mode, so text over it keeps 4.5:1', () => {
+    setEnv({ width: 390 });
+    render(wrap(<HeroFilm />));
+    const img = screen.getByTestId('film-poster-backdrop').querySelector('img')!;
+    expect(img.className).toContain('dark:opacity-35');
+  });
+});

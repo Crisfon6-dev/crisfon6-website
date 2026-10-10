@@ -281,7 +281,7 @@ export function HeroFilm() {
             alt=""
             aria-hidden="true"
             decoding="async"
-            className="h-full w-full object-cover opacity-45"
+            className="h-full w-full object-cover opacity-45 dark:opacity-35"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-warm-bg/70 via-transparent to-warm-bg" />
         </div>

@@ -55,12 +55,12 @@ export function Footer() {
               <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
                 {t.footer.pages}
               </p>
-              <div className="-my-3">
+              <div className="-my-1">
                 {navKeys.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {t.nav[link.key]}
                   </Link>
@@ -71,13 +71,13 @@ export function Footer() {
               <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
                 {t.footer.connect}
               </p>
-              <div className="-my-3">
+              <div className="-my-1">
                 {social.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="block py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </a>

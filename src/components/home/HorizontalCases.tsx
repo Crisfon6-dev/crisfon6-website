@@ -71,7 +71,7 @@ export function HorizontalCases() {
             </h2>
             <Link
               href="/projects"
-              className="mt-sp-5 font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted hover:text-accent-text"
+              className="mt-sp-5 inline-flex min-h-11 items-center font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted hover:text-accent-text"
             >
               {t.cta.viewAll} →
             </Link>

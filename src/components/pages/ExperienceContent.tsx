@@ -177,7 +177,7 @@ export function ExperienceContent() {
       {/* Key facts */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-6">
         <Kicker>{t.experience.keyFacts}</Kicker>
-        <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-sp-5 grid grid-cols-2 gap-sp-3 sm:gap-sp-4 lg:grid-cols-4">
           {KEY_FACTS.map((fact) => (
             <li key={fact.label.en} className="slab p-sp-5">
               <p className="font-heading text-3xl font-semibold text-warm-fg">{fact.value}</p>
@@ -293,7 +293,7 @@ export function ExperienceContent() {
               href={PROFILE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent-text hover:underline"
+              className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
             >
               {locale === 'es'
                 ? 'Los mismos cargos y fechas en LinkedIn'
@@ -305,7 +305,7 @@ export function ExperienceContent() {
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent-text hover:underline"
+              className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
             >
               {locale === 'es' ? 'Código y trabajo open source' : 'Code and open-source work'}
             </a>
@@ -316,7 +316,7 @@ export function ExperienceContent() {
                 href={anthropicCert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-accent-text hover:underline"
+                className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
               >
                 {locale === 'es' ? 'Certificado del curso' : 'Course certificate'}
               </a>
@@ -325,7 +325,7 @@ export function ExperienceContent() {
           <li>
             <a
               href={`mailto:${PROFILE.email}?subject=Reference%20request`}
-              className="font-medium text-accent-text hover:underline"
+              className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
             >
               {locale === 'es'
                 ? 'Referencias de jefes y clientes — bajo solicitud'

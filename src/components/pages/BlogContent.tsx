@@ -57,7 +57,7 @@ export function BlogContent({ publishedPosts }: Props) {
                     {post.tag}
                   </Chip>
                   <h2
-                    className="flex-1 font-heading text-warm-fg transition-colors group-hover:text-accent-text"
+                    className="order-last basis-full flex-none font-heading text-warm-fg transition-colors group-hover:text-accent-text sm:order-none sm:flex-1 sm:basis-0"
                     style={{
                       fontSize: 'clamp(18px, 2vw, 22px)',
                       letterSpacing: '-0.015em',
@@ -72,7 +72,7 @@ export function BlogContent({ publishedPosts }: Props) {
                   </span>
                   <span
                     aria-hidden
-                    className="shrink-0 text-warm-fg-faint transition-colors group-hover:text-accent-text"
+                    className="hidden shrink-0 text-warm-fg-faint transition-colors group-hover:text-accent-text sm:inline"
                   >
                     →
                   </span>
@@ -97,7 +97,7 @@ export function BlogContent({ publishedPosts }: Props) {
                   {post.tag}
                 </Chip>
                 <h3
-                  className="flex-1 font-heading text-warm-fg"
+                  className="order-last basis-full flex-none font-heading text-warm-fg sm:order-none sm:flex-1 sm:basis-0"
                   style={{
                     fontSize: 'clamp(18px, 2vw, 22px)',
                     letterSpacing: '-0.015em',

@@ -67,7 +67,7 @@ export function AboutContent() {
               }}
             />
             <Kicker accent dot>
-              <span>{t.hero.cert}</span>
+              <span className="leading-snug">{t.hero.cert}</span>
             </Kicker>
             <h2
               className="relative mt-sp-3 font-heading text-warm-fg"

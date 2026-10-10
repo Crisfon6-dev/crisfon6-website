@@ -125,7 +125,7 @@ export function WorkWithMeContent() {
               <Link
                 href="/newsletter"
                 data-testid="contact-card-newsletter"
-                className="mt-sp-5 inline-block text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+                className="mt-sp-5 inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
               >
                 {t.cta.subscribeNewsletter} →
               </Link>

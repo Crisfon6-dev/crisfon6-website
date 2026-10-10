@@ -118,17 +118,9 @@ describe('HeroSection', () => {
     expect(screen.getByTestId('hero-cta-secondary').className).toMatch(/(^|\s)bg-warm-bg(\s|$)/);
   });
 
-  it('renders all four meta links', () => {
+  it('leaves the social links to the footer so the hero keeps one clear read', () => {
     renderHero();
-    expect(screen.getByRole('link', { name: /linkedin/i }).getAttribute('href')).toContain(
-      'linkedin.com'
-    );
-    expect(screen.getByRole('link', { name: /^email$/i }).getAttribute('href')).toMatch(/mailto:/);
-    expect(screen.getByRole('link', { name: /github/i }).getAttribute('href')).toContain(
-      'github.com'
-    );
-    expect(screen.getByRole('link', { name: /instagram/i }).getAttribute('href')).toContain(
-      'instagram.com'
-    );
+    expect(screen.queryByRole('link', { name: /linkedin/i })).toBeNull();
+    expect(screen.queryByRole('link', { name: /instagram/i })).toBeNull();
   });
 });

@@ -23,7 +23,7 @@ export function HeroSection() {
       <h1
         className="mt-sp-5 font-heading text-warm-fg"
         style={{
-          fontSize: 'clamp(64px, 14vw, 200px)',
+          fontSize: 'clamp(56px, 11vw, 152px)',
           letterSpacing: '-0.055em',
           lineHeight: '0.88',
           fontWeight: 700,
@@ -72,7 +72,7 @@ export function HeroSection() {
         <Link
           href="/projects"
           data-testid="hero-cta-secondary"
-          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border bg-warm-bg px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
+          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border-strong bg-warm-bg px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:bg-warm-bg-subtle"
         >
           {t.hero.cta2}
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
@@ -116,45 +116,6 @@ export function HeroSection() {
       >
         {t.hero.fullWorkHistory}
       </Link>
-
-      {/* Meta links row */}
-      <ul className="mt-sp-5 flex flex-wrap gap-sp-4 font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted">
-        <li>
-          <a
-            href="https://linkedin.com/in/crisfon6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent-text"
-          >
-            LinkedIn
-          </a>
-        </li>
-        <li>
-          <a href="mailto:crisfon6@crisfon6.com" className="hover:text-accent-text">
-            Email
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/Crisfon6-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent-text"
-          >
-            GitHub
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://instagram.com/crisfon6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent-text"
-          >
-            Instagram
-          </a>
-        </li>
-      </ul>
     </section>
   );
 }

@@ -191,7 +191,7 @@ function FilmStage() {
             aria-hidden="true"
             decoding="async"
             onLoad={() => setPosterLoaded(true)}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.42] dark:saturate-[0.8] dark:contrast-[1.05]"
           />
         ) : null}
         <video
@@ -203,7 +203,7 @@ function FilmStage() {
           tabIndex={-1}
           aria-hidden="true"
           onLoadedData={() => setVideoReady(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 dark:brightness-[0.42] dark:saturate-[0.8] dark:contrast-[1.05] ${
             videoReady ? 'opacity-100' : 'opacity-0'
           }`}
         />

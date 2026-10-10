@@ -69,3 +69,20 @@ test('puts the owner introduction on the home page', () => {
   render(<Home />);
   expect(screen.getByText(messages.en.about.intro1)).toBeDefined();
 });
+
+test('plays the film behind the whole page: every section sits inside the film wrapper', () => {
+  render(<Home />);
+  const film = screen.getByTestId('hero-film');
+  for (const id of [
+    'hero',
+    'who-i-am',
+    'proof-strip',
+    'principle-statement',
+    'contact-panel',
+    'newsletter-panel',
+  ]) {
+    expect(film.contains(screen.getByTestId(id)), id).toBe(true);
+  }
+  const cases = screen.queryByTestId('featured-projects') ?? screen.getByTestId('horizontal-cases');
+  expect(film.contains(cases)).toBe(true);
+});

@@ -49,7 +49,7 @@ export function FeaturedProjectsSection() {
               <Link
                 href={p.href}
                 data-featured={featured ? 'true' : 'false'}
-                className="slab group relative flex h-full flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
+                className="slab slab-glass group relative flex h-full flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
               >
                 <Chip variant="outline">{p.tag}</Chip>
                 <h3

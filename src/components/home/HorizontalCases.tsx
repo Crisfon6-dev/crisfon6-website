@@ -81,7 +81,7 @@ export function HorizontalCases() {
               key={c.id}
               href={c.href}
               data-testid="case-card"
-              className="slab group flex min-h-[26rem] w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
+              className="slab slab-glass group flex min-h-[26rem] w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
             >
               <Chip variant="outline" className="self-start">
                 {c.tag}

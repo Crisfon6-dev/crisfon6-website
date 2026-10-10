@@ -20,11 +20,11 @@ export function HomeContent() {
         <HeroSection />
         <WhoIAm />
         <ProofStrip />
+        <FeaturedCases />
+        <PrincipleStatement />
+        <ContactPanel />
+        <NewsletterPanel />
       </HeroFilm>
-      <FeaturedCases />
-      <PrincipleStatement />
-      <ContactPanel />
-      <NewsletterPanel />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { ThemeProvider } from 'next-themes';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { HeroFilm } from '../HeroFilm';
 import { HERO_FILM_ASSETS, HERO_FILM_ASSETS_NIGHT } from '../heroFilmAssets';
-import { VEIL_MIN, VEIL_MAX, VEIL_RAMP_VH } from '../heroFilmLogic';
+import { VEIL_MIN, VEIL_MAX, VEIL_READING, VEIL_RAMP_VH } from '../heroFilmLogic';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 
@@ -196,16 +196,17 @@ describe('HeroFilm: film mode', () => {
     expect(screen.getByTestId('hero-film').getAttribute('style') ?? '').not.toMatch(/height/);
   });
 
-  it('covers the film with the page colour only after the wrapper has been scrolled through', () => {
+  it('keeps the film light through the introduction, settles to a reading level, then closes at the end', () => {
     setEnv({ width: 1440 });
-    setWrapperHeight(2400); // 800px viewport: the film plays over 1600px of scroll
+    setWrapperHeight(6400); // 800px viewport: the film plays over 5600px of scroll, the whole page
     render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    const veil = () => Number(screen.getByTestId('film-veil').style.opacity);
     scrollTo(0);
-    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MIN, 5);
-    scrollTo(1600);
-    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MIN, 5);
-    scrollTo(1600 + VEIL_RAMP_VH * 800);
-    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MAX, 5);
+    expect(veil()).toBeCloseTo(VEIL_MIN, 5);
+    scrollTo(2800);
+    expect(veil()).toBeCloseTo(VEIL_READING, 5);
+    scrollTo(5600 + VEIL_RAMP_VH * 800);
+    expect(veil()).toBeCloseTo(VEIL_MAX, 5);
   });
 
   it('re-reads the travel when the content height changes (fonts, language, images)', () => {

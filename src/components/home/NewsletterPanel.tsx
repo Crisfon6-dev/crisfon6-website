@@ -13,7 +13,7 @@ export function NewsletterPanel() {
       className="mx-auto max-w-6xl px-sp-5 py-sp-8"
       aria-labelledby="newsletter-panel-title"
     >
-      <div className="slab px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9">
+      <div className="slab slab-glass px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9">
         <div className="relative mx-auto max-w-2xl text-center">
           <Kicker>
             <span>{t.cta.productionBlueprints}</span>

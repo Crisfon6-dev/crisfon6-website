@@ -15,8 +15,7 @@ test.describe('Hero film: desktop', () => {
     await expect(film.locator('video')).toHaveAttribute('src', /hero-v2-desktop\.mp4/);
     await page.waitForFunction(videoReady);
 
-    // the scroll plays only the opening 35% of the 28 s clip, so halfway through the wrapper's
-    // travel the film is at about 0.5 * 0.35 * 28 = 4.9 s, not at the middle of the clip
+    // the film plays across the whole page: halfway down, the 28 s clip is at about 14 s
     const travel = await page.evaluate(() => {
       const el = document.querySelector<HTMLElement>('[data-testid="hero-film"]')!;
       return el.offsetHeight - window.innerHeight;
@@ -24,18 +23,20 @@ test.describe('Hero film: desktop', () => {
     await page.evaluate((y) => window.scrollTo(0, y), travel / 2);
     await expect
       .poll(() => film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime))
-      .toBeGreaterThan(4);
+      .toBeGreaterThan(13);
     const time = await film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime);
-    expect(time).toBeLessThan(6);
+    expect(time).toBeLessThan(15);
 
-    // and at the end of the travel it has still not run through the whole clip
-    await page.evaluate((y) => window.scrollTo(0, y), travel);
-    await expect
-      .poll(() => film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime))
-      .toBeGreaterThan(9);
-    expect(
-      await film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime)
-    ).toBeLessThan(11);
+    // and the featured projects, contact and newsletter sections are inside that same stage
+    for (const id of [
+      'featured-projects',
+      'horizontal-cases',
+      'contact-panel',
+      'newsletter-panel',
+    ]) {
+      if ((await page.getByTestId(id).count()) === 0) continue;
+      expect(await film.locator(`[data-testid="${id}"]`).count(), id).toBe(1);
+    }
   });
 
   test('plays the night footage in dark mode', async ({ page }) => {

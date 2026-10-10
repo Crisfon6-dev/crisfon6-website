@@ -115,6 +115,14 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
     }
   });
 
+  it('frosts the cards so the film shows through them', () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    for (const card of screen.getAllByTestId('case-card')) {
+      expect(card.className).toMatch(/\bslab-glass\b/);
+    }
+  });
+
   it('does not use the low-contrast accent text color for the result labels', () => {
     setEnv(1440);
     render(wrap(<FeaturedCases />));
@@ -169,6 +177,14 @@ describe('FeaturedCases: fallback to the existing vertical grid', () => {
     render(wrap(<FeaturedCases />));
     expect(screen.getByTestId('featured-projects')).toBeTruthy();
     expect(screen.queryByTestId('horizontal-cases')).toBeNull();
+  });
+
+  it('frosts the grid cards too', () => {
+    setEnv(800);
+    const { container } = render(wrap(<FeaturedCases />));
+    const cards = container.querySelectorAll('[data-testid="featured-projects"] .slab');
+    expect(cards.length).toBeGreaterThan(0);
+    for (const card of cards) expect(card.className).toMatch(/\bslab-glass\b/);
   });
 
   it('keeps every card linked to /projects#id in the grid too', () => {

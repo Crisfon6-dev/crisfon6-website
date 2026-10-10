@@ -3,11 +3,13 @@ import {
   progressToTime,
   filmTravelPx,
   filmProgressOver,
-  FILM_PLAYBACK_SHARE,
   veilOpacityOver,
   heroShadeOpacity,
   VEIL_MIN,
   VEIL_MAX,
+  VEIL_READING,
+  VEIL_READING_START_VH,
+  VEIL_READING_RAMP_VH,
   VEIL_RAMP_VH,
 } from '../heroFilmLogic';
 
@@ -74,20 +76,15 @@ describe('filmTravelPx (the scroll distance the film plays over)', () => {
 });
 
 describe('filmProgressOver', () => {
-  it('plays only a fraction of the footage, so the scroll does not race through the whole clip', () => {
-    expect(FILM_PLAYBACK_SHARE).toBeGreaterThan(0.2);
-    expect(FILM_PLAYBACK_SHARE).toBeLessThanOrEqual(0.5);
-  });
-
-  it('is 0 at the top and the playback share once the whole travel has been scrolled', () => {
+  it('is 0 at the top and 1 once the whole travel has been scrolled', () => {
     expect(filmProgressOver(0, 1600)).toBe(0);
-    expect(filmProgressOver(1600, 1600)).toBe(FILM_PLAYBACK_SHARE);
+    expect(filmProgressOver(1600, 1600)).toBe(1);
   });
 
   it('is linear in between and clamps outside the range', () => {
-    expect(filmProgressOver(800, 1600)).toBeCloseTo(FILM_PLAYBACK_SHARE / 2, 10);
+    expect(filmProgressOver(800, 1600)).toBe(0.5);
     expect(filmProgressOver(-40, 1600)).toBe(0);
-    expect(filmProgressOver(99999, 1600)).toBe(FILM_PLAYBACK_SHARE);
+    expect(filmProgressOver(99999, 1600)).toBe(1);
   });
 
   it('is 0 when there is no travel or the input is invalid', () => {
@@ -99,20 +96,40 @@ describe('filmProgressOver', () => {
 });
 
 describe('veilOpacityOver', () => {
-  it('stays at the minimum while the film plays', () => {
-    expect(veilOpacityOver(0, 800, 1600)).toBe(VEIL_MIN);
-    expect(veilOpacityOver(1600, 800, 1600)).toBe(VEIL_MIN);
+  const vh = 800;
+  const travel = 5600;
+
+  it('stays at the minimum through the introduction, where the film is the star', () => {
+    expect(veilOpacityOver(0, vh, travel)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(VEIL_READING_START_VH * vh, vh, travel)).toBe(VEIL_MIN);
   });
 
-  it('ramps to the maximum over VEIL_RAMP_VH viewports after the travel ends', () => {
-    const mid = veilOpacityOver(1600 + (VEIL_RAMP_VH / 2) * 800, 800, 1600);
-    expect(mid).toBeCloseTo((VEIL_MIN + VEIL_MAX) / 2, 5);
-    expect(veilOpacityOver(1600 + VEIL_RAMP_VH * 800, 800, 1600)).toBeCloseTo(VEIL_MAX, 5);
+  it('settles at a reading level for the body, so text straight on the film stays legible', () => {
+    const settled = (VEIL_READING_START_VH + VEIL_READING_RAMP_VH) * vh;
+    expect(veilOpacityOver(settled, vh, travel)).toBeCloseTo(VEIL_READING, 5);
+    expect(veilOpacityOver(travel / 2, vh, travel)).toBeCloseTo(VEIL_READING, 5);
+    expect(veilOpacityOver(travel, vh, travel)).toBeCloseTo(VEIL_READING, 5);
+  });
+
+  it('rises between the two, not in a jump', () => {
+    const mid = (VEIL_READING_START_VH + VEIL_READING_RAMP_VH / 2) * vh;
+    expect(veilOpacityOver(mid, vh, travel)).toBeCloseTo((VEIL_MIN + VEIL_READING) / 2, 5);
+  });
+
+  it('keeps the film visible all the way down: the reading level is well short of opaque', () => {
+    expect(VEIL_READING).toBeGreaterThan(VEIL_MIN);
+    expect(VEIL_READING).toBeLessThanOrEqual(0.6);
+  });
+
+  it('closes to the maximum over VEIL_RAMP_VH viewports once the page content ends (the footer)', () => {
+    expect(veilOpacityOver(travel + VEIL_RAMP_VH * vh, vh, travel)).toBeCloseTo(VEIL_MAX, 5);
+    const mid = veilOpacityOver(travel + (VEIL_RAMP_VH / 2) * vh, vh, travel);
+    expect(mid).toBeCloseTo((VEIL_READING + VEIL_MAX) / 2, 5);
   });
 
   it('is the minimum for invalid input', () => {
-    expect(veilOpacityOver(Number.NaN, 800, 1600)).toBe(VEIL_MIN);
-    expect(veilOpacityOver(100, 0, 1600)).toBe(VEIL_MIN);
-    expect(veilOpacityOver(100, 800, Number.NaN)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(Number.NaN, vh, travel)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(100, 0, travel)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(100, vh, Number.NaN)).toBe(VEIL_MIN);
   });
 });

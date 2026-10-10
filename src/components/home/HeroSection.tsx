@@ -57,18 +57,18 @@ export function HeroSection() {
         {t.hero.businessAngle}
       </p>
 
-      {/* CTAs */}
+      {/* CTAs: hiring first, the cases second, the newsletter as a quiet link */}
       <div className="mt-sp-6 flex flex-wrap items-center gap-sp-3">
-        <Link
-          href="/newsletter"
+        <a
+          href="mailto:crisfon6@crisfon6.com"
           data-testid="hero-cta-primary"
           className="group inline-flex items-center gap-2 rounded-sp-xl bg-warm-fg px-sp-5 py-sp-3 text-sm font-medium text-warm-bg transition-transform hover:-translate-y-0.5"
         >
-          {t.hero.cta1}
+          {t.hero.ctaHire}
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
             →
           </span>
-        </Link>
+        </a>
         <Link
           href="/projects"
           data-testid="hero-cta-secondary"
@@ -78,6 +78,13 @@ export function HeroSection() {
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
             →
           </span>
+        </Link>
+        <Link
+          href="/newsletter"
+          data-testid="hero-cta-newsletter"
+          className="text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+        >
+          {t.hero.cta1} →
         </Link>
       </div>
 
@@ -93,9 +100,6 @@ export function HeroSection() {
           {' · '}
           {t.hero.availability}
         </span>
-        <a href="mailto:crisfon6@crisfon6.com" className="font-medium text-accent hover:underline">
-          {t.cta.emailMe} →
-        </a>
       </p>
 
       {/* Bridge into the film */}

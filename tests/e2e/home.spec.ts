@@ -31,9 +31,15 @@ test.describe('Home page (hi-fi)', () => {
     ).toBeVisible();
   });
 
-  test('primary hero CTA routes to /newsletter', async ({ page }) => {
+  test('the primary hero action is the hiring email, the newsletter is a quiet link', async ({
+    page,
+  }) => {
     await page.goto('/');
-    await page.getByTestId('hero-cta-primary').click();
+    await expect(page.getByTestId('hero-cta-primary')).toHaveAttribute(
+      'href',
+      'mailto:crisfon6@crisfon6.com'
+    );
+    await page.getByTestId('hero-cta-newsletter').click();
     await expect(page).toHaveURL('/newsletter');
   });
 });

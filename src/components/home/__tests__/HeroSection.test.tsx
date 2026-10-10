@@ -48,10 +48,13 @@ describe('HeroSection', () => {
     expect(container.querySelector('.cursor-blink')).toBeNull();
   });
 
-  it('renders both CTAs with the correct hrefs', () => {
+  it('renders the hiring action first, the cases second and the newsletter as a quiet link', () => {
     renderHero();
-    expect(screen.getByTestId('hero-cta-primary').getAttribute('href')).toBe('/newsletter');
+    expect(screen.getByTestId('hero-cta-primary').getAttribute('href')).toBe(
+      'mailto:crisfon6@crisfon6.com'
+    );
     expect(screen.getByTestId('hero-cta-secondary').getAttribute('href')).toBe('/projects');
+    expect(screen.getByTestId('hero-cta-newsletter').getAttribute('href')).toBe('/newsletter');
   });
 
   it('renders the business-angle subtitle under the description', () => {
@@ -79,7 +82,7 @@ describe('HeroSection', () => {
     expect(messages.es.hero.description).not.toMatch(/Certificado por Anthropic/);
   });
 
-  it('says who he is and that he is open to US contracts, with a direct way to write', () => {
+  it('says who he is and that he is open to US contracts', () => {
     renderHero();
     const line = screen.getByTestId('hero-availability');
     expect(line.textContent).toContain('Cristhian Fonseca');
@@ -87,9 +90,27 @@ describe('HeroSection', () => {
     expect(screen.getByTestId('hero-name').className).toMatch(/font-semibold/);
     expect(line.textContent).toContain('US teams');
     expect(line.textContent).toContain('CT/ET');
-    expect(line.querySelector('a')?.getAttribute('href')).toBe('mailto:crisfon6@crisfon6.com');
+    expect(line.querySelector('a')).toBeNull();
     expect(messages.es.hero.availability).toContain('EE. UU.');
     expect(messages.es.hero.availability).toContain('CT/ET');
+  });
+
+  it('makes the hiring action the primary button, in both languages', () => {
+    renderHero();
+    const primary = screen.getByTestId('hero-cta-primary');
+    expect(primary.textContent).toContain(messages.en.hero.ctaHire);
+    expect(primary.className).toMatch(/bg-warm-fg/);
+    expect(messages.es.hero.ctaHire).toBe('¿Contratas? Escríbeme');
+    expect(screen.getByTestId('hero-cta-newsletter').className).not.toMatch(/bg-warm-fg/);
+  });
+
+  it('opens with the brand line, product and business before code', () => {
+    expect(messages.en.hero.businessAngle).toBe(
+      'I start with who it hurts and what it costs. The code comes last.'
+    );
+    expect(messages.es.hero.businessAngle).toBe(
+      'Empiezo por a quién le duele y cuánto cuesta. El código va al final.'
+    );
   });
 
   it('keeps the secondary button readable over the film with an opaque fill', () => {

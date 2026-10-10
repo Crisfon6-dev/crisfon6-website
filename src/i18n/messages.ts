@@ -18,8 +18,8 @@ export const messages = {
       headlineAccent: 'run in production.',
       description:
         'I build agentic systems, MCP workflows, and LLM pipelines that run against real data at scale.',
-      businessAngle:
-        'Technology serves the business, not the other way around. I build what moves the metric, not what looks good in the codebase.',
+      businessAngle: 'I start with who it hurts and what it costs. The code comes last.',
+      ctaHire: 'Hiring? Email me',
       cta1: 'Get the latest AI blueprint',
       cta2: "See what I've built",
       bridge: 'Six chapters. One order: product, business, then code.',
@@ -317,8 +317,8 @@ export const messages = {
       headlineAccent: 'corren en producción.',
       description:
         'Construyo sistemas agénticos, workflows MCP y pipelines de LLMs que corren contra datos reales a escala.',
-      businessAngle:
-        'La tecnología obedece al negocio, no al revés. Construyo lo que mueve la métrica, no lo que luce bonito en el código.',
+      businessAngle: 'Empiezo por a quién le duele y cuánto cuesta. El código va al final.',
+      ctaHire: '¿Contratas? Escríbeme',
       cta1: 'Obtén el último blueprint de AI',
       cta2: 'Ver lo que construí',
       bridge: 'Seis capítulos. Un orden: producto, negocio y, al final, código.',

@@ -8,7 +8,6 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { Kicker } from '@/components/primitives/Kicker';
-import { Chip } from '@/components/primitives/Chip';
 import {
   CREDENTIALS,
   PROFILE,
@@ -51,8 +50,8 @@ export function WhoIAm() {
       aria-labelledby="who-i-am-title"
       className="mx-auto max-w-6xl px-sp-5 pb-sp-7"
     >
-      <div className="slab grid gap-sp-6 p-sp-5 sm:p-sp-6 md:grid-cols-12 md:items-center">
-        <div className="mx-auto w-full max-w-[280px] md:col-span-4 md:max-w-none">
+      <div className="slab grid gap-sp-6 p-sp-5 sm:p-sp-6 md:grid-cols-12">
+        <div className="mx-auto w-full max-w-[280px] md:col-span-4 md:-mb-sp-6 md:max-w-none md:self-end">
           <img
             src={PORTRAIT.src}
             width={PORTRAIT.width}
@@ -94,14 +93,14 @@ export function WhoIAm() {
             <Fact label={t.whoIAm.credentials}>
               <span className="flex flex-wrap gap-sp-2">
                 {credentials.map((c) => (
-                  <Chip
+                  <span
                     key={c.name.en}
                     data-testid="who-credential"
-                    variant="default"
-                    className="px-sp-3 py-sp-2 text-[12px] normal-case"
+                    className="rounded-sp-sm border border-warm-border bg-warm-bg-subtle px-sp-3 py-sp-2 text-[13px] leading-snug text-warm-fg"
                   >
-                    {c.name[locale]} · {c.issuer}
-                  </Chip>
+                    {c.name[locale]}
+                    <span className="text-warm-fg-muted"> · {c.issuer}</span>
+                  </span>
                 ))}
               </span>
             </Fact>

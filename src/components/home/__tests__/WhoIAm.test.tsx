@@ -97,6 +97,22 @@ describe('WhoIAm', () => {
     expect(img.getAttribute('height')).toBe(String(PORTRAIT.height));
   });
 
+  it('stands the portrait on the card bottom edge on desktop instead of floating it mid-card', () => {
+    renderSection();
+    const column = screen.getByAltText(messages.en.whoIAm.photoAlt).parentElement!;
+    expect(column.className).toContain('md:self-end');
+    expect(column.className).toMatch(/md:-mb-sp-6/);
+  });
+
+  it('writes credentials in sentence case with a readable line height, not as tiny caps', () => {
+    renderSection();
+    for (const pill of screen.getAllByTestId('who-credential')) {
+      expect(pill.className).not.toContain('uppercase');
+      expect(pill.className).toMatch(/leading-(snug|normal|relaxed)/);
+      expect(pill.className).not.toContain('leading-none');
+    }
+  });
+
   it('sits in a slab, so text contrast does not depend on the footage behind it', () => {
     renderSection();
     expect(screen.getByTestId('who-i-am').querySelector('.slab')).toBeTruthy();

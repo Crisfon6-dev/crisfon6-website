@@ -1,0 +1,19 @@
+{
+  "$schema": "https://github.com/IBM/audit-ci/raw/main/docs/schema.json",
+  "high": true,
+  "report-type": "important",
+  "allowlist": [
+    // braces <= 3.0.3: stack-exhaustion DoS on deeply nested glob patterns.
+    // https://github.com/advisories/GHSA-vfj7-8cjw-p6xm
+    //
+    // WHY ALLOWLISTED: GitHub lists NO patched version (first_patched_version
+    // is null) and 3.0.3 is the latest release, so no upgrade or override can
+    // fix it. Reached only via dev tooling (lint-staged, eslint-config-next,
+    // shadcn CLI -> micromatch -> braces); no user-controlled glob input.
+    //
+    // REVIEW BY: 2026-11-09. audit-ci has no native expiry, so this date is NOT
+    // enforced. Remove this entry as soon as a patched braces ships (Dependabot
+    // will propose the bump).
+    "GHSA-vfj7-8cjw-p6xm"
+  ]
+}

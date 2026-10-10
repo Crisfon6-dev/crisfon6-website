@@ -579,3 +579,103 @@
     transform: none !important;
   }
 }
+
+/* ============================================
+   Print — /experience "Save as PDF" produces a clean CV
+   ============================================ */
+@media print {
+  nav,
+  footer,
+  [data-print-hide] {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  article {
+    break-inside: avoid;
+  }
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 10px;
+  }
+  @page {
+    margin: 14mm;
+  }
+}
+
+/* Timeline: the accent line fills as the list scrolls through the viewport.
+   --timeline-progress is set by Timeline; unset (no JS) it falls back to fully drawn. */
+.timeline-progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background: var(--c-accent);
+  transform-origin: top;
+  transform: scaleY(var(--timeline-progress, 1));
+}
+
+/* Typewriter: reserve the space of its longest phrase so typing never shifts the layout.
+   The typed text and an invisible copy of the longest phrase share one grid cell. */
+.typewriter {
+  display: inline-grid;
+  vertical-align: top;
+}
+.typewriter > span,
+.typewriter::after {
+  grid-area: 1 / 1;
+}
+.typewriter::after {
+  content: attr(data-ghost);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Slab: a card with a second plane behind it, so it reads like the thickness of the film's cubes.
+   The face must stay a plain background (no filter or isolation on the card): either would make the
+   back plane paint on top of it. */
+.slab {
+  position: relative;
+  border: 1px solid var(--c-warm-border);
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.94);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 4px 12px rgb(20 20 19 / 0.06);
+}
+.slab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translate(6px, 6px);
+  border: 1px solid var(--c-warm-border);
+  border-radius: 16px;
+  background: var(--c-warm-bg-subtle);
+}
+
+/* Rise only, no fade: a half-transparent slab shows its back plane through its face. */
+@keyframes chapter-in {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.chapter-in {
+  /* backwards, not both: a lingering transform would make the card a stacking context and the slab's back plane would paint over its face */
+  animation: chapter-in 280ms var(--ease-out) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chapter-in {
+    animation: none;
+  }
+}

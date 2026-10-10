@@ -8,6 +8,7 @@ import { Kicker } from '@/components/primitives/Kicker';
 import { Chip } from '@/components/primitives/Chip';
 import type { BlogPost } from '@/lib/blog';
 
+/** Only what is really in progress, with no figure that is not sourced and no post already published. */
 const UPCOMING = [
   {
     title: 'How I Architect Cloud-Native FinTech Platforms on AWS',
@@ -18,26 +19,6 @@ const UPCOMING = [
     title: 'Building MCP Agents That Actually Work in Production',
     tag: 'AI · MCP',
     readTime: '10 min',
-  },
-  {
-    title: 'The $12/mo Document Processor: Claude API + Lambda + S3',
-    tag: 'Automation',
-    readTime: '8 min',
-  },
-  {
-    title: 'Why I Stopped Charging by the Hour',
-    tag: 'Business',
-    readTime: '7 min',
-  },
-  {
-    title: 'Optimizing 2M+ Record Queries Without Bigger Instances',
-    tag: 'Performance',
-    readTime: '9 min',
-  },
-  {
-    title: 'My Full CI/CD Setup for FinTech: Push to Production',
-    tag: 'DevOps',
-    readTime: '11 min',
   },
 ] as const;
 
@@ -52,6 +33,7 @@ export function BlogContent({ publishedPosts }: Props) {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="blog"
         number="05"
         label="BLOG"
         title={t.blog.heading}
@@ -106,7 +88,7 @@ export function BlogContent({ publishedPosts }: Props) {
         <Kicker>{t.blog.comingNext}</Kicker>
         <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border opacity-60">
           {UPCOMING.map((post) => (
-            <li key={post.title}>
+            <li key={post.title} data-testid="upcoming-post">
               <div className="flex flex-wrap items-center gap-sp-4 py-sp-5">
                 <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
                   In progress
@@ -135,7 +117,7 @@ export function BlogContent({ publishedPosts }: Props) {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-xl border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+        <div className="slab p-sp-6 text-center">
           <h2
             className="font-heading text-warm-fg"
             style={{
@@ -156,6 +138,13 @@ export function BlogContent({ publishedPosts }: Props) {
           >
             {t.cta.subscribeZTP} <span aria-hidden>→</span>
           </Link>
+          <a
+            href="mailto:crisfon6@crisfon6.com"
+            data-testid="page-hiring-link"
+            className="mt-sp-4 block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+          >
+            {t.newsletter.hiring} →
+          </a>
         </div>
       </section>
     </main>

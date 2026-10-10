@@ -52,6 +52,48 @@ describe('AboutContent', () => {
   });
 });
 
+describe('ProjectsContent: scannable tiers', () => {
+  afterEach(() => {
+    window.location.hash = '';
+  });
+
+  it('keeps tier A cards fully open and folds tiers B and C into collapsed rows', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const card of Array.from(container.querySelectorAll('[data-testid="project-card"]'))) {
+      const tier = card.getAttribute('data-tier');
+      const details = card.querySelector('details');
+      if (tier === 'A') expect(details, card.id).toBeNull();
+      else {
+        expect(details, card.id).toBeTruthy();
+        expect(details!.open, card.id).toBe(false);
+        expect(details!.querySelector('summary')?.textContent).toContain(
+          CASE_STUDIES.find((c) => c.id === card.id)!.title.en
+        );
+      }
+    }
+  });
+
+  it('lets each card take its own height instead of stretching to its neighbour', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    const grids = Array.from(container.querySelectorAll('ul')).filter((ul) =>
+      ul.querySelector('[data-testid="project-card"]')
+    );
+    expect(grids.length).toBeGreaterThan(0);
+    for (const grid of grids) expect(grid.className).toMatch(/items-start/);
+  });
+
+  it('opens the case a link points at, so a hand-off from the home page lands on its content', () => {
+    window.location.hash = '#analytics-platform';
+    const { container } = render(wrap(<ProjectsContent />));
+    expect(container.querySelector<HTMLDetailsElement>('#analytics-platform details')!.open).toBe(
+      true
+    );
+    expect(container.querySelector<HTMLDetailsElement>('#identity-integrity details')!.open).toBe(
+      false
+    );
+  });
+});
+
 describe('ProjectsContent', () => {
   it('renders SubpageHeader "03 · PROJECTS"', () => {
     render(wrap(<ProjectsContent />));

@@ -3,6 +3,7 @@
 import {
   HeroSection,
   HeroFilm,
+  ProofStrip,
   FeaturedCases,
   PrincipleStatement,
   NewsletterPanel,
@@ -12,14 +13,15 @@ import { Atmosphere } from '@/components/primitives/Atmosphere';
 
 export function HomeContent() {
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <HeroSection />
+      <ProofStrip />
       <HeroFilm />
       <FeaturedCases />
       <PrincipleStatement />
       <ContactPanel />
       <NewsletterPanel />
-    </main>
+    </div>
   );
 }

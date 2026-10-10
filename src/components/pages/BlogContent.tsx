@@ -30,7 +30,7 @@ export function BlogContent({ publishedPosts }: Props) {
   const { t } = useLanguage();
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="blog"
@@ -57,7 +57,7 @@ export function BlogContent({ publishedPosts }: Props) {
                     {post.tag}
                   </Chip>
                   <h2
-                    className="flex-1 font-heading text-warm-fg transition-colors group-hover:text-accent"
+                    className="order-last basis-full flex-none font-heading text-warm-fg transition-colors group-hover:text-accent-text sm:order-none sm:flex-1 sm:basis-0"
                     style={{
                       fontSize: 'clamp(18px, 2vw, 22px)',
                       letterSpacing: '-0.015em',
@@ -72,7 +72,7 @@ export function BlogContent({ publishedPosts }: Props) {
                   </span>
                   <span
                     aria-hidden
-                    className="shrink-0 text-warm-fg-faint transition-colors group-hover:text-accent"
+                    className="hidden shrink-0 text-warm-fg-faint transition-colors group-hover:text-accent-text sm:inline"
                   >
                     →
                   </span>
@@ -86,7 +86,7 @@ export function BlogContent({ publishedPosts }: Props) {
       {/* Upcoming */}
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
         <Kicker>{t.blog.comingNext}</Kicker>
-        <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border opacity-60">
+        <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border">
           {UPCOMING.map((post) => (
             <li key={post.title} data-testid="upcoming-post">
               <div className="flex flex-wrap items-center gap-sp-4 py-sp-5">
@@ -97,7 +97,7 @@ export function BlogContent({ publishedPosts }: Props) {
                   {post.tag}
                 </Chip>
                 <h3
-                  className="flex-1 font-heading text-warm-fg"
+                  className="order-last basis-full flex-none font-heading text-warm-fg sm:order-none sm:flex-1 sm:basis-0"
                   style={{
                     fontSize: 'clamp(18px, 2vw, 22px)',
                     letterSpacing: '-0.015em',
@@ -134,19 +134,19 @@ export function BlogContent({ publishedPosts }: Props) {
           <Link
             href="/newsletter"
             data-testid="blog-cta"
-            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
           >
             {t.cta.subscribeZTP} <span aria-hidden>→</span>
           </Link>
           <a
             href="mailto:crisfon6@crisfon6.com"
             data-testid="page-hiring-link"
-            className="mt-sp-4 block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+            className="mt-sp-4 flex min-h-11 items-center justify-center text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
           >
             {t.newsletter.hiring} →
           </a>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

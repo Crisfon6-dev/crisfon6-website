@@ -3,9 +3,11 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/i18n/LanguageProvider';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -21,8 +23,8 @@ export function ThemeToggle() {
       variant="ghost"
       size="sm"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="w-8 h-8 p-0 text-text-tertiary hover:text-text-primary"
-      aria-label="Toggle theme"
+      className="h-11 w-11 p-0 text-warm-fg-muted hover:text-warm-fg"
+      aria-label={theme === 'dark' ? t.nav.toLight : t.nav.toDark}
     >
       {theme === 'dark' ? (
         <svg

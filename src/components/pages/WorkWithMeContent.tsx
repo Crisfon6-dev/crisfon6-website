@@ -10,7 +10,7 @@ export function WorkWithMeContent() {
   const { t } = useLanguage();
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="work"
@@ -21,6 +21,13 @@ export function WorkWithMeContent() {
       />
 
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
+        <a
+          href="mailto:crisfon6@crisfon6.com"
+          data-testid="work-mobile-email"
+          className="mb-sp-5 inline-flex min-h-11 items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white lg:hidden"
+        >
+          {t.cta.emailMe} <span aria-hidden>→</span>
+        </a>
         <div className="grid gap-sp-6 lg:grid-cols-[1fr_320px]">
           {/* Services list */}
           <ul className="space-y-sp-4">
@@ -50,7 +57,7 @@ export function WorkWithMeContent() {
                   </div>
                   <span
                     aria-hidden
-                    className="self-center text-xl text-warm-fg-faint transition-transform group-hover:translate-x-1 group-hover:text-accent"
+                    className="self-center text-xl text-warm-fg-faint transition-transform group-hover:translate-x-1 group-hover:text-accent-text"
                   >
                     →
                   </span>
@@ -82,7 +89,7 @@ export function WorkWithMeContent() {
               <a
                 href="mailto:crisfon6@crisfon6.com"
                 data-testid="contact-card-email"
-                className="mt-sp-5 inline-flex w-full items-center justify-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+                className="mt-sp-5 inline-flex w-full items-center justify-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
               >
                 {t.cta.emailMe}
                 <span aria-hidden>→</span>
@@ -118,7 +125,7 @@ export function WorkWithMeContent() {
               <Link
                 href="/newsletter"
                 data-testid="contact-card-newsletter"
-                className="mt-sp-5 inline-block text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+                className="mt-sp-5 inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
               >
                 {t.cta.subscribeNewsletter} →
               </Link>
@@ -126,6 +133,6 @@ export function WorkWithMeContent() {
           </aside>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

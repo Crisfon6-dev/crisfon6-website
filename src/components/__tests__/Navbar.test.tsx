@@ -106,4 +106,35 @@ describe('Navbar', () => {
     expect(email.getAttribute('href')).toBe('mailto:crisfon6@crisfon6.com');
     expect(email.textContent).toContain('Email me');
   });
+
+  it('moves focus into the mobile dialog, closes on Escape and returns focus to the opener', () => {
+    renderNav();
+    const opener = screen.getByRole('button', { name: 'Open menu' });
+    fireEvent.click(opener);
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Close menu' }));
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByTestId('mobile-menu')).toBeNull();
+    expect(document.activeElement).toBe(opener);
+  });
+
+  it('wraps Tab inside the open mobile dialog so focus cannot reach the page behind it', () => {
+    renderNav();
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+    const dialog = screen.getByTestId('mobile-menu');
+    const items = dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    items[items.length - 1].focus();
+    fireEvent.keyDown(document, { key: 'Tab' });
+    expect(document.activeElement).toBe(items[0]);
+  });
+
+  it('offers a skip link to the main landmark as the first focusable element', () => {
+    renderNav();
+    const skip = screen.getByRole('link', { name: 'Skip to content' });
+    expect(skip.getAttribute('href')).toBe('#main');
+  });
+
+  it('labels the toggles with the action they perform', () => {
+    renderNav();
+    expect(screen.getAllByRole('button', { name: 'Switch to Spanish' }).length).toBeGreaterThan(0);
+  });
 });

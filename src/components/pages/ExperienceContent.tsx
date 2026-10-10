@@ -8,6 +8,7 @@ import { Chip } from '@/components/primitives/Chip';
 import { Atmosphere } from '@/components/primitives/Atmosphere';
 import {
   ROLES,
+  CASE_STUDIES,
   CREDENTIALS,
   KEY_FACTS,
   PRINCIPLES,
@@ -70,17 +71,29 @@ export function ExperienceContent() {
             ))}
           </div>
           {role.caseStudyIds.length > 0 ? (
-            <div className="mt-sp-4 flex flex-wrap gap-sp-4">
-              {role.caseStudyIds.map((id) => (
-                <Link
-                  key={id}
-                  href={`/projects#${id}`}
-                  className="text-sm font-medium text-accent hover:underline"
-                >
-                  {t.experience.seeCaseStudy}
-                </Link>
-              ))}
-            </div>
+            <ul className="mt-sp-4 grid gap-x-sp-5 sm:grid-cols-2">
+              {role.caseStudyIds.map((id) => {
+                const study = CASE_STUDIES.find((c) => c.id === id);
+                return (
+                  <li key={id}>
+                    <Link
+                      href={`/projects#${id}`}
+                      className="group flex min-h-11 flex-col justify-center py-1 text-sm font-medium text-accent-text hover:underline"
+                    >
+                      {study ? (
+                        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-warm-fg-muted">
+                          {study.tag}
+                        </span>
+                      ) : null}
+                      <span>
+                        {t.experience.seeCaseStudy}
+                        {study ? <span className="sr-only"> — {study.title[locale]}</span> : null}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           ) : null}
         </div>
       </article>
@@ -88,7 +101,7 @@ export function ExperienceContent() {
   };
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere data-print-hide />
       <SubpageHeader
         plate="experience"
@@ -114,20 +127,25 @@ export function ExperienceContent() {
         <div className="flex flex-wrap items-center justify-between gap-sp-4 border-y border-warm-border py-sp-4 text-sm text-warm-fg-muted">
           <div className="flex flex-wrap items-center gap-sp-4">
             <span>{PROFILE.location[locale]}</span>
-            <span aria-hidden>·</span>
+            <span aria-hidden className="hidden sm:inline">
+              ·
+            </span>
             <span>
               {t.experience.openTo}: {PROFILE.openTo[locale]}
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-sp-3">
-            <a href={`mailto:${PROFILE.email}`} className="hover:underline">
+          <div className="flex flex-wrap items-center gap-x-sp-4">
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="inline-flex min-h-11 items-center hover:underline"
+            >
               {t.experience.emailMe}
             </a>
             <a
               href={PROFILE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="inline-flex min-h-11 items-center hover:underline"
             >
               LinkedIn
             </a>
@@ -135,7 +153,7 @@ export function ExperienceContent() {
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="inline-flex min-h-11 items-center hover:underline"
             >
               GitHub
             </a>
@@ -144,7 +162,7 @@ export function ExperienceContent() {
               data-testid="print-button"
               data-print-hide
               onClick={() => window.print()}
-              className="rounded-sp-md border border-warm-border px-sp-3 py-1.5 text-warm-fg transition-colors hover:border-warm-border-strong"
+              className="min-h-11 rounded-sp-md border border-warm-border px-sp-3 py-1.5 text-warm-fg transition-colors hover:border-warm-border-strong"
             >
               {t.experience.print}
             </button>
@@ -159,7 +177,7 @@ export function ExperienceContent() {
       {/* Key facts */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-6">
         <Kicker>{t.experience.keyFacts}</Kicker>
-        <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-sp-5 grid grid-cols-2 gap-sp-3 sm:gap-sp-4 lg:grid-cols-4">
           {KEY_FACTS.map((fact) => (
             <li key={fact.label.en} className="slab p-sp-5">
               <p className="font-heading text-3xl font-semibold text-warm-fg">{fact.value}</p>
@@ -215,7 +233,7 @@ export function ExperienceContent() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="cert-verify"
-                  className="mt-2 inline-block text-xs font-medium text-accent hover:underline"
+                  className="mt-2 inline-block text-xs font-medium text-accent-text hover:underline"
                 >
                   {t.experience.verify}
                 </a>
@@ -275,7 +293,7 @@ export function ExperienceContent() {
               href={PROFILE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent hover:underline"
+              className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
             >
               {locale === 'es'
                 ? 'Los mismos cargos y fechas en LinkedIn'
@@ -287,7 +305,7 @@ export function ExperienceContent() {
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent hover:underline"
+              className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
             >
               {locale === 'es' ? 'Código y trabajo open source' : 'Code and open-source work'}
             </a>
@@ -298,7 +316,7 @@ export function ExperienceContent() {
                 href={anthropicCert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-accent hover:underline"
+                className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
               >
                 {locale === 'es' ? 'Certificado del curso' : 'Course certificate'}
               </a>
@@ -307,7 +325,7 @@ export function ExperienceContent() {
           <li>
             <a
               href={`mailto:${PROFILE.email}?subject=Reference%20request`}
-              className="font-medium text-accent hover:underline"
+              className="inline-flex min-h-11 items-center font-medium text-accent-text hover:underline"
             >
               {locale === 'es'
                 ? 'Referencias de jefes y clientes — bajo solicitud'
@@ -347,6 +365,6 @@ export function ExperienceContent() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

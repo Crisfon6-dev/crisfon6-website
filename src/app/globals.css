@@ -47,6 +47,8 @@
 
   /* === Accent (Claude orange default; blue opt-in alias) === */
   --color-accent: var(--c-accent);
+  --color-accent-text: var(--c-accent-text);
+  --color-accent-fill: var(--c-accent-fill);
   --color-accent-light: var(--c-accent-light);
   --color-accent-dim: var(--c-accent-dim);
   --color-accent-soft: var(--c-accent-soft);
@@ -78,12 +80,12 @@
   --color-warm-border-strong: var(--c-warm-border-strong);
 
   /* === Semantic chips === */
-  --color-green: #34d399;
-  --color-green-dim: rgba(52, 211, 153, 0.1);
+  --color-green: var(--c-green);
+  --color-green-dim: var(--c-green-dim);
   --color-amber: #fbbf24;
   --color-amber-dim: rgba(251, 191, 36, 0.1);
-  --color-red: #f87171;
-  --color-red-dim: rgba(248, 113, 113, 0.1);
+  --color-red: var(--c-red);
+  --color-red-dim: var(--c-red-dim);
   --color-violet: #a78bfa;
   --color-violet-dim: rgba(167, 139, 250, 0.1);
   --color-cyan: #22d3ee;
@@ -126,6 +128,13 @@
 :root {
   /* Accent — Claude orange default */
   --c-accent: #d97757;
+  /* Text/fill-grade accent: 4.5:1+ on paper and under white text. Brand orange stays decorative. */
+  --c-accent-text: #a9462a;
+  --c-red: #b91c1c;
+  --c-red-dim: rgba(185, 28, 28, 0.08);
+  --c-green: #047857;
+  --c-green-dim: rgba(4, 120, 87, 0.1);
+  --c-accent-fill: #a9462a;
   --c-accent-light: #e28f74;
   --c-accent-dim: rgba(217, 119, 87, 0.12);
   --c-accent-soft: #f4c9b8;
@@ -150,7 +159,7 @@
   --c-warm-bg-subtle: #f2f1ec;
   --c-warm-fg: #141413;
   --c-warm-fg-muted: #5f5e5a;
-  --c-warm-fg-faint: #9a9895;
+  --c-warm-fg-faint: #6f6d68;
   --c-warm-border: #e8e6e0;
   --c-warm-border-strong: #d5d2cb;
 
@@ -173,7 +182,7 @@
   --card-foreground: var(--c-warm-fg);
   --popover: var(--c-warm-bg-elev);
   --popover-foreground: var(--c-warm-fg);
-  --primary: var(--c-accent);
+  --primary: var(--c-accent-fill);
   --primary-foreground: #ffffff;
   --secondary: var(--c-warm-bg-subtle);
   --secondary-foreground: var(--c-warm-fg);
@@ -207,6 +216,12 @@
 .dark {
   /* Accent — same Claude orange in dark (per prototype spec) */
   --c-accent: #d97757;
+  --c-accent-text: #e8906f;
+  --c-red: #f87171;
+  --c-red-dim: rgba(248, 113, 113, 0.1);
+  --c-green: #34d399;
+  --c-green-dim: rgba(52, 211, 153, 0.1);
+  --c-accent-fill: #b5532f;
   --c-accent-light: #e28f74;
   --c-accent-dim: rgba(217, 119, 87, 0.14);
   --c-accent-soft: #f4c9b8;
@@ -231,7 +246,7 @@
   --c-warm-bg-subtle: #1e1e1b;
   --c-warm-fg: #f5f4ef;
   --c-warm-fg-muted: #a8a69f;
-  --c-warm-fg-faint: #6b6a64;
+  --c-warm-fg-faint: #8d8b84;
   --c-warm-border: #262623;
   --c-warm-border-strong: #363632;
 
@@ -247,7 +262,7 @@
   --card-foreground: var(--c-warm-fg);
   --popover: var(--c-warm-bg-elev);
   --popover-foreground: var(--c-warm-fg);
-  --primary: var(--c-accent);
+  --primary: var(--c-accent-fill);
   --primary-foreground: #ffffff;
   --secondary: var(--c-warm-bg-subtle);
   --secondary-foreground: var(--c-warm-fg);
@@ -645,10 +660,18 @@
   position: relative;
   border: 1px solid var(--c-warm-border);
   border-radius: 16px;
-  background: rgb(255 255 255 / 0.94);
+  background: color-mix(in oklab, var(--c-warm-bg-elev) 94%, transparent);
   box-shadow:
-    inset 0 1px 0 #fff,
+    inset 0 1px 0 color-mix(in oklab, var(--c-warm-bg-elev) 100%, white 40%),
     0 4px 12px rgb(20 20 19 / 0.06);
+}
+.dark .slab::before {
+  display: none;
+}
+.dark .slab {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 8px 24px rgb(0 0 0 / 0.45);
 }
 .slab::before {
   content: '';

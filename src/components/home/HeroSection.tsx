@@ -14,7 +14,7 @@ export function HeroSection() {
         <Kicker dot>
           <span>{t.hero.kicker}</span>
         </Kicker>
-        <span className="inline-flex items-center rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+        <span className="inline-flex items-center rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent-text">
           {t.hero.cert}
         </span>
       </div>
@@ -23,13 +23,13 @@ export function HeroSection() {
       <h1
         className="mt-sp-5 font-heading text-warm-fg"
         style={{
-          fontSize: 'clamp(64px, 14vw, 200px)',
+          fontSize: 'clamp(56px, 11vw, 152px)',
           letterSpacing: '-0.055em',
           lineHeight: '0.88',
           fontWeight: 700,
         }}
       >
-        crisfon<span className="text-accent">6</span>
+        crisfon<span className="text-accent-text">6</span>
       </h1>
 
       {/* Headline with typewriter */}
@@ -43,11 +43,11 @@ export function HeroSection() {
           fontWeight: 500,
         }}
       >
-        {t.hero.headlinePrefix} <span className="text-accent">{t.hero.headlineAccent}</span>
+        {t.hero.headlinePrefix} <span className="text-accent-text">{t.hero.headlineAccent}</span>
       </p>
 
       {/* Blurb */}
-      <p className="mt-sp-5 max-w-[520px] text-base leading-relaxed text-warm-fg-muted">
+      <p className="mt-sp-5 max-w-[520px] text-base leading-relaxed text-warm-fg-muted dark:text-warm-fg/85">
         {t.hero.description}
       </p>
       <p
@@ -72,7 +72,7 @@ export function HeroSection() {
         <Link
           href="/projects"
           data-testid="hero-cta-secondary"
-          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border bg-warm-bg px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-subtle"
+          className="group inline-flex items-center gap-2 rounded-sp-xl border border-warm-border-strong bg-warm-bg px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:bg-warm-bg-subtle"
         >
           {t.hero.cta2}
           <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
@@ -82,7 +82,7 @@ export function HeroSection() {
         <Link
           href="/newsletter"
           data-testid="hero-cta-newsletter"
-          className="text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-warm-fg-muted underline-offset-4 hover:text-warm-fg hover:underline"
         >
           {t.hero.cta1} →
         </Link>
@@ -112,49 +112,10 @@ export function HeroSection() {
       <Link
         href="/experience"
         data-testid="hero-full-work-history"
-        className="mt-sp-2 inline-block text-sm font-medium text-accent hover:underline"
+        className="mt-sp-2 inline-flex min-h-11 items-center text-sm font-medium text-accent-text hover:underline"
       >
         {t.hero.fullWorkHistory}
       </Link>
-
-      {/* Meta links row */}
-      <ul className="mt-sp-5 flex flex-wrap gap-sp-4 font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted">
-        <li>
-          <a
-            href="https://linkedin.com/in/crisfon6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent"
-          >
-            LinkedIn
-          </a>
-        </li>
-        <li>
-          <a href="mailto:crisfon6@crisfon6.com" className="hover:text-accent">
-            Email
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/Crisfon6-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent"
-          >
-            GitHub
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://instagram.com/crisfon6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-accent"
-          >
-            Instagram
-          </a>
-        </li>
-      </ul>
     </section>
   );
 }

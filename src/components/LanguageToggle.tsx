@@ -4,15 +4,15 @@ import { useLanguage } from '@/i18n/LanguageProvider';
 import { Button } from '@/components/ui/button';
 
 export function LanguageToggle() {
-  const { locale, toggleLocale } = useLanguage();
+  const { locale, t, toggleLocale } = useLanguage();
 
   return (
     <Button
       variant="ghost"
       size="sm"
       onClick={toggleLocale}
-      className="w-8 h-8 p-0 text-text-tertiary hover:text-text-primary font-mono text-xs"
-      aria-label="Toggle language"
+      className="h-11 w-11 p-0 text-warm-fg-muted hover:text-warm-fg font-mono text-xs"
+      aria-label={locale === 'en' ? t.nav.toSpanish : t.nav.toEnglish}
     >
       {locale === 'en' ? 'ES' : 'EN'}
     </Button>

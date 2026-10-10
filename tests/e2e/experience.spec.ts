@@ -18,7 +18,7 @@ test.describe('Experience', () => {
     page,
   }) => {
     await page.goto('/experience');
-    await page.getByRole('button', { name: 'Toggle language' }).click();
+    await page.getByRole('button', { name: 'Switch to Spanish' }).click();
     await expect(page.getByText(/CV · EXPERIENCIA/)).toBeVisible();
 
     const prosperasRole = page.locator('#prosperas[data-testid="role"]');

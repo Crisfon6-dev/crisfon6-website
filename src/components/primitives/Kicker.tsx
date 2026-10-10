@@ -10,7 +10,7 @@ type KickerProps = {
 export function Kicker({ children, dot = false, accent = false, className = '' }: KickerProps) {
   const base =
     'inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] leading-none';
-  const tone = accent ? 'text-accent' : 'text-warm-fg-muted';
+  const tone = accent ? 'text-accent-text' : 'text-warm-fg-muted';
   const merged = `${base} ${tone} ${className}`.trim();
   return (
     <span className={merged}>

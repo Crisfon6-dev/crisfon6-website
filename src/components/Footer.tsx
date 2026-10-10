@@ -55,12 +55,12 @@ export function Footer() {
               <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
                 {t.footer.pages}
               </p>
-              <div className="space-y-2">
+              <div className="-my-1">
                 {navKeys.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {t.nav[link.key]}
                   </Link>
@@ -71,13 +71,13 @@ export function Footer() {
               <p className="text-xs font-mono text-muted-foreground mb-3 tracking-widest">
                 {t.footer.connect}
               </p>
-              <div className="space-y-2">
+              <div className="-my-1">
                 {social.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
                   </a>
@@ -87,7 +87,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="footer-mega mt-16 text-center" aria-hidden>
+        <div className="footer-mega mt-10 text-center" aria-hidden>
           crisfon6
         </div>
 
@@ -97,7 +97,6 @@ export function Footer() {
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} Cristhian Fonseca
           </p>
-          <p className="text-xs text-muted-foreground font-mono">Next.js + Vercel</p>
         </div>
         <p data-testid="ai-media-note" className="mt-3 text-xs text-muted-foreground">
           {t.footer.aiMedia}

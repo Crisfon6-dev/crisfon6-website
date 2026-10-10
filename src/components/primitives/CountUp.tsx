@@ -15,7 +15,7 @@ export function CountUp({
   suffix,
   duration = 1600,
   className,
-  suffixClassName = 'text-accent',
+  suffixClassName = 'text-accent-text',
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const [value, setValue] = useState(0);

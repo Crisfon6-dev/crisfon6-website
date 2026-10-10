@@ -87,7 +87,9 @@ export default function RootLayout({
             <TooltipProvider>
               <Navbar />
               <Spine />
-              <main className="flex-1">{children}</main>
+              <main id="main" tabIndex={-1} className="flex-1 outline-none">
+                {children}
+              </main>
               <Footer />
             </TooltipProvider>
           </LanguageProvider>

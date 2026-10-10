@@ -119,7 +119,7 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
     setEnv(1440);
     render(wrap(<FeaturedCases />));
     for (const card of screen.getAllByTestId('case-card')) {
-      expect(card.querySelectorAll('.text-accent').length).toBe(0);
+      expect(card.querySelectorAll('.text-accent-text').length).toBe(0);
     }
   });
 

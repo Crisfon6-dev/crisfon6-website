@@ -16,6 +16,7 @@ import {
   veilOpacity,
 } from './heroFilmLogic';
 import { ChapterPlate } from './ChapterPlate';
+import { chapterProgress } from './chapterBeats';
 import { HOME_CHAPTERS, activeChapter } from './homeChapters';
 import {
   FILM_DURATION_SECONDS,
@@ -218,14 +219,37 @@ function FilmStage() {
           style={{ opacity: veil }}
         />
       </div>
+      {/* The same story for assistive tech at any scroll position: the visual panel below only
+          exists while the film is on screen. Case links live in the sections that follow. */}
+      <ol data-testid="film-chapters-sr" className="sr-only">
+        {HOME_CHAPTERS.map((item) => (
+          <li key={item.id}>
+            <ChapterPlate chapter={item} testId={`sr-chapter-${item.id}`} showLink={false} />
+          </li>
+        ))}
+      </ol>
       {plate > 0 ? (
         <div
-          className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10"
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10 [@media(max-height:760px)]:bottom-sp-4"
           style={{ opacity: plate }}
         >
-          <div className="mx-auto max-w-6xl px-sp-5">
-            <div className="pointer-events-auto max-w-md">
-              <ChapterPlate key={chapter.id} chapter={chapter} testId="film-chapter" />
+          <div
+            className={`mx-auto flex max-w-6xl px-sp-5 ${
+              HOME_CHAPTERS.indexOf(chapter) % 2 === 1 ? 'justify-end' : 'justify-start'
+            }`}
+          >
+            <div
+              className={`${plate < 0.3 ? 'pointer-events-none' : 'pointer-events-auto'} w-full max-w-xl`}
+            >
+              <ChapterPlate
+                key={chapter.id}
+                chapter={chapter}
+                testId="film-chapter"
+                localProgress={chapterProgress(progress, chapter)}
+                compact
+                linkFocusable={false}
+              />
             </div>
           </div>
         </div>

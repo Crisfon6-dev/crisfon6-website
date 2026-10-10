@@ -293,3 +293,72 @@ describe('HeroFilm: server render', () => {
     expect(html).not.toContain('<video');
   });
 });
+
+describe('HeroFilm: chapter beats follow the scroll', () => {
+  it('reveals a chapter beat by beat as the page scrolls through its window', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    // chapter "data" spans progress 3/7..4/7 (0.4286..0.5714); 0.4286 + 0.1429 * 0.2 = ~0.4571
+    scrollTo(0.4571 * 5600);
+    const flag = (name: string) =>
+      screen.getByTestId(`film-chapter-beat-${name}`).getAttribute('data-visible');
+    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'false', 'false']);
+    scrollTo(0.5 * 5600);
+    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'true', 'false']);
+    scrollTo(0.56 * 5600);
+    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'true', 'true']);
+  });
+
+  it('shows every beat in the stills layout', () => {
+    setEnv({ width: 400 });
+    render(wrap(<HeroFilm />));
+    for (const chapter of HOME_CHAPTERS.filter((c) => c.id === 'compute')) {
+      expect(
+        screen.getByTestId(`chapter-${chapter.id}-beat-result`).getAttribute('data-visible')
+      ).toBe('true');
+    }
+  });
+
+  it('keeps the plate inside the page column while it alternates sides', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 5600);
+    expect(screen.getByTestId('film-chapter').closest('.max-w-6xl')).toBeTruthy();
+  });
+});
+
+describe('HeroFilm: the chapter story is reachable without the visual panel', () => {
+  it('renders all six chapters for assistive tech at any scroll position, with no links', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0);
+    for (const chapter of HOME_CHAPTERS) {
+      const copy = screen.getByTestId(`sr-chapter-${chapter.id}`);
+      expect(copy.textContent).toContain(messages.en.chapters.items[chapter.id].title);
+      expect(copy.querySelector('a')).toBeNull();
+    }
+    expect(screen.getByTestId('film-chapters-sr').className).toContain('sr-only');
+  });
+
+  it('hides the visual panel from assistive tech and keeps its link out of the tab order', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 5600);
+    const plate = screen.getByTestId('film-chapter');
+    expect(plate.closest('[aria-hidden="true"]')).toBeTruthy();
+    expect(plate.querySelector('a')!.getAttribute('tabindex')).toBe('-1');
+  });
+
+  it('stops the nearly invisible panel from catching clicks while it fades', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 800); // plate opacity about 0.125
+    expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
+      'pointer-events-none'
+    );
+    scrollTo(0.5 * 5600);
+    expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
+      'pointer-events-auto'
+    );
+  });
+});

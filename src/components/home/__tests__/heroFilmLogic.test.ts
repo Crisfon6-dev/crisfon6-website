@@ -1,13 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import {
   progressToTime,
-  filmProgress,
   filmTravelPx,
   filmProgressOver,
-  veilOpacity,
   veilOpacityOver,
   heroShadeOpacity,
-  plateOpacity,
   VEIL_MIN,
   VEIL_MAX,
   VEIL_RAMP_VH,
@@ -37,45 +34,6 @@ describe('progressToTime', () => {
   });
 });
 
-describe('filmProgress (the film is the page background: progress follows the page scroll)', () => {
-  it('is 0 at the top and 1 once travel x viewport has been scrolled', () => {
-    expect(filmProgress(0, 800, 7)).toBe(0);
-    expect(filmProgress(5600, 800, 7)).toBe(1);
-  });
-
-  it('is linear in between and clamps outside the range', () => {
-    expect(filmProgress(2800, 800, 7)).toBe(0.5);
-    expect(filmProgress(-40, 800, 7)).toBe(0);
-    expect(filmProgress(99999, 800, 7)).toBe(1);
-  });
-
-  it('returns 0 for non-finite or non-positive inputs', () => {
-    expect(filmProgress(Number.NaN, 800, 7)).toBe(0);
-    expect(filmProgress(100, 0, 7)).toBe(0);
-    expect(filmProgress(100, 800, 0)).toBe(0);
-  });
-});
-
-describe('veilOpacity (how much page colour covers the film)', () => {
-  it('stays at the minimum while the film plays', () => {
-    expect(veilOpacity(0, 800, 7)).toBe(VEIL_MIN);
-    expect(veilOpacity(5600, 800, 7)).toBe(VEIL_MIN);
-  });
-
-  it('ramps up to the maximum over VEIL_RAMP_VH viewports after the film ends', () => {
-    const end = 5600;
-    const mid = veilOpacity(end + (VEIL_RAMP_VH / 2) * 800, 800, 7);
-    expect(mid).toBeCloseTo((VEIL_MIN + VEIL_MAX) / 2, 5);
-    expect(veilOpacity(end + VEIL_RAMP_VH * 800, 800, 7)).toBeCloseTo(VEIL_MAX, 5);
-    expect(veilOpacity(end + 50 * 800, 800, 7)).toBeCloseTo(VEIL_MAX, 5);
-  });
-
-  it('keeps the film visible and later content readable', () => {
-    expect(VEIL_MIN).toBeLessThan(0.35);
-    expect(VEIL_MAX).toBeGreaterThanOrEqual(0.85);
-  });
-});
-
 describe('heroShadeOpacity (extra left-side shade that keeps the hero text readable)', () => {
   it('is fully on at the top and fades out within one viewport of scroll', () => {
     expect(heroShadeOpacity(0, 800)).toBe(1);
@@ -95,30 +53,6 @@ describe('heroShadeOpacity (extra left-side shade that keeps the hero text reada
   it('reads invalid input as no shade', () => {
     expect(heroShadeOpacity(Number.NaN, 800)).toBe(0);
     expect(heroShadeOpacity(100, 0)).toBe(0);
-  });
-});
-
-describe('plateOpacity (the chapter plate must not cover the hero, nor outlive the film)', () => {
-  it('is hidden while the hero is on screen', () => {
-    expect(plateOpacity(0, 800, 7)).toBe(0);
-    expect(plateOpacity(0.45 * 800, 800, 7)).toBe(0);
-  });
-
-  it('fades in as the hero scrolls out and is fully visible while the film plays', () => {
-    expect(plateOpacity(0.65 * 800, 800, 7)).toBeCloseTo(0.5, 5);
-    expect(plateOpacity(0.85 * 800, 800, 7)).toBe(1);
-    expect(plateOpacity(2800, 800, 7)).toBe(1);
-    expect(plateOpacity(5600, 800, 7)).toBe(1);
-  });
-
-  it('fades out over half a screen after the film ends and is gone after that', () => {
-    expect(plateOpacity(5600 + 200, 800, 7)).toBeCloseTo(0.5, 5);
-    expect(plateOpacity(5600 + 400, 800, 7)).toBe(0);
-    expect(plateOpacity(99999, 800, 7)).toBe(0);
-  });
-
-  it('is visible for invalid input rather than hiding the story', () => {
-    expect(plateOpacity(Number.NaN, 800, 7)).toBe(1);
   });
 });
 

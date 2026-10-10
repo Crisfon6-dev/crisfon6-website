@@ -30,49 +30,10 @@ export const messages = {
       ctaHire: 'Hiring? Email me',
       cta1: 'Get the latest AI blueprint',
       cta2: "See what I've built",
-      bridge: 'Six chapters. One order: product, business, then code.',
       name: 'Cristhian Fonseca',
       availability:
         'Open to remote Technical Lead roles with US teams (CT/ET overlap) · full-time or contract',
       fullWorkHistory: 'Full work history →',
-    },
-    chapters: {
-      label: 'Chapter',
-      seeCase: 'Read the case',
-      hire: 'Hiring? Email me',
-      beats: {
-        problem: 'Problem',
-        decision: 'Decision',
-        result: 'Result',
-        whoHurts: 'Who does it hurt?',
-        whatCosts: 'What does it cost?',
-      },
-      items: {
-        blueprint: {
-          title: 'Start with the blueprint',
-          claim: 'Before any code, I ask who it hurts and what it costs.',
-        },
-        compute: {
-          title: 'Cut the bill',
-          claim: 'The cloud bill was a business problem, not an infrastructure one.',
-        },
-        data: {
-          title: 'Make data instant',
-          claim: 'Teams stopped waiting on reports and started deciding.',
-        },
-        agents: {
-          title: 'Put agents to work',
-          claim: 'A backlog went in. Reviewed pull requests came out, in a day.',
-        },
-        delivery: {
-          title: 'Deliver to real users',
-          claim: 'Real users, inside a much bigger ecosystem.',
-        },
-        reveal: {
-          title: 'See it run',
-          claim: 'Years in production teach what demos never show.',
-        },
-      },
     },
     footer: {
       tagline: 'Technical Lead. AI systems in production, with the cost and the code.',
@@ -357,49 +318,10 @@ export const messages = {
       ctaHire: '¿Contratas? Escríbeme',
       cta1: 'Obtén el último blueprint de AI',
       cta2: 'Ver lo que construí',
-      bridge: 'Seis capítulos. Un orden: producto, negocio y, al final, código.',
       name: 'Cristhian Fonseca',
       availability:
         'Disponible para roles remotos de Technical Lead con equipos de EE. UU. (solape CT/ET) · tiempo completo o contrato',
       fullWorkHistory: 'Historia laboral completa →',
-    },
-    chapters: {
-      label: 'Capítulo',
-      seeCase: 'Leer el caso',
-      hire: '¿Contratas? Escríbeme',
-      beats: {
-        problem: 'Problema',
-        decision: 'Decisión',
-        result: 'Resultado',
-        whoHurts: '¿A quién le duele?',
-        whatCosts: '¿Cuánto cuesta?',
-      },
-      items: {
-        blueprint: {
-          title: 'Empieza por el plano',
-          claim: 'Antes del código, pregunto a quién le duele y cuánto cuesta.',
-        },
-        compute: {
-          title: 'Recorta la factura',
-          claim: 'La factura de nube era un problema de negocio, no de infraestructura.',
-        },
-        data: {
-          title: 'Datos al instante',
-          claim: 'Los equipos dejaron de esperar reportes y empezaron a decidir.',
-        },
-        agents: {
-          title: 'Pon a trabajar a los agentes',
-          claim: 'Entra un backlog. Salen pull requests revisados, en un día.',
-        },
-        delivery: {
-          title: 'Entrega a usuarios reales',
-          claim: 'Usuarios reales, dentro de un ecosistema mucho mayor.',
-        },
-        reveal: {
-          title: 'Míralo funcionar',
-          claim: 'Los años en producción enseñan lo que ninguna demo muestra.',
-        },
-      },
     },
     footer: {
       tagline: 'Technical Lead. Sistemas de IA en producción, con el costo y el código.',

@@ -33,11 +33,5 @@ export function heroFilmAssetsFor(resolvedTheme: string | undefined) {
   return resolvedTheme === 'dark' ? HERO_FILM_ASSETS_NIGHT : HERO_FILM_ASSETS;
 }
 
-/** Intrinsic size of the poster and stills, so images reserve their space (no layout shift). */
-export const FILM_FRAME = { width: 1280, height: 720 } as const;
-
 /** Film length in seconds; used until the video reports its real duration. */
 export const FILM_DURATION_SECONDS = 28;
-
-/** Viewport-heights of scroll the pinned stage lasts (one per shot of the Visual Story). */
-export const FILM_TRAVEL_VH = 7;

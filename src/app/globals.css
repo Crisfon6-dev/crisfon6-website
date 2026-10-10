@@ -683,3 +683,18 @@
   border-radius: 16px;
   background: var(--c-warm-bg-subtle);
 }
+
+/* Glass: a slab that lets the film behind it show through, frosted so the text on it stays readable.
+   The backdrop filter makes the card its own stacking context, which would paint the back plane over
+   the face, so the plane is dropped here. */
+.slab.slab-glass {
+  background: color-mix(in oklab, var(--c-warm-bg-elev) 62%, transparent);
+  -webkit-backdrop-filter: blur(9px) saturate(1.2);
+  backdrop-filter: blur(9px) saturate(1.2);
+}
+.slab.slab-glass::before {
+  display: none;
+}
+.dark .slab.slab-glass {
+  background: color-mix(in oklab, var(--c-warm-bg-elev) 46%, transparent);
+}

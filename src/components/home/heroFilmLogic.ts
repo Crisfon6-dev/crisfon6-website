@@ -38,10 +38,16 @@ export function filmTravelPx(wrapperHeight: number, viewportHeight: number): num
   return Math.max(0, wrapperHeight - viewportHeight);
 }
 
+/**
+ * Share of the footage the scroll plays. The travel is only a couple of screens, so scrubbing the
+ * whole clip across it raced through every shot; this plays the opening of it at a readable pace.
+ */
+export const FILM_PLAYBACK_SHARE = 0.35;
+
 /** Film progress for a travel in pixels; no travel (or invalid input) reads as the first frame. */
 export function filmProgressOver(scrollY: number, travelPx: number): number {
   if (![scrollY, travelPx].every(Number.isFinite) || travelPx <= 0) return 0;
-  return clamp01(scrollY / travelPx);
+  return clamp01(scrollY / travelPx) * FILM_PLAYBACK_SHARE;
 }
 
 /** Page-colour veil over the film for a travel in pixels: minimal while it plays, closing after. */

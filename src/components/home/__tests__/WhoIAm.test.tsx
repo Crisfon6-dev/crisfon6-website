@@ -104,6 +104,13 @@ describe('WhoIAm', () => {
     expect(column.className).toMatch(/lg:-mb-sp-6/);
   });
 
+  it('is a glass card, so the film shows through it', () => {
+    renderSection();
+    const card = screen.getByAltText(messages.en.whoIAm.photoAlt).parentElement!.parentElement!;
+    expect(card.className).toContain('slab');
+    expect(card.className).toContain('slab-glass');
+  });
+
   it('keeps the portrait stacked above the text on tablets and only goes two-column from lg', () => {
     renderSection();
     const column = screen.getByAltText(messages.en.whoIAm.photoAlt).parentElement!;

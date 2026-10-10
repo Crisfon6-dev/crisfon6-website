@@ -50,7 +50,7 @@ export function WhoIAm() {
       aria-labelledby="who-i-am-title"
       className="mx-auto max-w-6xl px-sp-5 pb-sp-7"
     >
-      <div className="slab grid gap-sp-6 p-sp-5 sm:p-sp-6 lg:grid-cols-12">
+      <div className="slab slab-glass grid gap-sp-6 p-sp-5 sm:p-sp-6 lg:grid-cols-12">
         <div className="mx-auto w-full max-w-[280px] lg:col-span-4 lg:-mb-sp-6 lg:max-w-none lg:self-end">
           <img
             src={PORTRAIT.src}

@@ -3,6 +3,7 @@ import {
   progressToTime,
   filmTravelPx,
   filmProgressOver,
+  FILM_PLAYBACK_SHARE,
   veilOpacityOver,
   heroShadeOpacity,
   VEIL_MIN,
@@ -73,15 +74,20 @@ describe('filmTravelPx (the scroll distance the film plays over)', () => {
 });
 
 describe('filmProgressOver', () => {
-  it('is 0 at the top and 1 once the whole travel has been scrolled', () => {
+  it('plays only a fraction of the footage, so the scroll does not race through the whole clip', () => {
+    expect(FILM_PLAYBACK_SHARE).toBeGreaterThan(0.2);
+    expect(FILM_PLAYBACK_SHARE).toBeLessThanOrEqual(0.5);
+  });
+
+  it('is 0 at the top and the playback share once the whole travel has been scrolled', () => {
     expect(filmProgressOver(0, 1600)).toBe(0);
-    expect(filmProgressOver(1600, 1600)).toBe(1);
+    expect(filmProgressOver(1600, 1600)).toBe(FILM_PLAYBACK_SHARE);
   });
 
   it('is linear in between and clamps outside the range', () => {
-    expect(filmProgressOver(800, 1600)).toBe(0.5);
+    expect(filmProgressOver(800, 1600)).toBeCloseTo(FILM_PLAYBACK_SHARE / 2, 10);
     expect(filmProgressOver(-40, 1600)).toBe(0);
-    expect(filmProgressOver(99999, 1600)).toBe(1);
+    expect(filmProgressOver(99999, 1600)).toBe(FILM_PLAYBACK_SHARE);
   });
 
   it('is 0 when there is no travel or the input is invalid', () => {

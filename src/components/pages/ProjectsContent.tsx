@@ -126,7 +126,7 @@ export function ProjectsContent() {
                 href={cs.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent hover:underline"
+                className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
               >
                 Repo ↗
               </a>
@@ -136,14 +136,14 @@ export function ProjectsContent() {
                 href={cs.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent hover:underline"
+                className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
               >
                 Live ↗
               </a>
             ) : null}
             <Link
               href={`/experience#${cs.roleId}`}
-              className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent hover:underline"
+              className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text hover:underline"
             >
               {t.projects.roleLink}
             </Link>
@@ -176,7 +176,7 @@ export function ProjectsContent() {
   };
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="projects"
@@ -213,7 +213,7 @@ export function ProjectsContent() {
               </>
             )}
           </p>
-          <div className="mt-sp-4 flex flex-wrap gap-sp-4 text-sm font-medium text-accent">
+          <div className="mt-sp-4 flex flex-wrap gap-sp-4 text-sm font-medium text-accent-text">
             <Link href="/newsletter" className="hover:underline">
               {t.nav.subscribe}
             </Link>
@@ -255,7 +255,7 @@ export function ProjectsContent() {
             <Link
               href="/newsletter"
               data-testid="projects-cta"
-              className="inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
             >
               {t.cta.subscribeZTP} <span aria-hidden>→</span>
             </Link>
@@ -275,6 +275,6 @@ export function ProjectsContent() {
           </a>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

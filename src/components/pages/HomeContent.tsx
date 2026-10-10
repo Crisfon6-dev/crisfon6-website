@@ -12,7 +12,7 @@ import { Atmosphere } from '@/components/primitives/Atmosphere';
 
 export function HomeContent() {
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <HeroSection />
       <HeroFilm />
@@ -20,6 +20,6 @@ export function HomeContent() {
       <PrincipleStatement />
       <ContactPanel />
       <NewsletterPanel />
-    </main>
+    </div>
   );
 }

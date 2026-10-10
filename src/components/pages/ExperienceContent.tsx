@@ -75,7 +75,7 @@ export function ExperienceContent() {
                 <Link
                   key={id}
                   href={`/projects#${id}`}
-                  className="text-sm font-medium text-accent hover:underline"
+                  className="text-sm font-medium text-accent-text hover:underline"
                 >
                   {t.experience.seeCaseStudy}
                 </Link>
@@ -88,7 +88,7 @@ export function ExperienceContent() {
   };
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere data-print-hide />
       <SubpageHeader
         plate="experience"
@@ -215,7 +215,7 @@ export function ExperienceContent() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="cert-verify"
-                  className="mt-2 inline-block text-xs font-medium text-accent hover:underline"
+                  className="mt-2 inline-block text-xs font-medium text-accent-text hover:underline"
                 >
                   {t.experience.verify}
                 </a>
@@ -275,7 +275,7 @@ export function ExperienceContent() {
               href={PROFILE.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent hover:underline"
+              className="font-medium text-accent-text hover:underline"
             >
               {locale === 'es'
                 ? 'Los mismos cargos y fechas en LinkedIn'
@@ -287,7 +287,7 @@ export function ExperienceContent() {
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-accent hover:underline"
+              className="font-medium text-accent-text hover:underline"
             >
               {locale === 'es' ? 'Código y trabajo open source' : 'Code and open-source work'}
             </a>
@@ -298,7 +298,7 @@ export function ExperienceContent() {
                 href={anthropicCert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-accent hover:underline"
+                className="font-medium text-accent-text hover:underline"
               >
                 {locale === 'es' ? 'Certificado del curso' : 'Course certificate'}
               </a>
@@ -307,7 +307,7 @@ export function ExperienceContent() {
           <li>
             <a
               href={`mailto:${PROFILE.email}?subject=Reference%20request`}
-              className="font-medium text-accent hover:underline"
+              className="font-medium text-accent-text hover:underline"
             >
               {locale === 'es'
                 ? 'Referencias de jefes y clientes — bajo solicitud'
@@ -347,6 +347,6 @@ export function ExperienceContent() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

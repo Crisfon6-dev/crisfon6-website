@@ -14,7 +14,7 @@ export function HeroSection() {
         <Kicker dot>
           <span>{t.hero.kicker}</span>
         </Kicker>
-        <span className="inline-flex items-center rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+        <span className="inline-flex items-center rounded-sp-sm border border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-accent-text">
           {t.hero.cert}
         </span>
       </div>
@@ -29,7 +29,7 @@ export function HeroSection() {
           fontWeight: 700,
         }}
       >
-        crisfon<span className="text-accent">6</span>
+        crisfon<span className="text-accent-text">6</span>
       </h1>
 
       {/* Headline with typewriter */}
@@ -43,7 +43,7 @@ export function HeroSection() {
           fontWeight: 500,
         }}
       >
-        {t.hero.headlinePrefix} <span className="text-accent">{t.hero.headlineAccent}</span>
+        {t.hero.headlinePrefix} <span className="text-accent-text">{t.hero.headlineAccent}</span>
       </p>
 
       {/* Blurb */}
@@ -112,7 +112,7 @@ export function HeroSection() {
       <Link
         href="/experience"
         data-testid="hero-full-work-history"
-        className="mt-sp-2 inline-block text-sm font-medium text-accent hover:underline"
+        className="mt-sp-2 inline-block text-sm font-medium text-accent-text hover:underline"
       >
         {t.hero.fullWorkHistory}
       </Link>
@@ -124,13 +124,13 @@ export function HeroSection() {
             href="https://linkedin.com/in/crisfon6"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-accent"
+            className="hover:text-accent-text"
           >
             LinkedIn
           </a>
         </li>
         <li>
-          <a href="mailto:crisfon6@crisfon6.com" className="hover:text-accent">
+          <a href="mailto:crisfon6@crisfon6.com" className="hover:text-accent-text">
             Email
           </a>
         </li>
@@ -139,7 +139,7 @@ export function HeroSection() {
             href="https://github.com/Crisfon6-dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-accent"
+            className="hover:text-accent-text"
           >
             GitHub
           </a>
@@ -149,7 +149,7 @@ export function HeroSection() {
             href="https://instagram.com/crisfon6"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-accent"
+            className="hover:text-accent-text"
           >
             Instagram
           </a>

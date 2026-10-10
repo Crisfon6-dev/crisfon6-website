@@ -33,7 +33,7 @@ export function Pipeline({ nodes, className = '' }: PipelineProps) {
             }}
           />
           <div className="relative flex items-center gap-sp-3">
-            <span className="flex h-8 w-8 items-center justify-center rounded-sp-sm bg-accent-weak text-accent">
+            <span className="flex h-8 w-8 items-center justify-center rounded-sp-sm bg-accent-weak text-accent-text">
               {node.icon}
             </span>
             <div className="min-w-0">

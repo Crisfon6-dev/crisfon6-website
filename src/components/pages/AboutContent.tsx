@@ -28,7 +28,7 @@ export function AboutContent() {
   ];
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="about"
@@ -166,6 +166,6 @@ export function AboutContent() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

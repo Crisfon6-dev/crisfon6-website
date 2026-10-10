@@ -56,7 +56,7 @@ export function ChapterPlate({ chapter, testId }: { chapter: HomeChapter; testId
         chapter.href.startsWith('mailto:') ? (
           <a
             href={chapter.href}
-            className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+            className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent-text hover:underline"
           >
             {linkLabel}
             <span aria-hidden>→</span>
@@ -64,7 +64,7 @@ export function ChapterPlate({ chapter, testId }: { chapter: HomeChapter; testId
         ) : (
           <Link
             href={chapter.href}
-            className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+            className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent-text hover:underline"
           >
             {linkLabel}
             <span aria-hidden>→</span>

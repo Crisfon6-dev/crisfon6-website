@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -18,11 +18,16 @@ const linkKeys = [
   { href: '/blog', key: 'blog' as const },
 ];
 
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { t } = useLanguage();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -52,8 +57,46 @@ export function Navbar() {
     };
   }, [mobileOpen]);
 
+  // Dialog keyboard contract: focus in on open, Esc closes, Tab wraps, focus returns to the opener.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const opener = menuButtonRef.current;
+    closeButtonRef.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+      const items = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      opener?.focus();
+    };
+  }, [mobileOpen]);
+
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-[70] focus-visible:rounded-md focus-visible:bg-accent-fill focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-medium focus-visible:text-white"
+      >
+        {t.nav.skip}
+      </a>
       <nav
         data-scrolled={scrolled ? 'true' : 'false'}
         className="sticky top-0 z-50 bg-warm-bg/80 backdrop-blur-lg transition-[border-color,background-color] duration-200 data-[scrolled=true]:border-b data-[scrolled=true]:border-warm-border data-[scrolled=true]:bg-warm-bg/95"
@@ -62,7 +105,7 @@ export function Navbar() {
           {/* Brand */}
           <Link
             href="/"
-            className="group flex items-center gap-2 transition-opacity hover:opacity-80"
+            className="group flex h-11 items-center gap-2 transition-opacity hover:opacity-80"
           >
             <Logo />
           </Link>
@@ -83,7 +126,9 @@ export function Navbar() {
                       : 'text-warm-fg-muted hover:text-warm-fg'
                   }
                 >
-                  <Link href={link.href}>{t.nav[link.key]}</Link>
+                  <Link href={link.href} aria-current={isActive ? 'page' : undefined}>
+                    {t.nav[link.key]}
+                  </Link>
                 </Button>
               );
             })}
@@ -107,18 +152,21 @@ export function Navbar() {
 
           {/* Mobile toggle */}
           <button
+            ref={menuButtonRef}
             type="button"
-            className="p-1 text-warm-fg-muted transition-colors hover:text-warm-fg md:hidden"
+            className="-mr-2 flex h-11 w-11 items-center justify-center text-warm-fg-muted transition-colors hover:text-warm-fg md:hidden"
             onClick={openMobile}
-            aria-label="Open menu"
+            aria-label={t.nav.openMenu}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             <svg
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={1.5}
+              aria-hidden
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -129,38 +177,46 @@ export function Navbar() {
       {/* Mobile full-screen overlay */}
       {mobileOpen ? (
         <div
+          id="mobile-menu"
+          ref={dialogRef}
           data-testid="mobile-menu"
           role="dialog"
           aria-modal="true"
-          aria-label="Mobile navigation"
-          className="fixed inset-0 z-[60] flex flex-col bg-warm-bg/98 px-sp-5 pt-sp-5 backdrop-blur-lg md:hidden"
+          aria-label={t.nav.mobileNav}
+          className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-warm-bg/98 px-sp-5 pt-sp-3 backdrop-blur-lg md:hidden"
         >
           <div className="flex items-center justify-between">
             <Logo />
-            <button
-              type="button"
-              className="p-2 text-warm-fg-muted hover:text-warm-fg"
-              onClick={closeMobile}
-              aria-label="Close menu"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
+            <div className="-mr-2 flex items-center">
+              <LanguageToggle />
+              <ThemeToggle />
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="flex h-11 w-11 items-center justify-center text-warm-fg-muted hover:text-warm-fg"
+                onClick={closeMobile}
+                aria-label={t.nav.closeMenu}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  aria-hidden
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
 
-          <nav className="mt-sp-7 flex flex-1 flex-col gap-sp-5">
+          <nav className="mt-sp-6 flex flex-1 flex-col gap-sp-4 pb-sp-6">
             <a
               href="mailto:crisfon6@crisfon6.com"
               data-testid="mobile-menu-email"
               onClick={closeMobile}
-              className="inline-flex w-fit items-center gap-2 rounded-sp-md bg-accent px-sp-5 py-sp-3 text-base font-medium text-white"
+              className="inline-flex min-h-11 w-fit items-center gap-2 rounded-sp-md bg-accent-fill px-sp-5 py-sp-3 text-base font-medium text-white"
             >
               {t.cta.emailMe} <span aria-hidden>→</span>
             </a>
@@ -169,7 +225,8 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={closeMobile}
-                className="text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent"
+                aria-current={pathname === link.href ? 'page' : undefined}
+                className="text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent-text"
               >
                 {t.nav[link.key]}
               </Link>
@@ -177,23 +234,18 @@ export function Navbar() {
             <Link
               href="/work-with-me"
               onClick={closeMobile}
-              className="text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent"
+              className="text-3xl font-medium text-warm-fg transition-transform hover:translate-x-2 hover:text-accent-text"
             >
               {t.nav.workWithMe}
             </Link>
             <Link
               href="/newsletter"
               onClick={closeMobile}
-              className="mt-sp-2 inline-flex w-fit items-center gap-2 text-base font-medium text-warm-fg-muted hover:text-warm-fg"
+              className="mt-sp-2 inline-flex min-h-11 w-fit items-center gap-2 text-base font-medium text-warm-fg-muted hover:text-warm-fg"
             >
               {t.nav.subscribe}
             </Link>
           </nav>
-
-          <div className="flex items-center gap-sp-3 border-t border-warm-border py-sp-4">
-            <LanguageToggle />
-            <ThemeToggle />
-          </div>
         </div>
       ) : null}
     </>

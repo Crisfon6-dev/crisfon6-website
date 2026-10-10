@@ -57,7 +57,7 @@ export function NewsletterContent() {
   const { t } = useLanguage();
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="newsletter"
@@ -159,7 +159,7 @@ export function NewsletterContent() {
           <Link
             href="https://crisfon6.beehiiv.com"
             data-testid="newsletter-archive-cta"
-            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -177,6 +177,6 @@ export function NewsletterContent() {
           </a>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

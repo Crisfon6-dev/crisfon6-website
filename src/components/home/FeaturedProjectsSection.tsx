@@ -35,7 +35,7 @@ export function FeaturedProjectsSection() {
         </div>
         <Link
           href="/projects"
-          className="hidden font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted hover:text-accent sm:inline-flex"
+          className="hidden font-mono text-[12px] uppercase tracking-[0.14em] text-warm-fg-muted hover:text-accent-text sm:inline-flex"
         >
           {t.cta.viewAll} →
         </Link>

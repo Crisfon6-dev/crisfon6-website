@@ -100,7 +100,7 @@ export function AutomationsContent() {
   const { t } = useLanguage();
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="automations"
@@ -170,7 +170,7 @@ export function AutomationsContent() {
                     <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-warm-fg-faint">
                       {t.automation.timeSaved}
                     </dt>
-                    <dd className="metric-value mt-1 text-xl text-accent">
+                    <dd className="metric-value mt-1 text-xl text-accent-text">
                       {auto.timeSaved}
                       <span className="ml-1 text-sm font-normal text-warm-fg-muted">
                         {auto.timeUnit}
@@ -254,7 +254,7 @@ export function AutomationsContent() {
           <Link
             href="/newsletter"
             data-testid="automations-cta"
-            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+            className="mt-sp-5 inline-flex items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
           >
             {t.cta.subscribeZTP} <span aria-hidden>→</span>
           </Link>
@@ -267,6 +267,6 @@ export function AutomationsContent() {
           </a>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

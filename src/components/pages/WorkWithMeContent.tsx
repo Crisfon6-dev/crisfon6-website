@@ -10,7 +10,7 @@ export function WorkWithMeContent() {
   const { t } = useLanguage();
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere />
       <SubpageHeader
         plate="work"
@@ -50,7 +50,7 @@ export function WorkWithMeContent() {
                   </div>
                   <span
                     aria-hidden
-                    className="self-center text-xl text-warm-fg-faint transition-transform group-hover:translate-x-1 group-hover:text-accent"
+                    className="self-center text-xl text-warm-fg-faint transition-transform group-hover:translate-x-1 group-hover:text-accent-text"
                   >
                     →
                   </span>
@@ -82,7 +82,7 @@ export function WorkWithMeContent() {
               <a
                 href="mailto:crisfon6@crisfon6.com"
                 data-testid="contact-card-email"
-                className="mt-sp-5 inline-flex w-full items-center justify-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+                className="mt-sp-5 inline-flex w-full items-center justify-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
               >
                 {t.cta.emailMe}
                 <span aria-hidden>→</span>
@@ -126,6 +126,6 @@ export function WorkWithMeContent() {
           </aside>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

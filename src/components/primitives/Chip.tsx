@@ -13,7 +13,7 @@ const variantClass: Record<ChipVariant, string> = {
   default: 'bg-warm-bg-subtle text-warm-fg-muted border-warm-border',
   live: 'bg-green-dim text-green border-green/30',
   outline: 'border-warm-border text-warm-fg-muted',
-  accent: 'bg-accent-weak text-accent border-accent/30',
+  accent: 'bg-accent-weak text-accent-text border-accent/30',
 };
 
 export function Chip({ children, variant = 'default', className = '', ...rest }: ChipProps) {

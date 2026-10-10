@@ -37,4 +37,18 @@ describe('SubscribeForm', () => {
     expect(input.className).toMatch(/text-warm-fg\b/);
     expect(input.className).not.toMatch(/bg-surface-2|placeholder-text-muted/);
   });
+
+  it('gives the email field an accessible name, in the active language', () => {
+    renderForm();
+    expect(screen.getByLabelText(messages.en.newsletter.emailLabel)).toBeTruthy();
+    expect(
+      screen.getByLabelText(messages.en.newsletter.emailLabel).getAttribute('autocomplete')
+    ).toBe('email');
+  });
+
+  it('labels the field in Spanish when the language is ES', () => {
+    window.localStorage.setItem('cf6.lang', 'es');
+    renderForm();
+    expect(screen.getByLabelText(messages.es.newsletter.emailLabel)).toBeTruthy();
+  });
 });

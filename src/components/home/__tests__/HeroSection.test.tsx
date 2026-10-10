@@ -36,7 +36,7 @@ describe('HeroSection', () => {
     expect(headline.textContent).toBe(
       `${messages.en.hero.headlinePrefix} ${messages.en.hero.headlineAccent}`
     );
-    expect(headline.querySelector('span.text-accent')?.textContent).toBe(
+    expect(headline.querySelector('span.text-accent-text')?.textContent).toBe(
       messages.en.hero.headlineAccent
     );
   });

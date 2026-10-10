@@ -40,7 +40,7 @@ export default async function BlogPostPage({ params }: Props) {
   const { frontmatter, content } = post;
 
   return (
-    <main className="page-in relative">
+    <div className="page-in relative">
       <Atmosphere grid={false} />
       <JsonLd
         data={{
@@ -125,7 +125,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="mt-sp-5 flex flex-wrap justify-center gap-sp-3">
             <Link
               href="/newsletter"
-              className="inline-flex items-center gap-2 rounded-sp-xl bg-accent px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-sp-xl bg-accent-fill px-sp-5 py-sp-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
             >
               Subscribe to PowerAI <span aria-hidden>→</span>
             </Link>
@@ -138,6 +138,6 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

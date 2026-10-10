@@ -50,6 +50,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Keep <html lang> in step with the visible language (screen readers, translate prompts)
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   const toggleLocale = useCallback(() => {
     setLocale((prev) => {
       const next: Locale = prev === 'en' ? 'es' : 'en';

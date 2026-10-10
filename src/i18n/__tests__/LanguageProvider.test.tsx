@@ -60,6 +60,15 @@ describe('LanguageProvider', () => {
     expect(localStorage.getItem(STORAGE_KEY)).toBe('en');
   });
 
+  it('keeps <html lang> in step with the active locale', () => {
+    const { result } = renderHook(() => useLanguage(), { wrapper });
+    expect(document.documentElement.lang).toBe('en');
+    act(() => {
+      result.current.toggleLocale();
+    });
+    expect(document.documentElement.lang).toBe('es');
+  });
+
   it('does not crash when localStorage throws (SSR/private-mode guard)', () => {
     const origGet = Storage.prototype.getItem;
     Storage.prototype.getItem = vi.fn(() => {

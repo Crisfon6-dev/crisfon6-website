@@ -143,6 +143,16 @@ export const messages = {
         'DynamoDB',
       ] as readonly string[],
     },
+    whoIAm: {
+      kicker: 'WHO I AM',
+      now: 'NOW',
+      based: 'BASED',
+      credentials: 'CREDENTIALS',
+      stack: 'STACK',
+      fullStory: 'Full story',
+      workHistory: 'Work history',
+      photoAlt: 'Portrait of Cristhian Fonseca',
+    },
     featuredProjects: 'Featured Projects',
     about: {
       heading1: 'I build AI systems that run at scale.',
@@ -459,6 +469,16 @@ export const messages = {
         'S3',
         'DynamoDB',
       ] as readonly string[],
+    },
+    whoIAm: {
+      kicker: 'QUIÉN SOY',
+      now: 'AHORA',
+      based: 'UBICACIÓN',
+      credentials: 'CREDENCIALES',
+      stack: 'STACK',
+      fullStory: 'Mi historia completa',
+      workHistory: 'Historia laboral',
+      photoAlt: 'Retrato de Cristhian Fonseca',
     },
     featuredProjects: 'Proyectos Destacados',
     about: {

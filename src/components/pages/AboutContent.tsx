@@ -54,7 +54,10 @@ export function AboutContent() {
             <p className="font-medium text-warm-fg">{t.about.intro4}</p>
           </div>
 
-          <aside data-testid="anthropic-card" className="glow relative overflow-hidden slab p-sp-5">
+          <aside
+            data-testid="anthropic-card"
+            className="glow relative self-start overflow-hidden slab p-sp-5"
+          >
             <span
               aria-hidden
               className="shimmer-sweep pointer-events-none absolute inset-0"

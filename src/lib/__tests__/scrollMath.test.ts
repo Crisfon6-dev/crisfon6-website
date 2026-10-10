@@ -6,6 +6,7 @@ import {
   pinnedProgress,
   segmentProgress,
   wordOpacity,
+  documentProgress,
 } from '../scrollMath';
 
 describe('clamp01', () => {
@@ -131,5 +132,23 @@ describe('centerProgress', () => {
   it('is 0 for non-finite input or an inverted span', () => {
     expect(centerProgress(Number.NaN, 800, 1000)).toBe(0);
     expect(centerProgress(0, 800, 1000, 0.4, 0.85)).toBe(0);
+  });
+});
+
+describe('documentProgress (how far down the whole page the reader is)', () => {
+  it('is 0 at the top and 1 at the very bottom', () => {
+    expect(documentProgress(0, 5000, 800)).toBe(0);
+    expect(documentProgress(4200, 5000, 800)).toBe(1);
+  });
+
+  it('is linear in between and clamps outside the range', () => {
+    expect(documentProgress(2100, 5000, 800)).toBe(0.5);
+    expect(documentProgress(-50, 5000, 800)).toBe(0);
+    expect(documentProgress(9999, 5000, 800)).toBe(1);
+  });
+
+  it('is 1 when the page fits the screen, and 0 for invalid input', () => {
+    expect(documentProgress(0, 700, 800)).toBe(1);
+    expect(documentProgress(Number.NaN, 5000, 800)).toBe(0);
   });
 });

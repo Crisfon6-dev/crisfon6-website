@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
+import { Spine } from '@/components/primitives/Spine';
 import { Footer } from '@/components/Footer';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { JsonLd } from '@/components/JsonLd';
@@ -85,6 +86,7 @@ export default function RootLayout({
           <LanguageProvider>
             <TooltipProvider>
               <Navbar />
+              <Spine />
               <main className="flex-1">{children}</main>
               <Footer />
             </TooltipProvider>

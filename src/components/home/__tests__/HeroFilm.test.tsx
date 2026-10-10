@@ -81,7 +81,7 @@ describe('HeroFilm: stills mode', () => {
     const { container } = render(wrap(<HeroFilm />));
     expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
     expect(container.querySelector('video')).toBeNull();
-    expect(container.querySelectorAll('img').length).toBe(6);
+    expect(container.querySelectorAll('img').length).toBe(7);
     expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeTruthy();
     for (const still of HERO_FILM_ASSETS.stills) {
       expect(container.querySelector(`img[src="${still.src}"]`), still.id).toBeTruthy();
@@ -89,6 +89,18 @@ describe('HeroFilm: stills mode', () => {
     for (const chapter of HOME_CHAPTERS) {
       expect(screen.getByTestId(`chapter-${chapter.id}`), chapter.id).toBeTruthy();
     }
+  });
+
+  it('puts a faint poster behind the first screen so small screens open on the film, not flat cream', () => {
+    setEnv({ width: 390 });
+    const { container } = render(wrap(<HeroFilm />));
+    const backdrop = screen.getByTestId('film-poster-backdrop');
+    expect(backdrop.getAttribute('aria-hidden')).toBe('true');
+    expect(backdrop.className).toMatch(/pointer-events-none/);
+    const img = backdrop.querySelector('img')!;
+    expect(img.getAttribute('src')).toBe(HERO_FILM_ASSETS.poster);
+    expect(img.getAttribute('alt')).toBe('');
+    expect(container.querySelector('video')).toBeNull();
   });
 
   it('shows each chapter title, claim and verified figure in English', () => {
@@ -210,6 +222,12 @@ describe('HeroFilm: film mode', () => {
     render(wrap(<HeroFilm />));
     scrollTo(5600 + 800);
     expect(screen.queryByTestId('film-chapter')).toBeNull();
+  });
+
+  it('does not add the still poster backdrop in film mode: the film itself is the backdrop', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    expect(screen.queryByTestId('film-poster-backdrop')).toBeNull();
   });
 
   it('is the page background: a fixed, full-viewport layer behind the content', () => {

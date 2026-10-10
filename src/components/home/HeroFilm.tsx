@@ -241,6 +241,21 @@ export function HeroFilm() {
   if (mode === 'stills') {
     return (
       <section data-testid="hero-film" data-mode="stills">
+        {/* Small screens and reduced motion get no film, so the first screen borrows its poster. */}
+        <div
+          data-testid="film-poster-backdrop"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[100svh] overflow-hidden"
+        >
+          <img
+            src={HERO_FILM_ASSETS.poster}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+            className="h-full w-full object-cover opacity-45"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-warm-bg/70 via-transparent to-warm-bg" />
+        </div>
         <StillsGrid />
       </section>
     );

@@ -41,6 +41,11 @@ describe('AboutContent', () => {
     expect(hasTimeline).toBe(true);
   });
 
+  it('keeps the credential card as tall as its content, not stretched to the text column', () => {
+    render(wrap(<AboutContent />));
+    expect(screen.getByTestId('anthropic-card').className).toMatch(/self-start/);
+  });
+
   it('renders primary CTA to /work-with-me', () => {
     render(wrap(<AboutContent />));
     expect(screen.getByTestId('about-cta-primary').getAttribute('href')).toBe('/work-with-me');

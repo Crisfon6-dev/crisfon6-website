@@ -73,3 +73,15 @@ export function centerProgress(
   const center = rectTop + rectHeight / 2;
   return clamp01((viewportHeight * from - center) / span);
 }
+
+/** How far down the whole page the reader is, 0 at the top and 1 at the very bottom. */
+export function documentProgress(
+  scrollY: number,
+  scrollHeight: number,
+  viewportHeight: number
+): number {
+  if (![scrollY, scrollHeight, viewportHeight].every(Number.isFinite)) return 0;
+  const travel = scrollHeight - viewportHeight;
+  if (travel <= 0) return 1;
+  return clamp01(scrollY / travel);
+}

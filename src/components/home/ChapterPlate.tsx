@@ -15,7 +15,7 @@ export function ChapterPlate({ chapter, testId }: { chapter: HomeChapter; testId
   const copy = t.chapters.items[chapter.id];
   const fact = chapterFact(chapter, locale);
   const numeral = NUMERALS[HOME_CHAPTERS.indexOf(chapter)];
-  const linkLabel = chapter.id === 'reveal' ? t.chapters.workWithMe : t.chapters.seeCase;
+  const linkLabel = chapter.id === 'reveal' ? t.chapters.hire : t.chapters.seeCase;
 
   return (
     <article
@@ -53,13 +53,23 @@ export function ChapterPlate({ chapter, testId }: { chapter: HomeChapter; testId
         </div>
       ) : null}
       {chapter.href ? (
-        <Link
-          href={chapter.href}
-          className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
-        >
-          {linkLabel}
-          <span aria-hidden>→</span>
-        </Link>
+        chapter.href.startsWith('mailto:') ? (
+          <a
+            href={chapter.href}
+            className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+          >
+            {linkLabel}
+            <span aria-hidden>→</span>
+          </a>
+        ) : (
+          <Link
+            href={chapter.href}
+            className="mt-sp-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+          >
+            {linkLabel}
+            <span aria-hidden>→</span>
+          </Link>
+        )
       ) : null}
     </article>
   );

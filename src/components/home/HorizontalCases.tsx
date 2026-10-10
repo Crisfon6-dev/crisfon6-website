@@ -51,7 +51,11 @@ export function HorizontalCases() {
           }
           className="flex w-max items-stretch gap-sp-5 px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] will-change-transform"
         >
-          <div className="flex w-[min(420px,36vw)] shrink-0 flex-col justify-center pr-sp-5">
+          <div
+            data-testid="cases-intro"
+            className="flex w-[min(420px,36vw)] shrink-0 flex-col justify-center pr-sp-5"
+            style={{ opacity: Math.min(1, Math.max(0, 1 - progress * 12)) }}
+          >
             <Kicker>{t.featuredProjects}</Kicker>
             <h2
               id="horizontal-cases-title"
@@ -77,7 +81,7 @@ export function HorizontalCases() {
               key={c.id}
               href={c.href}
               data-testid="case-card"
-              className="slab group flex w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
+              className="slab group flex min-h-[26rem] w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
             >
               <Chip variant="outline" className="self-start">
                 {c.tag}

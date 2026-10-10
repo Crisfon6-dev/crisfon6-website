@@ -135,13 +135,14 @@ describe('HeroFilm: stills mode', () => {
     }
   });
 
-  it('links each chapter to its case and the last one to work-with-me', () => {
+  it('links each chapter to its case and the last one to the hiring email', () => {
     setEnv({ width: 390 });
     render(wrap(<HeroFilm />));
     const href = (id: string) =>
       screen.getByTestId(`chapter-${id}`).querySelector('a')?.getAttribute('href');
     expect(href('compute')).toBe('/projects#aws-cost-audit');
-    expect(href('reveal')).toBe('/work-with-me');
+    expect(href('reveal')).toBe('mailto:crisfon6@crisfon6.com');
+    expect(screen.getByTestId('chapter-reveal').textContent).toContain(messages.en.chapters.hire);
     expect(href('blueprint')).toBeUndefined();
   });
 

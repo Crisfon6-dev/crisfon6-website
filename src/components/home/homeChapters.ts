@@ -53,7 +53,13 @@ export const HOME_CHAPTERS: readonly HomeChapter[] = [
     fact: { kind: 'key', index: 1 },
     href: '/projects#credit-marketplace',
   },
-  { id: 'reveal', from: shot(6), to: 1, fact: { kind: 'key', index: 0 }, href: '/work-with-me' },
+  {
+    id: 'reveal',
+    from: shot(6),
+    to: 1,
+    fact: { kind: 'key', index: 0 },
+    href: 'mailto:crisfon6@crisfon6.com',
+  },
 ];
 
 /** The chapter at a film progress; out-of-range or invalid progress clamps to the ends. */

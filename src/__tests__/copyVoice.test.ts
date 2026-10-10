@@ -58,4 +58,34 @@ describe('page copy follows the owner voice and brain rules', () => {
     expect(messages.en.automations.estimateNote).toMatch(/estimate/i);
     expect(messages.es.automations.estimateNote).toMatch(/estimaci/i);
   });
+
+  it('the availability line and the contact slab agree on the kind of work', () => {
+    expect(messages.en.hero.availability).toContain('full-time or contract');
+    expect(messages.es.hero.availability).toContain('tiempo completo o contrato');
+    expect(messages.en.hero.availability).not.toMatch(/contracts/);
+  });
+
+  it('offers no stream of content: nothing is delivered, followed or posted on a rhythm', () => {
+    const STREAM = /delivered to your inbox|every article|as new .* land|follow along/i;
+    const texts = [
+      messages.en.automations.ctaDescription,
+      messages.en.automations.githubDescription,
+      messages.en.blog.ctaDescription,
+    ];
+    for (const text of texts) expect(text, text).not.toMatch(STREAM);
+  });
+
+  it('the Spanish copy uses one register (tú), with no voseo and no missing accents', () => {
+    const VOSEO =
+      /\b(construís|pedís|podés|Querés|RECIBÍS|sos|Recibí|Empezá|Seguí|Suscribete|cancelá|Sobre mi|PAGINAS)\b/;
+    const walk = (value: unknown, path: string[] = []): [string, string][] =>
+      typeof value === 'string'
+        ? [[path.join('.'), value]]
+        : value && typeof value === 'object'
+          ? Object.entries(value).flatMap(([k, v]) => walk(v, [...path, k]))
+          : [];
+    for (const [path, text] of walk(messages.es)) {
+      expect(text, path).not.toMatch(VOSEO);
+    }
+  });
 });

@@ -9,7 +9,6 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { Logo } from '@/components/Logo';
-import { Badge } from '@/components/ui/badge';
 
 const linkKeys = [
   { href: '/about', key: 'about' as const },
@@ -66,12 +65,6 @@ export function Navbar() {
             className="group flex items-center gap-2 transition-opacity hover:opacity-80"
           >
             <Logo />
-            <Badge
-              variant="outline"
-              className="hidden border-accent/30 bg-accent-weak px-2 py-0.5 font-mono text-[10px] tracking-widest text-accent md:inline-flex"
-            >
-              Anthropic Certified
-            </Badge>
           </Link>
 
           {/* Desktop */}
@@ -103,10 +96,10 @@ export function Navbar() {
               asChild
               className="text-warm-fg-muted hover:text-warm-fg"
             >
-              <Link href="/work-with-me">{t.nav.workWithMe}</Link>
+              <Link href="/newsletter">{t.nav.subscribe}</Link>
             </Button>
             <Button variant="default" size="sm" asChild>
-              <Link href="/newsletter">{t.nav.subscribe}</Link>
+              <Link href="/work-with-me">{t.nav.workWithMe}</Link>
             </Button>
             <LanguageToggle />
             <ThemeToggle />
@@ -163,6 +156,14 @@ export function Navbar() {
           </div>
 
           <nav className="mt-sp-7 flex flex-1 flex-col gap-sp-5">
+            <a
+              href="mailto:crisfon6@crisfon6.com"
+              data-testid="mobile-menu-email"
+              onClick={closeMobile}
+              className="inline-flex w-fit items-center gap-2 rounded-sp-md bg-accent px-sp-5 py-sp-3 text-base font-medium text-white"
+            >
+              {t.cta.emailMe} <span aria-hidden>→</span>
+            </a>
             {linkKeys.map((link) => (
               <Link
                 key={link.href}
@@ -183,7 +184,7 @@ export function Navbar() {
             <Link
               href="/newsletter"
               onClick={closeMobile}
-              className="mt-sp-4 inline-flex w-fit items-center gap-2 rounded-sp-md bg-accent px-sp-5 py-sp-3 text-base font-medium text-white"
+              className="mt-sp-2 inline-flex w-fit items-center gap-2 text-base font-medium text-warm-fg-muted hover:text-warm-fg"
             >
               {t.nav.subscribe}
             </Link>

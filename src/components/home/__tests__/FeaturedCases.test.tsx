@@ -123,6 +123,25 @@ describe('FeaturedCases: track layout (desktop, motion allowed)', () => {
     }
   });
 
+  it('fades the heading out as it pans away, so no half-clipped words slide under the spine', () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    const section = screen.getByTestId('horizontal-cases');
+    const intro = screen.getByTestId('cases-intro');
+    scrollPinned(section, 0);
+    expect(Number(intro.style.opacity)).toBe(1);
+    scrollPinned(section, 0.5);
+    expect(Number(intro.style.opacity)).toBe(0);
+  });
+
+  it('draws tall cards so the pinned screen is not two empty bands around a thin strip', () => {
+    setEnv(1440);
+    render(wrap(<FeaturedCases />));
+    for (const card of screen.getAllByTestId('case-card')) {
+      expect(card.className).toMatch(/min-h-\[26rem\]/);
+    }
+  });
+
   it('maps the pinned scroll progress linearly to the track position', () => {
     setEnv(1440);
     render(wrap(<FeaturedCases />));

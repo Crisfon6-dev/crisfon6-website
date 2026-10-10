@@ -262,6 +262,15 @@ describe('WorkWithMeContent', () => {
   });
 });
 
+describe('NewsletterContent: benefits grid has no orphan card', () => {
+  it('lets the first benefit span both columns so five cards fill the grid evenly', () => {
+    const { container } = render(wrap(<NewsletterContent />));
+    const first = container.querySelector('[data-testid="benefit-card"]') as HTMLElement;
+    expect(first.className).toMatch(/sm:col-span-2/);
+    expect(container.querySelectorAll('[data-testid="benefit-card"]').length % 2).toBe(1);
+  });
+});
+
 describe('NewsletterContent: no cadence promise and no unshipped templates', () => {
   it('drops the W1-W6 labels and lists only the template that exists, plus an honest more-to-come', () => {
     const { container } = render(wrap(<NewsletterContent />));
@@ -305,6 +314,31 @@ describe('NewsletterContent', () => {
   it('does not claim an unverified subscriber count (newsletter is not live yet)', () => {
     const { container } = render(wrap(<NewsletterContent />));
     expect(container.textContent).not.toMatch(/500\+/);
+  });
+});
+
+describe('BlogContent: upcoming list makes no unfulfilled promises', () => {
+  it('shows at most three upcoming rows and never one that is already published', () => {
+    const published: BlogPost[] = [
+      {
+        slug: 'ai-document-processor',
+        title: 'The $12/mo Document Processor: Claude API + Lambda + S3',
+        excerpt: 'x',
+        date: '2026-04-01',
+        readTime: '8 min',
+        tag: 'Automation',
+        tagColor: 'text-green bg-green-dim',
+        published: true,
+      },
+    ];
+    const { container } = render(wrap(<BlogContent publishedPosts={published} />));
+    const rows = container.querySelectorAll('[data-testid="upcoming-post"]');
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.length).toBeLessThanOrEqual(3);
+    for (const row of Array.from(rows)) {
+      expect(row.textContent).not.toContain('The $12/mo Document Processor');
+      expect(row.textContent).not.toMatch(/2M\+/);
+    }
   });
 });
 

@@ -89,8 +89,8 @@ describe('chapter hand-offs', () => {
     }
   });
 
-  it('sends the last chapter to the conversion page and the first to nowhere', () => {
-    expect(byId('reveal').href).toBe('/work-with-me');
+  it('sends the last chapter straight to the hiring email and the first to nowhere', () => {
+    expect(byId('reveal').href).toBe('mailto:crisfon6@crisfon6.com');
     expect(byId('blueprint').href).toBeNull();
   });
 

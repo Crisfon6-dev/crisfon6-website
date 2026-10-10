@@ -102,8 +102,12 @@ export function NewsletterContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.newsletter.whatYouGet}</Kicker>
         <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2">
-          {BENEFITS.map((b) => (
-            <li key={b.title} className="slab p-sp-5">
+          {BENEFITS.map((b, i) => (
+            <li
+              key={b.title}
+              data-testid="benefit-card"
+              className={`slab p-sp-5 ${i === 0 ? 'sm:col-span-2' : ''}`.trim()}
+            >
               <h3 className="text-sm font-semibold text-warm-fg">{b.title}</h3>
               <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">{b.description}</p>
             </li>

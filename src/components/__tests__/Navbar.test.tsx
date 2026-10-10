@@ -85,4 +85,25 @@ describe('Navbar', () => {
     fireEvent.click(link);
     expect(screen.queryByTestId('mobile-menu')).toBeNull();
   });
+
+  it('makes Work with me the filled button and PowerAI a plain link: hiring outranks the newsletter', () => {
+    renderNav();
+    const work = screen.getAllByRole('link', { name: 'Work with me' })[0];
+    const powerai = screen.getAllByRole('link', { name: /poweraí|powerai/i })[0];
+    expect(work.getAttribute('data-variant')).toBe('default');
+    expect(powerai.getAttribute('data-variant')).toBe('ghost');
+  });
+
+  it('does not repeat the certification badge in the header: it lives once on the hero', () => {
+    renderNav();
+    expect(screen.queryByText('Anthropic Certified')).toBeNull();
+  });
+
+  it('puts a direct email action at the top of the mobile menu', () => {
+    renderNav();
+    fireEvent.click(screen.getByRole('button', { name: /open menu|toggle menu/i }));
+    const email = screen.getByTestId('mobile-menu-email');
+    expect(email.getAttribute('href')).toBe('mailto:crisfon6@crisfon6.com');
+    expect(email.textContent).toContain('Email me');
+  });
 });

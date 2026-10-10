@@ -3,11 +3,13 @@
 import { useActionState } from 'react';
 import { subscribe, type SubscribeState } from '@/app/actions/subscribe';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/i18n/LanguageProvider';
 import { useEffect, useRef } from 'react';
 
 const BEEHIIV_URL = 'https://crisfon6.beehiiv.com';
 
 export function SubscribeForm() {
+  const { t } = useLanguage();
   const [state, formAction, isPending] = useActionState<SubscribeState, FormData>(subscribe, null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -36,7 +38,7 @@ export function SubscribeForm() {
           name="email"
           placeholder="you@company.com"
           required
-          className="flex-1 bg-surface-2 border border-border-emphasis rounded-lg px-4 py-3 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent transition-colors"
+          className="flex-1 rounded-lg border border-warm-border-strong bg-warm-bg-elev px-4 py-3 text-sm text-warm-fg placeholder:text-warm-fg-muted focus:border-accent focus:outline-none transition-colors"
         />
         <Button
           type="submit"
@@ -44,11 +46,11 @@ export function SubscribeForm() {
           disabled={isPending}
           className="bg-accent hover:bg-accent-light text-white px-6 py-3 h-auto whitespace-nowrap"
         >
-          {isPending ? 'Subscribing...' : 'Start getting blueprints'}
+          {isPending ? t.newsletter.subscribing : t.newsletter.startGetting}
         </Button>
       </div>
       {state?.success === false && <p className="text-xs text-red mt-2">{state.message}</p>}
-      <p className="text-xs text-text-muted mt-3">Free forever — cancel anytime. No spam, ever.</p>
+      <p className="mt-3 text-xs text-warm-fg-muted">{t.newsletter.noSpam}</p>
     </form>
   );
 }

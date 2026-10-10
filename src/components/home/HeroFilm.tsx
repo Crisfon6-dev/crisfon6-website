@@ -5,6 +5,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useTheme } from 'next-themes';
 import { chooseFilmMode, type FilmMode } from './heroFilmMode';
 import { prefersReducedMotion, subscribeViewport } from './viewportEnv';
 import {
@@ -22,7 +23,7 @@ import {
   FILM_DURATION_SECONDS,
   FILM_FRAME,
   FILM_TRAVEL_VH,
-  HERO_FILM_ASSETS,
+  heroFilmAssetsFor,
 } from './heroFilmAssets';
 
 function readMode(): FilmMode {
@@ -53,10 +54,10 @@ function FrameImage({ src, lazy = true }: { src: string; lazy?: boolean }) {
 }
 
 function StillsGrid() {
+  const { resolvedTheme } = useTheme();
+  const assets = heroFilmAssetsFor(resolvedTheme);
   const imageFor = (id: string) =>
-    id === 'blueprint'
-      ? HERO_FILM_ASSETS.poster
-      : HERO_FILM_ASSETS.stills.find((still) => still.id === id)!.src;
+    id === 'blueprint' ? assets.poster : assets.stills.find((still) => still.id === id)!.src;
   return (
     <ol className="mx-auto grid max-w-6xl gap-sp-7 px-sp-5 py-sp-8 md:grid-cols-2">
       {HOME_CHAPTERS.map((chapter) => (
@@ -70,6 +71,8 @@ function StillsGrid() {
 }
 
 function FilmStage() {
+  const { resolvedTheme } = useTheme();
+  const assets = heroFilmAssetsFor(resolvedTheme);
   const wrapperRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressRef = useRef(0);
@@ -187,24 +190,24 @@ function FilmStage() {
       >
         {active ? (
           <img
-            src={HERO_FILM_ASSETS.poster}
+            src={assets.poster}
             alt=""
             aria-hidden="true"
             decoding="async"
             onLoad={() => setPosterLoaded(true)}
-            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.3] dark:saturate-[0.8] dark:contrast-[1.05]"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         ) : null}
         <video
           ref={videoRef}
-          src={posterLoaded ? HERO_FILM_ASSETS.video : undefined}
+          src={posterLoaded ? assets.video : undefined}
           muted
           playsInline
           preload="auto"
           tabIndex={-1}
           aria-hidden="true"
           onLoadedData={() => setVideoReady(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 dark:brightness-[0.3] dark:saturate-[0.8] dark:contrast-[1.05] ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
             videoReady ? 'opacity-100' : 'opacity-0'
           }`}
         />
@@ -260,6 +263,8 @@ function FilmStage() {
 
 export function HeroFilm() {
   const mode = useSyncExternalStore(subscribeViewport, readMode, getServerMode);
+  const { resolvedTheme } = useTheme();
+  const assets = heroFilmAssetsFor(resolvedTheme);
 
   if (mode === 'film') return <FilmStage />;
   if (mode === 'stills') {
@@ -272,7 +277,7 @@ export function HeroFilm() {
           className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[100svh] overflow-hidden"
         >
           <img
-            src={HERO_FILM_ASSETS.poster}
+            src={assets.poster}
             alt=""
             aria-hidden="true"
             decoding="async"

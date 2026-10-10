@@ -1,19 +1,22 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
-import { KEY_FACTS } from '@/data/career';
-import { messages } from '@/i18n/messages';
 import { HeroFilm } from '../HeroFilm';
-import { HERO_FILM_ASSETS, HERO_FILM_ASSETS_NIGHT, FILM_TRAVEL_VH } from '../heroFilmAssets';
+import { HERO_FILM_ASSETS, HERO_FILM_ASSETS_NIGHT } from '../heroFilmAssets';
 import { VEIL_MIN, VEIL_MAX, VEIL_RAMP_VH } from '../heroFilmLogic';
-import { HOME_CHAPTERS, chapterFact } from '../homeChapters';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 
+const kid = <p data-testid="kid">introduction</p>;
 const wrap = (node: ReactNode) => <LanguageProvider>{node}</LanguageProvider>;
+const wrapDark = (node: ReactNode) => (
+  <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <LanguageProvider>{node}</LanguageProvider>
+  </ThemeProvider>
+);
 
 type Env = { width: number; reduced?: boolean; saveData?: boolean };
 
@@ -30,10 +33,7 @@ function setEnv({ width, reduced = false, saveData = false }: Env) {
     removeListener() {},
     dispatchEvent: () => false,
   })) as unknown as typeof window.matchMedia;
-  Object.defineProperty(navigator, 'connection', {
-    value: { saveData },
-    configurable: true,
-  });
+  Object.defineProperty(navigator, 'connection', { value: { saveData }, configurable: true });
 }
 
 let ioCallback: IntersectionObserverCallback | null = null;
@@ -47,6 +47,16 @@ class FakeIO {
   takeRecords() {
     return [];
   }
+}
+
+let roCallback: (() => void) | null = null;
+class FakeRO {
+  constructor(cb: () => void) {
+    roCallback = cb;
+  }
+  observe() {}
+  unobserve() {}
+  disconnect() {}
 }
 
 function stageNearViewport() {
@@ -65,124 +75,93 @@ function scrollTo(y: number) {
   });
 }
 
+const realOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight')!;
+let wrapperHeight = 0;
+function setWrapperHeight(height: number) {
+  wrapperHeight = height;
+}
+
 beforeEach(() => {
   ioCallback = null;
+  roCallback = null;
+  wrapperHeight = 0;
   vi.stubGlobal('IntersectionObserver', FakeIO);
+  Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+    configurable: true,
+    get() {
+      return (this as HTMLElement).getAttribute('data-testid') === 'hero-film' ? wrapperHeight : 0;
+    },
+  });
+  scrollTo(0);
 });
 
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
+  Object.defineProperty(HTMLElement.prototype, 'offsetHeight', realOffsetHeight);
   window.localStorage.removeItem('cf6.lang');
 });
 
-describe('HeroFilm: stills mode', () => {
-  it('on a small screen tells the six chapters with the poster and five stills, and no video', () => {
+describe('HeroFilm: wraps the introduction', () => {
+  it.each([
+    ['film', 1440, 'film'],
+    ['stills (small screen)', 390, 'stills'],
+  ])('renders its children in %s mode', (_name, width, mode) => {
+    setEnv({ width });
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe(mode);
+    expect(screen.getByTestId('kid')).toBeTruthy();
+  });
+
+  it('server-renders the children with no media and no empty film spacer', () => {
+    setEnv({ width: 1440 });
+    const html = renderToString(wrap(<HeroFilm>{kid}</HeroFilm>));
+    expect(html).toContain('data-mode="pending"');
+    expect(html).toContain('introduction');
+    expect(html).not.toContain('<video');
+    expect(html).not.toContain('<img');
+    expect(html).not.toMatch(/height:\s*\d+vh/);
+  });
+
+  it('keeps the children mounted when the mode changes, so their state survives', () => {
+    setEnv({ width: 1440 });
+    function Counter() {
+      const [n, setN] = useState(0);
+      return (
+        <button data-testid="counter" onClick={() => setN(n + 1)}>
+          {n}
+        </button>
+      );
+    }
+    render(
+      wrap(
+        <HeroFilm>
+          <Counter />
+        </HeroFilm>
+      )
+    );
+    fireEvent.click(screen.getByTestId('counter'));
+    expect(screen.getByTestId('counter').textContent).toBe('1');
     setEnv({ width: 390 });
-    const { container } = render(wrap(<HeroFilm />));
+    act(() => {
+      window.dispatchEvent(new Event('resize'));
+    });
     expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
-    expect(container.querySelector('video')).toBeNull();
-    expect(container.querySelectorAll('img').length).toBe(7);
-    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeTruthy();
-    for (const still of HERO_FILM_ASSETS.stills) {
-      expect(container.querySelector(`img[src="${still.src}"]`), still.id).toBeTruthy();
-    }
-    for (const chapter of HOME_CHAPTERS) {
-      expect(screen.getByTestId(`chapter-${chapter.id}`), chapter.id).toBeTruthy();
-    }
-  });
-
-  it('puts a faint poster behind the first screen so small screens open on the film, not flat cream', () => {
-    setEnv({ width: 390 });
-    const { container } = render(wrap(<HeroFilm />));
-    const backdrop = screen.getByTestId('film-poster-backdrop');
-    expect(backdrop.getAttribute('aria-hidden')).toBe('true');
-    expect(backdrop.className).toMatch(/pointer-events-none/);
-    const img = backdrop.querySelector('img')!;
-    expect(img.getAttribute('src')).toBe(HERO_FILM_ASSETS.poster);
-    expect(img.getAttribute('alt')).toBe('');
-    expect(container.querySelector('video')).toBeNull();
-  });
-
-  it('shows each chapter title, claim and verified figure in English', () => {
-    setEnv({ width: 390 });
-    render(wrap(<HeroFilm />));
-    for (const chapter of HOME_CHAPTERS) {
-      const plate = screen.getByTestId(`chapter-${chapter.id}`);
-      const copy = messages.en.chapters.items[chapter.id];
-      expect(plate.textContent).toContain(copy.title);
-      expect(plate.textContent).toContain(copy.claim);
-      const fact = chapterFact(chapter, 'en');
-      if (fact) {
-        expect(screen.getByTestId(`chapter-${chapter.id}-value`).textContent).toBe(fact.value);
-        expect(screen.getByTestId(`chapter-${chapter.id}-label`).textContent).toBe(fact.label);
-      } else {
-        expect(screen.queryByTestId(`chapter-${chapter.id}-value`)).toBeNull();
-      }
-    }
-  });
-
-  it('shows the chapters in Spanish when the language is ES', () => {
-    setEnv({ width: 390 });
-    window.localStorage.setItem('cf6.lang', 'es');
-    render(wrap(<HeroFilm />));
-    for (const chapter of HOME_CHAPTERS) {
-      const plate = screen.getByTestId(`chapter-${chapter.id}`);
-      expect(plate.textContent).toContain(messages.es.chapters.items[chapter.id].title);
-      const fact = chapterFact(chapter, 'es');
-      if (fact) {
-        expect(screen.getByTestId(`chapter-${chapter.id}-label`).textContent).toBe(fact.label);
-      }
-    }
-  });
-
-  it('links each chapter to its case and the last one to the hiring email', () => {
-    setEnv({ width: 390 });
-    render(wrap(<HeroFilm />));
-    const href = (id: string) =>
-      screen.getByTestId(`chapter-${id}`).querySelector('a')?.getAttribute('href');
-    expect(href('compute')).toBe('/projects#aws-cost-audit');
-    expect(href('reveal')).toBe('mailto:crisfon6@crisfon6.com');
-    expect(screen.getByTestId('chapter-reveal').textContent).toContain(messages.en.chapters.hire);
-    expect(href('blueprint')).toBeUndefined();
-  });
-
-  it('is used when the user prefers reduced motion, even on a wide screen', () => {
-    setEnv({ width: 1440, reduced: true });
-    const { container } = render(wrap(<HeroFilm />));
-    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
-    expect(container.querySelector('video')).toBeNull();
-  });
-
-  it('is used when the data saver hint is on', () => {
-    setEnv({ width: 1440, saveData: true });
-    const { container } = render(wrap(<HeroFilm />));
-    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
-    expect(container.querySelector('video')).toBeNull();
-  });
-
-  it('keeps all media decorative: empty alt and aria-hidden', () => {
-    setEnv({ width: 390 });
-    const { container } = render(wrap(<HeroFilm />));
-    for (const img of Array.from(container.querySelectorAll('img'))) {
-      expect(img.getAttribute('alt')).toBe('');
-      expect(img.getAttribute('aria-hidden')).toBe('true');
-    }
+    expect(screen.getByTestId('counter').textContent).toBe('1');
   });
 });
 
 describe('HeroFilm: film mode', () => {
   it('requests nothing until the stage nears the viewport', () => {
     setEnv({ width: 1440 });
-    const { container } = render(wrap(<HeroFilm />));
-    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('film');
+    const { container } = render(wrap(<HeroFilm>{kid}</HeroFilm>));
     expect(container.querySelector('img')).toBeNull();
     expect(container.querySelector('video')?.getAttribute('src')).toBeNull();
   });
 
   it('loads the poster first and assigns the video source only after the poster loaded', () => {
     setEnv({ width: 1440 });
-    const { container } = render(wrap(<HeroFilm />));
+    const { container } = render(wrap(<HeroFilm>{kid}</HeroFilm>));
     stageNearViewport();
     const poster = container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`);
     expect(poster).toBeTruthy();
@@ -193,7 +172,7 @@ describe('HeroFilm: film mode', () => {
 
   it('keeps the poster and video decorative', () => {
     setEnv({ width: 1440 });
-    const { container } = render(wrap(<HeroFilm />));
+    const { container } = render(wrap(<HeroFilm>{kid}</HeroFilm>));
     stageNearViewport();
     const poster = container.querySelector('img')!;
     expect(poster.getAttribute('alt')).toBe('');
@@ -201,226 +180,111 @@ describe('HeroFilm: film mode', () => {
     expect(container.querySelector('video')?.getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('shows the chapter for the scroll position, with its verified figure', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    stageNearViewport();
-    // viewport 800px, 7 screens of travel: 5600px of scroll covers the whole film
-    scrollTo(0.5 * 5600); // shot 4: data
-    expect(screen.getByTestId('film-chapter').getAttribute('data-chapter')).toBe('data');
-    expect(screen.getByTestId('film-chapter-value').textContent).toBe(KEY_FACTS[3].value);
-
-    scrollTo(0.1 * 5600); // shot 1: blueprint, no figure
-    expect(screen.getByTestId('film-chapter').getAttribute('data-chapter')).toBe('blueprint');
-    expect(screen.queryByTestId('film-chapter-value')).toBeNull();
-
-    scrollTo(0.93 * 5600); // shot 7: reveal
-    expect(screen.getByTestId('film-chapter').getAttribute('data-chapter')).toBe('reveal');
-    expect(screen.getByTestId('film-chapter-value').textContent).toBe(KEY_FACTS[0].value);
-  });
-
-  it('removes the chapter plate once the film is over so it never covers later sections', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(5600 + 800);
-    expect(screen.queryByTestId('film-chapter')).toBeNull();
-  });
-
-  it('does not add the still poster backdrop in film mode: the film itself is the backdrop', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    expect(screen.queryByTestId('film-poster-backdrop')).toBeNull();
-  });
-
   it('is the page background: a fixed, full-viewport layer behind the content', () => {
     setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
     const backdrop = screen.getByTestId('film-backdrop');
     expect(backdrop.className).toMatch(/\bfixed\b/);
     expect(backdrop.className).toMatch(/\binset-0\b/);
     expect(backdrop.className).toMatch(/-z-10/);
-    expect(backdrop.querySelector('video')).toBeTruthy();
+    expect(screen.queryByTestId('film-poster-backdrop')).toBeNull();
   });
 
-  it('reserves the whole film travel so no later section reaches the screen before the film ends', () => {
+  it('does not reserve a fixed number of screens: the wrapper is as tall as its content', () => {
     setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    expect(screen.getByTestId('hero-film').style.height).toBe(`${FILM_TRAVEL_VH * 100}vh`);
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    expect(screen.getByTestId('hero-film').getAttribute('style') ?? '').not.toMatch(/height/);
   });
 
-  it('covers the film with the page colour only after the film has played', () => {
+  it('covers the film with the page colour only after the wrapper has been scrolled through', () => {
     setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
+    setWrapperHeight(2400); // 800px viewport: the film plays over 1600px of scroll
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
     scrollTo(0);
     expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MIN, 5);
-    scrollTo(5600 + VEIL_RAMP_VH * 800);
+    scrollTo(1600);
+    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MIN, 5);
+    scrollTo(1600 + VEIL_RAMP_VH * 800);
     expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MAX, 5);
   });
 
-  it('shades the left side for the hero text at the top and removes it by one screen down', () => {
+  it('re-reads the travel when the content height changes (fonts, language, images)', () => {
     setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
+    vi.stubGlobal('ResizeObserver', FakeRO);
+    setWrapperHeight(2400);
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    scrollTo(1600 + VEIL_RAMP_VH * 800);
+    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeCloseTo(VEIL_MAX, 5);
+    setWrapperHeight(4000); // taller content: the same scroll position is now mid-film
+    act(() => roCallback?.());
+    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeLessThan(VEIL_MAX);
+  });
+
+  it('does not throw with no measurable height or no ResizeObserver, and reads the first frame', () => {
+    setEnv({ width: 1440 });
+    setWrapperHeight(0);
+    expect(() => render(wrap(<HeroFilm>{kid}</HeroFilm>))).not.toThrow();
+    scrollTo(500);
+    expect(Number(screen.getByTestId('film-veil').style.opacity)).toBeGreaterThanOrEqual(VEIL_MIN);
+  });
+
+  it('shades the left side for the hero text while it is on screen, then fades it out', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
     scrollTo(0);
+    expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(1);
+    scrollTo(0.3 * 800);
     expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(1);
     scrollTo(800);
     expect(Number(screen.getByTestId('film-hero-shade').style.opacity)).toBe(0);
   });
-
-  it('lets each plate take the height of its content, anchored to the bottom, with no dead space', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(0.5 * 5600);
-    const wrapper = screen.getByTestId('film-chapter').parentElement!;
-    expect(wrapper.className).not.toMatch(/min-h/);
-  });
-
-  it('aligns the chapter plate to the page column', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(0.5 * 5600);
-    const plate = screen.getByTestId('film-chapter');
-    expect(plate.className).toMatch(/\bslab\b/);
-    expect(plate.closest('.max-w-6xl')).toBeTruthy();
-  });
 });
 
-describe('HeroFilm: server render', () => {
-  it('renders a pending shell with a no-JS stills fallback and no video or poster request', () => {
-    setEnv({ width: 1440 });
-    const html = renderToString(wrap(<HeroFilm />));
-    expect(html).toContain('data-mode="pending"');
-    expect(html).toContain('<noscript>');
-    expect(html).toContain(HERO_FILM_ASSETS.stills[0].src);
-    expect(html).not.toContain('<video');
-  });
-});
-
-describe('HeroFilm: chapter beats follow the scroll', () => {
-  it('reveals a chapter beat by beat as the page scrolls through its window', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    // chapter "data" spans progress 3/7..4/7 (0.4286..0.5714); 0.4286 + 0.1429 * 0.2 = ~0.4571
-    scrollTo(0.4571 * 5600);
-    const flag = (name: string) =>
-      screen.getByTestId(`film-chapter-beat-${name}`).getAttribute('data-visible');
-    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'false', 'false']);
-    scrollTo(0.5 * 5600);
-    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'true', 'false']);
-    scrollTo(0.56 * 5600);
-    expect([flag('problem'), flag('decision'), flag('result')]).toEqual(['true', 'true', 'true']);
+describe('HeroFilm: stills mode', () => {
+  it('puts a faint poster behind the first screen and requests no video', () => {
+    setEnv({ width: 390 });
+    const { container } = render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    const backdrop = screen.getByTestId('film-poster-backdrop');
+    expect(backdrop.getAttribute('aria-hidden')).toBe('true');
+    expect(backdrop.className).toMatch(/pointer-events-none/);
+    const img = backdrop.querySelector('img')!;
+    expect(img.getAttribute('src')).toBe(HERO_FILM_ASSETS.poster);
+    expect(img.getAttribute('alt')).toBe('');
+    expect(container.querySelector('video')).toBeNull();
   });
 
-  it('shows every beat in the stills layout', () => {
-    setEnv({ width: 400 });
-    render(wrap(<HeroFilm />));
-    for (const chapter of HOME_CHAPTERS.filter((c) => c.id === 'compute')) {
-      expect(
-        screen.getByTestId(`chapter-${chapter.id}-beat-result`).getAttribute('data-visible')
-      ).toBe('true');
-    }
-  });
-
-  it('keeps the plate inside the page column while it alternates sides', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(0.5 * 5600);
-    expect(screen.getByTestId('film-chapter').closest('.max-w-6xl')).toBeTruthy();
-  });
-});
-
-describe('HeroFilm: the chapter story is reachable without the visual panel', () => {
-  it('renders all six chapters for assistive tech at any scroll position, with no links', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(0);
-    for (const chapter of HOME_CHAPTERS) {
-      const copy = screen.getByTestId(`sr-chapter-${chapter.id}`);
-      expect(copy.textContent).toContain(messages.en.chapters.items[chapter.id].title);
-      expect(copy.querySelector('a')).toBeNull();
-    }
-    expect(screen.getByTestId('film-chapters-sr').className).toContain('sr-only');
-  });
-
-  it('hides the visual panel from assistive tech and keeps its link out of the tab order', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(0.5 * 5600);
-    const plate = screen.getByTestId('film-chapter');
-    expect(plate.closest('[aria-hidden="true"]')).toBeTruthy();
-    expect(plate.querySelector('a')!.getAttribute('tabindex')).toBe('-1');
-  });
-
-  it('stops the nearly invisible panel from catching clicks while it fades', () => {
-    setEnv({ width: 1440 });
-    render(wrap(<HeroFilm />));
-    scrollTo(0.5 * 800); // plate opacity about 0.125
-    expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
-      'pointer-events-none'
-    );
-    scrollTo(0.5 * 5600);
-    expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
-      'pointer-events-auto'
-    );
+  it('also stills with reduced motion on a wide screen, and with data saver', () => {
+    setEnv({ width: 1440, reduced: true });
+    const first = render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
+    expect(first.container.querySelector('video')).toBeNull();
+    first.unmount();
+    setEnv({ width: 1440, saveData: true });
+    render(wrap(<HeroFilm>{kid}</HeroFilm>));
+    expect(screen.getByTestId('hero-film').getAttribute('data-mode')).toBe('stills');
   });
 });
 
 describe('HeroFilm: night footage in dark mode', () => {
-  beforeEach(() => scrollTo(0));
-
-  const wrapDark = (node: ReactNode) => (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-      <LanguageProvider>{node}</LanguageProvider>
-    </ThemeProvider>
-  );
-
-  it('loads the night poster, then the night video, in dark mode', () => {
+  it('loads the night poster, then the night video, and does not dim it with a CSS filter', () => {
     setEnv({ width: 1440 });
-    const { container } = render(wrapDark(<HeroFilm />));
-    stageNearViewport();
-    const poster = container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`);
-    expect(poster).toBeTruthy();
-    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeNull();
-    fireEvent.load(poster!);
-    expect(container.querySelector('video')?.getAttribute('src')).toBe(
-      HERO_FILM_ASSETS_NIGHT.video
-    );
-  });
-
-  it('no longer dims the footage with a CSS filter, since the night footage is dark itself', () => {
-    setEnv({ width: 1440 });
-    const { container } = render(wrapDark(<HeroFilm />));
+    const { container } = render(wrapDark(<HeroFilm>{kid}</HeroFilm>));
     stageNearViewport();
     const poster = container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`)!;
-    fireEvent.load(poster);
+    expect(poster).toBeTruthy();
+    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeNull();
     expect(poster.className).not.toContain('brightness');
-    expect(container.querySelector('video')!.className).not.toContain('brightness');
+    fireEvent.load(poster);
+    const video = container.querySelector('video')!;
+    expect(video.getAttribute('src')).toBe(HERO_FILM_ASSETS_NIGHT.video);
+    expect(video.className).not.toContain('brightness');
   });
 
-  it('uses the night stills and night backdrop poster in the stills layout', () => {
+  it('uses the night poster, lowered, as the stills backdrop', () => {
     setEnv({ width: 390 });
-    const { container } = render(wrapDark(<HeroFilm />));
-    for (const still of HERO_FILM_ASSETS_NIGHT.stills) {
-      expect(container.querySelector(`img[src="${still.src}"]`), still.id).toBeTruthy();
-    }
-    expect(
-      screen.getByTestId('film-poster-backdrop').querySelector('img')!.getAttribute('src')
-    ).toBe(HERO_FILM_ASSETS_NIGHT.poster);
-  });
-
-  it('keeps the light footage in light mode', () => {
-    setEnv({ width: 1440 });
-    const { container } = render(wrap(<HeroFilm />));
-    stageNearViewport();
-    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS.poster}"]`)).toBeTruthy();
-    expect(container.querySelector(`img[src="${HERO_FILM_ASSETS_NIGHT.poster}"]`)).toBeNull();
-  });
-});
-
-describe('HeroFilm: text legibility over night footage', () => {
-  it('lowers the stills backdrop poster in dark mode, so text over it keeps 4.5:1', () => {
-    setEnv({ width: 390 });
-    render(wrap(<HeroFilm />));
+    render(wrapDark(<HeroFilm>{kid}</HeroFilm>));
     const img = screen.getByTestId('film-poster-backdrop').querySelector('img')!;
+    expect(img.getAttribute('src')).toBe(HERO_FILM_ASSETS_NIGHT.poster);
     expect(img.className).toContain('dark:opacity-35');
   });
 });

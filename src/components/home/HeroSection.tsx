@@ -102,13 +102,6 @@ export function HeroSection() {
         </span>
       </p>
 
-      {/* Bridge into the film */}
-      <p
-        data-testid="hero-bridge"
-        className="mt-sp-3 font-mono text-[13px] tracking-[0.02em] text-warm-fg-muted dark:text-warm-fg"
-      >
-        {t.hero.bridge}
-      </p>
       <Link
         href="/experience"
         data-testid="hero-full-work-history"

@@ -1,6 +1,7 @@
 import { expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Home from '@/app/page';
+import { messages } from '@/i18n/messages';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/' }));
 
@@ -34,11 +35,13 @@ test('renders contact email CTA (mailto link)', () => {
   expect(emailCta.getAttribute('href')).toMatch(/mailto:crisfon6@crisfon6\.com/);
 });
 
-test('lays out the story in order: hero, film, cases, principle, contact, then the newsletter', () => {
+test('lays out the introduction first: hero, who I am, proof, then cases, principle, contact, newsletter', () => {
   const { container } = render(<Home />);
   const wanted = new Set([
-    'hero',
     'hero-film',
+    'hero',
+    'who-i-am',
+    'proof-strip',
     'featured-projects',
     'horizontal-cases',
     'principle-statement',
@@ -51,11 +54,18 @@ test('lays out the story in order: hero, film, cases, principle, contact, then t
     // the featured cases are either the vertical grid or the horizontal track
     .map((id) => (id === 'featured-projects' || id === 'horizontal-cases' ? 'cases' : id));
   expect(order).toEqual([
-    'hero',
     'hero-film',
+    'hero',
+    'who-i-am',
+    'proof-strip',
     'cases',
     'principle-statement',
     'contact-panel',
     'newsletter-panel',
   ]);
+});
+
+test('puts the owner introduction on the home page', () => {
+  render(<Home />);
+  expect(screen.getByText(messages.en.about.intro1)).toBeDefined();
 });

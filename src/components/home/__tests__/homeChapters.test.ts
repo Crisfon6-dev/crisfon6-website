@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { CASE_STUDIES, KEY_FACTS } from '@/data/career';
 import { messages } from '@/i18n/messages';
-import { HOME_CHAPTERS, activeChapter, chapterFact } from '../homeChapters';
+import { HOME_CHAPTERS, activeChapter, chapterDossier, chapterFact } from '../homeChapters';
 
 const byId = (id: string) => HOME_CHAPTERS.find((chapter) => chapter.id === id)!;
 
@@ -128,6 +128,46 @@ describe('chapter copy', () => {
           `${locale} ${chapter.id}`
         ).not.toMatch(/\d/);
       }
+    }
+  });
+});
+
+describe('chapterDossier: every line comes from career data', () => {
+  const study = (id: string) => CASE_STUDIES.find((c) => c.id === id)!;
+
+  it.each([
+    ['compute', 'aws-cost-audit', 1],
+    ['data', 'analytics-platform', 0],
+    ['agents', 'ai-orchestration-harness', 2],
+    ['delivery', 'credit-marketplace', 1],
+  ])('%s reads context, decision and a supporting outcome from %s', (id, caseId, supportIndex) => {
+    for (const locale of ['en', 'es'] as const) {
+      const dossier = chapterDossier(byId(id), locale);
+      expect(dossier.problem).toBe(study(caseId).context![locale]);
+      expect(dossier.decision).toBe(study(caseId).decision?.[locale] ?? null);
+      expect(dossier.support).toBe(study(caseId).outcomes[supportIndex][locale]);
+      expect(dossier.recap).toBeNull();
+    }
+  });
+
+  it('gives credit-marketplace no decision, so it stays a two-beat chapter', () => {
+    expect(chapterDossier(byId('delivery'), 'en').decision).toBeNull();
+  });
+
+  it('gives the blueprint chapter no case content', () => {
+    expect(chapterDossier(byId('blueprint'), 'en')).toEqual({
+      problem: null,
+      decision: null,
+      support: null,
+      recap: null,
+    });
+  });
+
+  it('recaps the other three key facts on the last chapter, in both languages', () => {
+    for (const locale of ['en', 'es'] as const) {
+      expect(chapterDossier(byId('reveal'), locale).recap).toEqual(
+        KEY_FACTS.slice(1).map((f) => ({ value: f.value, label: f.label[locale] }))
+      );
     }
   });
 });

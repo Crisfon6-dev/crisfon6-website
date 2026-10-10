@@ -40,6 +40,13 @@ export const messages = {
       label: 'Chapter',
       seeCase: 'Read the case',
       hire: 'Hiring? Email me',
+      beats: {
+        problem: 'Problem',
+        decision: 'Decision',
+        result: 'Result',
+        whoHurts: 'Who does it hurt?',
+        whatCosts: 'What does it cost?',
+      },
       items: {
         blueprint: {
           title: 'Start with the blueprint',
@@ -349,6 +356,13 @@ export const messages = {
       label: 'Capítulo',
       seeCase: 'Leer el caso',
       hire: '¿Contratas? Escríbeme',
+      beats: {
+        problem: 'Problema',
+        decision: 'Decisión',
+        result: 'Resultado',
+        whoHurts: '¿A quién le duele?',
+        whatCosts: '¿Cuánto cuesta?',
+      },
       items: {
         blueprint: {
           title: 'Empieza por el plano',

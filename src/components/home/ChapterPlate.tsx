@@ -1,21 +1,67 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/i18n/LanguageProvider';
-import { chapterFact, HOME_CHAPTERS, type HomeChapter } from './homeChapters';
+import { ALL_BEATS_VISIBLE, beatVisibility } from './chapterBeats';
+import { chapterDossier, chapterFact, HOME_CHAPTERS, type HomeChapter } from './homeChapters';
 
 const NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI'] as const;
 
+function Beat({
+  id,
+  name,
+  visible,
+  children,
+}: {
+  id: string;
+  name: 'problem' | 'decision' | 'result';
+  visible: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      data-testid={`${id}-beat-${name}`}
+      data-visible={visible ? 'true' : 'false'}
+      className="beat mt-sp-4"
+    >
+      {children}
+    </div>
+  );
+}
+
+function BeatLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
+      {children}
+    </p>
+  );
+}
+
 /**
- * One chapter of the story: claim first, then the one verified figure, then the way into the case.
- * Used over the film on desktop and under each still on small screens, so both tell the same story.
+ * One chapter of the story as a short dossier: problem, decision, result, then the way into the case.
+ * `localProgress` is the position inside this chapter (0..1); `null` shows every beat at once, which
+ * is what the stills layout and reduced motion use. Hidden beats stay in the DOM.
  */
-export function ChapterPlate({ chapter, testId }: { chapter: HomeChapter; testId: string }) {
+export function ChapterPlate({
+  chapter,
+  testId,
+  localProgress = null,
+}: {
+  chapter: HomeChapter;
+  testId: string;
+  localProgress?: number | null;
+}) {
   const { t, locale } = useLanguage();
   const copy = t.chapters.items[chapter.id];
   const fact = chapterFact(chapter, locale);
+  const dossier = chapterDossier(chapter, locale);
   const numeral = NUMERALS[HOME_CHAPTERS.indexOf(chapter)];
   const linkLabel = chapter.id === 'reveal' ? t.chapters.hire : t.chapters.seeCase;
+  const isBlueprint = chapter.id === 'blueprint';
+  const hasDecision = isBlueprint || dossier.decision !== null;
+  const show =
+    localProgress === null ? ALL_BEATS_VISIBLE : beatVisibility(localProgress, hasDecision);
 
   return (
     <article
@@ -35,23 +81,78 @@ export function ChapterPlate({ chapter, testId }: { chapter: HomeChapter; testId
       <p className="mt-sp-2 max-w-[44ch] text-[15px] leading-relaxed text-warm-fg-muted">
         {copy.claim}
       </p>
-      {fact ? (
-        <div className="mt-sp-4 border-t border-warm-border pt-sp-4">
-          <p
-            data-testid={`${testId}-value`}
-            className="metric-value font-heading text-warm-fg"
-            style={{ fontSize: 'clamp(40px, 5vw, 56px)', letterSpacing: '-0.03em', lineHeight: 1 }}
-          >
-            {fact.value}
-          </p>
-          <p
-            data-testid={`${testId}-label`}
-            className="mt-sp-2 text-balance font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg"
-          >
-            {fact.label}
-          </p>
-        </div>
+
+      {isBlueprint ? (
+        <>
+          <Beat id={testId} name="problem" visible={show.problem}>
+            <p className="font-heading text-xl text-warm-fg">{t.chapters.beats.whoHurts}</p>
+          </Beat>
+          <Beat id={testId} name="decision" visible={show.decision}>
+            <p className="font-heading text-xl text-warm-fg">{t.chapters.beats.whatCosts}</p>
+          </Beat>
+        </>
       ) : null}
+
+      {dossier.problem ? (
+        <Beat id={testId} name="problem" visible={show.problem}>
+          <BeatLabel>{t.chapters.beats.problem}</BeatLabel>
+          <p className="mt-1 max-w-[52ch] text-[15px] leading-relaxed text-warm-fg">
+            {dossier.problem}
+          </p>
+        </Beat>
+      ) : null}
+
+      {dossier.decision ? (
+        <Beat id={testId} name="decision" visible={show.decision}>
+          <BeatLabel>{t.chapters.beats.decision}</BeatLabel>
+          <p className="mt-1 max-w-[52ch] text-[15px] font-medium leading-relaxed text-warm-fg">
+            {dossier.decision}
+          </p>
+        </Beat>
+      ) : null}
+
+      {fact ? (
+        <Beat id={testId} name="result" visible={show.result}>
+          <div className="border-t border-warm-border pt-sp-4">
+            <BeatLabel>{t.chapters.beats.result}</BeatLabel>
+            <p
+              data-testid={`${testId}-value`}
+              className="metric-value mt-1 font-heading text-warm-fg"
+              style={{
+                fontSize: 'clamp(40px, 5vw, 56px)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1,
+              }}
+            >
+              {fact.value}
+            </p>
+            <p
+              data-testid={`${testId}-label`}
+              className="mt-sp-2 text-balance font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg"
+            >
+              {fact.label}
+            </p>
+            {dossier.support ? (
+              <p className="mt-sp-2 text-[15px] leading-relaxed text-warm-fg-muted">
+                {dossier.support}
+              </p>
+            ) : null}
+            {dossier.recap ? (
+              <ul className="mt-sp-3 grid gap-sp-2">
+                {dossier.recap.map((item) => (
+                  <li key={item.label} className="flex items-baseline gap-sp-3">
+                    <span className="font-heading text-lg text-warm-fg">{item.value}</span>
+                    <span className="text-[13px] leading-snug text-warm-fg-muted">
+                      {item.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </Beat>
+      ) : null}
+
       {chapter.href ? (
         chapter.href.startsWith('mailto:') ? (
           <a

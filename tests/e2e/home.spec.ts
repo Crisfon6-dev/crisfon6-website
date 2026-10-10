@@ -8,31 +8,38 @@ test.describe('Home page (hi-fi)', () => {
     await expect(h1).toContainText(/crisfon6/);
   });
 
-  test('renders hero typewriter text block', async ({ page }) => {
+  test('states the promise in the hero headline', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('I build AI systems that', { exact: false }).first()).toBeVisible();
+    await expect(page.getByTestId('hero-headline')).toHaveText(
+      'I build AI systems that run in production.'
+    );
   });
 
-  test('renders the stack marquee with AWS chip', async ({ page }) => {
+  test('bridges into the film and no longer repeats the figures', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('AWS', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('Claude API', { exact: true }).first()).toBeVisible();
+    await expect(page.getByTestId('hero-bridge')).toContainText('Six chapters');
+    await expect(page.getByTestId('stats')).toHaveCount(0);
+    await expect(page.getByTestId('stack-marquee')).toHaveCount(0);
   });
 
-  test('stats section shows year label', async ({ page }) => {
+  test('hands off to the case studies after the film', async ({ page }) => {
+    await page.setViewportSize({ width: 800, height: 900 });
     await page.goto('/');
-    await expect(page.getByText('Years shipping products')).toBeVisible();
+    await expect(page.getByTestId('featured-projects')).toBeVisible();
+    await expect(
+      page.getByTestId('featured-projects').getByText('Read the case').first()
+    ).toBeVisible();
   });
 
-  test('automation section renders with pipeline', async ({ page }) => {
+  test('the primary hero action is the hiring email, the newsletter is a quiet link', async ({
+    page,
+  }) => {
     await page.goto('/');
-    await expect(page.getByText('AUTOMATION OF THE WEEK')).toBeVisible();
-    await expect(page.getByLabel('pipeline')).toBeVisible();
-  });
-
-  test('primary hero CTA routes to /newsletter', async ({ page }) => {
-    await page.goto('/');
-    await page.getByTestId('hero-cta-primary').click();
+    await expect(page.getByTestId('hero-cta-primary')).toHaveAttribute(
+      'href',
+      'mailto:crisfon6@crisfon6.com'
+    );
+    await page.getByTestId('hero-cta-newsletter').click();
     await expect(page).toHaveURL('/newsletter');
   });
 });

@@ -34,4 +34,4 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Audit for HIGH and CRITICAL vulnerabilities
-        run: npm audit --audit-level=high
+        run: npx audit-ci --config audit-ci.jsonc

@@ -7,6 +7,7 @@ import { useLanguage } from '@/i18n/LanguageProvider';
 
 const navKeys = [
   { href: '/about', key: 'about' as const },
+  { href: '/experience', key: 'experience' as const },
   { href: '/projects', key: 'projects' as const },
   { href: '/automations', key: 'automations' as const },
   { href: '/blog', key: 'blog' as const },
@@ -98,6 +99,9 @@ export function Footer() {
           </p>
           <p className="text-xs text-muted-foreground font-mono">Next.js + Vercel</p>
         </div>
+        <p data-testid="ai-media-note" className="mt-3 text-xs text-muted-foreground">
+          {t.footer.aiMedia}
+        </p>
       </div>
     </footer>
   );

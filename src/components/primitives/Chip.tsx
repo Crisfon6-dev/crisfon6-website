@@ -6,6 +6,7 @@ type ChipProps = {
   children: ReactNode;
   variant?: ChipVariant;
   className?: string;
+  'data-testid'?: string;
 };
 
 const variantClass: Record<ChipVariant, string> = {
@@ -15,12 +16,12 @@ const variantClass: Record<ChipVariant, string> = {
   accent: 'bg-accent-weak text-accent border-accent/30',
 };
 
-export function Chip({ children, variant = 'default', className = '' }: ChipProps) {
+export function Chip({ children, variant = 'default', className = '', ...rest }: ChipProps) {
   const base =
     'inline-flex items-center gap-1.5 rounded-sp-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] leading-none';
   const merged = `${base} ${variantClass[variant]} ${className}`.trim();
   return (
-    <span className={merged}>
+    <span className={merged} {...rest}>
       {variant === 'live' ? (
         <span
           aria-hidden

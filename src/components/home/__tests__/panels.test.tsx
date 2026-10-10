@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
-import { AutomationSection } from '../AutomationSection';
 import { FeaturedProjectsSection } from '../FeaturedProjectsSection';
 import { NewsletterPanel } from '../NewsletterPanel';
 import { ContactPanel } from '../ContactPanel';
@@ -9,35 +8,14 @@ import { messages } from '@/i18n/messages';
 
 const wrap = (node: React.ReactNode) => <LanguageProvider>{node}</LanguageProvider>;
 
-describe('AutomationSection', () => {
-  it('renders title, description, Live chip, and metrics', () => {
-    render(wrap(<AutomationSection />));
-    expect(screen.getByText(messages.en.automation.title)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.description)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.live)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.infraCostValue)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.timeSavedValue)).toBeTruthy();
-    expect(screen.getByText(messages.en.automation.value)).toBeTruthy();
-  });
-
-  it('wraps a Pipeline of 4 nodes', () => {
-    const { container } = render(wrap(<AutomationSection />));
-    const pipeline = container.querySelector('[aria-label="pipeline"]');
-    expect(pipeline).not.toBeNull();
-    expect(pipeline!.querySelectorAll('li').length).toBe(4);
-  });
-
-  it('has CTA linking to /automations', () => {
-    render(wrap(<AutomationSection />));
-    const cta = screen.getByTestId('automation-cta');
-    expect(cta.getAttribute('href')).toBe('/automations');
-  });
-});
-
 describe('FeaturedProjectsSection', () => {
-  it('renders 3 project cards', () => {
+  it('renders 4 project cards with the orchestration harness second', () => {
     const { container } = render(wrap(<FeaturedProjectsSection />));
-    expect(container.querySelectorAll('ul > li').length).toBe(3);
+    const items = container.querySelectorAll('ul > li');
+    expect(items.length).toBe(4);
+    expect(items[1].querySelector('a')?.getAttribute('href')).toBe(
+      '/projects#ai-orchestration-harness'
+    );
   });
 
   it('marks only the first card as featured (data-featured="true")', () => {
@@ -50,8 +28,9 @@ describe('FeaturedProjectsSection', () => {
     const { container } = render(wrap(<FeaturedProjectsSection />));
     const items = container.querySelectorAll('ul > li');
     expect(items[0].className).toMatch(/lg:col-span-12/);
-    expect(items[1].className).toMatch(/lg:col-span-6/);
-    expect(items[2].className).toMatch(/lg:col-span-6/);
+    expect(items[1].className).toMatch(/lg:col-span-4/);
+    expect(items[2].className).toMatch(/lg:col-span-4/);
+    expect(items[3].className).toMatch(/lg:col-span-4/);
   });
 });
 
@@ -63,21 +42,63 @@ describe('NewsletterPanel', () => {
     expect(emailInput).not.toBeNull();
   });
 
-  it('renders the weekly blueprints kicker', () => {
+  it('is a slab with no dark gradient block', () => {
+    const { container } = render(wrap(<NewsletterPanel />));
+    expect(screen.getByTestId('newsletter-panel').querySelector('.slab')).toBeTruthy();
+    expect(container.querySelector('[style*="radial-gradient"]')).toBeNull();
+  });
+
+  it('renders the production blueprints kicker', () => {
     render(wrap(<NewsletterPanel />));
-    expect(screen.getByText(messages.en.cta.weeklyBlueprints)).toBeTruthy();
+    expect(screen.getByText(messages.en.cta.productionBlueprints)).toBeTruthy();
   });
 });
 
 describe('ContactPanel', () => {
-  it('renders primary and email CTAs', () => {
+  it('renders the email and LinkedIn actions, LinkedIn opening safely in a new tab', () => {
     render(wrap(<ContactPanel />));
-    expect(screen.getByTestId('contact-cta-primary').getAttribute('href')).toBe('/work-with-me');
-    expect(screen.getByTestId('contact-cta-email').getAttribute('href')).toMatch(/^mailto:/);
+    expect(screen.getByTestId('contact-cta-primary').getAttribute('href')).toMatch(/^mailto:/);
+    const linkedin = screen.getByTestId('contact-cta-linkedin');
+    expect(linkedin.getAttribute('href')).toBe('https://www.linkedin.com/in/crisfon6/');
+    expect(linkedin.getAttribute('target')).toBe('_blank');
+    expect(linkedin.getAttribute('rel')).toMatch(/noopener/);
   });
 
   it('renders the lets-talk kicker', () => {
     render(wrap(<ContactPanel />));
     expect(screen.getByText(messages.en.cta.letsTalk)).toBeTruthy();
+  });
+
+  it('speaks to the person hiring, in both languages', () => {
+    expect(messages.en.cta.buildingSomething).toBe(
+      'Hiring a senior engineer for a US team? Email me.'
+    );
+    expect(messages.es.cta.buildingSomething).toBe(
+      '¿Buscas un ingeniero senior para un equipo en EE. UU.? Escríbeme.'
+    );
+  });
+
+  it('fills the right side with the three facts a hiring manager needs, in both languages', () => {
+    render(wrap(<ContactPanel />));
+    const items = screen.getByTestId('contact-facts').querySelectorAll('li');
+    expect(Array.from(items).map((li) => li.textContent)).toEqual([
+      ...messages.en.cta.contactFacts,
+    ]);
+    expect(messages.es.cta.contactFacts.length).toBe(3);
+  });
+
+  it('makes email the primary button, as its headline says, and LinkedIn the quiet one', () => {
+    render(wrap(<ContactPanel />));
+    const email = screen.getByTestId('contact-cta-primary');
+    expect(email.getAttribute('href')).toMatch(/^mailto:/);
+    expect(email.className).toMatch(/bg-warm-fg/);
+    const linkedin = screen.getByTestId('contact-cta-linkedin');
+    expect(linkedin.getAttribute('href')).toContain('linkedin.com');
+    expect(linkedin.className).not.toMatch(/bg-warm-fg/);
+  });
+
+  it('is a slab, not a grey SaaS block', () => {
+    render(wrap(<ContactPanel />));
+    expect(screen.getByTestId('contact-panel').querySelector('.slab')).toBeTruthy();
   });
 });

@@ -55,3 +55,29 @@ export function plateOpacity(scrollY: number, viewportHeight: number, travelVh: 
   const fadeOut = clamp01(1 - (scrollY - viewportHeight * travelVh) / (viewportHeight * 0.5));
   return Math.min(fadeIn, fadeOut);
 }
+
+const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+
+/**
+ * The scroll distance the film plays over. The film is fixed behind the sections it wraps, so it
+ * has played through once the wrapper's bottom reaches the bottom of the viewport.
+ */
+export function filmTravelPx(wrapperHeight: number, viewportHeight: number): number {
+  if (![wrapperHeight, viewportHeight].every(Number.isFinite)) return 0;
+  return Math.max(0, wrapperHeight - viewportHeight);
+}
+
+/** Film progress for a travel in pixels; no travel (or invalid input) reads as the first frame. */
+export function filmProgressOver(scrollY: number, travelPx: number): number {
+  if (![scrollY, travelPx].every(Number.isFinite) || travelPx <= 0) return 0;
+  return clamp01(scrollY / travelPx);
+}
+
+/** Page-colour veil over the film for a travel in pixels: minimal while it plays, closing after. */
+export function veilOpacityOver(scrollY: number, viewportHeight: number, travelPx: number): number {
+  if (![scrollY, viewportHeight, travelPx].every(Number.isFinite) || viewportHeight <= 0) {
+    return VEIL_MIN;
+  }
+  const t = clamp01((scrollY - travelPx) / (viewportHeight * VEIL_RAMP_VH));
+  return VEIL_MIN + (VEIL_MAX - VEIL_MIN) * t;
+}

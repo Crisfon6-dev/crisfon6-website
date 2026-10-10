@@ -2,7 +2,10 @@ import { describe, it, expect } from 'vitest';
 import {
   progressToTime,
   filmProgress,
+  filmTravelPx,
+  filmProgressOver,
   veilOpacity,
+  veilOpacityOver,
   heroShadeOpacity,
   plateOpacity,
   VEIL_MIN,
@@ -116,5 +119,60 @@ describe('plateOpacity (the chapter plate must not cover the hero, nor outlive t
 
   it('is visible for invalid input rather than hiding the story', () => {
     expect(plateOpacity(Number.NaN, 800, 7)).toBe(1);
+  });
+});
+
+describe('filmTravelPx (the scroll distance the film plays over)', () => {
+  it('is the wrapper height minus one viewport, since the film is fixed behind the sections', () => {
+    expect(filmTravelPx(2400, 800)).toBe(1600);
+  });
+
+  it('is 0 when the wrapper is not taller than the viewport', () => {
+    expect(filmTravelPx(800, 800)).toBe(0);
+    expect(filmTravelPx(300, 800)).toBe(0);
+  });
+
+  it('is 0 for non-finite input', () => {
+    expect(filmTravelPx(Number.NaN, 800)).toBe(0);
+    expect(filmTravelPx(2400, Number.POSITIVE_INFINITY)).toBe(0);
+  });
+});
+
+describe('filmProgressOver', () => {
+  it('is 0 at the top and 1 once the whole travel has been scrolled', () => {
+    expect(filmProgressOver(0, 1600)).toBe(0);
+    expect(filmProgressOver(1600, 1600)).toBe(1);
+  });
+
+  it('is linear in between and clamps outside the range', () => {
+    expect(filmProgressOver(800, 1600)).toBe(0.5);
+    expect(filmProgressOver(-40, 1600)).toBe(0);
+    expect(filmProgressOver(99999, 1600)).toBe(1);
+  });
+
+  it('is 0 when there is no travel or the input is invalid', () => {
+    expect(filmProgressOver(100, 0)).toBe(0);
+    expect(filmProgressOver(100, -5)).toBe(0);
+    expect(filmProgressOver(Number.NaN, 1600)).toBe(0);
+    expect(filmProgressOver(100, Number.NaN)).toBe(0);
+  });
+});
+
+describe('veilOpacityOver', () => {
+  it('stays at the minimum while the film plays', () => {
+    expect(veilOpacityOver(0, 800, 1600)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(1600, 800, 1600)).toBe(VEIL_MIN);
+  });
+
+  it('ramps to the maximum over VEIL_RAMP_VH viewports after the travel ends', () => {
+    const mid = veilOpacityOver(1600 + (VEIL_RAMP_VH / 2) * 800, 800, 1600);
+    expect(mid).toBeCloseTo((VEIL_MIN + VEIL_MAX) / 2, 5);
+    expect(veilOpacityOver(1600 + VEIL_RAMP_VH * 800, 800, 1600)).toBeCloseTo(VEIL_MAX, 5);
+  });
+
+  it('is the minimum for invalid input', () => {
+    expect(veilOpacityOver(Number.NaN, 800, 1600)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(100, 0, 1600)).toBe(VEIL_MIN);
+    expect(veilOpacityOver(100, 800, Number.NaN)).toBe(VEIL_MIN);
   });
 });

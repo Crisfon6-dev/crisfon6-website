@@ -15,7 +15,8 @@ test.describe('Hero film: desktop', () => {
     await expect(film.locator('video')).toHaveAttribute('src', /hero-v2-desktop\.mp4/);
     await page.waitForFunction(videoReady);
 
-    // halfway through the wrapper's scroll travel, a 28 s film is at about 14 s
+    // the scroll plays only the opening 35% of the 28 s clip, so halfway through the wrapper's
+    // travel the film is at about 0.5 * 0.35 * 28 = 4.9 s, not at the middle of the clip
     const travel = await page.evaluate(() => {
       const el = document.querySelector<HTMLElement>('[data-testid="hero-film"]')!;
       return el.offsetHeight - window.innerHeight;
@@ -23,9 +24,18 @@ test.describe('Hero film: desktop', () => {
     await page.evaluate((y) => window.scrollTo(0, y), travel / 2);
     await expect
       .poll(() => film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime))
-      .toBeGreaterThan(13);
+      .toBeGreaterThan(4);
     const time = await film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime);
-    expect(time).toBeLessThan(15);
+    expect(time).toBeLessThan(6);
+
+    // and at the end of the travel it has still not run through the whole clip
+    await page.evaluate((y) => window.scrollTo(0, y), travel);
+    await expect
+      .poll(() => film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime))
+      .toBeGreaterThan(9);
+    expect(
+      await film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime)
+    ).toBeLessThan(11);
   });
 
   test('plays the night footage in dark mode', async ({ page }) => {

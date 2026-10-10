@@ -100,8 +100,18 @@ describe('WhoIAm', () => {
   it('stands the portrait on the card bottom edge on desktop instead of floating it mid-card', () => {
     renderSection();
     const column = screen.getByAltText(messages.en.whoIAm.photoAlt).parentElement!;
-    expect(column.className).toContain('md:self-end');
-    expect(column.className).toMatch(/md:-mb-sp-6/);
+    expect(column.className).toContain('lg:self-end');
+    expect(column.className).toMatch(/lg:-mb-sp-6/);
+  });
+
+  it('keeps the portrait stacked above the text on tablets and only goes two-column from lg', () => {
+    renderSection();
+    const column = screen.getByAltText(messages.en.whoIAm.photoAlt).parentElement!;
+    const grid = column.parentElement!;
+    expect(grid.className).toContain('lg:grid-cols-12');
+    expect(grid.className).not.toMatch(/(^|\s)md:grid-cols-12/);
+    expect(column.className).toContain('lg:col-span-4');
+    expect(column.className).not.toMatch(/(^|\s)md:/);
   });
 
   it('writes credentials in sentence case with a readable line height, not as tiny caps', () => {

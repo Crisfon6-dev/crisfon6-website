@@ -50,8 +50,8 @@ export function WhoIAm() {
       aria-labelledby="who-i-am-title"
       className="mx-auto max-w-6xl px-sp-5 pb-sp-7"
     >
-      <div className="slab grid gap-sp-6 p-sp-5 sm:p-sp-6 md:grid-cols-12">
-        <div className="mx-auto w-full max-w-[280px] md:col-span-4 md:-mb-sp-6 md:max-w-none md:self-end">
+      <div className="slab grid gap-sp-6 p-sp-5 sm:p-sp-6 lg:grid-cols-12">
+        <div className="mx-auto w-full max-w-[280px] lg:col-span-4 lg:-mb-sp-6 lg:max-w-none lg:self-end">
           <img
             src={PORTRAIT.src}
             width={PORTRAIT.width}
@@ -63,7 +63,7 @@ export function WhoIAm() {
           />
         </div>
 
-        <div className="md:col-span-8">
+        <div className="lg:col-span-8">
           <Kicker>{t.whoIAm.kicker}</Kicker>
           <h2
             id="who-i-am-title"

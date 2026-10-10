@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Cristhian Fonseca | Tech Lead · AI Orchestrator · LATAM',
     description:
-      'Anthropic-certified. I build AI systems that run in production — then I show you how.',
+      "Completed Anthropic's Claude Code in Action. I build AI systems that run in production — then I show you how.",
     url: 'https://crisfon6.com',
     siteName: 'crisfon6.com',
     locale: 'en_US',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Cristhian Fonseca | Tech Lead · AI Orchestrator · LATAM',
     description:
-      'Anthropic-certified. I build AI systems that run in production — then I show you how.',
+      "Completed Anthropic's Claude Code in Action. I build AI systems that run in production — then I show you how.",
   },
   robots: { index: true, follow: true },
   alternates: {
@@ -148,7 +148,7 @@ export default function RootLayout({
             name: 'Cristhian Fonseca',
             url: 'https://crisfon6.com',
             description:
-              'Anthropic-certified. I build AI systems that run in production — then I show you how.',
+              "Completed Anthropic's Claude Code in Action. I build AI systems that run in production — then I show you how.",
           }}
         />
         <Analytics />

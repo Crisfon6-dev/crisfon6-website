@@ -178,6 +178,12 @@ export function AutomationsContent() {
                     </dd>
                   </div>
                 </dl>
+                <p
+                  data-testid="estimate-inline"
+                  className="font-mono text-[10px] uppercase tracking-[0.1em] text-warm-fg-muted"
+                >
+                  {t.automations.estimateInline}
+                </p>
 
                 <div className="mt-auto flex flex-wrap gap-1.5 border-t border-warm-border pt-sp-4">
                   {auto.stack.map((tech) => (
@@ -252,6 +258,13 @@ export function AutomationsContent() {
           >
             {t.cta.subscribeZTP} <span aria-hidden>→</span>
           </Link>
+          <a
+            href="mailto:crisfon6@crisfon6.com"
+            data-testid="page-hiring-link"
+            className="mt-sp-4 block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+          >
+            {t.newsletter.hiring} →
+          </a>
         </div>
       </section>
     </main>

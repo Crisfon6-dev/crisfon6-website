@@ -11,7 +11,7 @@ export const messages = {
     },
     hero: {
       kicker: 'TECH LEAD · AI ORCHESTRATOR · LATAM',
-      cert: 'ANTHROPIC CERTIFIED',
+      cert: 'CLAUDE CODE IN ACTION · ANTHROPIC',
       certSub: 'Claude Code in Action · 2026',
       brand: 'crisfon6',
       headlinePrefix: 'I build AI systems that',
@@ -60,8 +60,7 @@ export const messages = {
       },
     },
     footer: {
-      tagline:
-        'AI systems engineer. Building and shipping in public. Production blueprints from systems that actually run.',
+      tagline: 'Technical Lead. AI systems in production, with the cost and the code.',
       pages: 'PAGES',
       connect: 'CONNECT',
       aiMedia: 'The hero film and its imagery were generated with AI.',
@@ -147,7 +146,7 @@ export const messages = {
       education: 'EDUCATION & CERTIFICATIONS',
       ctaHeading: "Building with AI at scale? Let's connect.",
       ctaDescription:
-        'Always open to connecting with founders, CTOs, and engineers shipping ambitious products.',
+        'Hiring for a remote Technical Lead? Email me. Founders and CTOs shipping with AI, say hello too.',
       whyBuildInPublicLabel: 'WHY I BUILD IN PUBLIC',
       whyPara1:
         "Most engineers keep their best architecture decisions private. I think that's backwards. When I ship something that works, I document it and publish it. The community makes me better.",
@@ -198,6 +197,7 @@ export const messages = {
       heading: 'AI automations you can steal.',
       description:
         'Every template in this library is built by an engineer certified in Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Production blueprints from systems that actually run, with architecture diagrams, deployment guides, cost breakdowns, and working code. Built from real systems, not tutorials.',
+      estimateInline: 'Illustrative estimate, not a measurement.',
       estimateNote:
         'Cost and time figures on these templates are illustrative estimates, not measurements.',
       subscribeTo: 'Subscribe to',
@@ -224,7 +224,7 @@ export const messages = {
       description:
         'Production blueprints from systems that actually run. Architecture diagrams, deployment guides, cost breakdowns, and working code — not recycled tutorials.',
       authority:
-        'Written by Cristhian Fonseca, Anthropic-certified, from systems that run in production.',
+        "Written by Cristhian Fonseca from systems that run in production. Completed Anthropic's Claude Code in Action course.",
       joinBuilders: 'FREE · PRODUCTION BLUEPRINTS',
       startGetting: 'Start getting blueprints',
       subscribing: 'Subscribing...',
@@ -311,7 +311,7 @@ export const messages = {
     },
     hero: {
       kicker: 'TECH LEAD · ORQUESTADOR DE IA · LATAM',
-      cert: 'CERTIFICADO POR ANTHROPIC',
+      cert: 'CLAUDE CODE IN ACTION · ANTHROPIC',
       certSub: 'Claude Code in Action · 2026',
       brand: 'crisfon6',
       headlinePrefix: 'Construyo sistemas de AI que',
@@ -360,8 +360,7 @@ export const messages = {
       },
     },
     footer: {
-      tagline:
-        'Ingeniero de sistemas AI. Construyendo y publicando en público. Blueprints de producción, de sistemas que de verdad corren.',
+      tagline: 'Technical Lead. Sistemas de IA en producción, con el costo y el código.',
       pages: 'PÁGINAS',
       connect: 'CONECTAR',
       aiMedia: 'La película del hero y sus imágenes fueron generadas con IA.',
@@ -447,7 +446,7 @@ export const messages = {
       education: 'EDUCACIÓN Y CERTIFICACIONES',
       ctaHeading: '¿Construyendo con AI a escala? Conectemos.',
       ctaDescription:
-        'Siempre abierto a conectar con founders, CTOs e ingenieros creando productos ambiciosos.',
+        '¿Buscas un Technical Lead remoto? Escríbeme. Founders y CTOs que construyen con IA, también.',
       whyBuildInPublicLabel: 'POR QUÉ CONSTRUYO EN PÚBLICO',
       whyPara1:
         'La mayoría de los ingenieros mantienen sus mejores decisiones de arquitectura en privado. Creo que eso está al revés. Cuando construyo algo que funciona, lo documento y lo publico. La comunidad me hace mejor.',
@@ -498,6 +497,7 @@ export const messages = {
       heading: 'Automatizaciones con IA que puedes robar.',
       description:
         'Cada template en esta biblioteca lo crea un ingeniero certificado en Claude Code in Action (Anthropic, 2026) — architecture-first, cost-conscious, production-ready. Blueprints de producción, de sistemas que de verdad corren, con diagramas de arquitectura, guías de deploy, análisis de costos y código funcional. De sistemas reales, no tutoriales.',
+      estimateInline: 'Estimación ilustrativa, no una medición.',
       estimateNote:
         'Las cifras de costo y tiempo de estos templates son estimaciones ilustrativas, no mediciones.',
       subscribeTo: 'Suscríbete a',
@@ -524,7 +524,7 @@ export const messages = {
       description:
         'Blueprints de producción, de sistemas que de verdad corren. Diagramas de arquitectura, guías de deploy, análisis de costos y código funcional — no tutoriales reciclados.',
       authority:
-        'Escrito por Cristhian Fonseca, certificado por Anthropic, a partir de sistemas que corren en producción.',
+        'Escrito por Cristhian Fonseca a partir de sistemas que corren en producción. Completó el curso Claude Code in Action de Anthropic.',
       joinBuilders: 'GRATIS · BLUEPRINTS DE PRODUCCIÓN',
       startGetting: 'Empieza a recibir blueprints',
       subscribing: 'Suscribiendo...',

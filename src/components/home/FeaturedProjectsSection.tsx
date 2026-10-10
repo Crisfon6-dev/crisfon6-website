@@ -64,6 +64,14 @@ export function FeaturedProjectsSection() {
                   {p.title}
                 </h3>
                 <p className="text-warm-fg-muted">{p.description}</p>
+                {p.proof ? (
+                  <span
+                    data-testid="case-proof"
+                    className="self-start rounded-sp-sm border border-warm-border bg-warm-bg px-2 py-0.5 font-mono text-[11px] text-warm-fg-muted"
+                  >
+                    {p.proof}
+                  </span>
+                ) : null}
                 <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-warm-fg">
                   {t.chapters.seeCase}
                   <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">

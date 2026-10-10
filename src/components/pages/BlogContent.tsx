@@ -138,6 +138,13 @@ export function BlogContent({ publishedPosts }: Props) {
           >
             {t.cta.subscribeZTP} <span aria-hidden>→</span>
           </Link>
+          <a
+            href="mailto:crisfon6@crisfon6.com"
+            data-testid="page-hiring-link"
+            className="mt-sp-4 block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+          >
+            {t.newsletter.hiring} →
+          </a>
         </div>
       </section>
     </main>

@@ -55,13 +55,13 @@ describe('NewsletterPanel', () => {
 });
 
 describe('ContactPanel', () => {
-  it('renders primary and email CTAs', () => {
+  it('renders the email and LinkedIn actions, LinkedIn opening safely in a new tab', () => {
     render(wrap(<ContactPanel />));
-    const linkedin = screen.getByTestId('contact-cta-primary');
+    expect(screen.getByTestId('contact-cta-primary').getAttribute('href')).toMatch(/^mailto:/);
+    const linkedin = screen.getByTestId('contact-cta-linkedin');
     expect(linkedin.getAttribute('href')).toBe('https://www.linkedin.com/in/crisfon6/');
     expect(linkedin.getAttribute('target')).toBe('_blank');
     expect(linkedin.getAttribute('rel')).toMatch(/noopener/);
-    expect(screen.getByTestId('contact-cta-email').getAttribute('href')).toMatch(/^mailto:/);
   });
 
   it('renders the lets-talk kicker', () => {
@@ -85,6 +85,16 @@ describe('ContactPanel', () => {
       ...messages.en.cta.contactFacts,
     ]);
     expect(messages.es.cta.contactFacts.length).toBe(3);
+  });
+
+  it('makes email the primary button, as its headline says, and LinkedIn the quiet one', () => {
+    render(wrap(<ContactPanel />));
+    const email = screen.getByTestId('contact-cta-primary');
+    expect(email.getAttribute('href')).toMatch(/^mailto:/);
+    expect(email.className).toMatch(/bg-warm-fg/);
+    const linkedin = screen.getByTestId('contact-cta-linkedin');
+    expect(linkedin.getAttribute('href')).toContain('linkedin.com');
+    expect(linkedin.className).not.toMatch(/bg-warm-fg/);
   });
 
   it('is a slab, not a grey SaaS block', () => {

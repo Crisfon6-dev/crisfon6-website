@@ -32,23 +32,23 @@ export function ContactPanel() {
             <p className="mt-sp-4 text-[15px] leading-relaxed text-warm-fg-muted">{t.cta.openTo}</p>
             <div className="mt-sp-5 flex flex-wrap gap-sp-3">
               <a
-                href={PROFILE.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:crisfon6@crisfon6.com"
                 data-testid="contact-cta-primary"
                 className="group inline-flex items-center gap-2 rounded-sp-xl bg-warm-fg px-sp-5 py-sp-3 text-sm font-medium text-warm-bg transition-transform hover:-translate-y-0.5"
               >
-                {t.cta.connectLinkedIn}
+                {t.cta.emailMe}
                 <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
-                  ↗
+                  →
                 </span>
               </a>
               <a
-                href="mailto:crisfon6@crisfon6.com"
-                data-testid="contact-cta-email"
+                href={PROFILE.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="contact-cta-linkedin"
                 className="inline-flex items-center gap-2 rounded-sp-xl border border-warm-border px-sp-5 py-sp-3 text-sm font-medium text-warm-fg transition-colors hover:border-warm-border-strong hover:bg-warm-bg-elev"
               >
-                {t.cta.emailMe}
+                {t.cta.connectLinkedIn} <span aria-hidden>↗</span>
               </a>
             </div>
           </div>

@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { messages } from '@/i18n/messages';
 
 const LOCALES = ['en', 'es'] as const;
@@ -87,5 +89,47 @@ describe('page copy follows the owner voice and brain rules', () => {
     for (const [path, text] of walk(messages.es)) {
       expect(text, path).not.toMatch(VOSEO);
     }
+  });
+
+  it('names the real credential, the course, and never claims an Anthropic certification', () => {
+    const OVERCLAIM = /Anthropic[- ]certified|certificado por Anthropic|ANTHROPIC CERTIFIED/i;
+    const walk = (value: unknown, trail: string[] = []): [string, string][] =>
+      typeof value === 'string'
+        ? [[trail.join('.'), value]]
+        : value && typeof value === 'object'
+          ? Object.entries(value).flatMap(([k, v]) => walk(v, [...trail, k]))
+          : [];
+    for (const locale of LOCALES) {
+      for (const [key, text] of walk(messages[locale])) {
+        expect(text, `${locale}.${key}`).not.toMatch(OVERCLAIM);
+      }
+    }
+    for (const file of ['src/app/layout.tsx', 'src/app/opengraph-image.tsx']) {
+      expect(readFileSync(path.join(process.cwd(), file), 'utf8'), file).not.toMatch(OVERCLAIM);
+    }
+    expect(messages.en.hero.cert).toBe('CLAUDE CODE IN ACTION · ANTHROPIC');
+    expect(messages.es.hero.cert).toBe('CLAUDE CODE IN ACTION · ANTHROPIC');
+  });
+
+  it('the newsletter byline says what was completed, not what was certified', () => {
+    expect(messages.en.newsletter.authority).toContain("Anthropic's Claude Code in Action course");
+    expect(messages.es.newsletter.authority).toContain('curso Claude Code in Action de Anthropic');
+  });
+
+  it('leads the closing lines with hiring, not a passive open door', () => {
+    expect(messages.en.about.ctaDescription).toBe(
+      'Hiring for a remote Technical Lead? Email me. Founders and CTOs shipping with AI, say hello too.'
+    );
+    expect(messages.es.about.ctaDescription).toBe(
+      '¿Buscas un Technical Lead remoto? Escríbeme. Founders y CTOs que construyen con IA, también.'
+    );
+    expect(messages.en.footer.tagline).not.toMatch(/in public/i);
+  });
+
+  it('labels the automation figures as illustrative estimates, in both languages', () => {
+    expect(messages.en.automations.estimateInline).toBe(
+      'Illustrative estimate, not a measurement.'
+    );
+    expect(messages.es.automations.estimateInline).toBe('Estimación ilustrativa, no una medición.');
   });
 });

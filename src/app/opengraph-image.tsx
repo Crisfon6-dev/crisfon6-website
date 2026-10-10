@@ -167,7 +167,7 @@ export default function Image() {
             A
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
-            <div style={{ display: 'flex', fontWeight: 600, color: FG }}>Anthropic Certified</div>
+            <div style={{ display: 'flex', fontWeight: 600, color: FG }}>Claude Code in Action</div>
             <div
               style={{
                 display: 'flex',

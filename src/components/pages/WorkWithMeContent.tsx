@@ -26,7 +26,10 @@ export function WorkWithMeContent() {
           <ul className="space-y-sp-4">
             {t.workWithMe.services.map((svc, i) => (
               <li key={svc.title} data-testid="service-card">
-                <article className="group flex items-start gap-sp-4 slab p-sp-5 transition-transform hover:translate-x-1 hover:border-warm-border-strong">
+                <a
+                  href={`mailto:crisfon6@crisfon6.com?subject=${encodeURIComponent(svc.title)}`}
+                  className="group flex items-start gap-sp-4 slab p-sp-5 transition-transform hover:translate-x-1 hover:border-warm-border-strong"
+                >
                   <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
                     0{i + 1}
                   </span>
@@ -51,7 +54,7 @@ export function WorkWithMeContent() {
                   >
                     →
                   </span>
-                </article>
+                </a>
               </li>
             ))}
           </ul>

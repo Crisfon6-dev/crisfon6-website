@@ -82,6 +82,15 @@ describe('ProjectsContent: scannable tiers', () => {
     for (const grid of grids) expect(grid.className).toMatch(/items-start/);
   });
 
+  it('keeps a case from stretching its neighbour when it opens: no full-height wrapper', () => {
+    const { container } = render(wrap(<ProjectsContent />));
+    for (const li of Array.from(container.querySelectorAll('[data-testid="project-card"]'))) {
+      expect(li.className, li.id).toMatch(/self-start/);
+      const details = li.querySelector('details');
+      if (details) expect(details.className, li.id).not.toMatch(/\bh-full\b/);
+    }
+  });
+
   it('opens the case a link points at, so a hand-off from the home page lands on its content', () => {
     window.location.hash = '#analytics-platform';
     const { container } = render(wrap(<ProjectsContent />));
@@ -285,6 +294,17 @@ describe('WorkWithMeContent', () => {
     expect(first.textContent).toContain(messages.en.workWithMe.leadership);
   });
 
+  it('turns every service card into an email so no arrow is a dead affordance', () => {
+    const { container } = render(wrap(<WorkWithMeContent />));
+    const cards = container.querySelectorAll('[data-testid="service-card"]');
+    expect(cards.length).toBeGreaterThan(0);
+    messages.en.workWithMe.services.forEach((svc, i) => {
+      const link = cards[i].querySelector('a[href^="mailto:"]');
+      expect(link, svc.title).toBeTruthy();
+      expect(decodeURIComponent(link!.getAttribute('href')!)).toContain(svc.title);
+    });
+  });
+
   it('makes email the primary action of the contact card and the newsletter a quiet link', () => {
     render(wrap(<WorkWithMeContent />));
     const email = screen.getByTestId('contact-card-email');
@@ -428,6 +448,32 @@ describe('BlogContent', () => {
   it('renders newsletter CTA', () => {
     render(wrap(<BlogContent publishedPosts={samplePosts} />));
     expect(screen.getByTestId('blog-cta').getAttribute('href')).toBe('/newsletter');
+  });
+});
+
+describe('pages that end on the newsletter also end on a way to hire', () => {
+  it.each([
+    ['projects', () => <ProjectsContent />],
+    ['automations', () => <AutomationsContent />],
+    ['blog', () => <BlogContent publishedPosts={[]} />],
+  ])('%s has a hiring email link', (_name, page) => {
+    render(wrap(page()));
+    const link = screen.getByTestId('page-hiring-link');
+    expect(link.getAttribute('href')).toMatch(/^mailto:crisfon6@crisfon6\.com/);
+    expect(link.textContent).toContain(messages.en.newsletter.hiring);
+  });
+});
+
+describe('AutomationsContent: the label sits beside the figures', () => {
+  it('shows the illustrative-estimate label on every card that shows a cost or a time saved', () => {
+    const { container } = render(wrap(<AutomationsContent />));
+    const cards = container.querySelectorAll('[data-testid="automation-card"]');
+    expect(cards.length).toBe(6);
+    for (const card of Array.from(cards)) {
+      expect(card.querySelector('[data-testid="estimate-inline"]')?.textContent).toBe(
+        messages.en.automations.estimateInline
+      );
+    }
   });
 });
 

@@ -30,7 +30,7 @@ test('no longer carries the stats row, the marquee, the automation card or the d
 
 test('renders contact email CTA (mailto link)', () => {
   render(<Home />);
-  const emailCta = screen.getByTestId('contact-cta-email');
+  const emailCta = screen.getByTestId('contact-cta-primary');
   expect(emailCta.getAttribute('href')).toMatch(/mailto:crisfon6@crisfon6\.com/);
 });
 

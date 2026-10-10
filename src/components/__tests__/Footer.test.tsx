@@ -53,3 +53,9 @@ test('discloses the same in Spanish when the language is ES', () => {
   expect(messages.es.footer.aiMedia).toMatch(/IA/);
   window.localStorage.removeItem('cf6.lang');
 });
+
+test('describes the same title as the rest of the site and implies no posting rhythm', () => {
+  expect(messages.en.footer.tagline).toContain('Technical Lead');
+  expect(messages.es.footer.tagline).toContain('Technical Lead');
+  expect(messages.en.footer.tagline).not.toMatch(/in public/i);
+});

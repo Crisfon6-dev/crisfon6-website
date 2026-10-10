@@ -37,7 +37,7 @@ export function CollapsibleCase({
     <details
       open={open}
       onToggle={(event) => setOpen(event.currentTarget.open)}
-      className="group flex h-full flex-col"
+      className="group flex flex-col"
     >
       <summary className="flex cursor-pointer list-none items-start justify-between gap-sp-4 [&::-webkit-details-marker]:hidden">
         <div className="flex flex-1 flex-col gap-sp-4">{head}</div>

@@ -156,7 +156,7 @@ export function ProjectsContent() {
       <li
         key={cs.id}
         id={cs.id}
-        className={isFeaturedHero ? 'lg:col-span-12' : 'lg:col-span-6'}
+        className={`self-start ${isFeaturedHero ? 'lg:col-span-12' : 'lg:col-span-6'}`}
         data-testid="project-card"
         data-tier={cs.tier}
         data-featured={cs.featured ? 'true' : 'false'}
@@ -266,6 +266,13 @@ export function ProjectsContent() {
               {t.nav.experience}
             </Link>
           </div>
+          <a
+            href="mailto:crisfon6@crisfon6.com"
+            data-testid="page-hiring-link"
+            className="mt-sp-4 block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+          >
+            {t.newsletter.hiring} →
+          </a>
         </div>
       </section>
     </main>

@@ -47,10 +47,19 @@ export function ChapterPlate({
   chapter,
   testId,
   localProgress = null,
+  compact = false,
+  showLink = true,
+  linkFocusable = true,
 }: {
   chapter: HomeChapter;
   testId: string;
   localProgress?: number | null;
+  /** The fixed film panel: on short viewports the claim and supporting line give way so it fits. */
+  compact?: boolean;
+  /** `false` omits the way into the case (the screen-reader-only copy of the story). */
+  showLink?: boolean;
+  /** `false` keeps the link out of the tab order (the visual-only film panel). */
+  linkFocusable?: boolean;
 }) {
   const { t, locale } = useLanguage();
   const copy = t.chapters.items[chapter.id];
@@ -62,12 +71,16 @@ export function ChapterPlate({
   const hasDecision = isBlueprint || dossier.decision !== null;
   const show =
     localProgress === null ? ALL_BEATS_VISIBLE : beatVisibility(localProgress, hasDecision);
+  // The last chapter has no problem or decision to wait for, so its result is there on entry.
+  const resultVisible = show.result || (!isBlueprint && dossier.problem === null);
+  const cut = compact ? '[@media(max-height:760px)]:hidden' : '';
+  const tight = compact ? '[@media(max-height:760px)]:sm:p-sp-5' : '';
 
   return (
     <article
       data-testid={testId}
       data-chapter={chapter.id}
-      className="slab chapter-in p-sp-5 sm:p-sp-6 [@media(max-height:760px)]:sm:p-sp-5"
+      className={`slab chapter-in p-sp-5 sm:p-sp-6 ${tight}`.trim()}
     >
       <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-muted">
         {t.chapters.label} {numeral}
@@ -78,7 +91,9 @@ export function ChapterPlate({
       >
         {copy.title}
       </h2>
-      <p className="mt-sp-2 max-w-[44ch] text-[15px] leading-relaxed text-warm-fg-muted [@media(max-height:760px)]:hidden">
+      <p
+        className={`mt-sp-2 max-w-[44ch] text-[15px] leading-relaxed text-warm-fg-muted ${cut}`.trim()}
+      >
         {copy.claim}
       </p>
 
@@ -112,7 +127,7 @@ export function ChapterPlate({
       ) : null}
 
       {fact ? (
-        <Beat id={testId} name="result" visible={show.result}>
+        <Beat id={testId} name="result" visible={resultVisible}>
           <div className="border-t border-warm-border pt-sp-4">
             <BeatLabel>{t.chapters.beats.result}</BeatLabel>
             <p
@@ -133,7 +148,7 @@ export function ChapterPlate({
               {fact.label}
             </p>
             {dossier.support ? (
-              <p className="mt-sp-2 text-[15px] leading-relaxed text-warm-fg-muted [@media(max-height:760px)]:hidden">
+              <p className={`mt-sp-2 text-[15px] leading-relaxed text-warm-fg-muted ${cut}`.trim()}>
                 {dossier.support}
               </p>
             ) : null}
@@ -153,10 +168,11 @@ export function ChapterPlate({
         </Beat>
       ) : null}
 
-      {chapter.href ? (
+      {showLink && chapter.href ? (
         chapter.href.startsWith('mailto:') ? (
           <a
             href={chapter.href}
+            tabIndex={linkFocusable ? undefined : -1}
             className="mt-sp-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-accent-text hover:underline"
           >
             {linkLabel}
@@ -165,6 +181,7 @@ export function ChapterPlate({
         ) : (
           <Link
             href={chapter.href}
+            tabIndex={linkFocusable ? undefined : -1}
             className="mt-sp-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-accent-text hover:underline"
           >
             {linkLabel}

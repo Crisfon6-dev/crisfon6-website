@@ -326,3 +326,39 @@ describe('HeroFilm: chapter beats follow the scroll', () => {
     expect(screen.getByTestId('film-chapter').closest('.max-w-6xl')).toBeTruthy();
   });
 });
+
+describe('HeroFilm: the chapter story is reachable without the visual panel', () => {
+  it('renders all six chapters for assistive tech at any scroll position, with no links', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0);
+    for (const chapter of HOME_CHAPTERS) {
+      const copy = screen.getByTestId(`sr-chapter-${chapter.id}`);
+      expect(copy.textContent).toContain(messages.en.chapters.items[chapter.id].title);
+      expect(copy.querySelector('a')).toBeNull();
+    }
+    expect(screen.getByTestId('film-chapters-sr').className).toContain('sr-only');
+  });
+
+  it('hides the visual panel from assistive tech and keeps its link out of the tab order', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 5600);
+    const plate = screen.getByTestId('film-chapter');
+    expect(plate.closest('[aria-hidden="true"]')).toBeTruthy();
+    expect(plate.querySelector('a')!.getAttribute('tabindex')).toBe('-1');
+  });
+
+  it('stops the nearly invisible panel from catching clicks while it fades', () => {
+    setEnv({ width: 1440 });
+    render(wrap(<HeroFilm />));
+    scrollTo(0.5 * 800); // plate opacity about 0.125
+    expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
+      'pointer-events-none'
+    );
+    scrollTo(0.5 * 5600);
+    expect(screen.getByTestId('film-chapter').parentElement!.className).toContain(
+      'pointer-events-auto'
+    );
+  });
+});

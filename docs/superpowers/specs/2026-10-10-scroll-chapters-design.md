@@ -49,8 +49,10 @@ renders an empty slot.
 ### Scroll mechanics
 
 - Local progress `p = clamp((progress - chapter.from) / (chapter.to - chapter.from), 0, 1)`.
-- Reveal thresholds: Problem 0.08, Decision 0.35, Result 0.62. The remaining ~38% holds with
-  everything visible before the next chapter swaps in.
+- Reveal thresholds: Problem 0 (on entry, so a chapter never opens as an empty panel), Decision
+  0.30, Result 0.55. The remaining ~45% holds with everything visible before the next chapter
+  swaps in. (Revised from 0.08/0.35/0.62 after reviewers saw an empty box on entry.) The last
+  chapter has no problem or decision, so its result is visible on entry.
 - A reveal is a CSS transition of about 280ms on `transform` and `opacity` only. It is not scrubbed
   to scroll position.
 - The result number enters through the same beat transition. A count-up is deferred: the existing

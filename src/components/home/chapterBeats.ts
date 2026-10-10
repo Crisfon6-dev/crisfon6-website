@@ -1,5 +1,5 @@
 /** Where in a chapter (0..1) each beat appears. The tail after `result` holds everything visible. */
-export const BEAT_THRESHOLDS = { problem: 0.08, decision: 0.35, result: 0.62 } as const;
+export const BEAT_THRESHOLDS = { problem: 0, decision: 0.3, result: 0.55 } as const;
 
 export type BeatVisibility = { problem: boolean; decision: boolean; result: boolean };
 

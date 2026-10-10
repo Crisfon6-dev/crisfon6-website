@@ -11,10 +11,14 @@ afterEach(() => window.localStorage.removeItem('cf6.lang'));
 const chapter = (id: string) => HOME_CHAPTERS.find((c) => c.id === id)!;
 const study = (id: string) => CASE_STUDIES.find((c) => c.id === id)!;
 
-const renderPlate = (id: string, localProgress: number | null) =>
+const renderPlate = (
+  id: string,
+  localProgress: number | null,
+  extra: { compact?: boolean; showLink?: boolean; linkFocusable?: boolean } = {}
+) =>
   render(
     <LanguageProvider>
-      <ChapterPlate chapter={chapter(id)} testId="t" localProgress={localProgress} />
+      <ChapterPlate chapter={chapter(id)} testId="t" localProgress={localProgress} {...extra} />
     </LanguageProvider>
   );
 
@@ -24,12 +28,12 @@ describe('ChapterPlate beats', () => {
   it('reveals problem, then decision, then result as chapter progress grows', () => {
     const { unmount } = renderPlate('compute', 0);
     expect([visible('problem'), visible('decision'), visible('result')]).toEqual([
-      'false',
+      'true',
       'false',
       'false',
     ]);
     unmount();
-    const second = renderPlate('compute', 0.5);
+    const second = renderPlate('compute', 0.4);
     expect([visible('problem'), visible('decision'), visible('result')]).toEqual([
       'true',
       'true',
@@ -115,11 +119,41 @@ describe('ChapterPlate beats', () => {
 });
 
 describe('ChapterPlate on short viewports', () => {
-  it('drops the claim and the supporting line first, so the panel fits under the nav', () => {
-    renderPlate('compute', null);
+  it('drops the claim and the supporting line first when compact, so the film panel fits under the nav', () => {
+    renderPlate('compute', null, { compact: true });
     const claim = screen.getByText(messages.en.chapters.items.compute.claim);
     const support = screen.getByText(study('aws-cost-audit').outcomes[1].en);
     expect(claim.className).toContain('[@media(max-height:760px)]:hidden');
     expect(support.className).toContain('[@media(max-height:760px)]:hidden');
+  });
+
+  it('keeps the claim and the supporting line in the stills layout, which flows and never needs the cut', () => {
+    renderPlate('compute', null);
+    const claim = screen.getByText(messages.en.chapters.items.compute.claim);
+    const support = screen.getByText(study('aws-cost-audit').outcomes[1].en);
+    expect(claim.className).not.toContain('max-height');
+    expect(support.className).not.toContain('max-height');
+  });
+});
+
+describe('ChapterPlate reveal chapter and links', () => {
+  it('shows the last chapter result immediately, since it has no problem or decision to wait for', () => {
+    renderPlate('reveal', 0);
+    expect(visible('result')).toBe('true');
+  });
+
+  it('can omit the link, for the screen-reader-only copy of the story', () => {
+    renderPlate('compute', null, { showLink: false });
+    expect(screen.queryByRole('link')).toBeNull();
+  });
+
+  it('can take its link out of the tab order, for the visual-only film panel', () => {
+    renderPlate('compute', null, { linkFocusable: false });
+    expect(screen.getByRole('link').getAttribute('tabindex')).toBe('-1');
+  });
+
+  it('keeps the link focusable by default', () => {
+    renderPlate('compute', null);
+    expect(screen.getByRole('link').getAttribute('tabindex')).toBeNull();
   });
 });

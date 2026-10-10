@@ -32,13 +32,13 @@ describe('chapterProgress', () => {
 });
 
 describe('beatVisibility', () => {
-  it('hides everything at the very start', () => {
-    expect(beatVisibility(0, true)).toEqual({ problem: false, decision: false, result: false });
+  it('shows the problem on entry, so a chapter never opens as an empty panel', () => {
+    expect(beatVisibility(0, true)).toEqual({ problem: true, decision: false, result: false });
   });
 
   it('reveals the beats in order as progress grows', () => {
     expect(beatVisibility(0.2, true)).toEqual({ problem: true, decision: false, result: false });
-    expect(beatVisibility(0.5, true)).toEqual({ problem: true, decision: true, result: false });
+    expect(beatVisibility(0.4, true)).toEqual({ problem: true, decision: true, result: false });
     expect(beatVisibility(0.9, true)).toEqual({ problem: true, decision: true, result: true });
   });
 
@@ -55,7 +55,7 @@ describe('beatVisibility', () => {
 
   it('treats non-finite progress as the start', () => {
     expect(beatVisibility(Number.NaN, true)).toEqual({
-      problem: false,
+      problem: true,
       decision: false,
       result: false,
     });

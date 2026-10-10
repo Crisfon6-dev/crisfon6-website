@@ -219,8 +219,18 @@ function FilmStage() {
           style={{ opacity: veil }}
         />
       </div>
+      {/* The same story for assistive tech at any scroll position: the visual panel below only
+          exists while the film is on screen. Case links live in the sections that follow. */}
+      <ol data-testid="film-chapters-sr" className="sr-only">
+        {HOME_CHAPTERS.map((item) => (
+          <li key={item.id}>
+            <ChapterPlate chapter={item} testId={`sr-chapter-${item.id}`} showLink={false} />
+          </li>
+        ))}
+      </ol>
       {plate > 0 ? (
         <div
+          aria-hidden="true"
           className="pointer-events-none fixed inset-x-0 bottom-sp-7 z-10 [@media(max-height:760px)]:bottom-sp-4"
           style={{ opacity: plate }}
         >
@@ -229,12 +239,16 @@ function FilmStage() {
               HOME_CHAPTERS.indexOf(chapter) % 2 === 1 ? 'justify-end' : 'justify-start'
             }`}
           >
-            <div className="pointer-events-auto w-full max-w-xl">
+            <div
+              className={`${plate < 0.3 ? 'pointer-events-none' : 'pointer-events-auto'} w-full max-w-xl`}
+            >
               <ChapterPlate
                 key={chapter.id}
                 chapter={chapter}
                 testId="film-chapter"
                 localProgress={chapterProgress(progress, chapter)}
+                compact
+                linkFocusable={false}
               />
             </div>
           </div>

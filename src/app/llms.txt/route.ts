@@ -13,11 +13,11 @@ export function GET() {
 
 ## About
 
-Cristhian Fonseca is a Technical Lead who builds FinTech products serving millions of users and publishes open-source AI automation blueprints. He specializes in AWS cloud architecture (CDK, Lambda, serverless), Claude API integrations, MCP agents, and full-stack TypeScript/Python development.
+Cristhian Fonseca is a Technical Lead with 5+ years building cloud-native FinTech and banking platforms, and AI agents that run in production. He specializes in AWS cloud architecture (CDK, Lambda, serverless), Claude API integrations, MCP agents, and full-stack TypeScript/Python development.
 
 ## Newsletter: PowerAI
 
-A free weekly newsletter with production-ready AI automation templates. Each issue includes architecture diagrams, deployment guides, cost breakdowns, and working code.
+A free newsletter with production blueprints from systems that actually run. Each issue includes architecture diagrams, deployment guides, cost breakdowns, and working code.
 
 - [Subscribe](https://crisfon6.com/newsletter)
 
@@ -29,10 +29,11 @@ ${postList}
 
 - [Home](https://crisfon6.com/): Overview, featured projects, and stats
 - [About](https://crisfon6.com/about): Background, experience, and tech stack
+- [Experience](https://crisfon6.com/experience): full work history, case studies, certifications
 - [Projects](https://crisfon6.com/projects): FinTech and AI projects portfolio
 - [Automations](https://crisfon6.com/automations): AI automation templates with costs
 - [Blog](https://crisfon6.com/blog): Technical articles and tutorials
-- [Newsletter](https://crisfon6.com/newsletter): Weekly AI automation blueprints
+- [Newsletter](https://crisfon6.com/newsletter): Production AI automation blueprints
 
 ## Contact
 

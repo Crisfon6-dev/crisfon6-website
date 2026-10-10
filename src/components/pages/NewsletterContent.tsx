@@ -9,9 +9,9 @@ import { SubscribeForm } from '@/components/SubscribeForm';
 
 const BENEFITS = [
   {
-    title: 'Anthropic-Certified Patterns',
+    title: 'Architecture-First Patterns',
     description:
-      'Every template is built with Anthropic-certified AI engineering standards — production-grade, architecture-first, cost-conscious.',
+      'Every template is built architecture-first: production-grade, cost-conscious, nothing you have to untangle later.',
   },
   {
     title: 'Architecture Diagrams',
@@ -32,14 +32,7 @@ const BENEFITS = [
   },
 ] as const;
 
-const SAMPLE_TOPICS = [
-  'AI-Powered Document Processor · $12/mo @ 1K docs',
-  'Slack to Notion Meeting Summarizer',
-  'Automated Lead Scoring Pipeline',
-  'MCP Agent: Code Review Assistant',
-  'Invoice Processing Automation',
-  'Content Repurposing Engine',
-] as const;
+const SHIPPED_TEMPLATES = ['AI-Powered Document Processor · $12/mo @ 1K docs'] as const;
 
 const AUDIENCES = [
   {
@@ -67,32 +60,25 @@ export function NewsletterContent() {
     <main className="page-in relative">
       <Atmosphere />
       <SubpageHeader
+        plate="newsletter"
         number="07"
-        label="POWERAI · EDITION #06"
+        label="POWERAI"
         title={t.newsletter.heading}
         description={t.newsletter.description}
       />
 
-      {/* Dark newsletter panel */}
+      {/* Signup panel */}
       <section className="mx-auto max-w-6xl px-sp-5 pb-sp-8">
         <div
-          data-testid="newsletter-dark-panel"
-          className="relative overflow-hidden rounded-sp-xl bg-warm-fg px-sp-6 py-sp-8 text-warm-bg sm:px-sp-8 sm:py-sp-9"
+          data-testid="newsletter-signup-panel"
+          className="slab px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9"
         >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-30"
-            style={{
-              background:
-                'radial-gradient(circle at 85% 20%, rgb(from var(--c-accent) r g b / 0.5) 0%, transparent 60%)',
-            }}
-          />
           <div className="relative mx-auto max-w-2xl">
-            <Kicker accent dot>
+            <Kicker dot>
               <span>{t.newsletter.joinBuilders}</span>
             </Kicker>
             <h2
-              className="mt-sp-4 font-heading"
+              className="mt-sp-4 font-heading text-warm-fg"
               style={{
                 fontSize: 'clamp(28px, 3.6vw, 44px)',
                 letterSpacing: '-0.02em',
@@ -102,7 +88,9 @@ export function NewsletterContent() {
             >
               {t.newsletter.finalCtaHeading}
             </h2>
-            <p className="mt-sp-4 text-sm leading-relaxed opacity-80">{t.newsletter.authority}</p>
+            <p className="mt-sp-4 text-sm leading-relaxed text-warm-fg-muted">
+              {t.newsletter.authority}
+            </p>
             <div className="mt-sp-5">
               <SubscribeForm />
             </div>
@@ -114,10 +102,11 @@ export function NewsletterContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.newsletter.whatYouGet}</Kicker>
         <ul className="mt-sp-5 grid gap-sp-4 sm:grid-cols-2">
-          {BENEFITS.map((b) => (
+          {BENEFITS.map((b, i) => (
             <li
               key={b.title}
-              className="rounded-sp-lg border border-warm-border bg-warm-bg-elev p-sp-5"
+              data-testid="benefit-card"
+              className={`slab p-sp-5 ${i === 0 ? 'sm:col-span-2' : ''}`.trim()}
             >
               <h3 className="text-sm font-semibold text-warm-fg">{b.title}</h3>
               <p className="mt-sp-3 text-sm leading-relaxed text-warm-fg-muted">{b.description}</p>
@@ -130,14 +119,15 @@ export function NewsletterContent() {
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-7">
         <Kicker>{t.newsletter.recentTemplates}</Kicker>
         <ul className="mt-sp-5 divide-y divide-warm-border border-y border-warm-border">
-          {SAMPLE_TOPICS.map((topic, i) => (
+          {SHIPPED_TEMPLATES.map((topic) => (
             <li key={topic} className="flex items-center gap-sp-4 py-sp-4">
-              <span className="w-12 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
-                W{i + 1}
+              <span className="w-20 shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
+                {t.newsletter.templateShipped}
               </span>
               <p className="text-sm text-warm-fg">{topic}</p>
             </li>
           ))}
+          <li className="py-sp-4 text-sm text-warm-fg-muted">{t.newsletter.templateMore}</li>
         </ul>
       </section>
 
@@ -155,7 +145,7 @@ export function NewsletterContent() {
 
       {/* Final CTA */}
       <section className="mx-auto max-w-6xl px-sp-5 py-sp-8">
-        <div className="rounded-sp-xl border border-warm-border bg-warm-bg-subtle p-sp-6 text-center">
+        <div className="slab p-sp-6 text-center">
           <h2
             className="font-heading text-warm-fg"
             style={{
@@ -178,6 +168,13 @@ export function NewsletterContent() {
           <p className="mt-sp-3 font-mono text-[11px] uppercase tracking-[0.14em] text-warm-fg-faint">
             {t.cta.freeForever}
           </p>
+          <a
+            href="mailto:crisfon6@crisfon6.com"
+            data-testid="newsletter-hiring-link"
+            className="mt-sp-4 inline-block text-sm font-medium text-warm-fg underline-offset-4 hover:underline"
+          >
+            {t.newsletter.hiring} →
+          </a>
         </div>
       </section>
     </main>

@@ -47,5 +47,12 @@ export function Typewriter({
   }, [charCount, phase, idx, words, typeSpeed, deleteSpeed, pause]);
 
   const current = words[idx % words.length] ?? '';
-  return <span className={className}>{current.slice(0, charCount)}</span>;
+  // The longest word is rendered invisibly (CSS ::after) in the same grid cell as the typed text,
+  // so the box is always tall enough and typing never moves the content below it.
+  const longest = words.reduce((a, b) => (b.length > a.length ? b : a), '');
+  return (
+    <span className={`typewriter ${className ?? ''}`.trim()} data-ghost={longest}>
+      <span>{current.slice(0, charCount)}</span>
+    </span>
+  );
 }

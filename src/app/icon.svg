@@ -1,7 +1,6 @@
 <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M24 4L42 14.4v19.2L24 44 6 33.6V14.4L24 4Z" stroke="#60a5fa" stroke-width="2.5" stroke-linejoin="round" fill="#0f172a"/>
-  <polyline points="19,18 12,24 19,30" stroke="#f8fafc" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <line x1="26" y1="17" x2="22" y2="31" stroke="#f8fafc" stroke-width="2.8" stroke-linecap="round"/>
-  <polyline points="29,18 36,24 29,30" stroke="#f8fafc" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle cx="42" cy="14.4" r="2.6" fill="#22c55e"/>
+  <path d="M24 4L42 14.4v19.2L24 44 6 33.6V14.4L24 4Z" stroke="#d97757" stroke-width="3.5" stroke-linejoin="round" fill="#0e0e0c"/>
+  <polyline points="20,14 12,24 20,34" stroke="#f5f4ef" stroke-width="4.2" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+  <polyline points="28,14 36,24 28,34" stroke="#f5f4ef" stroke-width="4.2" stroke-linecap="butt" stroke-linejoin="miter" fill="none"/>
+  <circle cx="42" cy="14.4" r="3.2" fill="#e28f74"/>
 </svg>

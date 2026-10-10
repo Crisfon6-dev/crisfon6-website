@@ -1,4 +1,5 @@
 export { HeroSection } from './HeroSection';
+export { WhoIAm } from './WhoIAm';
 export { HeroFilm } from './HeroFilm';
 export { ProofStrip } from './ProofStrip';
 export { FeaturedProjectsSection } from './FeaturedProjectsSection';

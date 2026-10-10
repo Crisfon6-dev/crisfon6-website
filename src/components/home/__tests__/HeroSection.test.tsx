@@ -70,13 +70,6 @@ describe('HeroSection', () => {
     expect('typewords' in messages.en.hero).toBe(false);
   });
 
-  it('bridges into the film instead of repeating its figures', () => {
-    renderHero();
-    expect(screen.getByTestId('hero-bridge').textContent).toBe(messages.en.hero.bridge);
-    expect('proof' in messages.en.hero).toBe(false);
-    expect(screen.queryByText(/−43%/)).toBeNull();
-  });
-
   it('does not repeat the certification line inside the paragraph; the badge carries it', () => {
     expect(messages.en.hero.description).not.toMatch(/Certified by Anthropic/);
     expect(messages.es.hero.description).not.toMatch(/Certificado por Anthropic/);
@@ -126,13 +119,14 @@ describe('HeroSection', () => {
 });
 
 describe('HeroSection legibility over bright night footage', () => {
+  it('does not point at a film chapter story that no longer exists', () => {
+    renderHero();
+    expect(screen.queryByTestId('hero-bridge')).toBeNull();
+    expect(screen.queryByText(/chapters/i)).toBeNull();
+  });
+
   it('brightens the quiet newsletter link in dark mode so it holds 4.5:1 over the footage', () => {
     renderHero();
     expect(screen.getByTestId('hero-cta-newsletter').className).toContain('dark:text-warm-fg');
-  });
-
-  it('brightens the bridge line in dark mode too, since a bright cube can pass behind it', () => {
-    renderHero();
-    expect(screen.getByTestId('hero-bridge').className).toContain('dark:text-warm-fg');
   });
 });

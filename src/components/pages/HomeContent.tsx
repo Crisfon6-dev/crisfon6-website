@@ -3,6 +3,7 @@
 import {
   HeroSection,
   HeroFilm,
+  WhoIAm,
   ProofStrip,
   FeaturedCases,
   PrincipleStatement,
@@ -15,13 +16,15 @@ export function HomeContent() {
   return (
     <div className="page-in relative">
       <Atmosphere />
-      <HeroSection />
-      <ProofStrip />
-      <HeroFilm />
-      <FeaturedCases />
-      <PrincipleStatement />
-      <ContactPanel />
-      <NewsletterPanel />
+      <HeroFilm>
+        <HeroSection />
+        <WhoIAm />
+        <ProofStrip />
+        <FeaturedCases />
+        <PrincipleStatement />
+        <ContactPanel />
+        <NewsletterPanel />
+      </HeroFilm>
     </div>
   );
 }

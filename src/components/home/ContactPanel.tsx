@@ -13,7 +13,7 @@ export function ContactPanel() {
       className="mx-auto max-w-6xl px-sp-5 py-sp-8"
       aria-labelledby="contact-panel-title"
     >
-      <div className="slab px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9">
+      <div className="slab slab-glass px-sp-6 py-sp-8 sm:px-sp-8 sm:py-sp-9">
         <div className="grid items-center gap-sp-7 lg:grid-cols-[1.4fr_1fr]">
           <div>
             <Kicker>{t.cta.letsTalk}</Kicker>

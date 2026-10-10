@@ -15,14 +15,21 @@ test.describe('Home page (hi-fi)', () => {
     );
   });
 
-  test('bridges into the film and no longer repeats the figures', async ({ page }) => {
+  test('introduces the person right after the hero', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByTestId('hero-bridge')).toContainText('Six chapters');
+    await expect(page.getByTestId('who-i-am')).toContainText('Technical Lead');
+    await expect(page.getByTestId('who-i-am')).toContainText('WHO I AM');
     await expect(page.getByTestId('stats')).toHaveCount(0);
     await expect(page.getByTestId('stack-marquee')).toHaveCount(0);
   });
 
-  test('hands off to the case studies after the film', async ({ page }) => {
+  test('speaks Spanish in the introduction', async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem('cf6.lang', 'es'));
+    await page.goto('/');
+    await expect(page.getByTestId('who-i-am')).toContainText('QUIÉN SOY');
+  });
+
+  test('hands off to the case studies after the introduction', async ({ page }) => {
     await page.setViewportSize({ width: 800, height: 900 });
     await page.goto('/');
     await expect(page.getByTestId('featured-projects')).toBeVisible();

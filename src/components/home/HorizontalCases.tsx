@@ -81,7 +81,7 @@ export function HorizontalCases() {
               key={c.id}
               href={c.href}
               data-testid="case-card"
-              className="slab group flex min-h-[26rem] w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
+              className="slab slab-glass group flex min-h-[26rem] w-[min(520px,78vw)] shrink-0 flex-col gap-sp-4 p-sp-6 transition-transform duration-200 hover:-translate-y-0.5"
             >
               <Chip variant="outline" className="self-start">
                 {c.tag}
@@ -98,6 +98,14 @@ export function HorizontalCases() {
                 {c.title}
               </h3>
               <p className="text-warm-fg-muted">{c.description}</p>
+              {c.decision ? (
+                <p
+                  data-testid="case-decision"
+                  className="border-l-2 border-accent pl-sp-3 text-[15px] font-medium leading-relaxed text-warm-fg"
+                >
+                  {c.decision}
+                </p>
+              ) : null}
               {c.proof ? (
                 <span
                   data-testid="case-proof"
@@ -107,7 +115,7 @@ export function HorizontalCases() {
                 </span>
               ) : null}
               <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-warm-fg">
-                {t.chapters.seeCase}
+                {t.cta.seeCase}
                 <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">
                   →
                 </span>

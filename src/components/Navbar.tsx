@@ -111,7 +111,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop */}
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {linkKeys.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -154,7 +154,7 @@ export function Navbar() {
           <button
             ref={menuButtonRef}
             type="button"
-            className="-mr-2 flex h-11 w-11 items-center justify-center text-warm-fg-muted transition-colors hover:text-warm-fg md:hidden"
+            className="-mr-2 flex h-11 w-11 items-center justify-center text-warm-fg-muted transition-colors hover:text-warm-fg lg:hidden"
             onClick={openMobile}
             aria-label={t.nav.openMenu}
             aria-expanded={mobileOpen}
@@ -183,7 +183,7 @@ export function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label={t.nav.mobileNav}
-          className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-warm-bg/98 px-sp-5 pt-sp-3 backdrop-blur-lg md:hidden"
+          className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-warm-bg/98 px-sp-5 pt-sp-3 backdrop-blur-lg lg:hidden"
         >
           <div className="flex items-center justify-between">
             <Logo />

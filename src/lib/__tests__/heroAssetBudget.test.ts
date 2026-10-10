@@ -155,5 +155,6 @@ describe('the shipped assets in public/hero', () => {
         .filter(Boolean),
     });
     expect(result.violations).toEqual([]);
-  });
+    // ffprobe over every shipped video takes ~4.5s alone, so the 5s default flakes under suite load.
+  }, 30_000);
 });

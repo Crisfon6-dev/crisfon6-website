@@ -102,3 +102,13 @@ describe('ContactPanel', () => {
     expect(screen.getByTestId('contact-panel').querySelector('.slab')).toBeTruthy();
   });
 });
+
+describe('the closing panels over the film', () => {
+  it('frost the contact and newsletter slabs so the film shows through', () => {
+    const contact = render(wrap(<ContactPanel />));
+    expect(contact.container.querySelector('.slab')?.className).toMatch(/\bslab-glass\b/);
+    contact.unmount();
+    const newsletter = render(wrap(<NewsletterPanel />));
+    expect(newsletter.container.querySelector('.slab')?.className).toMatch(/\bslab-glass\b/);
+  });
+});

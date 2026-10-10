@@ -45,7 +45,7 @@ export type CaseStudy = {
   status: L;
   title: L;
   context?: L;
-  /** One line: the choice that shows judgment. Shown as the middle beat of a home chapter. */
+  /** One line: the choice that shows judgment. Shown on the featured case cards. */
   decision?: L;
   whatIDid: readonly L[];
   outcomes: readonly L[];

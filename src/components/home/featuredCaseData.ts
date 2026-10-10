@@ -12,8 +12,10 @@ export type FeaturedCase = {
   title: string;
   description: string;
   tag: string;
-  /** A second outcome from the case, so the card adds proof the film chapter did not show. */
+  /** A second outcome from the case, shown as proof under the description. */
   proof: string;
+  /** The one-line judgment call behind the case, when career data has one. */
+  decision: string | null;
   href: string;
 };
 
@@ -27,6 +29,7 @@ export function getFeaturedCases(locale: 'en' | 'es'): FeaturedCase[] {
       description: cs.context?.[locale] ?? cs.whatIDid[0][locale],
       tag: cs.tag,
       proof: cs.outcomes[1]?.[locale] ?? '',
+      decision: cs.decision?.[locale] ?? null,
       href: `/projects#${cs.id}`,
     };
   });

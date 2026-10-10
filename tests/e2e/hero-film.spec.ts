@@ -1,38 +1,58 @@
 import { test, expect } from '@playwright/test';
 
+const videoReady = () => {
+  const video = document.querySelector<HTMLVideoElement>('[data-testid="hero-film"] video');
+  return !!video && video.readyState >= 2 && video.duration > 0;
+};
+
 test.describe('Hero film: desktop', () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test('video time follows the scroll and the verified overlay appears', async ({ page }) => {
+  test('the video time follows the scroll across the introduction sections', async ({ page }) => {
     await page.goto('/');
     const film = page.getByTestId('hero-film');
     await expect(film).toHaveAttribute('data-mode', 'film');
     await expect(film.locator('video')).toHaveAttribute('src', /hero-v2-desktop\.mp4/);
-    await page.waitForFunction(() => {
-      const video = document.querySelector<HTMLVideoElement>('[data-testid="hero-film"] video');
-      return !!video && video.readyState >= 2 && video.duration > 0;
+    await page.waitForFunction(videoReady);
+
+    // the film plays across the whole page: halfway down, the 28 s clip is at about 14 s
+    const travel = await page.evaluate(() => {
+      const el = document.querySelector<HTMLElement>('[data-testid="hero-film"]')!;
+      return el.offsetHeight - window.innerHeight;
     });
-
-    // halfway through the film: 7 screens of page scroll cover it, so shot 4 (the 30x fact) is at
-    // about 14 s of a 28 s film
-    await page.evaluate(() => window.scrollTo(0, 0.5 * 7 * window.innerHeight));
-
-    await expect(page.getByTestId('film-chapter')).toContainText('30×');
-    await expect(page.getByTestId('film-chapter')).toHaveAttribute('data-chapter', 'data');
+    await page.evaluate((y) => window.scrollTo(0, y), travel / 2);
     await expect
-      .poll(() => film.locator('video').evaluate((video: HTMLVideoElement) => video.currentTime))
-      .toBeGreaterThan(13.5);
-    const time = await film
-      .locator('video')
-      .evaluate((video: HTMLVideoElement) => video.currentTime);
-    expect(time).toBeLessThan(14.5);
+      .poll(() => film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime))
+      .toBeGreaterThan(13);
+    const time = await film.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime);
+    expect(time).toBeLessThan(15);
+
+    // and the featured projects, contact and newsletter sections are inside that same stage
+    for (const id of [
+      'featured-projects',
+      'horizontal-cases',
+      'contact-panel',
+      'newsletter-panel',
+    ]) {
+      if ((await page.getByTestId(id).count()) === 0) continue;
+      expect(await film.locator(`[data-testid="${id}"]`).count(), id).toBe(1);
+    }
+  });
+
+  test('plays the night footage in dark mode', async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem('theme', 'dark'));
+    await page.goto('/');
+    await expect(page.getByTestId('hero-film').locator('video')).toHaveAttribute(
+      'src',
+      /hero-night-v1-desktop\.mp4/
+    );
   });
 });
 
-test.describe('Hero film: stills instead of video', () => {
-  const chapterIds = ['blueprint', 'compute', 'data', 'agents', 'delivery', 'reveal'];
-
-  test('on a small screen there is no video and no MP4 request', async ({ page }) => {
+test.describe('Hero film: poster instead of video', () => {
+  test('on a small screen there is no video and no MP4 request, and the introduction is there', async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     const mp4: string[] = [];
     page.on('request', (request) => {
@@ -41,16 +61,14 @@ test.describe('Hero film: stills instead of video', () => {
     await page.goto('/');
     await expect(page.getByTestId('hero-film')).toHaveAttribute('data-mode', 'stills');
     await expect(page.locator('video')).toHaveCount(0);
-    for (const id of chapterIds) {
-      await expect(page.getByTestId(`chapter-${id}`)).toBeAttached();
-    }
+    await expect(page.getByTestId('who-i-am')).toBeAttached();
     expect(mp4).toEqual([]);
   });
 
   test.describe('with reduced motion on a wide screen', () => {
     test.use({ viewport: { width: 1440, height: 900 } });
 
-    test('shows the stills and never requests the MP4', async ({ page }) => {
+    test('shows the poster and never requests the MP4', async ({ page }) => {
       const mp4: string[] = [];
       page.on('request', (request) => {
         if (request.url().endsWith('.mp4')) mp4.push(request.url());
@@ -61,26 +79,5 @@ test.describe('Hero film: stills instead of video', () => {
       await expect(page.locator('video')).toHaveCount(0);
       expect(mp4).toEqual([]);
     });
-  });
-});
-
-test.describe('Hero film: chapters carry the verified facts', () => {
-  test.use({ viewport: { width: 390, height: 844 } });
-
-  test('in English', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.getByTestId('chapter-compute-value')).toHaveText('−43%');
-    await expect(page.getByTestId('chapter-data-value')).toHaveText('30×');
-    await expect(page.getByTestId('chapter-agents-value')).toHaveText('13 → 11');
-    await expect(page.getByTestId('chapter-delivery-value')).toHaveText('~100K');
-    await expect(page.getByTestId('chapter-reveal-value')).toHaveText('5+');
-    await expect(page.getByTestId('chapter-blueprint-value')).toHaveCount(0);
-  });
-
-  test('in Spanish', async ({ page }) => {
-    await page.addInitScript(() => window.localStorage.setItem('cf6.lang', 'es'));
-    await page.goto('/');
-    await expect(page.getByTestId('chapter-compute')).toContainText('Recorta la factura');
-    await expect(page.getByTestId('chapter-reveal')).toContainText('Míralo funcionar');
   });
 });

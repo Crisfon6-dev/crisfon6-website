@@ -53,8 +53,9 @@ renders an empty slot.
   everything visible before the next chapter swaps in.
 - A reveal is a CSS transition of about 280ms on `transform` and `opacity` only. It is not scrubbed
   to scroll position.
-- The result number uses the existing `CountUp` primitive when the value parses as numeric,
-  otherwise it fades in.
+- The result number enters through the same beat transition. A count-up is deferred: the existing
+  `CountUp` renders `0` until an observer fires and replaces the text, which breaks exact-text
+  tests and the no-JS read. Revisit after the judge pass if it is wanted.
 - Pure function `beatVisibility(p, hasDecision)` in a new `src/components/home/chapterBeats.ts` decides
   which beats are visible; written test-first.
 - Reduced motion, stills layout, and narrow screens: all beats visible at once. Text is always in

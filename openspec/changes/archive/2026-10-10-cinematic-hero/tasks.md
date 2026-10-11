@@ -76,6 +76,6 @@
 
 ## 10. Report and pull request
 
-- [ ] 10.1 Commit in logical conventional commits (no co-author trailers) on feat/cinematic-hero
-- [ ] 10.2 Push the branch(es) and open a PR against main with summary, before and after screenshots, page weight and Higgsfield credits used; note that the branch also contains the credibility commit it is based on. No merge, no deploy
-- [ ] 10.3 Report in plain language: what was done, what was found, credits spent against the cap, what is next
+- [x] 10.1 Commit in logical conventional commits (no co-author trailers) on feat/cinematic-hero
+- [x] 10.2 Push the branch(es) and open a PR against main with summary, before and after screenshots, page weight and Higgsfield credits used; note that the branch also contains the credibility commit it is based on. No merge, no deploy (done by PR #27, merged 2026-10-10; closed out at archive time)
+- [x] 10.3 Report in plain language: what was done, what was found, credits spent against the cap, what is next (closed as superseded at archive time, not verified as written: PR #31 later rebuilt the film as a page backdrop and removed the chapters this change designed)
